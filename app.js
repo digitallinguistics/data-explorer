@@ -1,16 +1,26 @@
-import Koa      from 'koa';
-import { port } from './config.js';
+import Koa from 'koa';
+import { render, state } from './middleware/index.js';
 
+/**
+ * Returns the same response for every request.
+ */
 function listener(ctx) {
-  ctx.body = `Oxalis`;
+  ctx.render(`Home`);
 }
 
-function start() {
-  console.info(`Server started on port ${ port }. Press Ctrl+C to terminate.`);
-}
-
+// Initialize Koa
 const app = new Koa();
 
+// Settings
+app.env   = process.env.NODE_ENV ?? `localhost`;
+app.port  = process.env.PORT ?? 3001;
+app.proxy = true; // trust the Azure proxy
+
+// Middleware
 app
-.use(listener)
-.listen(port, start);
+.use(state)
+.use(render)
+.use(listener);
+
+// Start server
+app.listen(app.port, () => console.info(`Server started on port ${ app.port } in ${ app.env } mode. Press Ctrl+C to terminate.`));

@@ -14,6 +14,9 @@ env:
   mocha:  true
   shared-node-browser: true
 
+globals:
+  process: writable
+
 reportUnusedDisableDirectives: true
 
 plugins:
