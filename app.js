@@ -1,15 +1,16 @@
-import http     from 'http';
+import Koa      from 'koa';
 import { port } from './config.js';
 
-function listener(req, res) {
-  res.writeHead(200, { 'Content-Type': `text/plain` });
-  res.end(`Oxalis`);
+function listener(ctx) {
+  ctx.body = `Oxalis`;
 }
 
 function start() {
   console.info(`Server started on port ${ port }. Press Ctrl+C to terminate.`);
 }
 
-const server = http.createServer(listener);
+const app = new Koa();
 
-server.listen(port, start);
+app
+.use(listener)
+.listen(port, start);
