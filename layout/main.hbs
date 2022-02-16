@@ -7,15 +7,32 @@
   <title>Oxalis | {{ page }}</title>
 
   {{!-- metadata --}}
-  <meta name=author content='Daniel W. Hieber'>
-  <meta name=description content='The Oxalis portal for viewing, searching, and aggregating linguistic data'>
-  <meta name=keywords content='linguistics, Digital Linguistics, digital humanities, corpus linguistics, corpora, corpus, lexicography, language documentation, language, documentary linguistics, descriptive linguistics, data science'>
+  <meta name=author content='{{meta.author.name}}'>
+  <meta name=description content='{{meta.description}}'>
+  <meta name=keywords content='{{#each meta.keywords}}{{#if @last}}{{@this}}{{else}}{{@this}}, {{/if}}{{/each}}'>
   <meta name=rating content=general>
   <meta name=robots content='index,follow'>
 
   {{!-- linked metadata --}}
   <link rel=author href=https://danielhieber.info>
   <link rel=license href=https://github.com/digitallinguistics/data-explorer/blob/main/LICENSE.md>
+
+  {{!-- Facebook sharing --}}
+  <meta property=og:description content='{{meta.description}}'>
+  <meta property=og:image content=https://data.digitallinguistics.io/images/social.png>
+  <meta property=og:image:height content=640>
+  <meta property=og:image:width content=1280>
+  <meta property=og:locale content=en_US>
+  <meta property=og:title content=Oxalis>
+  <meta property=og:type content=website>
+  <meta property=og:url content=https://data.digitallinguistics.io>
+  <meta property=og:site_name content=Oxalis>
+
+  {{!-- Twitter sharing --}}
+  <meta name=twitter:card content=summary>
+  <meta name=twitter:creator content=@digitalling>
+  <meta name=twitter:site content=@digitalling>
+  <meta name=twitter:image:alt content='oxalis flower'>
 
   <body>
     {{{ body }}}
