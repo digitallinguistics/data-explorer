@@ -1,7 +1,7 @@
 # Docs for the Azure Web Apps Deploy action: https://github.com/Azure/webapps-deploy
 # More GitHub Actions for Azure: https://github.com/Azure/actions
 
-name: Build and deploy Node.js app to Azure Web App - oxalis
+name: Build and deploy Node.js app to development slot in Azure Web App
 
 on:
   push:
@@ -37,7 +37,7 @@ jobs:
     runs-on: ubuntu-latest
     needs: build
     environment:
-      name: 'Production'
+      name: 'dev'
       url: ${{ steps.deploy-to-webapp.outputs.webapp-url }}
 
     steps:
@@ -50,7 +50,7 @@ jobs:
         id: deploy-to-webapp
         uses: azure/webapps-deploy@v2
         with:
-          app-name: 'oxalis'
-          slot-name: 'Production'
-          publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_203D1F6A6B89491E9DDDA6B9A5E8B515 }}
+          app-name: 'oxalis(dev)'
+          slot-name: 'dev'
+          publish-profile: ${{ secrets.AzureAppService_PublishProfile_bc0044fee10d49668774ac1c447bb826 }}
           package: .
