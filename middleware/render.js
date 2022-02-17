@@ -6,7 +6,7 @@ import recurse           from 'readdirp';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname  = path.dirname(__filename);
-const layoutPath = path.join(__dirname, `../layout/main.hbs`);
+const layoutPath = path.join(__dirname, `../layout/index.hbs`);
 
 let layoutTemplate;
 
@@ -37,6 +37,7 @@ async function registerPartials(dir) {
 const initialize = Promise.all([
   getLayout(),
   registerPartials(path.join(__dirname, `../components`)),
+  registerPartials(path.join(__dirname, `../layout`)),
   registerPartials(path.join(__dirname, `../pages`)),
 ]);
 
@@ -47,15 +48,21 @@ export default function middleware(ctx, next) {
     // Cache the layout template and register partials if not already done.
     await initialize;
 
-    // render page body
+    // render <main> content
     const pageTemplate = hbs.partials[page];
-    const renderBody   = hbs.compile(pageTemplate);
+    const renderMain   = hbs.compile(pageTemplate);
     const context      = Object.assign({}, ctx.state, data);
-    const body         = renderBody();
+    const main         = renderMain();
+
+    const pageContext = {
+      main,
+      page,
+      [page]: true,
+    };
 
     // render entire page
     const renderPage = hbs.compile(layoutTemplate);
-    const html       = renderPage(Object.assign(context, { body, page }));
+    const html       = renderPage(Object.assign(context, pageContext));
 
     ctx.body = html;
 
