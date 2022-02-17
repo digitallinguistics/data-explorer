@@ -1,0 +1,39 @@
+<header id=navbar class=navbar>
+
+  <nav id=main-nav class=main-nav>
+
+    <h2>Main Menu</h2>
+
+    <ul>
+
+      <li>
+        {{#if Home}}
+          <a href=# aria-current=page>Home</a>
+        {{else}}
+          <a href=/>Home</a>
+        {{/if}}
+      </li>
+
+      <li>
+        {{#if Languages}}
+          <a href=# aria-current=page>Languages</a>
+        {{else}}
+          <a href=/languages>Languages</a>
+        {{/if}}
+      </li>
+
+    </ul>
+
+  </nav>
+
+  <nav id=help-nav class=help-nav>
+    <h2>Help</h2>
+    <ul>
+      <li><a href='https://github.com/digitallinguistics/data-explorer/discussions/categories/announcements'>What's New</a></li>
+      <li><a href='https://github.com/digitallinguistics/data-explorer/discussions/categories/q-a'>Visit the Q&amp;A</a></li>
+      <li><a href='https://github.com/digitallinguistics/data-explorer/issues/new?{{ featureRequestQuery }}'>Request a Feature</a></li>
+      <li><a href='https://github.com/digitallinguistics/data-explorer/issues/new?{{ bugReportQuery }}'>Report an Issue</a></li>
+    </ul>
+  </nav>
+
+</header>
