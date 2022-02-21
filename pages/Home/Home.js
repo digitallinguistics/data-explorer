@@ -1,5 +1,3 @@
-export default {
-  get(req, res) {
-    res.render(`Home/Home`)
-  },
+export default function get(req, res) {
+  res.render(`Home/Home`)
 }

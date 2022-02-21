@@ -1,5 +1,3 @@
-export default {
-  get(req, res) {
-    res.render(`Languages/Languages`)
-  },
+export default function get(req, res) {
+  res.render(`Languages/Languages`)
 }
