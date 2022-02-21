@@ -1,5 +1,5 @@
 import Koa from 'koa';
-import { render, state } from './middleware/index.js';
+import { loadContext, render, state } from './middleware/index.js';
 
 /**
  * Returns the same response for every request.
@@ -12,6 +12,7 @@ function listener(ctx) {
 const app = new Koa();
 
 // Settings
+loadContext(app.context);
 app.env   = process.env.NODE_ENV ?? `localhost`;
 app.port  = process.env.PORT ?? 3001;
 app.proxy = true; // trust the Azure proxy

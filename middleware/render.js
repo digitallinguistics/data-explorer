@@ -55,7 +55,7 @@ export default function middleware(ctx, next) {
 
     // render entire page
     const renderPage = hbs.compile(layoutTemplate);
-    const html       = renderPage(Object.assign(context, { body }));
+    const html       = renderPage(Object.assign(context, { body, page }));
 
     ctx.body = html;
 
