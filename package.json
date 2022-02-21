@@ -1,0 +1,44 @@
+{
+  "name": "data-explorer",
+  "version": "0.1.0",
+  "description": "The DLx portal for viewing, searching, and aggregating data.",
+  "author": {
+    "name": "Daniel W. Hieber",
+    "url": "https://danielhieber.com"
+  },
+  "homepage": "https://github.com/digitallinguistics/data-explorer",
+  "contributors": [
+    "Tong Jiao (https://github.com/TongJ05)"
+  ],
+  "bugs": "https://github.com/digitallinguistics/data-explorer/issues",
+  "license": "MIT",
+  "keywords": [
+    "language",
+    "linguistics",
+    "documentary linguistics",
+    "language documentation",
+    "corpus linguistics",
+    "corpora",
+    "data science",
+    "digital humanities"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/digitallinguistics/data-explorer.git"
+  },
+  "main": "index.js",
+  "private": true,
+  "type": "module",
+  "engines": {
+    "node": ">= 16.0.0"
+  },
+  "scripts": {
+    "test": "mocha"
+  },
+  "devDependencies": {
+    "chai": "^4.3.6",
+    "eslint": "^8.9.0",
+    "eslint-plugin-chai-friendly": "^0.7.2",
+    "mocha": "^9.2.0"
+  }
+}
