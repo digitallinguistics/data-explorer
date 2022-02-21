@@ -319,7 +319,9 @@ rules:
   require-await: warn
   require-unicode-regexp: warn
   rest-spread-spacing: error
-  semi: error
+  semi:
+    - error
+    - never
   semi-spacing: error
   semi-style: error
   sort-imports:
