@@ -5,7 +5,8 @@ import { loadContext, render, state } from './middleware/index.js';
  * Returns the same response for every request.
  */
 function listener(ctx) {
-  ctx.render(`Home`);
+  if (ctx.url.includes(`languages`)) ctx.render(`Languages`);
+  else ctx.render(`Home`);
 }
 
 // Initialize Koa
