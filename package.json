@@ -26,13 +26,14 @@
     "type": "git",
     "url": "https://github.com/digitallinguistics/data-explorer.git"
   },
-  "main": "index.js",
+  "main": "app.js",
   "private": true,
   "type": "module",
   "engines": {
     "node": ">= 16.0.0"
   },
   "scripts": {
+    "start": "node app.js",
     "test": "mocha"
   },
   "devDependencies": {
