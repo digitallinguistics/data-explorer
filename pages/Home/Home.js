@@ -1,3 +1,10 @@
 export default function get(req, res) {
-  res.render(`Home/Home`)
+
+  const title = `Home`
+
+  res.render(`Home/Home`, {
+    [title]:  true,
+    title,
+  })
+
 }

@@ -1,3 +1,10 @@
 export default function get(req, res) {
-  res.render(`Languages/Languages`)
+
+  const title = `Languages`
+
+  res.render(`Languages/Languages`, {
+    [title]: true,
+    title,
+  })
+
 }
