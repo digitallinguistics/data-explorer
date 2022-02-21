@@ -33,7 +33,7 @@
     "node": ">= 16.0.0"
   },
   "scripts": {
-    "start": "node app.js",
+    "start": "node index.js",
     "stop-only": "stop-only -f test",
     "test": "mocha"
   },

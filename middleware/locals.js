@@ -32,7 +32,7 @@ async function getMetadata() {
   return JSON.parse(json)
 }
 
-export default async function getLocals(locals) {
+export default async function addLocals(locals) {
   Object.assign(locals, {
     bugReportQuery:      createBugReportQuery(),
     featureRequestQuery: createFeatureRequestQuery(),
