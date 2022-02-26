@@ -7,7 +7,7 @@ assignees: ''
 ---
 <!-- NOTE: The Oxalis app only includes features that are likely to be useful for a broad range of linguists. Feature requests that are project-specific or language-specific will be closed. However, you can often reframe your feature request so that it solves a problem in a more general way. -->
 
-**If your feature request is related to a problem, please describe the problem here (or consider [filing a bug report](https://github.com/digitallinguistics/data-explorer/issues/new?template=bug_report.md)).**
+**If your feature request is related to a problem, please describe the problem here (or consider [filing a bug report](https://github.com/digitallinguistics/data-explorer/issues/new?template=bug_report.md&labels=🐞%20bug)).**
 <!-- A clear and concise description of what the problem is. Ex. I'm always frustrated when [...] -->
 
 **Please describe what you would like to be able to do.**
