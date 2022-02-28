@@ -1,0 +1,12 @@
+{
+  "baseUrl"               : "http://localhost:3001",
+  "downloadsFolder"       : "test/downloads",
+  "fixturesFolder"        : "test/fixtures",
+  "integrationFolder"     : "pages",
+  "pluginsFile"           : false,
+  "port"                  : 3001,
+  "screenshotsFolder"     : "test/screenshots",
+  "screenshotOnRunFailure": false,
+  "testFiles"             : "**.test.js",
+  "videosFolder"          : "test/videos"
+}
