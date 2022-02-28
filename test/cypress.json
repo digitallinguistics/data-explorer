@@ -4,9 +4,10 @@
   "fixturesFolder"        : "test/fixtures",
   "integrationFolder"     : "pages",
   "pluginsFile"           : false,
-  "port"                  : 3001,
   "screenshotsFolder"     : "test/screenshots",
   "screenshotOnRunFailure": false,
-  "testFiles"             : "**.test.js",
+  "supportFile"           : false,
+  "testFiles"             : "**/*.test.js",
+  "video"                 : false,
   "videosFolder"          : "test/videos"
 }
