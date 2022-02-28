@@ -1,3 +1,5 @@
+import appInsights from '../config/appInsights.js'
+
 import addLocals         from '../middleware/locals.js'
 import addRoutes         from './routes.js'
 import express           from 'express'
@@ -17,15 +19,15 @@ function serverCallback() {
 // Initialize
 const app = express()
 
-await addLocals(app.locals)
-addRoutes(app.router)
-
 // Settings
 app.enable(`trust proxy`)
 app.engine(`hbs`, hbs.engine)
 app.set(`env`, env)
 app.set(`view engine`, `hbs`)
 app.set(`views`, path.resolve(__dirname, `../pages`))
+
+await addLocals(app.locals)
+addRoutes(app.router)
 
 // Start server
 app.listen(port, serverCallback)
