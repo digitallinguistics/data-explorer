@@ -35,9 +35,11 @@
   "scripts": {
     "cypress": "server-test 3001 cypress-open",
     "cypress-open": "cypress open --config-file=test/cypress.json",
+    "cypress-run": "cypress run --config-file=test/cypress.json",
     "start": "node index.js",
     "stop-only": "stop-only -f test",
-    "test": "mocha"
+    "test": "npm run unit && server-test 3001 cypress-run",
+    "unit": "mocha"
   },
   "devDependencies": {
     "chai": "^4.3.6",
