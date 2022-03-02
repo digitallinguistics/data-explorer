@@ -1,5 +1,3 @@
-import appInsights from '../config/appInsights.js'
-
 import addLocals         from '../middleware/locals.js'
 import addRoutes         from './routes.js'
 import express           from 'express'
