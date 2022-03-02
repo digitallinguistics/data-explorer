@@ -96,13 +96,13 @@ Oxalis loosely follows [semantic versioning principles][semver].
 
 <!-- LINKS -->
 [Austin]:          https://site.uit.no/linguisticsdatacitation/austinprinciples/
-[bug-report]:      https://github.com/digitallinguistics/data-explorer/issues/new?labels=🐞%20bug
+[bug-report]:      https://github.com/digitallinguistics/data-explorer/issues/new?labels=🐞%20bug&template=bug_report.md
 [Chai]:            https://www.chaijs.com/
 [discussions]:     https://github.com/digitallinguistics/data-explorer/discussions/categories/q-a
 [ESLint]:          https://eslint.org/
 [Express]:         http://expressjs.com/
 [Feather]:         https://feathericons.com/
-[feature-request]: https://github.com/digitallinguistics/data-explorer/issues/new?labels=🎁%20feature
+[feature-request]: https://github.com/digitallinguistics/data-explorer/issues/new?labels=🎁%20feature&template=feature_request.md
 [Flaticon]:        https://www.flaticon.com/
 [GitHub-Desktop]:  https://desktop.github.com/
 [Handlebars]:      https://handlebarsjs.com/
