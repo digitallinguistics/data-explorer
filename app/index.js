@@ -23,6 +23,7 @@ app.engine(`hbs`, hbs.engine)
 app.set(`env`, env)
 app.set(`view engine`, `hbs`)
 app.set(`views`, path.resolve(__dirname, `../pages`))
+app.use(express.static(path.join(__dirname , '../assets')))
 
 await addLocals(app.locals)
 addRoutes(app.router)
