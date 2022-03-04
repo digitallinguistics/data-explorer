@@ -1,0 +1,13 @@
+{
+  "baseUrl"               : "http://localhost:3001",
+  "downloadsFolder"       : "test/downloads",
+  "fixturesFolder"        : "test/fixtures",
+  "integrationFolder"     : "pages",
+  "pluginsFile"           : false,
+  "screenshotsFolder"     : "test/screenshots",
+  "screenshotOnRunFailure": false,
+  "supportFile"           : false,
+  "testFiles"             : "**/*.test.js",
+  "video"                 : false,
+  "videosFolder"          : "test/videos"
+}

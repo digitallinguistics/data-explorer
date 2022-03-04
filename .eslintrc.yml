@@ -8,6 +8,8 @@ parserOptions:
 
 extends:
   - eslint:recommended
+  - plugin:chai-friendly/recommended
+  - plugin:cypress/recommended
 
 env:
   es2021: true
@@ -22,7 +24,7 @@ overrides:
       - '**/*.test.*'
       - '**/*.unit.*'
     globals:
-      expect: off
+      expect: true
     rules:
       func-names:            off
       prefer-arrow-callback: off

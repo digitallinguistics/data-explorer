@@ -67,17 +67,24 @@ This app is developed using the [Express] framework, and [Handlebars] templates 
 
 This project uses the following developer tools:
 
-- [Chai]
-- [ESLint]
-- [Mocha]
-- [nodemon]
+- [Chai]: assertion library
+- [Cypress]: integration testing
+- [ESLint]: JavaScript linting
+- [LESS]: CSS preprocessor
+- [Mocha]: testing framework
+- [nodemon]: automated restart of application
 
 ## Testing the App
 
-Oxalis currently only has unit tests, which are written in [Chai] + [Mocha] and can be run using `npm test`.
+Oxalis has both unit and integration tests. Unit tests are written in [Chai] + [Mocha], and integration tests are written using [Cypress].
+
+- Unit tests are run with `npm run unit`.
+- Integration tests are run with `npm run cypress`. This will start a server and open the Cypress test runner.
+- All tests can be run with `npm test`.
+
+### Guidelines
 
 - Each service should have its own unit test suite.
-- Each endpoint and method get its own unit test.
 - Middleware should be tested by checking its effects on the server response.
 
 ## Resources
@@ -96,16 +103,18 @@ Oxalis loosely follows [semantic versioning principles][semver].
 
 <!-- LINKS -->
 [Austin]:          https://site.uit.no/linguisticsdatacitation/austinprinciples/
-[bug-report]:      https://github.com/digitallinguistics/data-explorer/issues/new?labels=🐞%20bug
+[bug-report]:      https://github.com/digitallinguistics/data-explorer/issues/new?labels=🐞%20bug&template=bug_report.md
 [Chai]:            https://www.chaijs.com/
 [discussions]:     https://github.com/digitallinguistics/data-explorer/discussions/categories/q-a
+[Cypress]:         https://www.cypress.io/
 [ESLint]:          https://eslint.org/
 [Express]:         http://expressjs.com/
 [Feather]:         https://feathericons.com/
-[feature-request]: https://github.com/digitallinguistics/data-explorer/issues/new?labels=🎁%20feature
+[feature-request]: https://github.com/digitallinguistics/data-explorer/issues/new?labels=🎁%20feature&template=feature_request.md
 [Flaticon]:        https://www.flaticon.com/
 [GitHub-Desktop]:  https://desktop.github.com/
 [Handlebars]:      https://handlebarsjs.com/
+[LESS]:            https://lesscss.org/
 [Mocha]:           https://mochajs.org/
 [Node]:            https://nodejs.org/en/
 [nodemon]:         https://nodemon.io/

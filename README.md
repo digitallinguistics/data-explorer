@@ -1,3 +1,28 @@
-# DLx Data Explorer
+# Oxalis
 
-The DLx portal for viewing, searching, and aggregating data.
+Oxalis is the Digital Linguistics (DLx) portal for viewing, searching, and aggregating data. <abbr>Oxalis</abbr> stands for **O**nline E**x**plorer for **L**inguistic **S**cholarship.
+
+[![GitHub issues](https://img.shields.io/github/issues/digitallinguistics/data-explorer)][issues]
+[![GitHub Workflow Status (branch)](https://img.shields.io/github/workflow/status/digitallinguistics/data-explorer/deploy/main)][tests]
+[![GitHub](https://img.shields.io/github/license/digitallinguistics/data-explorer)][GitHub]
+
+- [Try out the Oxalis app!][Oxalis]
+- [Report a problem.][bug-report]
+- [Request a feature.][feature-request]
+- [Contribute to the project.][contributing]
+
+## Attribution
+
+If you use the Oxalis app in your work, please consider citing it using the following model:
+
+> Hieber, Daniel W. 2022. Oxalis (@digitallinguistics/data-explorer). <https://github.com/digitallinguistics/data-explorer>
+
+<!-- LINKS -->
+
+[bug-report]:      https://github.com/digitallinguistics/data-explorer/issues/new?labels=🐞%20bug&template=bug_report.md
+[contributing]:    https://github.com/digitallinguistics/data-explorer/blob/main/.github/CONTRIBUTING.md
+[feature-request]: https://github.com/digitallinguistics/data-explorer/issues/new?labels=🎁%20feature&template=feature_request.md
+[GitHub]:          https://github.com/digitallinguistics/data-explorer
+[issues]:          https://github.com/digitallinguistics/data-explorer/issues
+[Oxalis]:          https://data.digitallinguistics.io
+[tests]:           https://github.com/digitallinguistics/data-explorer/actions/workflows/tests.yml

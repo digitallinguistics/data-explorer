@@ -5,8 +5,8 @@ import { readFile }      from 'fs/promises'
 function createBugReportQuery() {
 
   const params = {
-    body:   `Please describe the steps to reproduce the problem, the behavior you expected, and the actual behavior of the app. Please provide any other context that might be useful as well.`,
-    labels: `🐞 bug`,
+    labels:   `🐞 bug`,
+    template: `bug_report.md`,
   }
 
   return new URLSearchParams(params).toString()
@@ -16,8 +16,8 @@ function createBugReportQuery() {
 function createFeatureRequestQuery() {
 
   const params = {
-    body:   `If your feature is related to a problem, please describe the problem here. Otherwise, please describe what you would like to be able to do, as well as the solution you'd prefer, and any alternatives you've considered, and any additional context that would be helpful.`,
-    labels: `🎁 feature`,
+    labels:   `🎁 feature`,
+    template: `feature_request.md`,
   }
 
   return new URLSearchParams(params).toString()
