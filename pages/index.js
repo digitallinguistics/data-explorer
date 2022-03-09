@@ -10,6 +10,6 @@ export default {
   Home,
   Languages,
   NotFound,
-  ServerError,
   Projects,
+  ServerError,
 }
