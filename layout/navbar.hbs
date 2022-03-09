@@ -23,6 +23,14 @@
       </li>
 
       <li>
+        {{#if Projects}}
+          <a href=# aria-current=page>Projects</a>
+        {{else}}
+          <a href=/projects>Projects</a>
+        {{/if}}
+      </li>
+
+      <li>
         {{#if About}}
           <a href=# aria-current=page>About</a>
         {{else}}
