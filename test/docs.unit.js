@@ -1,26 +1,36 @@
-import { expect }        from 'chai';
-import { fileURLToPath } from 'url';
-import { readFile }      from 'fs/promises';
+import { expect }        from 'chai'
+import { fileURLToPath } from 'url'
+import { readFile }      from 'fs/promises'
 
 import {
   dirname as getDirname,
   join as joinPath,
-} from 'path';
+} from 'path'
 
-const __filename = fileURLToPath(import.meta.url);
-const __dirname  = getDirname(__filename);
+const __filename  = fileURLToPath(import.meta.url)
+const __dirname   = getDirname(__filename)
+const currentYear = new Date().getFullYear()
 
 describe(`docs`, function() {
 
-  it(`have the correct year`, async function() {
+  it(`license has the correct year`, async function() {
 
-    const licensePath = joinPath(__dirname, `../LICENSE.md`);
-    const licenseText = await readFile(licensePath, `utf8`);
-    const currentYear = new Date().getFullYear();
-    const yearText    = `2019–${ currentYear }`;
+    const licensePath = joinPath(__dirname, `../LICENSE.md`)
+    const licenseText = await readFile(licensePath, `utf8`)
+    const yearText    = `2019–${ currentYear }`
 
-    expect(licenseText).to.include(yearText);
+    expect(licenseText).to.include(yearText)
 
-  });
+  })
 
-});
+  it(`readme has the correct year`, async function() {
+
+    const readmePath = joinPath(__dirname, `../README.md`)
+    const readmeText = await readFile(readmePath, `utf8`)
+    const yearText   = `Hieber, Daniel W. ${ currentYear }.`
+
+    expect(readmeText).to.include(yearText)
+
+  })
+
+})
