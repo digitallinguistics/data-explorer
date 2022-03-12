@@ -5,6 +5,7 @@ import { fileURLToPath } from 'url'
 import hbs               from '../config/handlebars.js'
 import helmet            from '../middleware/helmet.js'
 import path              from 'path'
+import staticOptions     from '../middleware/static.js'
 
 import { env, port } from '../config/app.js'
 
@@ -25,7 +26,7 @@ app.set(`env`, env)
 app.set(`view engine`, `hbs`)
 app.set(`views`, path.resolve(__dirname, `../pages`))
 app.use(helmet)
-app.use(express.static(path.join(__dirname, `../assets`)))
+app.use(express.static(path.join(__dirname, `../assets`), staticOptions))
 
 await addLocals(app.locals)
 addRoutes(app.router)

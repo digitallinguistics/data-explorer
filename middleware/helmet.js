@@ -1,5 +1,4 @@
-import helmet          from 'helmet'
-import { randomBytes } from 'crypto'
+import helmet from 'helmet'
 
 const config = {
   referrerPolicy: {
@@ -7,15 +6,9 @@ const config = {
   },
 }
 
-function generateNonce(req, res) {
-  res.locals.nonce = randomBytes(16).toString(`base64`)
-  return `'nonce-${ res.locals.nonce }'`
-}
-
 config.contentSecurityPolicy = {
   directives:   {
     defaultSrc:              [`'self'`, `*.digitallinguistics.io`],
-    scriptSrc:               [`'self'`, `*.digitallinguistics.io`, generateNonce],
     upgradeInsecureRequests: [],
   },
 }
