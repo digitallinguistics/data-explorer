@@ -248,6 +248,7 @@ rules:
     - warn
     - allow:
         - __dirname
+        - __filename
         - _ts
         - _etag
   no-unmodified-loop-condition: warn
