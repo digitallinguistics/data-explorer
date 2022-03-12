@@ -17,7 +17,7 @@ function createBugReportQuery() {
 }
 
 function getCriticalCSS() {
-  const layoutCSSPath = path.join(__dirname, `../layout/layout.css`)
+  const layoutCSSPath = path.join(__dirname, `../layout/index.css`)
   return readFile(layoutCSSPath, `utf8`)
 }
 
