@@ -15,6 +15,12 @@ function serverCallback() {
   console.info(`Server started on port ${ port } in ${ env } mode. Press Ctrl+C to terminate.`)
 }
 
+// Handle uncaught exceptions
+process.on(`uncaughtException`, err => {
+  console.error(err)
+  process.exit(1)
+})
+
 // Initialize
 const app = express()
 
