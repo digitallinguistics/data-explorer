@@ -43,7 +43,7 @@
     "unit": "mocha"
   },
   "devDependencies": {
-    "@digitallinguistics/design": "^0.1.1",
+    "@digitallinguistics/design": "^0.2.0",
     "chai": "^4.3.6",
     "clean-css": "^5.2.4",
     "cypress": "^9.5.0",
@@ -51,6 +51,7 @@
     "eslint-plugin-chai-friendly": "^0.7.2",
     "eslint-plugin-cypress": "^2.12.1",
     "flexbox-reset": "^4.0.0",
+    "fs-extra": "^10.0.1",
     "less": "^4.1.2",
     "mocha": "^9.2.0",
     "nodemon": "^2.0.15",
