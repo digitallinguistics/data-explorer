@@ -1,5 +1,4 @@
-import { env } from '../config/app.js'
-import helmet  from 'helmet'
+import helmet from 'helmet'
 
 const config = {
   referrerPolicy: {
@@ -7,13 +6,11 @@ const config = {
   },
 }
 
-if (env === `production`) {
-  config.contentSecurityPolicy = {
-    directives:   {
-      defaultSrc:              [`'self'`, `*.digitallinguistics.io`],
-      upgradeInsecureRequests: true,
-    },
-  }
+config.contentSecurityPolicy = {
+  directives:   {
+    defaultSrc:              [`'self'`, `*.digitallinguistics.io`],
+    upgradeInsecureRequests: [],
+  },
 }
 
 export default helmet(config)
