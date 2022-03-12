@@ -5,6 +5,7 @@ Oxalis is the Digital Linguistics (DLx) portal for viewing, searching, and aggre
 [![GitHub issues](https://img.shields.io/github/issues/digitallinguistics/data-explorer)][issues]
 [![GitHub Workflow Status (branch)](https://img.shields.io/github/workflow/status/digitallinguistics/data-explorer/deploy/main)][tests]
 [![GitHub](https://img.shields.io/github/license/digitallinguistics/data-explorer)][GitHub]
+[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.6348175.svg)][Zenodo]
 
 - [Try out the Oxalis app!][Oxalis]
 - [Report a problem.][bug-report]
@@ -26,3 +27,4 @@ If you use the Oxalis app in your work, please consider citing it using the foll
 [issues]:          https://github.com/digitallinguistics/data-explorer/issues
 [Oxalis]:          https://data.digitallinguistics.io
 [tests]:           https://github.com/digitallinguistics/data-explorer/actions/workflows/tests.yml
+[Zenodo]:          https://zenodo.org/badge/latestdoi/177462239
