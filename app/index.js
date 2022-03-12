@@ -1,10 +1,15 @@
-import addLocals         from '../middleware/locals.js'
+import addLocals         from './locals.js'
 import addRoutes         from './routes.js'
+import auth              from '../middleware/auth.js'
+import cookieParser      from 'cookie-parser'
 import express           from 'express'
 import { fileURLToPath } from 'url'
 import hbs               from '../config/handlebars.js'
 import helmet            from '../middleware/helmet.js'
+import locals            from '../middleware/locals.js'
+import logger            from '../middleware/logger.js'
 import path              from 'path'
+import staticOptions     from '../middleware/static.js'
 
 import { env, port } from '../config/app.js'
 
@@ -24,10 +29,18 @@ app.engine(`hbs`, hbs.engine)
 app.set(`env`, env)
 app.set(`view engine`, `hbs`)
 app.set(`views`, path.resolve(__dirname, `../pages`))
-app.use(helmet)
-app.use(express.static(path.join(__dirname, `../assets`)))
 
 await addLocals(app.locals)
+
+// Middleware
+app.use(helmet)
+app.use(express.static(path.join(__dirname, `../assets`), staticOptions))
+app.use(cookieParser())
+app.use(auth)
+app.use(locals)
+app.use(express.static(path.join(__dirname, `../assets`)))
+app.use(logger)
+
 addRoutes(app.router)
 
 // Start server
