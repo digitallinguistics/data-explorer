@@ -46,7 +46,7 @@
     "@digitallinguistics/design": "^0.3.0",
     "chai": "^4.3.6",
     "clean-css": "^5.2.4",
-    "cypress": "^9.5.0",
+    "cypress": "^9.5.1",
     "eslint": "^8.9.0",
     "eslint-plugin-chai-friendly": "^0.7.2",
     "eslint-plugin-cypress": "^2.12.1",
@@ -59,8 +59,9 @@
     "stop-only": "^3.1.2"
   },
   "dependencies": {
+    "cookie-parser": "^1.4.6",
     "express": "^5.0.0-beta.1",
-    "express-handlebars": "^6.0.2",
+    "express-handlebars": "^6.0.3",
     "handlebars": "^4.7.7",
     "helmet": "^5.0.2"
   }
