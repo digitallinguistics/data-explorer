@@ -6,7 +6,7 @@ describe(`layout`, function() {
       cy.visit(`/languages`)
       cy.contains(`.navbar a`, `Home`)
       .click()
-      cy.contains(`h1`, `Home`)
+      cy.contains(`h1`, `Oxalis`)
     })
 
     it(`Languages`, function() {
