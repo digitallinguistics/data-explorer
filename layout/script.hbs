@@ -1,0 +1,5 @@
+<script nonce='{{ nonce }}'>
+  if (navigator.onLine) {
+    navigator.serviceWorker.register(`offline-worker.js`);
+  }
+</script>
