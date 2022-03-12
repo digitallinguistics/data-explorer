@@ -1,10 +1,11 @@
-import addLocals         from '../middleware/locals.js'
-import addRoutes         from './routes.js'
-import express           from 'express'
-import { fileURLToPath } from 'url'
-import hbs               from '../config/handlebars.js'
-import helmet            from '../middleware/helmet.js'
-import path              from 'path'
+import addLocals               from '../middleware/locals.js'
+import addRoutes               from './routes.js'
+import express                 from 'express'
+import { fileURLToPath }       from 'url'
+import handleUncaughtException from './errors.js'
+import hbs                     from '../config/handlebars.js'
+import helmet                  from '../middleware/helmet.js'
+import path                    from 'path'
 
 import { env, port } from '../config/app.js'
 
@@ -16,10 +17,7 @@ function serverCallback() {
 }
 
 // Handle uncaught exceptions
-process.on(`uncaughtException`, err => {
-  console.error(err)
-  process.exit(1)
-})
+process.on(`uncaughtException`, handleUncaughtException)
 
 // Initialize
 const app = express()
