@@ -1,8 +1,13 @@
-import CleanCSS from 'clean-css'
-import less     from 'less'
+import CleanCSS          from 'clean-css'
+import { fileURLToPath } from 'url'
+import less              from 'less'
+import path              from 'path'
+
+const __filename = fileURLToPath(import.meta.url)
+const __dirname  = path.dirname(__filename)
 
 const options = {
-  paths: [],
+  paths: [path.join(__dirname, `../layout`)],
 }
 
 const minifier = new CleanCSS
