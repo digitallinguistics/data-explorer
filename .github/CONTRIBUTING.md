@@ -112,6 +112,9 @@ Steps to make a release:
 3. Prepare the release: `npm run prepare-release`
 4. Create and merge a PR for the release.
 5. Create a release on `main` with the new version number.
+6. GitHub Actions deploys the release to the `dev` server.
+7. Test the release on the `dev` server.
+8. Swap the `dev` and `prod` servers.
 
 <!-- LINKS -->
 [Austin]:          https://site.uit.no/linguisticsdatacitation/austinprinciples/
