@@ -16,11 +16,6 @@ function createBugReportQuery() {
 
 }
 
-function getCriticalCSS() {
-  const layoutCSSPath = path.join(__dirname, `../layout/index.css`)
-  return readFile(layoutCSSPath, `utf8`)
-}
-
 function createFeatureRequestQuery() {
 
   const params = {
@@ -41,7 +36,6 @@ async function getMetadata() {
 export default async function addLocals(locals) {
   Object.assign(locals, {
     bugReportQuery:      createBugReportQuery(),
-    criticalCSS:         await getCriticalCSS(),
     featureRequestQuery: createFeatureRequestQuery(),
     meta:                await getMetadata(),
   })
