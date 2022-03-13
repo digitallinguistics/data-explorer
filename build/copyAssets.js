@@ -13,8 +13,7 @@ export default async function copyAssets() {
   const assetsDir  = path.join(__dirname, `../assets`)
   const designDir  = path.join(__dirname, `../node_modules/@digitallinguistics/design`)
 
-  const octiconPath = `images/octicon.black.svg`
-  await copy(path.join(designDir, octiconPath), path.join(assetsDir, octiconPath))
+  await copy(path.join(designDir, `images/octicon.black.svg`), path.join(assetsDir, `images/octicon.svg`))
 
   const firaPath = `fonts/Fira`
   await copy(path.join(designDir, firaPath), path.join(assetsDir, firaPath))
