@@ -27,7 +27,7 @@ export default async function buildSVG() {
 
   const __filename     = fileURLToPath(import.meta.url)
   const __dirname      = path.dirname(__filename)
-  const imagesPath     = path.join(__dirname, `../assets/images`)
+  const imagesPath     = path.join(__dirname, `../public/images`)
   const sprites        = createSpriteCollection(spriteOptions)
   const svgFilesStream = await recurse(imagesPath, recurseOptions)
 
