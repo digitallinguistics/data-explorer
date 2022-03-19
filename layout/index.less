@@ -1,15 +1,19 @@
-@path: 'node_modules/@digitallinguistics/design/global';
+@globalPath: 'node_modules/@digitallinguistics/design/global';
+@designPath: 'node_modules/@digitallinguistics/design/components';
 
 // Globals
 @import 'node_modules/flexbox-reset/flexbox-reset.less';
-@import '@{path}/colors.less';
-@import '@{path}/spacing.less';
-@import '@{path}/fonts.less';
-@import '@{path}/typography.less';
-@import '@{path}/utilities.less';
-@import '@{path}/borders.less';
+@import '@{globalPath}/colors.less';
+@import '@{globalPath}/spacing.less';
+@import '@{globalPath}/fonts.less';
+@import '@{globalPath}/typography.less';
+@import '@{globalPath}/utilities.less';
+@import '@{globalPath}/borders.less';
 
-// Components
+// DLx Components
+@import '@{designPath}/link/link.less';
+
+// Project-Specific Components
 @import 'footer.less';
 
 body {

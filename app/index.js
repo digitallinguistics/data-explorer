@@ -38,11 +38,10 @@ await addLocals(app.locals)
 
 // Middleware
 app.use(helmet)
-app.use(express.static(path.join(__dirname, `../assets`), staticOptions))
+app.use(express.static(path.join(__dirname, `../public`), staticOptions))
 app.use(cookieParser())
 app.use(auth)
 app.use(locals)
-app.use(express.static(path.join(__dirname, `../assets`)))
 app.use(logger)
 
 addRoutes(app.router)
