@@ -76,6 +76,10 @@ This project uses the following developer tools:
 - [Mocha]: testing framework
 - [nodemon]: automated restart of application
 
+## Naming Conventions
+
+- Use `block__element` conventions for naming components, e.g. `footer__nav` for a nav component inside a footer.
+
 ## Testing the App
 
 Oxalis has both unit and integration tests. Unit tests are written in [Chai] + [Mocha], and integration tests are written using [Cypress].
