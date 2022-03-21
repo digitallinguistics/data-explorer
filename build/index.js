@@ -1,7 +1,11 @@
+import buildCSS   from './buildCSS.js'
+import buildSVG   from './buildSVG.js'
 import copyAssets from './copyAssets.js'
 
-async function build() {
-  await copyAssets()
-}
+import { oraPromise as createSpinner } from 'ora'
 
-await build()
+void async function build() {
+  await createSpinner(copyAssets(), `Copy assets into project.`)
+  await createSpinner(buildCSS(), `Build CSS.`)
+  await createSpinner(buildSVG(), `Build SVG.`)
+}()

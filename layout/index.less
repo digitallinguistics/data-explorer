@@ -1,0 +1,26 @@
+@globalPath: 'node_modules/@digitallinguistics/design/global';
+@designPath: 'node_modules/@digitallinguistics/design/components';
+
+// Globals
+@import 'node_modules/flexbox-reset/flexbox-reset.less';
+@import '@{globalPath}/colors.less';
+@import '@{globalPath}/spacing.less';
+@import '@{globalPath}/fonts.less';
+@import '@{globalPath}/typography.less';
+@import '@{globalPath}/utilities.less';
+@import '@{globalPath}/borders.less';
+
+// DLx Components
+@import '@{designPath}/link/link.less';
+
+// Project-Specific Components
+@import 'footer.less';
+
+body {
+  font-family: var(--font);
+  line-height: 1.5;
+}
+
+main {
+  flex-grow: 1;
+}

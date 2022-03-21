@@ -28,6 +28,8 @@ Develops should keep the following aims and principles in mind when designing an
 
 - [**Principles of Data Citation in Linguistics:**][Austin] A key goal of this project is to make linguistic data accessible, discoverable, and verifiable, all while adhereing to ethical concerns regarding data management in documentary linguistics.
 
+- [**Tromsø recommendations for citation of research data in linguistics:**][Tromso] Similar to the [Austin principles][Austin], this project also aims to abet better data citation practices in linguistics.
+
 - **mobile support:** Users should be able to easily access data across a variety of devices of different screen sizes and internet speeds. This is especially important for rural communities that may be using the app.
 
 - **open source:** Digital Linguistics is committed to open source development.
@@ -74,6 +76,10 @@ This project uses the following developer tools:
 - [Mocha]: testing framework
 - [nodemon]: automated restart of application
 
+## Naming Conventions
+
+- Use `block__element` conventions for naming components, e.g. `footer__nav` for a nav component inside a footer.
+
 ## Testing the App
 
 Oxalis has both unit and integration tests. Unit tests are written in [Chai] + [Mocha], and integration tests are written using [Cypress].
@@ -101,6 +107,19 @@ Oxalis loosely follows [semantic versioning principles][semver].
 - **minor:** Addition of new functionality, such as a new page.
 - **patch:** Bug fixes and updates to documentation.
 
+## Releases
+
+Steps to make a release:
+
+1. Update project version: `npm version {major|minor|patch}`
+2. Build the project: `npm run build`
+3. Prepare the release: `npm run prepare-release`
+4. Create and merge a PR for the release.
+5. Create a release on `main` with the new version number.
+6. GitHub Actions deploys the release to the `dev` server.
+7. Test the release on the `dev` server.
+8. Swap the `dev` and `prod` servers.
+
 <!-- LINKS -->
 [Austin]:          https://site.uit.no/linguisticsdatacitation/austinprinciples/
 [bug-report]:      https://github.com/digitallinguistics/data-explorer/issues/new?labels=🐞%20bug&template=bug_report.md
@@ -122,3 +141,4 @@ Oxalis loosely follows [semantic versioning principles][semver].
 [nvm-windows]:     https://github.com/coreybutler/nvm-windows
 [open-source]:     https://opensource.guide/how-to-contribute/
 [semver]:          https://semver.org/
+[Tromso]:          https://www.rd-alliance.org/group/linguistics-data-ig/outcomes/troms%C3%B8-recommendations-citation-research-data-linguistics
