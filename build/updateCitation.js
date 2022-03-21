@@ -19,7 +19,7 @@ const packageText = await readFile(packagePath, `utf8`)
 const citationObject = yaml.load(citationText)
 const packageObject =  yaml.load(packageText)
 citationObject['date-released'] = new Date().toLocaleDateString('en-CA')
-citationObject['version'] = packageObject['version']
+citationObject.version = packageObject.version
 
 const updatedText = yaml.dump(citationObject)
 await writeFile(citationPath, updatedText, `utf8`);
