@@ -106,5 +106,6 @@ dist
 # Project-Specific
 **/*.css
 **/sprites.hbs
+**/style.hbs
 nodemon.json
 public/
