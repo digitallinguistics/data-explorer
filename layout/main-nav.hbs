@@ -1,49 +1,56 @@
-<nav id=main-nav class=main-nav>
+<nav class=main-nav>
+  <details open>
 
-  <h2>Main Menu</h2>
+    <summary>
+      <svg aria-hidden=true>
+        <use href=#menu>
+      </svg>
+      <h2>Menu</h2>
+    </summary>
 
-  <ul>
+    <ul>
 
-    <li>
-      {{#if Home}}
-      <a href=# aria-current=page>Home</a>
-      {{else}}
-      <a href= />Home</a>
-      {{/if}}
-    </li>
+      <li {{#if Home}}class=current{{/if}}>
+        {{#if Home}}
+        <a href=# aria-current=page>Home</a>
+        {{else}}
+        <a href= />Home</a>
+        {{/if}}
+      </li>
 
-    <li>
-      {{#if Languages}}
-      <a href=# aria-current=page>Languages</a>
-      {{else}}
-      <a href=/languages>Languages</a>
-      {{/if}}
-    </li>
+      <li {{#if Languages}}class=current{{/if}}>
+        {{#if Languages}}
+        <a href=# aria-current=page>Languages</a>
+        {{else}}
+        <a href=/languages>Languages</a>
+        {{/if}}
+      </li>
 
-    <li>
-      {{#if Projects}}
-      <a href=# aria-current=page>Projects</a>
-      {{else}}
-      <a href=/projects>Projects</a>
-      {{/if}}
-    </li>
+      <li {{#if Projects}}class=current{{/if}}>
+        {{#if Projects}}
+        <a href=# aria-current=page>Projects</a>
+        {{else}}
+        <a href=/projects>Projects</a>
+        {{/if}}
+      </li>
 
-    <li>
-      {{#if Dictionaries}}
-      <a href=# aria-current=page>Dictionaries</a>
-      {{else}}
-      <a href=/dictionaries>Dictionaries</a>
-      {{/if}}
-    </li>
+      <li {{#if Dictionaries}}class=current{{/if}}>
+        {{#if Dictionaries}}
+        <a href=# aria-current=page>Dictionaries</a>
+        {{else}}
+        <a href=/dictionaries>Dictionaries</a>
+        {{/if}}
+      </li>
 
-    <li>
-      {{#if About}}
-      <a href=# aria-current=page>About</a>
-      {{else}}
-      <a href=/about>About</a>
-      {{/if}}
-    </li>
+      <li {{#if About}}class=current{{/if}}>
+        {{#if About}}
+        <a href=# aria-current=page>About</a>
+        {{else}}
+        <a href=/about>About</a>
+        {{/if}}
+      </li>
 
-  </ul>
+    </ul>
 
+  </details>
 </nav>

@@ -1,0 +1,21 @@
+@import 'main-nav.less';
+@import 'user.less';
+
+@nav-breakpoint: 45em;
+
+.navbar {
+
+  align-items     : flex-end;
+  background-color: var(--blue);
+  color           : white;
+  flex-direction  : row;
+
+  .main-nav {
+    flex-grow: 1;
+  }
+
+}
+
+.help-nav {
+  display: none;
+}

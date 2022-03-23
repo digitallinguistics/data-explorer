@@ -1,0 +1,15 @@
+.user-nav {
+
+  padding                : var(--text-padding-lg);
+  text-underline-offset  : 0.1em;
+  text-underline-position: under;
+  inline-size            : 5.5em; // ensures that the login doesn't change size when text changes
+  text-align             : center;
+
+  &:hover {
+    font-weight              : 500;
+    text-decoration          : underline;
+    text-decoration-thickness: 0.15em; // must be here to override default link styles
+  }
+
+}
