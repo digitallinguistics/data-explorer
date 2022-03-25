@@ -44,7 +44,7 @@
     "unit": "mocha"
   },
   "devDependencies": {
-    "@digitallinguistics/design": "^0.5.0",
+    "@digitallinguistics/design": "^0.6.0",
     "chai": "^4.3.6",
     "clean-css": "^5.2.4",
     "cypress": "^9.5.1",
