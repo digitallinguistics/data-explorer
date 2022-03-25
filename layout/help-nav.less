@@ -1,0 +1,97 @@
+@import (reference) 'node_modules/@digitallinguistics/design/global/utilities.less';
+
+.help-nav {
+
+  a {
+
+    align-items   : center;
+    display       : flex;
+    flex-direction: row;
+
+    &::after {
+      // The !important declaration here is necessary to override the very high specificity
+      // of the external link selector within the .link class.
+      position: relative !important;
+    }
+
+    svg {
+      color: black;
+    }
+
+  }
+
+  details {
+    position: relative;
+  }
+
+  .dropdown-content {
+    background-color : white;
+    border           : var(--border);
+    border-radius    : var(--border-radius);
+    box-shadow       : var(--box-shadow);
+    inset-block-start: 2.25em;
+    inset-inline-end : var(--space-xs);
+    min-inline-size  : max-content;
+    position         : absolute;
+    // This z-index should stay set relative to its stacking context.
+    // The dropdown just needs to be pushed higher than summary::before.
+    // Do not add to z-indexes.less.
+    z-index: 1;
+  }
+
+  h2 {
+    padding           : var(--text-padding-lg);
+    padding-inline-end: 0em;
+    white-space       : nowrap;
+  }
+
+  li:hover {
+
+    background-color: var(--blue-1);
+
+    &:first-child {
+      border-radius: var(--border-radius) var(--border-radius) 0 0;
+    }
+
+    &:last-child {
+      border-radius: 0 0 var(--border-radius) var(--border-radius);
+    }
+
+  }
+
+  summary {
+
+    align-items   : center;
+    cursor        : pointer;
+    flex-direction: row;
+
+    &::-webkit-details-marker {
+      display: none;
+    }
+
+  }
+
+  /* Closes the details when clicking anywhere else */
+  /* source: https://medium.com/an-idea/the-details-of-a-dropdown-a817dc27e545 */
+  details[open] summary::before {
+    content     : '';
+    cursor      : default;
+    inset-block : 0;
+    inset-inline: 0;
+    position    : fixed;
+  }
+
+  svg {
+    block-size : 1.25em;
+    inline-size: 1.25em;
+    margin     : var(--space-xs);
+  }
+
+  @media (max-width: @nav-breakpoint) {
+    h2 {
+      padding: 0;
+      .visually-hidden;
+    }
+  }
+
+}

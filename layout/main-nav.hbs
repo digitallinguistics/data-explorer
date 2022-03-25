@@ -1,56 +1,34 @@
 <nav class=main-nav>
-  <details open>
 
-    <summary>
-      <svg aria-hidden=true>
-        <use href=#menu>
-      </svg>
-      <h2>Menu</h2>
-    </summary>
+  <label for=main-nav__toggle>
+    <svg aria-hidden=true><use href=#menu></svg>
+    <h2>Menu</h2>
+  </label>
 
-    <ul>
+  <input id=main-nav__toggle type=checkbox>
 
-      <li {{#if Home}}class=current{{/if}}>
-        {{#if Home}}
-        <a href=# aria-current=page>Home</a>
-        {{else}}
-        <a href= />Home</a>
-        {{/if}}
-      </li>
+  <ul>
 
-      <li {{#if Languages}}class=current{{/if}}>
-        {{#if Languages}}
-        <a href=# aria-current=page>Languages</a>
-        {{else}}
-        <a href=/languages>Languages</a>
-        {{/if}}
-      </li>
+    <li {{#if Home}}class=current{{/if}}>
+      <a class=nav-link {{#if Home}} href=# aria-current=page {{else}} href='/' {{/if}}>Home</a>
+    </li>
 
-      <li {{#if Projects}}class=current{{/if}}>
-        {{#if Projects}}
-        <a href=# aria-current=page>Projects</a>
-        {{else}}
-        <a href=/projects>Projects</a>
-        {{/if}}
-      </li>
+    <li {{#if Languages}}class=current{{/if}}>
+      <a class=nav-link {{#if Languages}} href=# aria-current=page {{else}} href=/languages {{/if}}>Languages</a>
+    </li>
 
-      <li {{#if Dictionaries}}class=current{{/if}}>
-        {{#if Dictionaries}}
-        <a href=# aria-current=page>Dictionaries</a>
-        {{else}}
-        <a href=/dictionaries>Dictionaries</a>
-        {{/if}}
-      </li>
+    <li {{#if Projects}}class=current{{/if}}>
+      <a class=nav-link {{#if Projects}} href=# aria-current=page {{else}} href=/projects {{/if}}>Projects</a>
+    </li>
 
-      <li {{#if About}}class=current{{/if}}>
-        {{#if About}}
-        <a href=# aria-current=page>About</a>
-        {{else}}
-        <a href=/about>About</a>
-        {{/if}}
-      </li>
+    <li {{#if Dictionaries}}class=current{{/if}}>
+      <a class=nav-link {{#if Dictionaries}} href=# aria-current=page {{else}} href=/dictionaries {{/if}}>Dictionaries</a>
+    </li>
 
-    </ul>
+    <li {{#if About}}class=current{{/if}}>
+      <a class=nav-link {{#if About}} href=# aria-current=page {{else}} href=/about {{/if}}>About</a>
+    </li>
 
-  </details>
+  </ul>
+
 </nav>

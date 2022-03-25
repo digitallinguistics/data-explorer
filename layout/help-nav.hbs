@@ -1,13 +1,47 @@
 <nav class=help-nav>
-  <h2>Help</h2>
-  <ul>
-    <li><a href='https://github.com/digitallinguistics/data-explorer/discussions/categories/announcements'>What's
-        New</a></li>
-    <li><a href='https://github.com/digitallinguistics/data-explorer/discussions/categories/q-a'>Visit the Q&amp;A</a>
-    </li>
-    <li><a href='https://github.com/digitallinguistics/data-explorer/issues/new?{{ featureRequestQuery }}'>Request a
-        Feature</a></li>
-    <li><a href='https://github.com/digitallinguistics/data-explorer/issues/new?{{ bugReportQuery }}'>Report an
-        Issue</a></li>
-  </ul>
+  <details>
+
+    <summary>
+      <h2 class=help-menu__title>Help &amp; Feedback</h2>
+      <svg aria-hidden=true>
+        <use href=#info-circle>
+      </svg>
+    </summary>
+
+    <ul class=dropdown-content>
+      <li>
+        <a class=link href='https://github.com/digitallinguistics/data-explorer/discussions/categories/announcements' target=_blank>
+          <svg aria-hidden=true>
+            <use href=#megaphone>
+          </svg>
+          <span>What's new</span>
+        </a>
+      </li>
+      <li>
+        <a class=link href='https://github.com/digitallinguistics/data-explorer/discussions/categories/q-a' target=_blank>
+          <svg aria-hidden=true>
+            <use href=#help-circle>
+          </svg>
+          <span>Visit the Q&amp;A</span>
+        </a>
+      </li>
+      <li>
+        <a class=link href='https://github.com/digitallinguistics/data-explorer/issues/new?{{ bugReportQuery }}' target=_blank>
+          <svg aria-hidden=true>
+            <use href=#alert-circle>
+          </svg>
+          <span>Report an issue</span>
+        </a>
+      </li>
+      <li>
+        <a class=link href='https://github.com/digitallinguistics/data-explorer/issues/new?{{ featureRequestQuery }}' target=_blank>
+          <svg aria-hidden=true>
+            <use href=#plus-circle>
+          </svg>
+          <span>Request a feature</span>
+        </a>
+      </li>
+    </ul>
+
+  </details>
 </nav>

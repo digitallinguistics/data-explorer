@@ -1,35 +1,32 @@
-.main-nav {
+@import (reference) 'node_modules/@digitallinguistics/design/global/utilities.less';
 
-  align-items    : stretch;
-  justify-content: flex-end;
+.main-nav {
 
   a {
     padding: var(--text-padding-lg);
   }
 
+  a:hover {
+    background-color: var(--blue-4);
+  }
+
   [aria-current] {
-    text-decoration        : underline;
-    text-underline-offset  : 0.1em;
-    text-underline-position: under;
+    text-decoration: underline;
   }
 
   h2 {
-    padding             : var(--text-padding-lg);
-    padding-inline-start: 0em;
+    .visually-hidden;
   }
 
-  li:hover {
-    background-color: var(--blue-6);
-    box-shadow      : 0px 0px 3px 1px;
+  input {
+    display: none;
   }
 
-  li:active {
-    box-shadow               : none;
-    font-weight              : 500;
-    text-decoration          : underline;
-    text-underline-offset    : 0.1em;
-    text-underline-position  : under;
-    text-decoration-thickness: 0.15em;
+  label {
+    align-items      : center;
+    cursor           : pointer;
+    flex-direction   : row;
+    margin-inline-end: auto;
   }
 
   ul {
@@ -37,31 +34,31 @@
     flex-direction  : row;
   }
 
-  summary {
-    align-items   : center;
-    cursor        : pointer;
-    flex-direction: row;
-  }
-
   svg {
     block-size : 1.5em;
-    inline-size: 1.5rem;
+    inline-size: 1.5em;
     margin     : var(--space-xxs);
   }
 
   // small screens
   @media (max-width: @nav-breakpoint) {
+
     ul {
       flex-direction   : column;
       position         : absolute;
       inset-block-start: 2.5em;
-      inset-block-end  : 0;
+      inline-size      : 100%;
     }
+
+    input:not(:checked) ~ ul {
+      display: none;
+    }
+
   }
 
   // large screens
   @media (min-width: @nav-breakpoint) {
-    summary {
+    label {
       display: none;
     }
   }
