@@ -2,7 +2,7 @@
 @import 'main-nav.less';
 @import 'user.less';
 
-@nav-breakpoint: 45em;
+@nav-breakpoint: 50em;
 
 .navbar {
 
@@ -13,6 +13,24 @@
 
   .main-nav {
     flex-grow: 1;
+  }
+
+  .site-logo {
+
+    display: flex;
+
+    svg {
+      block-size : 1.5em;
+      inline-size: 1.5em;
+      margin     : 0.5em;
+    }
+
+    @media (max-width: @nav-breakpoint) {
+      left     : 50%;
+      position : absolute;
+      transform: translateX(-50%);
+    }
+
   }
 
 }
