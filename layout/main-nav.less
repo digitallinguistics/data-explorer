@@ -1,0 +1,66 @@
+@import (reference) 'node_modules/@digitallinguistics/design/global/utilities.less';
+
+.main-nav {
+
+  a {
+    padding: var(--text-padding-lg);
+  }
+
+  a:hover {
+    background-color: var(--blue-4);
+  }
+
+  [aria-current] {
+    text-decoration: underline;
+  }
+
+  h2 {
+    .visually-hidden;
+  }
+
+  input {
+    display: none;
+  }
+
+  label {
+    align-items      : center;
+    cursor           : pointer;
+    flex-direction   : row;
+    margin-inline-end: auto;
+  }
+
+  ul {
+    background-color: var(--blue);
+    flex-direction  : row;
+  }
+
+  svg {
+    block-size : 1.5em;
+    inline-size: 1.5em;
+    margin     : var(--space-xxs);
+  }
+
+  // small screens
+  @media (max-width: @nav-breakpoint) {
+
+    ul {
+      flex-direction   : column;
+      position         : absolute;
+      inset-block-start: 2.5em;
+      inline-size      : 100%;
+    }
+
+    input:not(:checked) ~ ul {
+      display: none;
+    }
+
+  }
+
+  // large screens
+  @media (min-width: @nav-breakpoint) {
+    label {
+      display: none;
+    }
+  }
+
+}

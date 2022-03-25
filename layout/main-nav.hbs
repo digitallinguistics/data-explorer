@@ -1,47 +1,32 @@
-<nav id=main-nav class=main-nav>
+<nav class=main-nav>
 
-  <h2>Main Menu</h2>
+  <label for=main-nav__toggle>
+    <svg aria-hidden=true><use href=#menu></svg>
+    <h2>Menu</h2>
+  </label>
+
+  <input id=main-nav__toggle type=checkbox>
 
   <ul>
 
-    <li>
-      {{#if Home}}
-      <a href=# aria-current=page>Home</a>
-      {{else}}
-      <a href= />Home</a>
-      {{/if}}
+    <li {{#if Home}}class=current{{/if}}>
+      <a class=nav-link {{#if Home}} href=# aria-current=page {{else}} href='/' {{/if}}>Home</a>
     </li>
 
-    <li>
-      {{#if Languages}}
-      <a href=# aria-current=page>Languages</a>
-      {{else}}
-      <a href=/languages>Languages</a>
-      {{/if}}
+    <li {{#if Languages}}class=current{{/if}}>
+      <a class=nav-link {{#if Languages}} href=# aria-current=page {{else}} href=/languages {{/if}}>Languages</a>
     </li>
 
-    <li>
-      {{#if Projects}}
-      <a href=# aria-current=page>Projects</a>
-      {{else}}
-      <a href=/projects>Projects</a>
-      {{/if}}
+    <li {{#if Projects}}class=current{{/if}}>
+      <a class=nav-link {{#if Projects}} href=# aria-current=page {{else}} href=/projects {{/if}}>Projects</a>
     </li>
 
-    <li>
-      {{#if Dictionaries}}
-      <a href=# aria-current=page>Dictionaries</a>
-      {{else}}
-      <a href=/dictionaries>Dictionaries</a>
-      {{/if}}
+    <li {{#if Dictionaries}}class=current{{/if}}>
+      <a class=nav-link {{#if Dictionaries}} href=# aria-current=page {{else}} href=/dictionaries {{/if}}>Dictionaries</a>
     </li>
 
-    <li>
-      {{#if About}}
-      <a href=# aria-current=page>About</a>
-      {{else}}
-      <a href=/about>About</a>
-      {{/if}}
+    <li {{#if About}}class=current{{/if}}>
+      <a class=nav-link {{#if About}} href=# aria-current=page {{else}} href=/about {{/if}}>About</a>
     </li>
 
   </ul>

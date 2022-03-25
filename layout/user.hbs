@@ -1,6 +1,6 @@
 {{#if loggedIn}}
-  <a href=/.auth/logout?post_logout_redirect_uri={{ originalURL }}>Log out</a>
+  <a class='nav-link user-nav' href=/.auth/logout?post_logout_redirect_uri={{ originalURL }}>Log out</a>
 {{else}}
-  <a href=/.auth/login/facebook?post_login_redirect_uri={{ originalURL }}>Log in</a>
+  <a class='nav-link user-nav' href=/.auth/login/facebook?post_login_redirect_uri={{ originalURL }}>Log in</a>
 {{/if}}
 
