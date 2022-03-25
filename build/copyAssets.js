@@ -23,7 +23,7 @@ export default async function copyAssets() {
   const octiconPath = `images/octicon-white.svg`
   await copy(path.join(designDir, octiconPath), path.join(publicDir, octiconPath))
 
-  const oxalisPath = `images/oxalis-color.svg`
+  const oxalisPath = `images/oxalis-white.svg`
   await copy(path.join(designDir, oxalisPath), path.join(publicDir, oxalisPath))
 
   // Copy fonts from design system
