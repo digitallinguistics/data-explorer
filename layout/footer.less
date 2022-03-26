@@ -1,10 +1,11 @@
+@import (reference) 'node_modules/@digitallinguistics/design/global/utilities.less';
+
+@footer-breakpoint: 35em;
+
 .footer {
 
-  align-items     : flex-end;
   background-color: var(--blue);
   color           : white;
-  flex-direction  : row;
-  justify-content : space-evenly;
   padding         : var(--space);
 
   &__gh-link {
@@ -13,30 +14,45 @@
 
   &__github {
     align-items: center;
+    display    : none;
   }
 
   &__nav {
-
     align-items: center;
+  }
 
-    h2 {
-      font-weight      : 500;
-      padding-block-end: 0.5em;
-    }
+  &__nav-header {
+    font-weight      : 500;
+    padding-block-end: 0.5em;
+  }
 
-    li {
-      padding: var(--text-padding);
-    }
+  &__nav-item {
+    padding: var(--text-padding);
+  }
 
-    ul {
-      flex-direction: row;
-    }
-
+  &__nav-list {
+    flex-direction: row;
   }
 
   &__octicon {
     block-size : 2em;
     inline-size: 2em;
+  }
+
+  &__octicon-text {
+    .visually-hidden;
+  }
+
+  @media (min-width: @footer-breakpoint) {
+
+    align-items    : flex-end;
+    flex-direction : row;
+    justify-content: space-evenly;
+
+    .footer__github {
+      display: flex;
+    }
+
   }
 
 }
