@@ -40,8 +40,8 @@
     "prepare-release": "node build/updateCitation.js",
     "start": "node index.js",
     "stop-only": "stop-only -f test",
-    "test": "npm run unit && server-test 3001 cypress-run",
-    "unit": "mocha"
+    "test": "npm run unit-tests && server-test 3001 cypress-run",
+    "unit-tests": "mocha"
   },
   "devDependencies": {
     "@digitallinguistics/design": "^0.7.0",
@@ -53,7 +53,6 @@
     "eslint-plugin-cypress": "^2.12.1",
     "flexbox-reset": "^4.0.0",
     "fs-extra": "^10.0.1",
-    "js-yaml": "^4.1.0",
     "less": "^4.1.2",
     "mocha": "^9.2.2",
     "nodemon": "^2.0.15",
@@ -68,6 +67,7 @@
     "express": "^5.0.0-beta.1",
     "express-handlebars": "^6.0.3",
     "handlebars": "^4.7.7",
-    "helmet": "^5.0.2"
+    "helmet": "^5.0.2",
+    "js-yaml": "^4.1.0"
   }
 }

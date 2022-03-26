@@ -84,7 +84,7 @@ This project uses the following developer tools:
 
 Oxalis has both unit and integration tests. Unit tests are written in [Chai] + [Mocha], and integration tests are written using [Cypress].
 
-- Unit tests are run with `npm run unit`.
+- Unit tests are run with `npm run unit-tests`.
 - Integration tests are run with `npm run cypress`. This will start a server and open the Cypress test runner.
 - All tests can be run with `npm test`.
 
