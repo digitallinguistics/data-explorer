@@ -1,6 +1,11 @@
 {
   "baseUrl"               : "http://localhost:3001",
   "downloadsFolder"       : "test/downloads",
+  "env": {
+    "msAuthCookie": "AppServiceAuthSession",
+    "msAuthHeader": "X-MS-CLIENT-PRINCIPAL-NAME",
+    "testUser"    : "test@digitallinguistics.io"
+  },
   "fixturesFolder"        : "test/fixtures",
   "integrationFolder"     : "pages",
   "pluginsFile"           : false,

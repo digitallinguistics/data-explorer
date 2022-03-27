@@ -1,7 +1,9 @@
 <main>
 
-  <h1>Languages</h1>
-
-  <p>Coming soon!</p>
+  <ul class=languages-list>
+    {{#each languages}}
+      <li>{{mls name defaultAnalysisLanguage}}</li>
+    {{/each}}
+  </ul>
 
 </main>
