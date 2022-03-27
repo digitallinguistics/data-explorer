@@ -15,4 +15,9 @@ describe(`404`, function() {
     })
   })
 
+  it(`has correct title`, function() {
+    cy.visit(`/unknown`, { failOnStatusCode: false })
+    cy.title().should('eq','Oxalis | 404')
+  })
+
 })
