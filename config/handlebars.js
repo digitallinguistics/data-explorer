@@ -16,16 +16,24 @@ function mls(string, language) {
   return getDefaultLanguage(string, language)
 }
 
+function section(name, opts) {
+  this.sections ??= {}
+  this.sections[name] = opts.fn(this)
+  return null
+}
+
 const hbs = new ExpressHandlebars({
   defaultLayout: `index`,
   extname:       `hbs`,
   helpers:       {
     mls,
+    section,
   },
   layoutsDir:    path.resolve(__dirname, `../layout`),
   partialsDir:   [
     path.resolve(__dirname, `../components`),
     path.resolve(__dirname, `../layout`),
+    path.resolve(__dirname, `../pages`),
   ],
 })
 
