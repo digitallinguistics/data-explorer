@@ -1,10 +1,17 @@
 @import 'node_modules/@digitallinguistics/design/components/NavList/NavList.less';
 @import 'node_modules/@digitallinguistics/design/components/PageTitle/PageTitle.less';
 
-.languages-page {
-  align-items: center;
-}
+@languages-page-breakpoint: 20em;
 
-.languages-list {
-  margin: var(--space);
+@media (min-width: @languages-page-breakpoint) {
+
+  .languages-page {
+    align-items: center;
+  }
+
+  .languages-list {
+    .nav-list.bordered;
+    margin: var(--space);
+  }
+
 }
