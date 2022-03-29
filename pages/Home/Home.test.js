@@ -5,4 +5,9 @@ describe(`Home`, function() {
     cy.contains(`h1`, `Oxalis`)
   })
 
+  it(`has correct title`, function() {
+    cy.visit(`/`)
+    cy.title().should('eq','Oxalis | Home')
+  })
+
 })
