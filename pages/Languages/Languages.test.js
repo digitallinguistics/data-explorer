@@ -1,5 +1,10 @@
 describe(`Languages`, function() {
 
+  it(`has correct title`, function() {
+    cy.visit(`/languages`)
+    cy.title().should(`eq`, `Oxalis | Languages`)
+  })
+
   describe(`Languages List`, function() {
 
     it(`when the user is not logged in, it only displays public languages`, function() {
