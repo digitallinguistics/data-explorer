@@ -1,3 +1,50 @@
-- id: 1
-- id: 2
-- id: 3
+- id:                      bc93d0ad-5afb-462b-b68c-13913124fd3e
+  type:                    Language
+  defaultAnalysisLanguage: eng
+  name:
+    eng: Ojibwe
+  permissions:
+    owners:  []
+    editors: []
+    viewers: []
+    public:  true
+- id:                      a6560b52-162e-40b2-8b56-f9f9ce1e808a
+  type:                    Language
+  defaultAnalysisLanguage: eng
+  name:
+    eng: Menominee
+  permissions:
+    owners:  [test@digitallinguistics.io]
+    editors: []
+    viewers: []
+    public:  false
+- id:                      9fd44608-43ab-48c8-a676-a480f6e7ce7c
+  type:                    Language
+  defaultAnalysisLanguage: eng
+  name:
+    eng: Potawatomi
+  permissions:
+    owners:  []
+    editors: [test@digitallinguistics.io]
+    viewers: []
+    public:  false
+- id:                      9737c8cb-7a97-4fda-bbdf-2c6d5528cea4
+  type:                    Language
+  defaultAnalysisLanguage: eng
+  name:
+    eng: Plains Cree
+  permissions:
+    owners:  []
+    editors: []
+    viewers: [test@digitallinguistics.io]
+    public:  false
+- id:                      cc4978f6-13a9-4735-94c5-10e4e8030437
+  type:                    Language
+  defaultAnalysisLanguage: eng
+  name:
+    eng: Chitimacha
+  permissions:
+    owners:  []
+    editors: []
+    viewers: []
+    public:  false
