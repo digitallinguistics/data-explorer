@@ -7,7 +7,10 @@ const __filename = fileURLToPath(import.meta.url)
 const __dirname  = path.dirname(__filename)
 
 const options = {
-  paths: [path.join(__dirname, `../layout`)],
+  paths: [
+    path.join(__dirname, `../layout`),
+    path.join(__dirname, `../node_modules/@digitallinguistics/design/components`),
+  ],
 }
 
 const minifier = new CleanCSS

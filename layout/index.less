@@ -1,22 +1,24 @@
-@globalPath: 'node_modules/@digitallinguistics/design/global';
-@designPath: 'node_modules/@digitallinguistics/design/components';
-
 // Globals
 @import 'node_modules/flexbox-reset/flexbox-reset.less';
-@import '@{globalPath}/colors.less';
-@import '@{globalPath}/spacing.less';
-@import '@{globalPath}/fonts.less';
-@import '@{globalPath}/typography.less';
-@import '@{globalPath}/utilities.less';
-@import '@{globalPath}/borders.less';
+@import 'node_modules/@digitallinguistics/design/global/colors.less';
+@import 'node_modules/@digitallinguistics/design/global/spacing.less';
+@import 'node_modules/@digitallinguistics/design/global/fonts.less';
+@import 'node_modules/@digitallinguistics/design/global/typography.less';
+@import 'node_modules/@digitallinguistics/design/global/utilities.less';
+@import 'node_modules/@digitallinguistics/design/global/borders.less';
 
 // DLx Components
-@import '@{designPath}/link/link.less';
+@import 'node_modules/@digitallinguistics/design/components/Link/Link.less';
 
 // Project-Specific Components
 @import 'footer.less';
 @import 'navbar.less';
 @import 'nav-link.less';
+
+:focus {
+  // focus styles should always have the highest z-index
+  z-index: 9999;
+}
 
 body {
   font-family: var(--font);

@@ -1,7 +1,15 @@
-<main>
+{{#section 'head'}}
+  {{> Languages/Languages-style }}
+{{/section}}
 
-  <h1>Languages</h1>
+<main class=languages-page>
 
-  <p>Coming soon!</p>
+  <h1 class=page-title>Languages</h1>
+
+  <ul class='languages-list nav-list'>
+    {{#each languages}}
+      <li>{{mls name defaultAnalysisLanguage}}</li>
+    {{/each}}
+  </ul>
 
 </main>
