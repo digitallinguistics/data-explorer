@@ -11,6 +11,7 @@ import locals                  from '../middleware/locals.js'
 import logger                  from '../middleware/logger.js'
 import path                    from 'path'
 import staticOptions           from '../middleware/static.js'
+import vary                    from '../middleware/vary.js'
 
 import { env, port } from '../config/app.js'
 
@@ -38,6 +39,7 @@ await addLocals(app.locals)
 
 // Middleware
 app.use(helmet)
+app.use(vary)
 app.use(express.static(path.join(__dirname, `../public`), staticOptions))
 app.use(cookieParser())
 app.use(auth)
