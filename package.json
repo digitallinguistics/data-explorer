@@ -45,6 +45,7 @@
   },
   "devDependencies": {
     "@digitallinguistics/design": "^0.11.0",
+    "@digitallinguistics/stylelint-config": "^0.1.0",
     "chai": "^4.3.6",
     "clean-css": "^5.2.4",
     "cypress": "^9.5.2",
@@ -60,6 +61,7 @@
     "readdirp": "^3.6.0",
     "start-server-and-test": "^1.14.0",
     "stop-only": "^3.1.2",
+    "stylelint": "^14.7.1",
     "svgstore": "^3.0.1"
   },
   "dependencies": {
