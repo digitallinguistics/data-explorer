@@ -1,5 +1,3 @@
-export default function get(req, res) {
-
+export default function get() {
   throw new Error(`Test server error`)
-
 }

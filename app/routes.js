@@ -9,7 +9,6 @@ export default function addRoutes(app) {
   if (env === `localhost`) {
     app.get(`/.auth/login/facebook`, auth.login)
     app.get(`/.auth/logout`, auth.logout)
-
     app.get(`/500-test`, handlers.ServerErrorTest)
   }
 
