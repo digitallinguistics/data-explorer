@@ -1,19 +1,24 @@
 import convertLESS       from './convertLESS.js'
 import { fileURLToPath } from 'url'
+import fs                from 'fs-extra'
 import path              from 'path'
 import recurse           from 'readdirp'
 
-import { readFile, writeFile } from 'fs/promises'
+const __filename = fileURLToPath(import.meta.url)
+const __dirname  = path.dirname(__filename)
+
+const { readFile, outputFile } = fs
 
 async function buildCSSPartial(lessPath) {
 
-  const less          = await readFile(lessPath, `utf8`)
-  const css           = await convertLESS(less)
-  const html          = `<style>${ css }</style>`
-  const { dir, name } = path.parse(lessPath)
-  const partialPath   = path.join(dir, `${ name }-styles.hbs`)
+  const less        = await readFile(lessPath, `utf8`)
+  const css         = await convertLESS(less)
+  const html        = `<style>${ css }</style>`
+  const { name }    = path.parse(lessPath)
+  const stylesDir   = path.join(__dirname, `../public/styles`)
+  const partialPath = path.join(stylesDir, `${ name }-styles.hbs`)
 
-  await writeFile(partialPath, html, `utf8`)
+  await outputFile(partialPath, html, `utf8`)
 
 }
 
@@ -21,9 +26,7 @@ export default async function buildCSS() {
 
   // Build CSS partial for main layout
 
-  const __filename        = fileURLToPath(import.meta.url)
-  const __dirname         = path.dirname(__filename)
-  const layoutLESSPath    = path.join(__dirname, `../layout/layout.less`)
+  const layoutLESSPath = path.join(__dirname, `../layout/layout.less`)
 
   await buildCSSPartial(layoutLESSPath)
 
