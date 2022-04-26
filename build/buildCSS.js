@@ -11,7 +11,7 @@ async function buildCSSPartial(lessPath) {
   const css           = await convertLESS(less)
   const html          = `<style>${ css }</style>`
   const { dir, name } = path.parse(lessPath)
-  const partialPath   = path.join(dir, `${ name }-style.hbs`)
+  const partialPath   = path.join(dir, `${ name }-styles.hbs`)
 
   await writeFile(partialPath, html, `utf8`)
 
@@ -23,7 +23,7 @@ export default async function buildCSS() {
 
   const __filename        = fileURLToPath(import.meta.url)
   const __dirname         = path.dirname(__filename)
-  const layoutLESSPath    = path.join(__dirname, `../layout/index.less`)
+  const layoutLESSPath    = path.join(__dirname, `../layout/layout.less`)
 
   await buildCSSPartial(layoutLESSPath)
 

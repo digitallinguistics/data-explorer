@@ -108,5 +108,6 @@ dist
 **/sprites.hbs
 **/style.hbs
 **/*-style.hbs
+**/*-styles.hbs
 nodemon.json
 public/

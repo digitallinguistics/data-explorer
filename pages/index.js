@@ -1,4 +1,5 @@
 import About           from './About/About.js'
+import Design          from './Design/Design.js'
 import Dictionaries    from './Dictionaries/Dictionaries.js'
 import Home            from './Home/Home.js'
 import Languages       from './Languages/Languages.js'
@@ -9,6 +10,7 @@ import ServerErrorTest from './500/500-test.js'
 
 export default {
   About,
+  Design,
   Dictionaries,
   Home,
   Languages,

@@ -23,7 +23,7 @@ function section(name, opts) {
 }
 
 const hbs = new ExpressHandlebars({
-  defaultLayout: `index`,
+  defaultLayout: `layout`,
   extname:       `hbs`,
   helpers:       {
     mls,

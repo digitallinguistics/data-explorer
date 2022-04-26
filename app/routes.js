@@ -10,6 +10,7 @@ export default function addRoutes(app) {
     app.get(`/.auth/login/facebook`, auth.login)
     app.get(`/.auth/logout`, auth.logout)
     app.get(`/500-test`, handlers.ServerErrorTest)
+    app.get(`/design`, handlers.Design)
   }
 
   app.get(`/about`, handlers.About)
