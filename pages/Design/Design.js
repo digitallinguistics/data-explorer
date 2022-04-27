@@ -1,9 +1,11 @@
 export default function get(req, res) {
 
-  const title = `Design`
+  const title         = `Design`
+  const { component } = req.params
 
   res.render(`Design/Design`, {
-    [title]: true,
+    [component]: true,
+    [title]:     true,
     title,
   })
 

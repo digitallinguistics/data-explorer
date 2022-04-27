@@ -33,6 +33,7 @@ const hbs = new ExpressHandlebars({
   partialsDir:   [
     path.resolve(__dirname, `../components`),
     path.resolve(__dirname, `../layout`),
+    path.resolve(__dirname, `../pages`),
     path.resolve(__dirname, `../public/styles`),
   ],
 })

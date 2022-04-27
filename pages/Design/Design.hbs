@@ -3,5 +3,33 @@
 {{/section}}
 
 <main id=main class=design-page>
+
   <h1 class=page-title>Design</h1>
+
+  <nav class=design-nav>
+    <h2 class=block-header>Components</h2>
+    <ol>
+      <li><a class=link href=/design/language-details>Language Details</a></li>
+      <li><a class=link href=/design/user>User</a></li>
+    </ol>
+  </nav>
+
+  <div class=wrapper>
+
+    {{#if user }}
+
+      <h3 class=section-header>Logged In</h3>
+      {{> user loggedIn=true }}
+
+      <h3 class=section-header>Logged Out</h3>
+      {{> user loggedIn=false }}
+
+    {{/if}}
+
+    {{#if language-details }}
+      {{> Languages/LanguageDetails }}
+    {{/if}}
+
+  </div>
+
 </main>
