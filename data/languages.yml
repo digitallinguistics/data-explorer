@@ -43,6 +43,8 @@
   defaultAnalysisLanguage: eng
   name:
     eng: Chitimacha
+    ctm: Sitimaxa
+    fra: Shetimacha
   permissions:
     owners:  []
     editors: []
