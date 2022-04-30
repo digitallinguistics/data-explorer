@@ -1,54 +1,68 @@
 <section class=language-details>
 
-  <header>
+  <header class=names>
 
-    <svg aria-hidden=true><use href=#text></svg>
+    <svg class=block-icon aria-hidden=true><use href=#text></svg>
 
-    <label>Scientific Name:</label>
-    <span>{ name }</span>
+    <label class=sci-name-label>Scientific Name</label>
+    {{> MultiLangString/MultiLangString name }}
 
-    <label>Autonym:</label>
-    <span>{ autonym }</span>
+    <label>Autonym</label>
+    {{> Transcription/Transcription autonym=autonym lang=iso }}
 
   </header>
 
   <div class=metadata>
 
-    <svg aria-hidden=true><use href=#time-past></svg>
+    <svg class=block-icon aria-hidden=true><use href=#time-past></svg>
 
-    <label>Date Created:</label>
-    <span>{ dateCreated }</span>
+    <dl class=def-list>
 
-    <label>Date Modified:</label>
-    <span>{ dateModified }</span>
+      <dt>Date Created:</dt>
+      <dd>{{date dateCreated }}</dd>
+
+      <dt>Date Modified:</dt>
+      <dd>{{date dateModified }}</dd>
+
+    </dl>
 
   </div>
 
   <div class=codes>
 
-    <svg aria-hidden=true><use href=#key></svg>
+    <svg class=block-icon aria-hidden=true><use href=#key></svg>
 
-    <label>Glottocode:</label>
-    <span>{ glottocode }</span>
+    <dl class=def-list>
 
-    <label>ISO 639-3 Code:</label>
-    <span>{ iso }</span>
+      <div>
+        <dt>Glottocode:</dt>
+        <dd>{{ glottocode }}</dd>
+      </div>
 
-    <label>Abbreviation:</label>
-    <span>{ abbreviation }</span>
+      <div>
+        <dt>ISO 639-3 Code:</dt>
+        <dd>{{ iso }}</dd>
+      </div>
+
+      <div>
+        <dt>Abbreviation:</dt>
+        <dd>{{ abbreviation }}</dd>
+      </div>
+
+    </dl>
 
   </div>
 
   <article class=description>
-    <svg aria-hidden=true><use href=#document></svg>
+    <svg class=block-icon aria-hidden=true><use href=#document></svg>
     <h3>Description</h3>
-    <div>
-      { description }
+    <div class=document>
+      {{{ description.html }}}
     </div>
   </article>
 
   <section class=notes>
-    <svg aria-hidden=true><use href=#edit></svg>
+    <svg class=block-icon aria-hidden=true><use href=#edit></svg>
     <h3>Notes</h3>
     <ul>{ Notes }</ul>
   </section>

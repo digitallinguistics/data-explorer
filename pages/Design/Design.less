@@ -1,6 +1,13 @@
+// Global Components
+
 @import 'BlockHeader/BlockHeader.less';
 @import 'MultiLangString/MultiLangString.less';
 @import 'SectionHeader/SectionHeader.less';
+@import 'Transcription/Transcription.less';
+
+// Page-Specific Components
+
+@import 'pages/Languages/LanguageDetails.less';
 
 .design-page {
 
@@ -11,18 +18,18 @@
   grid-template-rows   : max-content 1fr;
   grid-template-columns: max-content 1fr;
 
-  .block-header {
-    .block-header;
-    padding   : var(--text-padding);
-    text-align: center;
-  }
-
   .design-nav {
 
     grid-area: nav;
 
     a {
       padding: var(--text-padding);
+    }
+
+    .block-header {
+      .block-header;
+      padding: var(--text-padding);
+      text-align: center;
     }
 
   }

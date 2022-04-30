@@ -1,1 +1,125 @@
-.language-details {}
+.language-details {
+
+  --icon-margin: var(--space-xs);
+  --icon-size  : 1em;
+
+  display      : grid;
+  grid-template:
+    'names names metadata'
+    'codes codes codes'
+    'description description description'
+    'notes notes notes'
+    / 1fr 1fr 1fr;
+  max-inline-size: var(--measure);
+  row-gap        : var(--space);
+
+  > * {
+    margin-inline-start: calc(var(--icon-size) + (var(--icon-margin) * 2));
+  }
+
+  .block-icon {
+    block-size : var(--icon-size);
+    inline-size: var(--icon-size);
+    margin     : var(--icon-margin);
+    position   : absolute;
+    transform  : translateX(calc(-100% - (var(--icon-margin) * 2)));
+  }
+
+  .codes {
+
+    grid-area: codes;
+
+    dd {
+      font-family: var(--font-mono);
+    }
+
+    .def-list {
+      flex-direction : row;
+      justify-content: space-between;
+    }
+
+    div {
+      flex-direction: row;
+    }
+
+  }
+
+  .def-list {
+
+    dd {
+      padding: var(--text-padding-sm);
+    }
+
+    dt {
+      font-weight: bold;
+      padding    : var(--text-padding-sm);
+    }
+
+  }
+
+  .description {
+    grid-area: description;
+  }
+
+  .document {
+
+    display: block;
+
+    p {
+      padding: var(--text-padding);
+    }
+
+  }
+
+  h3 {
+    font-weight: bold;
+    padding    : var(--text-padding-sm);
+  }
+
+  label {
+    font-weight: bold;
+  }
+
+  .metadata {
+
+    grid-area: metadata;
+
+    .def-list {
+      display              : grid;
+      grid-template-columns: max-content max-content;
+    }
+
+  }
+
+  .mls {
+    font-size: larger;
+    padding  : var(--text-padding);
+  }
+
+  .names {
+
+    grid-area: names;
+
+    label {
+      padding: var(--text-padding);
+    }
+
+    svg {
+      margin-block: 0.75em;
+    }
+
+  }
+
+  .notes {
+    grid-area: notes;
+  }
+
+  .sci-name-label {
+    font-size: larger;
+  }
+
+  .txn {
+    padding: var(--text-padding);
+  }
+
+}

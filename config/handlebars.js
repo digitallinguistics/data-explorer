@@ -7,6 +7,14 @@ const __filename = fileURLToPath(import.meta.url)
 const __dirname  = path.dirname(__filename)
 
 /**
+ * Renders a Date object as a short date (YYYY-MM-DD).
+ * @param {Date} d A Date Object
+ */
+function date(d) {
+  return d.toLocaleDateString(`en-CA`)
+}
+
+/**
  * Renders the given analysis language for a MultiLangString.
  * @param {MultiLangString} string   The MultiLangString object to render.
  * @param {String}          language The language to render the MLS in.
@@ -26,6 +34,7 @@ const hbs = new ExpressHandlebars({
   defaultLayout: `layout`,
   extname:       `hbs`,
   helpers:       {
+    date,
     mls,
     section,
   },

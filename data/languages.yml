@@ -39,14 +39,31 @@
     viewers: [test@digitallinguistics.io]
     public:  false
 - id:                      cc4978f6-13a9-4735-94c5-10e4e8030437
-  type:                    Language
+  abbreviation:            chiti
+  dateCreated:             2020-01-01
+  dateModified:            2022-01-01
   defaultAnalysisLanguage: eng
+  glottocode:              chit1248
+  iso:                     ctm
+  type:                    Language
   name:
     eng: Chitimacha
     ctm: Sitimaxa
     fra: Shetimacha
+  autonym:
+    mod: Sitimaxa
+    swd: sitimaša
+    ipa: sitimaʃa
   permissions:
     owners:  []
     editors: []
     viewers: []
     public:  false
+  description:
+    html:     >
+      <p>Chitimacha is a language isolate spoken by the Chitimacha people of Louisiana, United States. Its last two fluent speakers died in 1934 and 1940, but today the Chitimacha Tribe of Louisiana is working to revitalize the language using documentary archival materials.</p>
+      <p>Documentation of the language exists from Martin Duralde (1802), Albert S. Gatschet (1881–1882), John R. Swanton (1907–1920), and Morris Swadesh (1930–1934), however little of this was ever published (see Swadesh [1946]).</p>
+    markdown: >
+      Chitimacha is a language isolate spoken by the Chitimacha people of Louisiana, United States. Its last two fluent speakers died in 1934 and 1940, but today the Chitimacha Tribe of Louisiana is working to revitalize the language using documentary archival materials.
+
+      Documentation of the language exists from Martin Duralde (1802), Albert S. Gatschet (1881–1882), John R. Swanton (1907–1920), and Morris Swadesh (1930–1934), however little of this was ever published (see Swadesh [1946]).
