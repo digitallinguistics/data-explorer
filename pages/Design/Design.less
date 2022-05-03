@@ -2,6 +2,8 @@
 
 @import 'BlockHeader/BlockHeader.less';
 @import 'MultiLangString/MultiLangString.less';
+@import 'Note/Note.less';
+@import 'Notes/Notes.less';
 @import 'SectionHeader/SectionHeader.less';
 @import 'Transcription/Transcription.less';
 
@@ -32,6 +34,11 @@
       text-align: center;
     }
 
+  }
+
+  .notes {
+    .notes.bordered;
+    min-inline-size: 20em;
   }
 
   .page-title {

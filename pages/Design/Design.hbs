@@ -11,6 +11,8 @@
     <ol>
       <li><a class=link href=/design/language-details>Language Details</a></li>
       <li><a class=link href=/design/multi-lang-string>MultiLangString</a></li>
+      <li><a class=link href=/design/note>Note</a></li>
+      <li><a class=link href=/design/notes>Notes</a></li>
       <li><a class=link href=/design/transcription>Transcription</a></li>
       <li><a class=link href=/design/user>User</a></li>
     </ol>
@@ -24,6 +26,14 @@
 
     {{#if multi-lang-string }}
       {{> MultiLangString/MultiLangString language.name }}
+    {{/if}}
+
+    {{#if note}}
+      {{> Note/Note language.notes.[0] }}
+    {{/if}}
+
+    {{#if notes}}
+      {{> Notes/Notes language.notes }}
     {{/if}}
 
     {{#if transcription}}
