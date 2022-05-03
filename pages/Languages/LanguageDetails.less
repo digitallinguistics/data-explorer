@@ -10,8 +10,9 @@
     'description description description'
     'notes notes notes'
     / 1fr 1fr 1fr;
-  max-inline-size: var(--measure);
-  row-gap        : var(--space);
+  max-inline-size  : var(--measure);
+  padding-block-end: var(--space);
+  row-gap          : var(--space);
 
   > * {
     margin-inline-start: calc(var(--icon-size) + (var(--icon-margin) * 2));
@@ -82,11 +83,17 @@
 
   .metadata {
 
-    grid-area: metadata;
+    align-items: flex-end;
+    grid-area  : metadata;
+    position   : relative;
 
     .def-list {
       display              : grid;
       grid-template-columns: max-content max-content;
+    }
+
+    svg {
+      margin-inline-end: 10.5em;
     }
 
   }
@@ -108,6 +115,10 @@
       margin-block: 0.75em;
     }
 
+  }
+
+  .notes__notes-container {
+    border-radius: 0 0 var(--border-radius) var(--border-radius);
   }
 
   .notes-container {
