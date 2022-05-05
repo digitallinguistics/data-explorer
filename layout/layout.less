@@ -20,6 +20,10 @@
 body {
   font-family: var(--font);
   line-height: 1.5;
+  @media (prefers-color-scheme: dark) {
+    background-color: var(--background-color-dark);
+    color: var(--text-color-dark);
+  }
 }
 
 main {

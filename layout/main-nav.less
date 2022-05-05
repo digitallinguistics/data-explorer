@@ -32,6 +32,11 @@
   ul {
     background-color: var(--blue);
     flex-direction  : row;
+
+    @media (prefers-color-scheme: dark) {
+      background-color: var(--blue-6);
+      color: var(--text-color-dark);
+    }
   }
 
   svg {
@@ -62,5 +67,7 @@
       display: none;
     }
   }
+
+
 
 }
