@@ -1,4 +1,5 @@
 @import (reference) 'global/utilities.less';
+@import (reference) 'components/Link/Link.less';
 
 .help-nav {
 
@@ -27,7 +28,9 @@
   .dropdown-content {
     background-color : white;
     border           : var(--border);
-    border-radius    : var(--border-radius);
+    // The larger border radius is necessary to match the border radius of the <li> inside this,
+    // even though the <li> has the same value for its border radius. 🤷🏼‍♂️
+    border-radius    : calc(var(--border-radius) + 0.25em);
     box-shadow       : var(--box-shadow);
     inset-block-start: 2.25em;
     inset-inline-end : var(--space-xs);
@@ -92,6 +95,22 @@
       padding: 0;
       .visually-hidden;
     }
+  }
+
+  @media (prefers-color-scheme: dark) {
+
+    a svg {
+      filter: invert(100%);
+    }
+
+    .dropdown-content {
+      background-color: var(--background-color-dark);
+    }
+
+    li:hover svg {
+      filter: none;
+    }
+
   }
 
 }
