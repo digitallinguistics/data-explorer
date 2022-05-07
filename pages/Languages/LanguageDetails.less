@@ -9,29 +9,13 @@
   gap        : var(--space);
 
   .block-icon {
-    block-size : var(--icon-size);
-    inline-size: var(--icon-size);
-    margin     : var(--icon-margin);
-    position   : absolute;
-    transform  : translateX(calc(-100% - (var(--icon-margin) * 2)));
+    display: none;
   }
 
   .codes {
-
-    grid-area: codes;
-
     dd {
       font-family: var(--font-mono);
     }
-
-    div {
-      flex-direction: row;
-    }
-
-    dt {
-      inline-size: 8em;
-    }
-
   }
 
   .def-list {
@@ -43,20 +27,6 @@
     dt {
       font-weight: bold;
       padding    : var(--text-padding-sm);
-    }
-
-  }
-
-  .description {
-    grid-area: description;
-  }
-
-  .document {
-
-    display: block;
-
-    p {
-      padding: var(--text-padding);
     }
 
   }
@@ -139,9 +109,28 @@
       margin-inline-start: calc(var(--icon-size) + (var(--icon-margin) * 2));
     }
 
-    .codes .def-list {
-      flex-direction : row;
-      justify-content: space-between;
+    .block-icon {
+      block-size : var(--icon-size);
+      display    : block;
+      inline-size: var(--icon-size);
+      margin     : var(--icon-margin);
+      position   : absolute;
+      transform  : translateX(calc(-100% - (var(--icon-margin) * 2)));
+    }
+
+    .codes {
+
+      grid-area: codes;
+
+      .def-list {
+        flex-direction : row;
+        justify-content: space-between;
+      }
+
+    }
+
+    .description {
+      grid-area: description;
     }
 
     .metadata {
