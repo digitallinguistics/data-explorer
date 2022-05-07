@@ -1,12 +1,13 @@
 .language-details {
 
-  @breakpoint: 25em;
+  @breakpoint: 45em; // should be the same as the Languages page breakpoint
 
   --icon-margin: var(--space-xs);
   --icon-size  : 1em;
 
-  align-items: stretch;
-  gap        : var(--space);
+  align-items     : stretch;
+  background-color: white;
+  gap             : var(--space);
 
   .block-icon {
     display: none;
@@ -50,37 +51,13 @@
     grid-template-columns: 1fr 1fr;
   }
 
-  .metadata {
-
-    position: relative;
-
-    svg {
-      margin-inline-end: 10.5em;
-    }
-
-  }
-
   .mls {
     font-size: larger;
     padding  : var(--text-padding);
   }
 
-  .names {
-
-    grid-area    : names;
-
-    svg {
-      margin-block: 0.75em;
-    }
-
-  }
-
   .notes__notes-container {
     border-radius: 0 0 var(--border-radius) var(--border-radius);
-  }
-
-  .notes-container {
-    grid-area: notes;
   }
 
   .sci-name-label {
@@ -89,6 +66,10 @@
 
   .txn {
     padding: var(--text-padding);
+  }
+
+  @media (prefers-color-scheme: dark) {
+    background-color: var(--background-color-dark);
   }
 
   // large screens
@@ -138,8 +119,18 @@
       grid-area  : metadata;
     }
 
-    .names label {
-      padding: var(--text-padding);
+    .names {
+
+      grid-area: names;
+
+      label {
+        padding: var(--text-padding);
+      }
+
+    }
+
+    .notes-container {
+      grid-area: notes;
     }
 
   }

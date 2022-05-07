@@ -10,23 +10,23 @@
   <ul>
 
     <li {{#if Home}}class=current{{/if}}>
-      <a class=nav-link {{#if Home}} href=# aria-current=page {{else}} href='/' {{/if}}>Home</a>
+      <a class=nav-link href='/' {{#if Home}} aria-current=page {{/if}}>Home</a>
     </li>
 
     <li {{#if Languages}}class=current{{/if}}>
-      <a class=nav-link {{#if Languages}} href=# aria-current=page {{else}} href=/languages {{/if}}>Languages</a>
+      <a class=nav-link href=/languages {{#if Languages}} aria-current=page {{/if}}>Languages</a>
     </li>
 
     <li {{#if Projects}}class=current{{/if}}>
-      <a class=nav-link {{#if Projects}} href=# aria-current=page {{else}} href=/projects {{/if}}>Projects</a>
+      <a class=nav-link href=/projects {{#if Projects}} aria-current=page {{/if}}>Projects</a>
     </li>
 
     <li {{#if Dictionaries}}class=current{{/if}}>
-      <a class=nav-link {{#if Dictionaries}} href=# aria-current=page {{else}} href=/dictionaries {{/if}}>Dictionaries</a>
+      <a class=nav-link href=/dictionaries {{#if Dictionaries}} aria-current=page {{/if}}>Dictionaries</a>
     </li>
 
     <li {{#if About}}class=current{{/if}}>
-      <a class=nav-link {{#if About}} href=# aria-current=page {{else}} href=/about {{/if}}>About</a>
+      <a class=nav-link href=/about {{#if About}} aria-current=page {{/if}}>About</a>
     </li>
 
   </ul>

@@ -1,4 +1,5 @@
 // Shared Components
+@import 'components/Markdown/Markdown.less';
 @import 'components/MultiLangString/MultiLangString.less';
 @import 'components/NavList/NavList.less';
 @import 'components/Note/Note.less';
@@ -8,36 +9,49 @@
 // Page-Specific Components
 @import 'pages/Languages/LanguageDetails.less';
 
-@nav-breakpoint: 20em;
+@breakpoint: 45em;
 
-.languages-list {
+.languages-page {
 
-  font-family: var(--font-unicode);
+  .language-details {
 
-  li {
-    padding: var(--text-padding-lg);
-  }
+    margin-block-start: var(--space);
+    order             : 1;
 
-  // large screens
-  @media (min-width: @nav-breakpoint) {
-
-    .nav-list.bordered;
-    margin: var(--space);
-
-    li {
-      padding: var(--text-padding);
+    &:empty {
+      display: none;
     }
 
   }
 
-}
+  .languages-list {
 
-.language-details {
+    order: 3;
 
-  margin: var(--space);
+    li {
+      padding    : var(--text-padding-lg);
+      font-family: var(--font-unicode);
+    }
 
-  &:empty {
-    display: none;
+  }
+
+  .page-title {
+    order: 2;
+  }
+
+  @media (min-width: @breakpoint) {
+
+    .languages-list {
+
+      .nav-list.bordered;
+      margin: var(--space);
+
+      li {
+        padding: var(--text-padding);
+      }
+
+    }
+
   }
 
 }
