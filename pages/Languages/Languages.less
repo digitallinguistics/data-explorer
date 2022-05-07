@@ -1,21 +1,44 @@
+// Shared Components
+@import 'components/MultiLangString/MultiLangString.less';
 @import 'components/NavList/NavList.less';
+@import 'components/Note/Note.less';
+@import 'components/Notes/Notes.less';
+@import 'components/Transcription/Transcription.less';
+
+// Page-Specific Components
 @import 'pages/Languages/LanguageDetails.less';
 
-@languages-page-breakpoint: 20em;
+@nav-breakpoint: 20em;
 
-@media (min-width: @languages-page-breakpoint) {
+.languages-list {
 
-  .languages-page {
-    align-items: center;
+  font-family: var(--font-unicode);
+
+  li {
+    padding: var(--text-padding-lg);
   }
 
-  .languages-list {
+  // large screens
+  @media (min-width: @nav-breakpoint) {
 
     .nav-list.bordered;
+    margin: var(--space);
 
-    font-family: var(--font-unicode);
-    margin     : var(--space);
+    li {
+      padding: var(--text-padding);
+    }
 
   }
 
 }
+
+.language-details {
+
+  margin: var(--space);
+
+  &:empty {
+    display: none;
+  }
+
+}
+

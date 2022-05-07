@@ -39,6 +39,19 @@ describe(`Languages`, function() {
 
     })
 
+    it.only(`clicking a language loads the Language page`, function() {
+
+      const ojibweID = `bc93d0ad-5afb-462b-b68c-13913124fd3e`
+
+      cy.visit(`/languages`)
+      cy.contains(`li`, `Ojibwe`)
+      .click()
+
+      cy.url()
+      .should(`eq`, `http://localhost:3001/languages/${ ojibweID }`)
+
+    })
+
   })
 
 })

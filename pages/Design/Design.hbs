@@ -14,7 +14,7 @@
       <li><a class=link href=/design/note>Note</a></li>
       <li><a class=link href=/design/notes>Notes</a></li>
       <li><a class=link href=/design/transcription>Transcription</a></li>
-      <li><a class=link href=/design/user>User</a></li>
+      <li><a class=link href=/design/user-component>User</a></li>
     </ol>
   </nav>
 
@@ -36,11 +36,11 @@
       {{> Notes/Notes language.notes }}
     {{/if}}
 
-    {{#if transcription}}
+    {{#if transcription }}
       {{> Transcription/Transcription autonym=language.autonym lang=language.iso }}
     {{/if}}
 
-    {{#if user }}
+    {{#if user-component }}
 
       <h3 class=section-header>Logged In</h3>
       {{> user loggedIn=true }}

@@ -1,22 +1,12 @@
 .language-details {
 
+  @breakpoint: 25em;
+
   --icon-margin: var(--space-xs);
   --icon-size  : 1em;
 
-  display      : grid;
-  grid-template:
-    'names names metadata'
-    'codes codes codes'
-    'description description description'
-    'notes notes notes'
-    / 1fr 1fr 1fr;
-  max-inline-size  : var(--measure);
-  padding-block-end: var(--space);
-  row-gap          : var(--space);
-
-  > * {
-    margin-inline-start: calc(var(--icon-size) + (var(--icon-margin) * 2));
-  }
+  align-items: stretch;
+  gap        : var(--space);
 
   .block-icon {
     block-size : var(--icon-size);
@@ -34,13 +24,12 @@
       font-family: var(--font-mono);
     }
 
-    .def-list {
-      flex-direction : row;
-      justify-content: space-between;
-    }
-
     div {
       flex-direction: row;
+    }
+
+    dt {
+      inline-size: 8em;
     }
 
   }
@@ -79,18 +68,21 @@
 
   label {
     font-weight: bold;
+    padding    : var(--text-padding-sm);
+  }
+
+  :is(.codes, .description, .metadata, .names) {
+    margin-inline: var(--space-xs);
+  }
+
+  :is(.codes, .metadata) .def-list {
+    display              : grid;
+    grid-template-columns: 1fr 1fr;
   }
 
   .metadata {
 
-    align-items: flex-end;
-    grid-area  : metadata;
-    position   : relative;
-
-    .def-list {
-      display              : grid;
-      grid-template-columns: max-content max-content;
-    }
+    position: relative;
 
     svg {
       margin-inline-end: 10.5em;
@@ -105,11 +97,7 @@
 
   .names {
 
-    grid-area: names;
-
-    label {
-      padding: var(--text-padding);
-    }
+    grid-area    : names;
 
     svg {
       margin-block: 0.75em;
@@ -131,6 +119,40 @@
 
   .txn {
     padding: var(--text-padding);
+  }
+
+  // large screens
+  @media (min-width: @breakpoint) {
+
+    display: grid;
+    grid-template:
+      'names names metadata'
+      'codes codes codes'
+      'description description description'
+      'notes notes notes'
+      / 1fr 1fr 1fr;
+    max-inline-size  : var(--measure);
+    padding-block-end: var(--space);
+    row-gap          : var(--space);
+
+    > * {
+      margin-inline-start: calc(var(--icon-size) + (var(--icon-margin) * 2));
+    }
+
+    .codes .def-list {
+      flex-direction : row;
+      justify-content: space-between;
+    }
+
+    .metadata {
+      align-items: flex-end;
+      grid-area  : metadata;
+    }
+
+    .names label {
+      padding: var(--text-padding);
+    }
+
   }
 
 }

@@ -1,5 +1,7 @@
 - id:                      bc93d0ad-5afb-462b-b68c-13913124fd3e
   type:                    Language
+  dateCreated:             2020-01-01
+  dateModified:            2022-01-01
   defaultAnalysisLanguage: eng
   name:
     eng: Ojibwe
@@ -33,6 +35,16 @@
   defaultAnalysisLanguage: eng
   name:
     eng: Plains Cree
+  permissions:
+    owners:  []
+    editors: []
+    viewers: [test@digitallinguistics.io]
+    public:  false
+- id:                      6dc1ea50-6590-4d81-a34b-4562455a5cdd
+  type:                    Language
+  defaultAnalysisLanguage: eng
+  name:
+    eng: Meskwaki
   permissions:
     owners:  []
     editors: []
@@ -75,4 +87,4 @@
     owners:  []
     editors: []
     viewers: []
-    public:  false
+    public:  true
