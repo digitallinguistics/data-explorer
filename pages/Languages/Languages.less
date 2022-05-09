@@ -40,20 +40,23 @@
   // large screens
   @media (min-width: @breakpoint) {
 
-    align-content : flex-start;
-    align-items   : flex-start;
-    flex-direction: row;
-    flex-wrap     : wrap;
+    align-items        : start;
+    display            : grid;
+    grid-template-areas:
+      'header header'
+      'list details';
+    grid-template-columns: max-content auto;
 
     .language-details {
-      margin-inline : auto;
+      grid-area   : details;
+      justify-self: center;
     }
 
     .languages-list {
 
       .nav-list.bordered;
-      margin     : var(--space);
-      inline-size: fit-content;
+      grid-area: list;
+      margin   : var(--space);
 
       li {
         padding: var(--text-padding);
@@ -62,7 +65,7 @@
     }
 
     .page-title {
-      inline-size: 100%;
+      grid-area: header;
     }
 
   }
