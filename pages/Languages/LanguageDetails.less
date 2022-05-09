@@ -75,24 +75,21 @@
   // large screens
   @media (min-width: @breakpoint) {
 
-    display: grid;
+    display      : grid;
     grid-template:
       'names names metadata'
       'codes codes codes'
       'description description description'
       'notes notes notes'
       / 1fr 1fr 1fr;
-    max-inline-size  : var(--measure);
+    inline-size      : var(--measure);
     padding-block-end: var(--space);
     row-gap          : var(--space);
 
-    > * {
-      margin-inline-start: calc(var(--icon-size) + (var(--icon-margin) * 2));
-    }
-
     .block-icon {
       block-size : var(--icon-size);
-      display    : block;
+      // display    : block;
+      display    : none;
       inline-size: var(--icon-size);
       margin     : var(--icon-margin);
       position   : absolute;
@@ -104,8 +101,7 @@
       grid-area: codes;
 
       .def-list {
-        flex-direction : row;
-        justify-content: space-between;
+        grid-template-columns: repeat(3, 1fr 1fr);
       }
 
     }
@@ -115,8 +111,13 @@
     }
 
     .metadata {
-      align-items: flex-end;
-      grid-area  : metadata;
+
+      grid-area: metadata;
+
+      .def-list {
+        grid-template-columns: 1fr auto;
+      }
+
     }
 
     .names {
