@@ -16,8 +16,8 @@
       <h3 class=notes__title>Notes</h3>
     </header>
 
-    <ul class=notes__notes-container>
-      {{#each this as |note|}}
+    <ul class=notes__notes-container>{{!-- comments avoid whitespace so that the :empty selector works
+      --}}{{#each this as |note|}}
         <li class=note-item>
           <button class=note-button aria-label='Show note' type=button>
             <svg>
@@ -26,7 +26,7 @@
           </button>
           {{> Note/Note note }}
         </li>
-      {{/each}}
-    </ul>
+      {{/each}}{{!--
+    --}}</ul>
 
 </section>
