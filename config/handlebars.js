@@ -11,7 +11,7 @@ const __dirname  = path.dirname(__filename)
  * @param {Date} d A Date Object
  */
 function date(d) {
-  return d.toLocaleDateString(`en-CA`)
+  return new Date(d).toLocaleDateString(`en-CA`)
 }
 
 /**

@@ -7,6 +7,8 @@ export default async function get(req, res) {
   const { languageID } = req.params
   const language       = languages.find(lang => lang.id === languageID)
 
+  if (language) language.current = true
+
   res.render(`Languages/Languages`, {
     language,
     languages,

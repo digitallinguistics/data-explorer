@@ -22,7 +22,8 @@ export default class Database {
   }
 
   async getLanguages(user) {
-    return this.languages
+
+    const results = this.languages
     .filter(lang => lang.permissions.public
       || lang.permissions.owners.includes(user)
       || lang.permissions.editors.includes(user)
@@ -31,6 +32,13 @@ export default class Database {
       getDefaultLanguage(a.name, a.defaultAnalysisLanguage),
       getDefaultLanguage(b.name, b.defaultAnalysisLanguage),
     ))
+
+    // Always return a duplicate of the data
+    // so that the original data aren't modified.
+    // Cannot use `structuredClone()` yet
+    // because it's only supported in Node v17.
+    return JSON.parse(JSON.stringify(results))
+
   }
 
 }
