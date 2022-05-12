@@ -11,13 +11,36 @@
     <ol>
       <li><a class=link href=/design/language-details>Language Details</a></li>
       <li><a class=link href=/design/multi-lang-string>MultiLangString</a></li>
-      <li><a class=link href=/design/user>User</a></li>
+      <li><a class=link href=/design/note>Note</a></li>
+      <li><a class=link href=/design/notes>Notes</a></li>
+      <li><a class=link href=/design/transcription>Transcription</a></li>
+      <li><a class=link href=/design/user-component>User</a></li>
     </ol>
   </nav>
 
   <div class=wrapper>
 
-    {{#if user }}
+    {{#if language-details }}
+      {{> Languages/LanguageDetails language }}
+    {{/if}}
+
+    {{#if multi-lang-string }}
+      {{> MultiLangString/MultiLangString language.name }}
+    {{/if}}
+
+    {{#if note}}
+      {{> Note/Note language.notes.[0] }}
+    {{/if}}
+
+    {{#if notes}}
+      {{> Notes/Notes language.notes }}
+    {{/if}}
+
+    {{#if transcription }}
+      {{> Transcription/Transcription autonym=language.autonym lang=language.iso }}
+    {{/if}}
+
+    {{#if user-component }}
 
       <h3 class=section-header>Logged In</h3>
       {{> user loggedIn=true }}
@@ -25,14 +48,6 @@
       <h3 class=section-header>Logged Out</h3>
       {{> user loggedIn=false }}
 
-    {{/if}}
-
-    {{#if multi-lang-string }}
-      {{> MultiLangString/MultiLangString language.name }}
-    {{/if}}
-
-    {{#if language-details }}
-      {{> Languages/LanguageDetails language }}
     {{/if}}
 
   </div>

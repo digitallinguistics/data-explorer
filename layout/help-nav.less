@@ -107,8 +107,16 @@
       background-color: var(--background-color-dark);
     }
 
-    li:hover svg {
-      filter: none;
+    li:hover {
+
+      .link::after {
+        filter: invert(100%);
+      }
+
+      svg {
+        filter: none;
+      }
+
     }
 
   }

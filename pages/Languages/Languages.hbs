@@ -8,8 +8,14 @@
 
   <ul class='languages-list nav-list'>
     {{#each languages}}
-      <li>{{mls name defaultAnalysisLanguage}}</li>
+      <li {{#if current}} class=current {{/if}}><a href=/languages/{{ id }}>{{mls name defaultAnalysisLanguage }}</a></li>
     {{/each}}
   </ul>
+
+  {{#if language}}
+    {{> Languages/LanguageDetails language }}
+  {{else}}
+    <section class=language-details></section>
+  {{/if}}
 
 </main>
