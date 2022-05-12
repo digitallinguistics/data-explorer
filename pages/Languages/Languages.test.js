@@ -11,9 +11,11 @@ describe(`Languages`, function() {
       cy.visit(`/languages`)
       cy.get(`.languages-list`)
       .children()
-      .should(`have.length`, 1)
-      .first()
-      .should(`have.text`, `Ojibwe`)
+      .should(`have.length`, 2)
+      .then(([first, second]) => {
+        expect(first).to.contain(`Chitimacha`)
+        expect(second).to.contain(`Ojibwe`)
+      })
     })
 
     it(`when the user is logged in, it displays languages that are public or that they own, edit, or view`, function() {
@@ -29,17 +31,19 @@ describe(`Languages`, function() {
 
       cy.get(`.languages-list`)
       .children()
-      .should(`have.length`, 4)
-      .spread((a, b, c, d) => {
-        expect(a).to.have.text(`Menominee`)
-        expect(b).to.have.text(`Ojibwe`)
-        expect(c).to.have.text(`Plains Cree`)
-        expect(d).to.have.text(`Potawatomi`)
+      .should(`have.length`, 6)
+      .spread((a, b, c, d, e, f) => {
+        expect(a).to.have.text(`Chitimacha`)
+        expect(b).to.have.text(`Menominee`)
+        expect(c).to.have.text(`Meskwaki`)
+        expect(d).to.have.text(`Ojibwe`)
+        expect(e).to.have.text(`Plains Cree`)
+        expect(f).to.have.text(`Potawatomi`)
       })
 
     })
 
-    it.only(`clicking a language loads the Language page`, function() {
+    it(`clicking a language loads the Language page`, function() {
 
       const ojibweID = `bc93d0ad-5afb-462b-b68c-13913124fd3e`
 

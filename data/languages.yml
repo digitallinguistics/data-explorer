@@ -88,3 +88,15 @@
     editors: []
     viewers: []
     public:  true
+- id:                      bc93d0ad-5afb-462b-b68c-13913124fd3e
+  type:                    Language
+  dateCreated:             2020-01-01
+  dateModified:            2022-01-01
+  defaultAnalysisLanguage: eng
+  name:
+    eng: Blackfoot
+  permissions:
+    owners:  []
+    editors: []
+    viewers: []
+    public:  false
