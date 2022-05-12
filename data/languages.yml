@@ -1,7 +1,7 @@
 - id:                      bc93d0ad-5afb-462b-b68c-13913124fd3e
   type:                    Language
-  dateCreated:             2020-01-01
-  dateModified:            2022-01-01
+  dateCreated:             2020-01-01T00:00:00.000Z
+  dateModified:            2022-01-01T00:00:00.000Z
   defaultAnalysisLanguage: eng
   name:
     eng: Ojibwe
@@ -52,8 +52,8 @@
     public:  false
 - id:                      cc4978f6-13a9-4735-94c5-10e4e8030437
   abbreviation:            chiti
-  dateCreated:             2020-01-01
-  dateModified:            2022-01-01
+  dateCreated:             2020-01-01T00:00:00.000Z
+  dateModified:            2022-01-01T00:00:00.000Z
   defaultAnalysisLanguage: eng
   glottocode:              chit1248
   iso:                     ctm
@@ -75,12 +75,12 @@
     ctm: Sitimaxa
     fra: Shetimacha
   notes:
-    - dateCreated:  2020-01-01
-      dateModified: 2022-01-01
+    - dateCreated:  2020-01-01T00:00:00.000Z
+      dateModified: 2022-01-01T00:00:00.000Z
       source:       DWH
       text:         It's unclear whether the Washa and Chawasha people also spoke Chitimacha.
-    - dateCreated:  2020-01-01
-      dateModified: 2020-01-01
+    - dateCreated:  2020-01-01T00:00:00.000Z
+      dateModified: 2020-01-01T00:00:00.000Z
       source:       KW
       text:         The tribe prefers to use the term "sleeping" or "dormant" rather than "extinct".
   permissions:
@@ -90,8 +90,8 @@
     public:  true
 - id:                      bc93d0ad-5afb-462b-b68c-13913124fd3e
   type:                    Language
-  dateCreated:             2020-01-01
-  dateModified:            2022-01-01
+  dateCreated:             2020-01-01T00:00:00.000Z
+  dateModified:            2022-01-01T00:00:00.000Z
   defaultAnalysisLanguage: eng
   name:
     eng: Blackfoot

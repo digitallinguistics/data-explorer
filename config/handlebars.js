@@ -25,8 +25,8 @@ function mls(string, language) {
 }
 
 function section(name, opts) {
-  this.sections ??= {}
-  this.sections[name] = opts.fn(this)
+  this.sections       ??= {}
+  this.sections[name]   = opts.fn(this)
   return null
 }
 
