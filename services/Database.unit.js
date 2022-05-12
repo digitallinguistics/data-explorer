@@ -12,14 +12,14 @@ describe(`Database`, function() {
     const db = new Database
     await db.initialize()
     const result = await db.getLanguages()
-    expect(result).to.have.length(1)
+    expect(result).to.have.length(2)
   })
 
   it(`getLanguages`, async function() {
     const db = new Database
     await db.initialize()
     const result = await db.getLanguages(`test@digitallinguistics.io`)
-    expect(result).to.have.length(4)
+    expect(result).to.have.length(6)
   })
 
 })
