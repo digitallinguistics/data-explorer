@@ -7,12 +7,17 @@
 
     align-items   : center;
     display       : flex;
+    font-weight   : normal;
     flex-direction: row;
 
     &::after {
       // The !important declaration here is necessary to override the very high specificity
       // of the external link selector within the .link class.
       position: relative !important;
+    }
+
+    &:hover {
+      text-decoration-thickness: revert;
     }
 
     svg {
