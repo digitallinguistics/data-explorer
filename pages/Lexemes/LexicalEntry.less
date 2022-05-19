@@ -1,0 +1,23 @@
+.lexical-entry {
+
+  @breakpoint: 45em;
+
+  max-inline-size: var(--measure);
+
+  .tab-link {
+    padding: var(--text-padding-lg);
+  }
+
+  @media (min-width: @breakpoint) {
+
+    .tab-link {
+      padding: var(--text-padding-lg);
+    }
+
+    .tabs {
+      flex-direction: row;
+    }
+
+  }
+
+}
