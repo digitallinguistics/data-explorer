@@ -36,6 +36,12 @@ export default async function copyAssets() {
 
   // Copy project-specific assets
 
-  await copy(assetsDir, publicDir)
+  function filter(fullPath) {
+    if (fullPath.includes(`favicon`)) return true
+    if (fullPath.endsWith(`.svg`)) return false
+    return true
+  }
+
+  await copy(assetsDir, publicDir, { filter })
 
 }
