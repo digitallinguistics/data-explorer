@@ -11,7 +11,7 @@ const pagesDir   = path.join(__dirname, `../pages`)
 
 const config = {
   bundle:      true,
-  entryPoints: [path.join(pagesDir, `Lexemes/Lexemes.js`)],
+  entryPoints: [path.join(pagesDir, `Lexemes/Lexemes-client.js`)],
   format:      `esm`,
   minify:      env === `production`,
   outdir:      path.join(__dirname, `../public/scripts`),
@@ -19,6 +19,9 @@ const config = {
   sourcemap:   env === `production` ? true : `inline`,
 }
 
+async function renameFiles() {}
+
 export default async function buildJS() {
   await build(config)
+  await renameFiles()
 }
