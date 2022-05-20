@@ -2,22 +2,39 @@
 
   @breakpoint: 45em;
 
+  --selected-width: 0.25em;
+
+  inline-size    : 100%;
   max-inline-size: var(--measure);
 
+  .panel:not(:target) {
+    display: none;
+  }
+
+  .selected {
+    border-bottom: var(--selected-width) solid var(--cyan);
+  }
+
+  .tab:hover {
+    background-color: var(--cyan-1);
+  }
+
   .tab-link {
-    padding: var(--text-padding-lg);
+    padding  : var(--text-padding-lg);
+    transform: translateY(var(--border-width));
   }
 
-  @media (min-width: @breakpoint) {
-
-    .tab-link {
-      padding: var(--text-padding-lg);
-    }
-
-    .tabs {
-      flex-direction: row;
-    }
-
+  .tab-link:not(.selected) {
+    border-bottom: var(--selected-width) solid transparent;
   }
+
+  .tabs {
+    border-bottom : var(--border);
+    flex-direction: row;
+    inline-size   : 100%;
+  }
+
+  // large screens
+  @media (min-width: @breakpoint) {}
 
 }
