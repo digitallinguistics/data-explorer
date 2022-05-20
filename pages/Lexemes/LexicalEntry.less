@@ -7,12 +7,12 @@
   inline-size    : 100%;
   max-inline-size: var(--measure);
 
-  .panel:not(:target) {
-    display: none;
+  [aria-selected] {
+    border-bottom: var(--selected-width) solid var(--cyan);
   }
 
-  .selected {
-    border-bottom: var(--selected-width) solid var(--cyan);
+  .panel:not(:target) {
+    display: none;
   }
 
   .tab:hover {
@@ -24,7 +24,7 @@
     transform: translateY(var(--border-width));
   }
 
-  .tab-link:not(.selected) {
+  .tab-link:not([aria-selected]) {
     border-bottom: var(--selected-width) solid transparent;
   }
 
