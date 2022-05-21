@@ -3,6 +3,7 @@
   dateCreated:             2020-01-01T00:00:00.000Z
   dateModified:            2022-01-01T00:00:00.000Z
   defaultAnalysisLanguage: eng
+  defaultOrthography:      default
   name:
     eng: Ojibwe
   permissions:
@@ -13,6 +14,7 @@
 - id:                      a6560b52-162e-40b2-8b56-f9f9ce1e808a
   type:                    Language
   defaultAnalysisLanguage: eng
+  defaultOrthography:      default
   name:
     eng: Menominee
   permissions:
@@ -23,6 +25,7 @@
 - id:                      9fd44608-43ab-48c8-a676-a480f6e7ce7c
   type:                    Language
   defaultAnalysisLanguage: eng
+  defaultOrthography:      default
   name:
     eng: Potawatomi
   permissions:
@@ -33,6 +36,7 @@
 - id:                      9737c8cb-7a97-4fda-bbdf-2c6d5528cea4
   type:                    Language
   defaultAnalysisLanguage: eng
+  defaultOrthography:      default
   name:
     eng: Plains Cree
   permissions:
@@ -43,6 +47,7 @@
 - id:                      6dc1ea50-6590-4d81-a34b-4562455a5cdd
   type:                    Language
   defaultAnalysisLanguage: eng
+  defaultOrthography:      default
   name:
     eng: Meskwaki
   permissions:
@@ -55,6 +60,7 @@
   dateCreated:             2020-01-01T00:00:00.000Z
   dateModified:            2022-01-01T00:00:00.000Z
   defaultAnalysisLanguage: eng
+  defaultOrthography:      mod
   glottocode:              chit1248
   iso:                     ctm
   type:                    Language
@@ -93,6 +99,7 @@
   dateCreated:             2020-01-01T00:00:00.000Z
   dateModified:            2022-01-01T00:00:00.000Z
   defaultAnalysisLanguage: eng
+  defaultOrthography:      default
   name:
     eng: Blackfoot
   permissions:

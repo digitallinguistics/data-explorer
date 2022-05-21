@@ -1,7 +1,9 @@
 import { ExpressHandlebars } from 'express-handlebars'
 import { fileURLToPath }     from 'url'
 import getDefaultLanguage    from '../utilities/getDefaultLanguage.js'
+import getDefaultOrthography from '../utilities/getDefaultOrthography.js'
 import path                  from 'path'
+import prepareTranscription  from '../utilities/prepareTranscription.js'
 
 const __filename = fileURLToPath(import.meta.url)
 const __dirname  = path.dirname(__filename)
@@ -16,18 +18,29 @@ function date(d) {
 
 /**
  * Renders the given analysis language for a MultiLangString.
- * @param {MultiLangString} string   The MultiLangString object to render.
- * @param {String}          language The language to render the MLS in.
- * @returns
+ * @param   {MultiLangString} data The MultiLangString object to render.
+ * @param   {String}          lang The language to render the MLS in.
+ * @returns {String}
  */
-function mls(string, language) {
-  return getDefaultLanguage(string, language)
+function mls(data, lang) {
+  return getDefaultLanguage(data, lang)
 }
 
 function section(name, opts) {
   this.sections       ??= {}
   this.sections[name]   = opts.fn(this)
   return null
+}
+
+/**
+ * Renders the given orthography for a Transcription.
+ * @param   {Transcription} data  The Transcription object to render.
+ * @param   {String}        ortho The orthography to render the Transcription in.
+ * @returns {String}
+ */
+function txn(data, ortho) {
+  if (typeof data === `string`) return prepareTranscription(data)
+  return prepareTranscription(getDefaultOrthography(data, ortho))
 }
 
 const hbs = new ExpressHandlebars({
@@ -37,6 +50,7 @@ const hbs = new ExpressHandlebars({
     date,
     mls,
     section,
+    txn,
   },
   layoutsDir:    path.resolve(__dirname, `../layout`),
   partialsDir:   [

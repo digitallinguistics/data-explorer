@@ -1,3 +1,3 @@
 export default function getDefaultLanguage(mls, lang) {
-  return mls[lang] ?? Object.entries(mls)[0]
+  return typeof mls === `string` ? mls : mls[lang] ?? Object.values(mls)[0] ?? mls.eng ?? mls.en
 }

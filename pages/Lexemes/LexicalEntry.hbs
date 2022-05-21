@@ -1,6 +1,13 @@
 <section class=lexical-entry>
 
-  <h1>{lemma} {gloss}</h1>
+  <header>
+    <h1 class=page-title>{{txn lexeme.lemma language.defaultOrthography }}</h1>
+    <ol class=numbered>
+      {{#each lexeme.senses as |sense|}}
+        <li class=txn>{{mls sense.gloss }}</li>
+      {{/each}}
+    </ol>
+  </header>
 
   <nav>
     <ul class=tabs role=tablist>

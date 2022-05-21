@@ -8,7 +8,10 @@ function setCurrentTab(ev) {
     link.removeAttribute(`aria-selected`)
   }
 
-  ev.target.setAttribute(`aria-selected`, true)
+  const li = ev.target.closest(`li`)
+  const a  = li.firstChild
+
+  a.setAttribute(`aria-selected`, true)
 
 }
 

@@ -1,6 +1,6 @@
 <dl class=txn>
-  {{#each autonym as |value| }}
+  {{#each txn as |value| }}
     <dt>{{ @key }}</dt>
-    <dd lang='{{ ../lang }}'>{{ value }}</dd>
+    <dd lang='{{ ../lang }}'>{{txn value }}</dd>
   {{/each}}
 </dl>
