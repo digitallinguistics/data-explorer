@@ -44,20 +44,22 @@
     "unit-tests": "mocha"
   },
   "devDependencies": {
-    "@digitallinguistics/design": "^0.17.0",
-    "@digitallinguistics/stylelint-config": "^0.1.0",
+    "@digitallinguistics/design": "^0.17.2",
+    "@digitallinguistics/stylelint-config": "^0.1.2",
+    "@digitallinguistics/styles": "^2.0.3",
     "browserslist": "^4.20.3",
     "chai": "^4.3.6",
     "clean-css": "^5.3.0",
-    "cypress": "^9.6.1",
+    "cypress": "^9.7.0",
     "esbuild": "^0.14.39",
     "esbuild-plugin-browserslist": "^0.4.9",
-    "eslint": "^8.15.0",
+    "eslint": "^8.16.0",
     "eslint-plugin-chai-friendly": "^0.7.2",
     "eslint-plugin-cypress": "^2.12.1",
-    "express-handlebars": "^6.0.5",
+    "express-handlebars": "^6.0.6",
     "flexbox-reset": "^4.0.0",
     "fs-extra": "^10.1.0",
+    "helmet": "^5.1.0",
     "less": "^4.1.2",
     "mocha": "^10.0.0",
     "nodemon": "^2.0.16",
@@ -65,14 +67,13 @@
     "readdirp": "^3.6.0",
     "start-server-and-test": "^1.14.0",
     "stop-only": "^3.1.2",
-    "stylelint": "^14.8.2",
+    "stylelint": "^14.8.3",
     "svgstore": "^3.0.1"
   },
   "dependencies": {
     "cookie-parser": "^1.4.6",
     "express": "^5.0.0-beta.1",
     "handlebars": "^4.7.7",
-    "helmet": "^5.0.2",
     "js-yaml": "^4.1.0",
     "vary": "^1.1.2"
   }
