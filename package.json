@@ -44,7 +44,7 @@
     "unit-tests": "mocha"
   },
   "devDependencies": {
-    "@digitallinguistics/design": "^0.16.5",
+    "@digitallinguistics/design": "^0.17.0",
     "@digitallinguistics/stylelint-config": "^0.1.0",
     "browserslist": "^4.20.3",
     "chai": "^4.3.6",
