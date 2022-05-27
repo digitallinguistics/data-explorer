@@ -1,0 +1,56 @@
+@import 'Label/Label.less';
+@import 'Numbered/Numbered.less';
+@import 'Translation/Translation.less';
+@import 'Transcription/Transcription.less';
+
+.lexical-entry {
+
+  @breakpoint: 45em;
+
+  --selected-width: 0.25em;
+
+  inline-size    : 100%;
+  max-inline-size: var(--measure);
+
+  [aria-selected] {
+    border-bottom: var(--selected-width) solid var(--cyan);
+  }
+
+  .label {
+    padding: var(--text-padding);
+  }
+
+  .page-title {
+    align-self    : flex-start;
+    font-family   : var(--font-unicode);
+    padding-inline: 0;
+    text-align    : left;
+  }
+
+  .panel:not(:target) {
+    display: none;
+  }
+
+  .tab:hover {
+    background-color: var(--cyan-1);
+  }
+
+  .tab-link {
+    padding: var(--text-padding-lg);
+  }
+
+  .tabs {
+    border-bottom : var(--border);
+    flex-direction: row;
+    font-size     : large;
+    inline-size   : 100%;
+  }
+
+  .txn {
+    padding: var(--text-padding);
+  }
+
+  // large screens
+  @media (min-width: @breakpoint) {}
+
+}

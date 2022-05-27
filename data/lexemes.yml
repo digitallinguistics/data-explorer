@@ -1,0 +1,12 @@
+- id:           abc56564-5754-4698-845c-2ea32a760bbd
+  type:         Lexeme
+  dateCreated:  2020-01-01T00:00:00.000Z
+  dateModified: 2022-01-01T00:00:00.000Z
+  language:     cc4978f6-13a9-4735-94c5-10e4e8030437
+  lemma:
+    mod: cuw-
+    swd: čuw-
+    ipa: t͡ʃuw-
+  senses:
+    - gloss: go
+    - gloss: walk

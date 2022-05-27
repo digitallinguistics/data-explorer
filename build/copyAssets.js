@@ -21,10 +21,10 @@ export default async function copyAssets() {
   // Copy images from design system
 
   const octiconPath = `images/octicon.svg`
-  await copy(path.join(designDir, octiconPath), path.join(publicDir, octiconPath))
+  await copy(path.join(designDir, octiconPath), path.join(assetsDir, octiconPath))
 
   const oxalisPath = `images/oxalis.svg`
-  await copy(path.join(designDir, oxalisPath), path.join(publicDir, oxalisPath))
+  await copy(path.join(designDir, oxalisPath), path.join(assetsDir, oxalisPath))
 
   // Copy fonts from design system
 
@@ -36,6 +36,12 @@ export default async function copyAssets() {
 
   // Copy project-specific assets
 
-  await copy(assetsDir, publicDir)
+  function filter(fullPath) {
+    if (fullPath.includes(`favicon`)) return true
+    if (fullPath.endsWith(`.svg`)) return false
+    return true
+  }
+
+  await copy(assetsDir, publicDir, { filter })
 
 }

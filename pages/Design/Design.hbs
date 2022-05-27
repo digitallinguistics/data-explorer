@@ -1,5 +1,5 @@
 {{#section 'head'}}
-  {{> Design-styles }}
+  <link rel=stylesheet href=/styles/Design.css>
 {{/section}}
 
 <main id=main class=design-page>
@@ -10,6 +10,7 @@
     <h2 class=block-header>Components</h2>
     <ol>
       <li><a class=link href=/design/language-details>Language Details</a></li>
+      <li><a class=link href=/design/lexical-entry>Lexical Entry</a></li>
       <li><a class=link href=/design/multi-lang-string>MultiLangString</a></li>
       <li><a class=link href=/design/note>Note</a></li>
       <li><a class=link href=/design/notes>Notes</a></li>
@@ -22,6 +23,10 @@
 
     {{#if language-details }}
       {{> Languages/LanguageDetails language }}
+    {{/if}}
+
+    {{#if lexical-entry }}
+      {{> Lexemes/LexicalEntry }}
     {{/if}}
 
     {{#if multi-lang-string }}
@@ -37,7 +42,7 @@
     {{/if}}
 
     {{#if transcription }}
-      {{> Transcription/Transcription autonym=language.autonym lang=language.iso }}
+      {{> Transcription/Transcription txn=language.autonym lang=language.iso }}
     {{/if}}
 
     {{#if user-component }}
@@ -53,3 +58,7 @@
   </div>
 
 </main>
+
+{{#section 'foot'}}
+  <script src=/scripts/Design.js async type=module></script>
+{{/section}}

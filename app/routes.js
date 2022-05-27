@@ -18,6 +18,7 @@ export default function addRoutes(app) {
   app.get(`/dictionaries`, handlers.Dictionaries)
   app.get(`/languages`, handlers.Languages)
   app.get(`/languages/:languageID`, handlers.Languages)
+  app.get(`/lexemes`, handlers.Lexemes)
   app.get(`/projects`, handlers.Projects)
 
   app.use(handlers.NotFound)

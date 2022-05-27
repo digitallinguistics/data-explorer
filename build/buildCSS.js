@@ -9,38 +9,44 @@ const __dirname  = path.dirname(__filename)
 
 const { readFile, outputFile } = fs
 
-async function buildCSSPartial(lessPath) {
+async function buildCSSFile(lessPath) {
 
-  const less        = await readFile(lessPath, `utf8`)
-  const css         = await convertLESS(less)
-  const html        = `<style>${ css }</style>`
-  const { name }    = path.parse(lessPath)
-  const stylesDir   = path.join(__dirname, `../public/styles`)
-  const partialPath = path.join(stylesDir, `${ name }-styles.hbs`)
+  const less      = await readFile(lessPath, `utf8`)
+  const css       = await convertLESS(less)
+  const { name }  = path.parse(lessPath)
+  const stylesDir = path.join(__dirname, `../public/styles`)
+  const cssPath   = path.join(stylesDir, `${ name }.css`)
 
-  await outputFile(partialPath, html, `utf8`)
+  await outputFile(cssPath, css, `utf8`)
 
 }
 
 export default async function buildCSS() {
 
-  // Build CSS partial for main layout
+  // Build CSS file for main layout
 
   const layoutLESSPath = path.join(__dirname, `../layout/layout.less`)
 
-  await buildCSSPartial(layoutLESSPath)
+  await buildCSSFile(layoutLESSPath)
 
-  // Build CSS partials for individual pages
+  // Build CSS files for individual pages
 
   const pagesPath = path.join(__dirname, `../pages`)
 
   const recurseOptions = {
-    depth:      10,
-    fileFilter: [`*.less`],
+    depth:      1,
+    fileFilter(entry) {
+      // Only process LESS files with the same name as their parent folder.
+      const ext = path.extname(entry.basename)
+      if (ext !== `.less`) return false
+      const filename = path.basename(entry.basename, ext)
+      const folder   = path.basename(path.dirname(entry.path))
+      return filename === folder
+    },
   }
 
   for await (const entry of recurse(pagesPath, recurseOptions)) {
-    await buildCSSPartial(entry.fullPath)
+    await buildCSSFile(entry.fullPath)
   }
 
 }
