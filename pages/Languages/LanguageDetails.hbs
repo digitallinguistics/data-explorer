@@ -2,10 +2,10 @@
 
   <header class=names>
 
-    <label class=sci-name-label>Scientific Name</label>
+    <label class='label sci-name-label'>Scientific Name</label>
     {{> MultiLangString/MultiLangString name }}
 
-    <label>Autonym</label>
+    <label class=label>Autonym</label>
     {{> Transcription/Transcription txn=autonym lang=iso }}
 
   </header>
@@ -14,10 +14,10 @@
 
     <dl class=def-list>
 
-      <dt>Date Created:</dt>
+      <dt class=label>Date Created:</dt>
       <dd>{{date dateCreated }}</dd>
 
-      <dt>Date Modified:</dt>
+      <dt class=label>Date Modified:</dt>
       <dd>{{date dateModified }}</dd>
 
     </dl>
@@ -28,13 +28,13 @@
 
     <dl class=def-list>
 
-      <dt>Glottocode:</dt>
+      <dt class=label>Glottocode:</dt>
       <dd>{{ glottocode }}</dd>
 
-      <dt>ISO 639-3 Code:</dt>
+      <dt class=label>ISO 639-3 Code:</dt>
       <dd>{{ iso }}</dd>
 
-      <dt>Abbreviation:</dt>
+      <dt class=label>Abbreviation:</dt>
       <dd>{{ abbreviation }}</dd>
 
     </dl>
@@ -42,7 +42,7 @@
   </div>
 
   <article class=description>
-    <h3>Description</h3>
+    <h3 class=label>Description</h3>
     <div class=md>
       {{{ description.html }}}
     </div>

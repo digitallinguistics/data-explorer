@@ -1,3 +1,5 @@
+@import 'Label/Label.less';
+
 .language-details {
 
   @breakpoint: 45em; // should be the same as the Languages page breakpoint
@@ -39,21 +41,10 @@
       padding: var(--text-padding-sm);
     }
 
-    dt {
-      font-weight: bold;
-      padding    : var(--text-padding-sm);
-    }
-
   }
 
-  h3 {
-    font-weight: bold;
-    padding    : var(--text-padding-sm);
-  }
-
-  label {
-    font-weight: bold;
-    padding    : var(--text-padding-sm);
+  .label {
+    padding: var(--text-padding-sm);
   }
 
   .metadata {
@@ -101,9 +92,11 @@
       'description description description'
       'notes notes notes'
       / 1fr 1fr 1fr;
-    inline-size      : clamp(0em, var(--measure), var(--measure));
+    inline-size      : 100%;
+    max-inline-size  : var(--measure);
     padding-block-end: var(--space);
     row-gap          : var(--space);
+
 
     .codes {
 
@@ -133,7 +126,7 @@
 
       grid-area: names;
 
-      label {
+      .label {
         padding: var(--text-padding);
       }
 

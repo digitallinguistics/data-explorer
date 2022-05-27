@@ -1,5 +1,7 @@
+@import 'Label/Label.less';
 @import 'Numbered/Numbered.less';
 @import 'Translation/Translation.less';
+@import 'Transcription/Transcription.less';
 
 .lexical-entry {
 
@@ -12,6 +14,10 @@
 
   [aria-selected] {
     border-bottom: var(--selected-width) solid var(--cyan);
+  }
+
+  .label {
+    padding: var(--text-padding);
   }
 
   .page-title {
@@ -31,11 +37,11 @@
 
   .tab-link {
     padding  : var(--text-padding-lg);
-    transform: translateY(var(--border-width));
+    // transform: translateY(var(--border-width));
   }
 
   .tab-link:not([aria-selected]) {
-    border-bottom: var(--selected-width) solid transparent;
+    // border-bottom: var(--selected-width) solid transparent;
   }
 
   .tabs {
@@ -43,6 +49,10 @@
     flex-direction: row;
     font-size     : large;
     inline-size   : 100%;
+  }
+
+  .txn {
+    padding: var(--text-padding);
   }
 
   // large screens
