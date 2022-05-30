@@ -10,6 +10,7 @@ const options = {
   paths: [
     path.join(__dirname, `../components`),
     path.join(__dirname, `../layout`),
+    path.join(__dirname, `../pages`),
     path.join(__dirname, `../styles`),
     path.join(__dirname, `../node_modules/@digitallinguistics/design`),
     path.join(__dirname, `../node_modules/@digitallinguistics/design/components`),

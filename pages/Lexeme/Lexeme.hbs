@@ -1,0 +1,17 @@
+{{#section 'head'}}
+  <link rel=stylesheet href=/styles/Lexeme.css>
+{{/section}}
+
+<main id=main class=lexeme-page>
+
+  {{#if lexeme }}
+    {{> Lexeme/LexemeDetails }}
+  {{else}}
+    <p class=error-message>This lexeme does not exist, or you do not have permission to view it.</p>
+  {{/if}}
+
+</main>
+
+{{#section 'foot'}}
+  <script src=/scripts/Lexeme.js async type=module></script>
+{{/section}}

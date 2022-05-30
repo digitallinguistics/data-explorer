@@ -1,1 +1,1 @@
-import '../Lexemes/LexicalEntry.js'
+import '../Lexeme/LexemeDetails.js'

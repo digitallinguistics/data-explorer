@@ -15,5 +15,7 @@ function setCurrentTab(ev) {
 
 }
 
-location.hash = `form` // initialize to Form tab
-tablist.addEventListener(`click`, setCurrentTab)
+if (tablist) {
+  location.hash = `form` // initialize to Form tab
+  tablist.addEventListener(`click`, setCurrentTab)
+}

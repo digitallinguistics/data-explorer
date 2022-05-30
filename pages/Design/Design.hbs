@@ -10,7 +10,7 @@
     <h2 class=block-header>Components</h2>
     <ol>
       <li><a class=link href=/design/language-details>Language Details</a></li>
-      <li><a class=link href=/design/lexical-entry>Lexical Entry</a></li>
+      <li><a class=link href=/design/lexeme-details>Lexeme Details</a></li>
       <li><a class=link href=/design/multi-lang-string>MultiLangString</a></li>
       <li><a class=link href=/design/note>Note</a></li>
       <li><a class=link href=/design/notes>Notes</a></li>
@@ -25,8 +25,8 @@
       {{> Languages/LanguageDetails language }}
     {{/if}}
 
-    {{#if lexical-entry }}
-      {{> Lexemes/LexicalEntry }}
+    {{#if lexeme-details }}
+      {{> Lexeme/LexemeDetails }}
     {{/if}}
 
     {{#if multi-lang-string }}
