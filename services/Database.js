@@ -1,9 +1,11 @@
-import compare            from '../utilities/compare.js'
-import { fileURLToPath }  from 'url'
-import getDefaultLanguage from '../utilities/getDefaultLanguage.js'
-import path               from 'path'
-import { readFile }       from 'fs/promises'
-import yaml               from 'js-yaml'
+import compare              from '../utilities/compare.js'
+import { createInterface }  from 'readline'
+import { createReadStream } from 'fs'
+import { fileURLToPath }    from 'url'
+import getDefaultLanguage   from '../utilities/getDefaultLanguage.js'
+import path                 from 'path'
+import { readFile }         from 'fs/promises'
+import yaml                 from 'js-yaml'
 
 // NOTE
 // Always return a duplicate of the data
@@ -28,6 +30,20 @@ function hasAccess(user, item) {
 
 }
 
+async function readNDJSON(filePath) {
+
+  const fileStream = createReadStream(filePath)
+  const lineStream = createInterface({ input: fileStream })
+  const lexemes    = []
+
+  for await (const line of lineStream) {
+    const data = JSON.parse(line)
+    lexemes.push(data)
+  }
+
+  return lexemes
+
+}
 
 /**
  * A class for managing the database connection.
@@ -36,25 +52,33 @@ export default class Database {
 
   async initialize() {
 
-    const __filename    = fileURLToPath(import.meta.url)
-    const __dirname     = path.dirname(__filename)
+    const __filename = fileURLToPath(import.meta.url)
+    const __dirname  = path.dirname(__filename)
 
     const languagesPath = path.join(__dirname, `../data/languages.yml`)
     const languagesYAML = await readFile(languagesPath, `utf8`)
 
-    const lexemesPath   = path.join(__dirname, `../data/lexemes.yml`)
-    const lexemesYAML   = await readFile(lexemesPath, `utf8`)
+    const lexemesPath = path.join(__dirname, `../data/lexemes.yml`)
+    const lexemesYAML = await readFile(lexemesPath, `utf8`)
 
-    const projectsPath   = path.join(__dirname, `../data/projects.yml`)
-    const projectsYAML   = await readFile(projectsPath, `utf8`)
+    const projectsPath = path.join(__dirname, `../data/projects.yml`)
+    const projectsYAML = await readFile(projectsPath, `utf8`)
 
-    const usersPath     = path.join(__dirname, `../data/users.yml`)
-    const usersYAML     = await readFile(usersPath, `utf8`)
+    const usersPath = path.join(__dirname, `../data/users.yml`)
+    const usersYAML = await readFile(usersPath, `utf8`)
 
     this.languages      = yaml.load(languagesYAML)
     this.lexemes        = yaml.load(lexemesYAML)
     this.projects       = yaml.load(projectsYAML)
     this.users          = yaml.load(usersYAML)
+
+    const OjibwePath = path.join(__dirname, `../data/Ojibwe.ndjson`)
+    const OjibweData = await readNDJSON(OjibwePath)
+
+    const MenomineePath = path.join(__dirname, `../data/Menominee.ndjson`)
+    const MenomineeData = await readNDJSON(MenomineePath)
+
+    this.lexemes.push(...OjibweData, ...MenomineeData)
 
   }
 
