@@ -1,22 +1,13 @@
-import { fileURLToPath }  from 'url'
-import path               from 'path'
-import { readFile }       from 'fs/promises'
-import yaml               from 'js-yaml'
+import db from '../../config/database.js'
 
 export default async function get(req, res) {
 
-  const __filename    = fileURLToPath(import.meta.url)
-  const __dirname     = path.dirname(__filename)
+  const languages = await db.getLanguages()
+  const language  = languages.find(lang => lang.abbreviation === `chiti`)
 
-  const languagesPath = path.join(__dirname, `../../data/languages.yml`)
-  const languagesYAML = await readFile(languagesPath, `utf8`)
-  const languages     = yaml.load(languagesYAML)
-  const language      = languages.find(lang => lang.abbreviation === `chiti`)
-
-  const lexemesPath = path.join(__dirname, `../../data/lexemes.yml`)
-  const lexemesYAML = await readFile(lexemesPath, `utf8`)
-  const lexemes     = yaml.load(lexemesYAML)
-  const [lexeme]    = lexemes
+  const sampleProjectID = `6a0fcc10-859c-4af1-8105-156ccfd95310`
+  const lexemes         = await db.getLexemes(sampleProjectID)
+  const [lexeme]        = lexemes
 
   const title         = `Design`
   const { component } = req.params
@@ -25,6 +16,7 @@ export default async function get(req, res) {
     [component]: true,
     language,
     lexeme,
+    lexemes,
     [title]:     true,
     title,
   })

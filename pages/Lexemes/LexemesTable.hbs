@@ -1,0 +1,31 @@
+<table>
+
+  <thead>
+    <tr>
+      <th>Lemma</th>
+      <th>Glosses</th>
+      <th>Date Created</th>
+      <th>Date Modified</th>
+    </tr>
+  </thead>
+
+  <tbody>
+    {{#each lexemes as |lexeme|}}
+      <tr>
+        <td>{{txn lexeme.lemma }}</td>
+        <td>
+          <ol class=numbered>
+            {{#each lexeme.senses as |sense|}}
+              {{#if sense.gloss}}
+                <li>{{ sense.gloss }}</li>
+              {{/if}}
+            {{/each}}
+          </ol>
+        </td>
+        <td>{{date lexeme.dateCreated }}</td>
+        <td>{{date lexeme.dateModified }}</td>
+      </tr>
+    {{/each}}
+  </tbody>
+
+</table>
