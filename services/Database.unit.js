@@ -26,7 +26,7 @@ describe(`Database`, function() {
     const db = new Database
     await db.initialize()
     const results = await db.getLexemes(`6a0fcc10-859c-4af1-8105-156ccfd95310`)
-    console.log(results)
+    expect(results.length).to.be.greaterThan(0)
   })
 
 })

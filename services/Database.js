@@ -68,10 +68,10 @@ export default class Database {
     const usersPath = path.join(__dirname, `../data/users.yml`)
     const usersYAML = await readFile(usersPath, `utf8`)
 
-    this.languages      = yaml.load(languagesYAML)
-    this.lexemes        = yaml.load(lexemesYAML)
-    this.projects       = yaml.load(projectsYAML)
-    this.users          = yaml.load(usersYAML)
+    this.languages = yaml.load(languagesYAML)
+    this.lexemes   = yaml.load(lexemesYAML)
+    this.projects  = yaml.load(projectsYAML)
+    this.users     = yaml.load(usersYAML)
 
     const OjibwePath = path.join(__dirname, `../data/Ojibwe.ndjson`)
     const OjibweData = await readNDJSON(OjibwePath)
@@ -80,6 +80,13 @@ export default class Database {
     const MenomineeData = await readNDJSON(MenomineePath)
 
     this.lexemes.push(...OjibweData, ...MenomineeData)
+
+    const sampleProjectID = `6a0fcc10-859c-4af1-8105-156ccfd95310`
+
+    for (const lexeme of this.lexemes) {
+      lexeme.projects ??= []
+      lexeme.projects.push(sampleProjectID)
+    }
 
   }
 
