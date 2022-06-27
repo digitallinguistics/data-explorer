@@ -1,11 +1,12 @@
-import compare              from '../utilities/compare.js'
-import { createInterface }  from 'readline'
-import { createReadStream } from 'fs'
-import { fileURLToPath }    from 'url'
-import getDefaultLanguage   from '../utilities/getDefaultLanguage.js'
-import path                 from 'path'
-import { readFile }         from 'fs/promises'
-import yaml                 from 'js-yaml'
+import compare               from '../utilities/compare.js'
+import { createInterface }   from 'readline'
+import { createReadStream }  from 'fs'
+import { fileURLToPath }     from 'url'
+import getDefaultLanguage    from '../utilities/getDefaultLanguage.js'
+import getDefaultOrthography from '../utilities/getDefaultOrthography.js'
+import path                  from 'path'
+import { readFile }          from 'fs/promises'
+import yaml                  from 'js-yaml'
 
 // NOTE
 // Always return a duplicate of the data
@@ -34,14 +35,14 @@ async function readNDJSON(filePath) {
 
   const fileStream = createReadStream(filePath)
   const lineStream = createInterface({ input: fileStream })
-  const lexemes    = []
+  const items      = []
 
   for await (const line of lineStream) {
-    const data = JSON.parse(line)
-    lexemes.push(data)
+    const item = JSON.parse(line)
+    items.push(item)
   }
 
-  return lexemes
+  return items
 
 }
 
@@ -85,6 +86,22 @@ export default class Database {
   async getLanguage(id, user) {
     const language = this.languages.find(lang => lang.id === id && hasAccess(user, lang))
     return JSON.parse(JSON.stringify(language))
+    // TODO: Return 403 if user does not have access.
+  }
+
+  async getLanguages(user) {
+
+    // TODO: Return 404 if no languages with permissions are found.
+
+    const results = this.languages
+    .filter(lang => hasAccess(user, lang))
+    .sort((a, b) => compare(
+      getDefaultLanguage(a.name, a.defaultAnalysisLanguage),
+      getDefaultLanguage(b.name, b.defaultAnalysisLanguage),
+    ))
+
+    return JSON.parse(JSON.stringify(results))
+
   }
 
   async getLexeme(id, user) {
@@ -97,16 +114,24 @@ export default class Database {
     const userHasAccess = projects.some(proj => hasAccess(user, proj))
 
     if (userHasAccess) return lexeme
+    // TODO: Return 403.
 
   }
 
-  async getLanguages(user) {
+  async getLexemes(projectID, user) {
 
-    const results = this.languages
-    .filter(lang => hasAccess(user, lang))
+    const project       = this.projects.find(proj => proj.id === projectID)
+    const userHasAccess = hasAccess(user, project)
+
+    if (!userHasAccess) {
+      // TODO: Return 403.
+    }
+
+    const results = this.lexemes
+    .filter(lex => lex.projects.includes(projectID))
     .sort((a, b) => compare(
-      getDefaultLanguage(a.name, a.defaultAnalysisLanguage),
-      getDefaultLanguage(b.name, b.defaultAnalysisLanguage),
+      getDefaultOrthography(a.lemma),
+      getDefaultOrthography(b.lemma),
     ))
 
     return JSON.parse(JSON.stringify(results))

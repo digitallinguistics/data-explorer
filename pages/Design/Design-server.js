@@ -15,7 +15,8 @@ export default async function get(req, res) {
 
   const lexemesPath = path.join(__dirname, `../../data/lexemes.yml`)
   const lexemesYAML = await readFile(lexemesPath, `utf8`)
-  const [lexeme]    = yaml.load(lexemesYAML)
+  const lexemes     = yaml.load(lexemesYAML)
+  const [lexeme]    = lexemes
 
   const title         = `Design`
   const { component } = req.params
