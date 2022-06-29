@@ -1,7 +1,8 @@
-<table>
+<table class=lexemes-table>
 
   <thead>
     <tr>
+      <th>Language</th>
       <th>Lemma</th>
       <th>Glosses</th>
       <th>Date Created</th>
@@ -12,7 +13,14 @@
   <tbody>
     {{#each lexemes as |lexeme|}}
       <tr>
-        <td>{{txn lexeme.lemma }}</td>
+
+        {{!-- language --}}
+        <td>{{mls lexeme.language.name }}</td>
+
+        {{!-- lemma --}}
+        <td class=lemma>{{txn lexeme.lemma }}</td>
+
+        {{!-- glosses --}}
         <td>
           <ol class=numbered>
             {{#each lexeme.senses as |sense|}}
@@ -22,8 +30,13 @@
             {{/each}}
           </ol>
         </td>
+
+        {{!-- date created --}}
         <td>{{date lexeme.dateCreated }}</td>
+
+        {{!-- date modified --}}
         <td>{{date lexeme.dateModified }}</td>
+
       </tr>
     {{/each}}
   </tbody>

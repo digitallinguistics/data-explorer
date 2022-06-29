@@ -75,9 +75,25 @@ export default class Database {
 
     const OjibwePath = path.join(__dirname, `../data/Ojibwe.ndjson`)
     const OjibweData = await readNDJSON(OjibwePath)
+    const OjibweLang = this.languages.find(lang => lang.name.eng === `Ojibwe`)
+
+    for (const lexeme of OjibweData) {
+      lexeme.language = {
+        id:   OjibweLang.id,
+        name: OjibweLang.name,
+      }
+    }
 
     const MenomineePath = path.join(__dirname, `../data/Menominee.ndjson`)
     const MenomineeData = await readNDJSON(MenomineePath)
+    const MenomineeLang = this.languages.find(lang => lang.name.eng === `Menominee`)
+
+    for (const lexeme of MenomineeData) {
+      lexeme.language = {
+        id:   MenomineeLang.id,
+        name: MenomineeLang.name,
+      }
+    }
 
     this.lexemes.push(...OjibweData, ...MenomineeData)
 

@@ -2,7 +2,12 @@
   type:         Lexeme
   dateCreated:  2020-01-01T00:00:00.000Z
   dateModified: 2022-01-01T00:00:00.000Z
-  language:     cc4978f6-13a9-4735-94c5-10e4e8030437
+  language:
+    id: cc4978f6-13a9-4735-94c5-10e4e8030437
+    name:
+      eng: Chitimacha
+      ctm: Sitimaxa
+      fra: Shetimacha
   lemma:
     mod: cuw-
     swd: čuw-
