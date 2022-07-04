@@ -88,8 +88,9 @@ export default class Database {
 
     for (const lexeme of OjibweData) {
       lexeme.language = {
-        id:   OjibweLang.id,
-        name: OjibweLang.name,
+        defaultOrthography: OjibweLang.defaultOrthography,
+        id:                 OjibweLang.id,
+        name:               OjibweLang.name,
       }
     }
 
@@ -99,8 +100,9 @@ export default class Database {
 
     for (const lexeme of MenomineeData) {
       lexeme.language = {
-        id:   MenomineeLang.id,
-        name: MenomineeLang.name,
+        defaultOrthography: MenomineeLang.defaultOrthography,
+        id:                 MenomineeLang.id,
+        name:               MenomineeLang.name,
       }
     }
 
