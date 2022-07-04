@@ -1,9 +1,9 @@
 import compare               from '../utilities/compare.js'
+import compareLemmas         from '../utilities/compareLemmas.js'
 import { createInterface }   from 'readline'
 import { createReadStream }  from 'fs'
 import { fileURLToPath }     from 'url'
 import getDefaultLanguage    from '../utilities/getDefaultLanguage.js'
-import getDefaultOrthography from '../utilities/getDefaultOrthography.js'
 import path                  from 'path'
 import { readFile }          from 'fs/promises'
 import yaml                  from 'js-yaml'
@@ -152,7 +152,23 @@ export default class Database {
 
   }
 
-  async getLexemes(projectID, user) {
+  async getLanguageLexemes(languageID, user) {
+
+    const language = this.languages.find(lang => lang.id === languageID)
+
+    if (!language) return // TODO: Throw 404 error.
+
+    if (!hasAccess(user, language)) return // TODO: Throw 403 error.
+
+    const lexemes = this.lexemes
+    .filter(lex => lex.language.id === languageID)
+    .sort(compareLemmas)
+
+    return copy(lexemes)
+
+  }
+
+  async getProjectLexemes(projectID, user) {
 
     const project       = this.projects.find(proj => proj.id === projectID)
     const userHasAccess = hasAccess(user, project)
@@ -163,10 +179,7 @@ export default class Database {
 
     const results = this.lexemes
     .filter(lex => lex.projects.includes(projectID))
-    .sort((a, b) => compare(
-      getDefaultOrthography(a.lemma),
-      getDefaultOrthography(b.lemma),
-    ))
+    .sort(compareLemmas)
 
     return copy(results)
 

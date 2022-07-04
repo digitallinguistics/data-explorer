@@ -2,6 +2,10 @@
 
   white-space: nowrap;
 
+  :is(.date-created, .date-modified) {
+    font-family: var(--font-mono);
+  }
+
   .lemma {
     font-family: var(--font-unicode);
   }
@@ -35,6 +39,7 @@
 
     border-bottom: 0.1em solid black;
     font-weight  : 500;
+    text-align   : left;
 
     @media (prefers-color-scheme: dark) {
       border-bottom-color: var(--text-color-dark);

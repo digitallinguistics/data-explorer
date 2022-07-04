@@ -1,6 +1,5 @@
-import db                    from '../../config/database.js'
-import getDefaultOrthography from '../../utilities/getDefaultOrthography.js'
-import localeSort            from '../../utilities/localeSort.js'
+import compareLemmas from '../../utilities/compareLemmas.js'
+import db            from '../../config/database.js'
 
 export default async function get(req, res) {
 
@@ -9,16 +8,10 @@ export default async function get(req, res) {
 
   const sampleProjectID = `6a0fcc10-859c-4af1-8105-156ccfd95310`
   const project         = await db.getProject(sampleProjectID)
-  const lexemes         = await db.getLexemes(sampleProjectID)
+  const lexemes         = await db.getProjectLexemes(sampleProjectID)
   const [lexeme]        = lexemes
 
-  const tokensRegExp = /(?:^[-=*(]+)|(?:[-=*)]+&)/gu
-
-  // Sorts lemmas by base character, ignoring any leading/trailing tokens, asterisks, and parentheses
-  lexemes.sort((a, b) => localeSort(
-    getDefaultOrthography(a.lemma, a.language.defaultOrthography).replaceAll(tokensRegExp, ``),
-    getDefaultOrthography(b.lemma, a.language.defaultOrthography).replaceAll(tokensRegExp, ``),
-  ))
+  lexemes.sort(compareLemmas)
 
   const title         = `Design`
   const { component } = req.params

@@ -22,10 +22,10 @@ describe(`Database`, function() {
     expect(result).to.have.length(6)
   })
 
-  it(`getLexemes`, async function() {
+  it(`getProjectLexemes`, async function() {
     const db = new Database
     await db.initialize()
-    const results = await db.getLexemes(`6a0fcc10-859c-4af1-8105-156ccfd95310`)
+    const results = await db.getProjectLexemes(`6a0fcc10-859c-4af1-8105-156ccfd95310`)
     expect(results.length).to.be.greaterThan(0)
   })
 
