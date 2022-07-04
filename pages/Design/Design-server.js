@@ -6,6 +6,7 @@ export default async function get(req, res) {
   const language  = languages.find(lang => lang.abbreviation === `chiti`)
 
   const sampleProjectID = `6a0fcc10-859c-4af1-8105-156ccfd95310`
+  const project         = await db.getProject(sampleProjectID)
   const lexemes         = await db.getLexemes(sampleProjectID)
   const [lexeme]        = lexemes
 
@@ -17,6 +18,7 @@ export default async function get(req, res) {
     language,
     lexeme,
     lexemes,
+    project,
     [title]:     true,
     title,
   })

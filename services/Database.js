@@ -15,6 +15,15 @@ import yaml                  from 'js-yaml'
 // because it's only supported in Node v17.
 
 /**
+ * Creates a deep copy of an object.
+ * @param {Object} obj The Object to copy.
+ * @returns Object
+ */
+function copy(obj) {
+  return JSON.parse(JSON.stringify(obj))
+}
+
+/**
  * Check whether a user has access permissions for a database object.
  * @param   {String} user The email address of the user to check.
  * @param   {Object} item The item to check against. Must have a `permissions` object.
@@ -108,7 +117,7 @@ export default class Database {
 
   async getLanguage(id, user) {
     const language = this.languages.find(lang => lang.id === id && hasAccess(user, lang))
-    return JSON.parse(JSON.stringify(language))
+    return copy(language)
     // TODO: Return 403 if user does not have access.
   }
 
@@ -123,7 +132,7 @@ export default class Database {
       getDefaultLanguage(b.name, b.defaultAnalysisLanguage),
     ))
 
-    return JSON.parse(JSON.stringify(results))
+    return copy(results)
 
   }
 
@@ -136,7 +145,7 @@ export default class Database {
     const projects      = this.projects.filter(proj => lexeme.projects.includes(proj.id))
     const userHasAccess = projects.some(proj => hasAccess(user, proj))
 
-    if (userHasAccess) return lexeme
+    if (userHasAccess) return copy(lexeme)
     // TODO: Return 403.
 
   }
@@ -157,7 +166,20 @@ export default class Database {
       getDefaultOrthography(b.lemma),
     ))
 
-    return JSON.parse(JSON.stringify(results))
+    return copy(results)
+
+  }
+
+  async getProject(projectID, user) {
+
+    const project       = this.projects.find(proj => proj.id === projectID)
+    const userHasAccess = hasAccess(user, project)
+
+    if (!userHasAccess) {
+      // TODO: Return 403.
+    }
+
+    return copy(project)
 
   }
 

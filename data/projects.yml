@@ -1,5 +1,6 @@
 # This is the test project which all sample lexemes are added to.
 - id: 6a0fcc10-859c-4af1-8105-156ccfd95310
+  name: Test Project
   permissions:
     owners:  []
     editors: []
