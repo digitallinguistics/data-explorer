@@ -15,10 +15,14 @@
       <tr>
 
         {{!-- language --}}
-        <td>{{mls lexeme.language.name }}</td>
+        <td>
+          <a class=link href='/languages/{{ lexeme.language.id }}'>{{mls lexeme.language.name }}</a>
+        </td>
 
         {{!-- lemma --}}
-        <td class=lemma>{{txn lexeme.lemma }}</td>
+        <td class=lemma>
+          <a class=link href='/lexemes/{{ lexeme.id }}'>{{txn lexeme.lemma }}</a>
+        </td>
 
         {{!-- glosses --}}
         <td>
