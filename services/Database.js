@@ -1,18 +1,18 @@
-import compare               from '../utilities/compare.js'
-import compareLemmas         from '../utilities/compareLemmas.js'
-import { createInterface }   from 'readline'
-import { createReadStream }  from 'fs'
-import { fileURLToPath }     from 'url'
-import getDefaultLanguage    from '../utilities/getDefaultLanguage.js'
-import path                  from 'path'
-import { readFile }          from 'fs/promises'
-import yaml                  from 'js-yaml'
+import { createInterface }  from 'readline'
+import { createReadStream } from 'fs'
+import { fileURLToPath }    from 'url'
+import hasAccess            from '../utilities/hasAccess.js'
+import path                 from 'path'
+import { readFile }         from 'fs/promises'
+import { STATUS_CODES }     from 'http'
+import yaml                 from 'js-yaml'
 
-// NOTE
-// Always return a duplicate of the data
-// so that the original data aren't modified.
-// Cannot use `structuredClone()` yet
-// because it's only supported in Node v17.
+// NOTES
+// - Always return a duplicate of the data
+//   so that the original data aren't modified.
+// - Cannot use `structuredClone()` yet
+//   because it's only supported in Node v17.
+// - Do not sort results before returning.
 
 /**
  * Creates a deep copy of an object.
@@ -21,23 +21,6 @@ import yaml                  from 'js-yaml'
  */
 function copy(obj) {
   return JSON.parse(JSON.stringify(obj))
-}
-
-/**
- * Check whether a user has access permissions for a database object.
- * @param   {String} user The email address of the user to check.
- * @param   {Object} item The item to check against. Must have a `permissions` object.
- * @returns {Boolean}
- */
-function hasAccess(user, item) {
-
-  const { permissions } = item
-
-  return permissions.public
-    || permissions.owners.includes(user)
-    || permissions.editors.includes(user)
-    || permissions.viewers.includes(user)
-
 }
 
 async function readNDJSON(filePath) {
@@ -52,6 +35,37 @@ async function readNDJSON(filePath) {
   }
 
   return items
+
+}
+
+class DatabaseResponse {
+
+  constructor(statusCode, data, errorMessage) {
+
+    if (statusCode === 401) {
+      errorMessage = `Unauthenticated`
+    } else if (statusCode === 403) {
+      errorMessage = `Unauthorized`
+    } else if (statusCode >= 400) {
+      errorMessage ??= STATUS_CODES[statusCode]
+    }
+
+    Object.defineProperties(this, {
+      data: {
+        enumerable: true,
+        value:      data,
+      },
+      message: {
+        enumerable: true,
+        value:      errorMessage,
+      },
+      status: {
+        enumerable: true,
+        value:      statusCode,
+      },
+    })
+
+  }
 
 }
 
@@ -108,94 +122,98 @@ export default class Database {
 
     this.lexemes.push(...OjibweData, ...MenomineeData)
 
-    const sampleProjectID = `6a0fcc10-859c-4af1-8105-156ccfd95310`
-
     for (const lexeme of this.lexemes) {
       lexeme.projects ??= []
-      lexeme.projects.push(sampleProjectID)
     }
 
   }
 
   async getLanguage(id, user) {
-    const language = this.languages.find(lang => lang.id === id && hasAccess(user, lang))
-    return copy(language)
-    // TODO: Return 403 if user does not have access.
+
+    const language = this.languages.find(lang => lang.id === id)
+
+    if (!language) return new DatabaseResponse(404)
+
+    if (!language.permissions.public) {
+      if (!user) return new DatabaseResponse(401)
+      if (!hasAccess(user, language)) return new DatabaseResponse(403)
+    }
+
+    return new DatabaseResponse(200, copy(language))
+
   }
 
+  /**
+   * Returns all the Languages that the user has access to.
+   * @param {String} user The email address of the user
+   * @returns Array
+   */
   async getLanguages(user) {
-
-    // TODO: Return 404 if no languages with permissions are found.
-
-    const results = this.languages
-    .filter(lang => hasAccess(user, lang))
-    .sort((a, b) => compare(
-      getDefaultLanguage(a.name, a.defaultAnalysisLanguage),
-      getDefaultLanguage(b.name, b.defaultAnalysisLanguage),
-    ))
-
-    return copy(results)
-
+    const results = this.languages.filter(lang => hasAccess(user, lang))
+    return new DatabaseResponse(200, copy(results))
   }
 
   async getLexeme(id, user) {
 
     const lexeme = this.lexemes.find(lex => lex.id === id)
 
-    if (!lexeme) return
+    if (!lexeme) return new DatabaseResponse(404)
 
-    const projects      = this.projects.filter(proj => lexeme.projects.includes(proj.id))
-    const userHasAccess = projects.some(proj => hasAccess(user, proj))
+    const projects           = this.projects.filter(project => lexeme.projects.includes(project.id))
+    const hasPrivateProjects = projects.some(project => !project.permissions.public)
 
-    if (userHasAccess) return copy(lexeme)
-    // TODO: Return 403.
+    if (hasPrivateProjects && !user) return new DatabaseResponse(401)
 
-  }
+    const userHasAccess = projects.some(project => hasAccess(user, project))
 
-  async getLanguageLexemes(languageID, user) {
+    if (!userHasAccess) return new DatabaseResponse(403)
 
-    const language = this.languages.find(lang => lang.id === languageID)
-
-    if (!language) return // TODO: Throw 404 error.
-
-    if (!hasAccess(user, language)) return // TODO: Throw 403 error.
-
-    const lexemes = this.lexemes
-    .filter(lex => lex.language.id === languageID)
-    .sort(compareLemmas)
-
-    return copy(lexemes)
+    return new DatabaseResponse(200, copy(lexeme))
 
   }
 
-  async getProjectLexemes(projectID, user) {
+  async getLexemes(options = {}, user) {
 
-    const project       = this.projects.find(proj => proj.id === projectID)
-    const userHasAccess = hasAccess(user, project)
+    const { language: languageID, project: projectID } = options
 
-    if (!userHasAccess) {
-      // TODO: Return 403.
-    }
+    if (!(languageID || projectID)) return new DatabaseResponse(400, undefined, `No project/language specified.`)
 
-    const results = this.lexemes
-    .filter(lex => lex.projects.includes(projectID))
-    .sort(compareLemmas)
+    const itemType       = projectID ? `project` : `language`
+    const collectionType = projectID ? `projects` : `languages`
+    const id             = projectID ?? languageID
+    const collection     = this[collectionType].find(item => item.id === id)
 
-    return copy(results)
+    if (!collection) return new DatabaseResponse(404, undefined, `A ${ itemType } with that ID does not exist.`)
+    if (!collection.permissions.public && !user) return new DatabaseResponse(401)
+    if (!hasAccess(user, collection)) return new DatabaseResponse(403)
+
+    const projectFilter  = lexeme => lexeme.projects.includes(projectID)
+    const languageFilter = lexeme => lexeme.language === languageID
+    const filter         = itemType === `project` ? projectFilter : languageFilter
+    const results        = this.lexemes.filter(filter)
+
+    return new DatabaseResponse(200, copy(results))
 
   }
 
   async getProject(projectID, user) {
 
-    const project       = this.projects.find(proj => proj.id === projectID)
-    const userHasAccess = hasAccess(user, project)
+    const project = this.projects.find(proj => proj.id === projectID)
 
-    if (!userHasAccess) {
-      // TODO: Return 403.
+    if (!project) return new DatabaseResponse(404)
+
+    if (!project.permissions.public) {
+      if (!user) return new DatabaseResponse(401)
+      if (!hasAccess(user, project)) return new DatabaseResponse(403)
     }
 
-    return copy(project)
+    return new DatabaseResponse(200, copy(project))
 
+  }
+
+  async getProjects(user) {
+    const projects = await this.projects.filter(proj => hasAccess(user, proj))
+    return new DatabaseResponse(200, copy(projects))
   }
 
 }
