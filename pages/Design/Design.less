@@ -11,6 +11,7 @@
 // Page-Specific Components
 
 @import 'Lexeme/LexemeDetails.less';
+@import 'Lexemes/LexemesTable.less';
 @import 'Languages/LanguageDetails.less';
 
 .design-page {
@@ -43,6 +44,11 @@
     min-inline-size: 20em;
   }
 
+  .lexemes-table {
+    align-self: flex-start;
+    margin    : auto;
+  }
+
   .page-title {
     grid-area: page-title;
   }
@@ -56,6 +62,7 @@
   .wrapper {
     align-items: center;
     grid-area  : wrapper;
+    overflow-x : auto;
   }
 
   // small screens

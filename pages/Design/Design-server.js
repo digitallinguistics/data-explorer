@@ -1,21 +1,17 @@
-import { fileURLToPath }  from 'url'
-import path               from 'path'
-import { readFile }       from 'fs/promises'
-import yaml               from 'js-yaml'
+import compareLemmas from '../../utilities/compareLemmas.js'
+import db            from '../../config/database.js'
 
 export default async function get(req, res) {
 
-  const __filename    = fileURLToPath(import.meta.url)
-  const __dirname     = path.dirname(__filename)
+  const languages = await db.getLanguages()
+  const language  = languages.find(lang => lang.abbreviation === `chiti`)
 
-  const languagesPath = path.join(__dirname, `../../data/languages.yml`)
-  const languagesYAML = await readFile(languagesPath, `utf8`)
-  const languages     = yaml.load(languagesYAML)
-  const language      = languages.find(lang => lang.abbreviation === `chiti`)
+  const sampleProjectID = `6a0fcc10-859c-4af1-8105-156ccfd95310`
+  const project         = await db.getProject(sampleProjectID)
+  const lexemes         = await db.getProjectLexemes(sampleProjectID)
+  const [lexeme]        = lexemes
 
-  const lexemesPath = path.join(__dirname, `../../data/lexemes.yml`)
-  const lexemesYAML = await readFile(lexemesPath, `utf8`)
-  const [lexeme]    = yaml.load(lexemesYAML)
+  lexemes.sort(compareLemmas)
 
   const title         = `Design`
   const { component } = req.params
@@ -24,6 +20,8 @@ export default async function get(req, res) {
     [component]: true,
     language,
     lexeme,
+    lexemes,
+    project,
     [title]:     true,
     title,
   })

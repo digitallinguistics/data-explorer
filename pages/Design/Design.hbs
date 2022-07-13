@@ -11,6 +11,7 @@
     <ol>
       <li><a class=link href=/design/language-details>Language Details</a></li>
       <li><a class=link href=/design/lexeme-details>Lexeme Details</a></li>
+      <li><a class=link href=/design/lexemes-table>Lexemes Table</a></li>
       <li><a class=link href=/design/multi-lang-string>MultiLangString</a></li>
       <li><a class=link href=/design/note>Note</a></li>
       <li><a class=link href=/design/notes>Notes</a></li>
@@ -27,6 +28,10 @@
 
     {{#if lexeme-details }}
       {{> Lexeme/LexemeDetails }}
+    {{/if}}
+
+    {{#if lexemes-table }}
+      {{> Lexemes/LexemesTable }}
     {{/if}}
 
     {{#if multi-lang-string }}

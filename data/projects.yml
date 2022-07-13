@@ -1,6 +1,22 @@
-- id: 6a0fcc10-859c-4af1-8105-156ccfd95310
+- id:   6a0fcc10-859c-4af1-8105-156ccfd95310
+  name: Public Test Project
   permissions:
     owners:  []
     editors: []
     viewers: []
     public:  true
+- id:   198c9710-451c-413b-abf5-b3daa4c15156
+  name: Private Test Project
+  permissions:
+    owners:  []
+    editors: []
+    viewers: []
+    public:  false
+- id:   382dc20d-4641-4325-8e48-3b0462b703e9
+  name: Private Test Project with Permissions
+  permissions:
+    owners:  [test@digitallinguistics.io]
+    editors: []
+    viewers: []
+    public:  false
+

@@ -1,0 +1,50 @@
+<table class=lexemes-table>
+
+  <caption class=visually-hidden>Lexemes: {{ project.name }}</caption>
+
+  <thead>
+    <tr>
+      <th>Language</th>
+      <th>Lemma</th>
+      <th>Glosses</th>
+      <th>Date Created</th>
+      <th>Date Modified</th>
+    </tr>
+  </thead>
+
+  <tbody>
+    {{#each lexemes as |lexeme|}}
+      <tr>
+
+        {{!-- language --}}
+        <td>
+          <a class=link href='/languages/{{ lexeme.language.id }}'>{{mls lexeme.language.name }}</a>
+        </td>
+
+        {{!-- lemma --}}
+        <td class=lemma>
+          <a class=link href='/lexemes/{{ lexeme.id }}'>{{txn lexeme.lemma ../project.defaultOrthography }}</a>
+        </td>
+
+        {{!-- glosses --}}
+        <td>
+          <ol class=numbered>
+            {{#each lexeme.senses as |sense|}}
+              {{#if sense.gloss}}
+                <li>{{ sense.gloss }}</li>
+              {{/if}}
+            {{/each}}
+          </ol>
+        </td>
+
+        {{!-- date created --}}
+        <td class=date-created>{{date lexeme.dateCreated }}</td>
+
+        {{!-- date modified --}}
+        <td class=date-modified>{{date lexeme.dateModified }}</td>
+
+      </tr>
+    {{/each}}
+  </tbody>
+
+</table>

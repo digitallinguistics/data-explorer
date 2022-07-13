@@ -2,13 +2,34 @@
   type:         Lexeme
   dateCreated:  2020-01-01T00:00:00.000Z
   dateModified: 2022-01-01T00:00:00.000Z
-  language:     cc4978f6-13a9-4735-94c5-10e4e8030437
+  language:     cc4978f6-13a9-4735-94c5-10e4e8030437 # Chitimacha
   lemma:
     mod: cuw-
     swd: čuw-
     ipa: t͡ʃuw-
-  projects:
-    - 6a0fcc10-859c-4af1-8105-156ccfd95310
+  projects: []
   senses:
     - gloss: go
     - gloss: walk
+- id:           c00d0d77-4615-46f5-af59-f4b8c795311a
+  type:         Lexeme
+  dateCreated:  2022-07-11T00:00:00.000Z
+  dateModified: 2022-07-12T00:00:00.000Z
+  language:     3876b870-e7cd-46d2-bca8-2db1cd0a51ac # Public Test Language
+  lemma:
+    spa: vivir
+  projects:
+    - 6a0fcc10-859c-4af1-8105-156ccfd95310 # Public Test Project
+  senses:
+    - gloss: live
+- id:           ecc1ec29-979f-4cf2-8715-b0e0ad6b27a0
+  type:         Lexeme
+  dateCreated:  2022-07-11T00:00:00.000Z
+  dateModified: 2022-07-12T00:00:00.000Z
+  language:     3876b870-e7cd-46d2-bca8-2db1cd0a51ac # Public Test Language
+  lemma:
+    spa: correr
+  projects:
+    - 198c9710-451c-413b-abf5-b3daa4c15156 # Private Test Project
+  senses:
+    - gloss: run

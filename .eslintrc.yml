@@ -24,7 +24,7 @@ overrides:
       - '**/*.test.*'
       - '**/*.unit.*'
     globals:
-      expect: true
+      expect: off
     rules:
       func-names:            off
       prefer-arrow-callback: off
@@ -235,6 +235,7 @@ rules:
         - name
         - resolve
         - reject
+        - status
         - Text
   no-tabs: warn
   no-template-curly-in-string: warn
