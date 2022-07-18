@@ -1,3 +1,0 @@
-// pages/Lexemes/LexicalEntry.js
-console.log(`This is the Lexical Entry script.`);
-//# sourceMappingURL=data:application/json;base64,ewogICJ2ZXJzaW9uIjogMywKICAic291cmNlcyI6IFsicGFnZXMvTGV4ZW1lcy9MZXhpY2FsRW50cnkuanMiXSwKICAic291cmNlc0NvbnRlbnQiOiBbImNvbnNvbGUubG9nKGBUaGlzIGlzIHRoZSBMZXhpY2FsIEVudHJ5IHNjcmlwdC5gKVxyXG4iXSwKICAibWFwcGluZ3MiOiAiO0FBQUEsUUFBUSxJQUFJLG1DQUFtQzsiLAogICJuYW1lcyI6IFtdCn0K
