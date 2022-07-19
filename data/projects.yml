@@ -1,22 +1,94 @@
-- id:   6a0fcc10-859c-4af1-8105-156ccfd95310
-  name: Public Test Project
+- id:           6a0fcc10-859c-4af1-8105-156ccfd95310
+  name:         Public Test Project
+  dateCreated:  2022-07-17T00:00:00.000Z
+  dateModified: 2022-07-18T00:00:00.000Z
+  link:         https://data.digitallinguistics.io/projects/6a0fcc10-859c-4af1-8105-156ccfd95310
+  type:         Project
+  access:
+    note:
+      text: Anyone can view the items in this project.
+  languages:
+    - 3876b870-e7cd-46d2-bca8-2db1cd0a51ac # Public Test Language
+    - 20dae36b-4f8f-46ac-b174-767a17bcc0dc # Another Public Test Language
   permissions:
     owners:  []
     editors: []
     viewers: []
     public:  true
-- id:   198c9710-451c-413b-abf5-b3daa4c15156
-  name: Private Test Project
+  readme: |
+    # Public Test Project
+
+    This is the description for the Public Test Project. [Here's a link.](https://data.digitallinguistics.io)
+
+    ## Heading
+
+    Here's another section of the description.
+
+    This is a list.
+
+    - Item A
+    - Item B
+    - Item C
+
+- id:           198c9710-451c-413b-abf5-b3daa4c15156
+  name:         Private Test Project
+  dateCreated:  2022-07-17T00:00:00.000Z
+  dateModified: 2022-07-18T00:00:00.000Z
+  link:         https://data.digitallinguistics.io/projects/198c9710-451c-413b-abf5-b3daa4c15156
+  type:         Project
+  access:
+    note:
+      text: Nobody can view the items in this project.
+  languages:
+    - 0a25188c-158b-4daf-bd17-5c4cdd6bd40b
   permissions:
     owners:  []
     editors: []
     viewers: []
     public:  false
-- id:   382dc20d-4641-4325-8e48-3b0462b703e9
-  name: Private Test Project with Permissions
+  readme: |
+    # Private Test Project
+
+    This is the description for the Private Test Project. [Here's a link.](https://data.digitallinguistics.io)
+
+    ## Heading
+
+    Here's another section of the description.
+
+    This is a list.
+
+    - Item A
+    - Item B
+    - Item C
+
+- id:           382dc20d-4641-4325-8e48-3b0462b703e9
+  name:         Private Test Project with Permissions
+  dateCreated:  2022-07-17T00:00:00.000Z
+  dateModified: 2022-07-18T00:00:00.000Z
+  link:         https://data.digitallinguistics.io/projects/382dc20d-4641-4325-8e48-3b0462b703e9
+  type:         Project
+  access:
+    note:
+      text: Only test users can view the items in this project.
+  languages:
+    - c99c461d-42c6-4f58-83dd-d94bb472da0e
   permissions:
     owners:  [test@digitallinguistics.io]
     editors: []
     viewers: []
     public:  false
+  readme: |
+    # Private Test Project with Permissions
+
+    This is the description for the Private Test Project with Permissions. [Here's a link.](https://data.digitallinguistics.io)
+
+    ## Heading
+
+    Here's another section of the description.
+
+    This is a list.
+
+    - Item A
+    - Item B
+    - Item C
 

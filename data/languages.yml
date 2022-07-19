@@ -146,3 +146,16 @@
     editors: []
     viewers: []
     public:  false
+- id:                      20dae36b-4f8f-46ac-b174-767a17bcc0dc
+  type:                    Language
+  dateCreated:             2022-07-11T00:00:00.000Z
+  dateModified:            2022-07-11T00:00:00.000Z
+  defaultAnalysisLanguage: eng
+  defaultOrthography:      default
+  name:
+    eng: Another Public Test Language
+  permissions:
+    owners:  []
+    editors: []
+    viewers: []
+    public:  true
