@@ -43,7 +43,7 @@ export default async function buildSVG() {
   }
 
   const html        = sprites.toString({ inline: true })
-  const spritesPath = path.join(__dirname, `../layout/sprites.hbs`)
+  const spritesPath = path.join(__dirname, `../layouts/main/sprites.hbs`)
 
   await writeFile(spritesPath, html, `utf8`)
 

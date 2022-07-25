@@ -1,5 +1,4 @@
 import About           from './About/About-server.js'
-import Design          from './Design/Design-server.js'
 import Dictionaries    from './Dictionaries/Dictionaries-server.js'
 import Home            from './Home/Home-server.js'
 import LanguageLexemes from './LanguageLexemes/LanguageLexemes-server.js'
@@ -13,7 +12,6 @@ import ServerErrorTest from './500/500-test.js'
 
 export default {
   About,
-  Design,
   Dictionaries,
   Home,
   LanguageLexemes,

@@ -44,7 +44,7 @@ function txn(data, ortho) {
 }
 
 const hbs = new ExpressHandlebars({
-  defaultLayout: `layout`,
+  defaultLayout: `main/main.hbs`,
   extname:       `hbs`,
   helpers:       {
     date,
@@ -52,10 +52,10 @@ const hbs = new ExpressHandlebars({
     section,
     txn,
   },
-  layoutsDir:    path.resolve(__dirname, `../layout`),
+  layoutsDir:    path.resolve(__dirname, `../layouts`),
   partialsDir:   [
     path.resolve(__dirname, `../components`),
-    path.resolve(__dirname, `../layout`),
+    path.resolve(__dirname, `../layouts/main`),
     path.resolve(__dirname, `../pages`),
   ],
 })

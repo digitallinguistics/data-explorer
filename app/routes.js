@@ -1,6 +1,7 @@
-import auth     from './auth.js'
-import { env }  from '../config/app.js'
-import handlers from '../pages/index.js'
+import addComponentRoutes from './components.js'
+import auth               from './auth.js'
+import { env }            from '../config/app.js'
+import handlers           from '../pages/index.js'
 
 export default function addRoutes(app) {
 
@@ -10,8 +11,7 @@ export default function addRoutes(app) {
     app.get(`/.auth/login/facebook`, auth.login)
     app.get(`/.auth/logout`, auth.logout)
     app.get(`/500-test`, handlers.ServerErrorTest)
-    app.get(`/design`, handlers.Design)
-    app.get(`/design/:component`, handlers.Design)
+    addComponentRoutes(app)
   }
 
   app.get(`/about`, handlers.About)

@@ -25,13 +25,14 @@ export default async function buildCSS() {
 
   // Build CSS file for main layout
 
-  const layoutLESSPath = path.join(__dirname, `../layout/layout.less`)
+  const layoutLESSPath = path.join(__dirname, `../layouts/main/main.less`)
 
   await buildCSSFile(layoutLESSPath)
 
   // Build CSS files for individual pages
 
-  const pagesPath = path.join(__dirname, `../pages`)
+  const componentsPath = path.join(__dirname, `../components`)
+  const pagesPath      = path.join(__dirname, `../pages`)
 
   const recurseOptions = {
     depth:      1,
@@ -43,6 +44,10 @@ export default async function buildCSS() {
       const folder   = path.basename(path.dirname(entry.path))
       return filename === folder
     },
+  }
+
+  for await (const entry of recurse(componentsPath, recurseOptions)) {
+    await buildCSSFile(entry.fullPath)
   }
 
   for await (const entry of recurse(pagesPath, recurseOptions)) {
