@@ -7,6 +7,9 @@ export default function get(req, res) {
       spa: `español`,
     },
     layout:    false,
-    styles:    [`MultiLangString`],
+    styles:    [
+      `Label`,
+      `MultiLangString`,
+    ],
   })
 }

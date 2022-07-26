@@ -1,4 +1,4 @@
-import addComponentRoutes from './components.js'
+import addComponentRoutes from '../components/index.js'
 import auth               from './auth.js'
 import { env }            from '../config/app.js'
 import handlers           from '../pages/index.js'
