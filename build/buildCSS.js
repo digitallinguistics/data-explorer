@@ -37,12 +37,8 @@ export default async function buildCSS() {
   const recurseOptions = {
     depth:      1,
     fileFilter(entry) {
-      // Only process LESS files with the same name as their parent folder.
       const ext = path.extname(entry.basename)
-      if (ext !== `.less`) return false
-      const filename = path.basename(entry.basename, ext)
-      const folder   = path.basename(path.dirname(entry.path))
-      return filename === folder
+      return ext === `.less`
     },
   }
 

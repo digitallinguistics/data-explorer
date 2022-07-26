@@ -15,6 +15,9 @@
 <body class=component-page>
   {{> (lookup . 'component') data }}
   {{> sprites }}
+  {{#each scripts as |script| }}
+    <script src='/scripts/{{ script }}.js' type=module async></script>
+  {{/each}}
 </body>
 
 </html>

@@ -1,7 +1,7 @@
 <section class=lexeme-details>
 
   <header>
-    <h1 class=page-title>{{txn lexeme.lemma language.defaultOrthography }}</h1>
+    <h1 class=page-title lang='{{ language.iso }}'>{{txn lexeme.lemma language.defaultOrthography }}</h1>
     <ol class=numbered>
       {{#each lexeme.senses as |sense| }}
         <li class=tln>{{mls sense.gloss }}</li>
