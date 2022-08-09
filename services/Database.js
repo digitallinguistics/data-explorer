@@ -1,11 +1,6 @@
-import { createInterface }  from 'readline'
-import { createReadStream } from 'fs'
-import { fileURLToPath }    from 'url'
-import hasAccess            from '../utilities/hasAccess.js'
-import path                 from 'path'
-import { readFile }         from 'fs/promises'
-import { STATUS_CODES }     from 'http'
-import yaml                 from 'js-yaml'
+import data             from '../data/index.js'
+import hasAccess        from '../utilities/hasAccess.js'
+import { STATUS_CODES } from 'http'
 
 // NOTES
 // - Always return a duplicate of the data
@@ -21,21 +16,6 @@ import yaml                 from 'js-yaml'
  */
 function copy(obj) {
   return JSON.parse(JSON.stringify(obj))
-}
-
-async function readNDJSON(filePath) {
-
-  const fileStream = createReadStream(filePath)
-  const lineStream = createInterface({ input: fileStream })
-  const items      = []
-
-  for await (const line of lineStream) {
-    const item = JSON.parse(line)
-    items.push(item)
-  }
-
-  return items
-
 }
 
 class DatabaseResponse {
@@ -74,61 +54,11 @@ class DatabaseResponse {
  */
 export default class Database {
 
-  async initialize() {
-
-    const __filename = fileURLToPath(import.meta.url)
-    const __dirname  = path.dirname(__filename)
-
-    const languagesPath = path.join(__dirname, `../data/languages.yml`)
-    const languagesYAML = await readFile(languagesPath, `utf8`)
-
-    const lexemesPath = path.join(__dirname, `../data/lexemes.yml`)
-    const lexemesYAML = await readFile(lexemesPath, `utf8`)
-
-    const projectsPath = path.join(__dirname, `../data/projects.yml`)
-    const projectsYAML = await readFile(projectsPath, `utf8`)
-
-    const usersPath = path.join(__dirname, `../data/users.yml`)
-    const usersYAML = await readFile(usersPath, `utf8`)
-
-    this.languages = yaml.load(languagesYAML)
-    this.lexemes   = yaml.load(lexemesYAML)
-    this.projects  = yaml.load(projectsYAML)
-    this.users     = yaml.load(usersYAML)
-
-    const OjibwePath = path.join(__dirname, `../data/Ojibwe.ndjson`)
-    const OjibweData = await readNDJSON(OjibwePath)
-    const OjibweLang = this.languages.find(lang => lang.name.eng === `Ojibwe`)
-
-    for (const lexeme of OjibweData) {
-      lexeme.language = {
-        defaultOrthography: OjibweLang.defaultOrthography,
-        id:                 OjibweLang.id,
-        name:               OjibweLang.name,
-      }
-    }
-
-    const MenomineePath = path.join(__dirname, `../data/Menominee.ndjson`)
-    const MenomineeData = await readNDJSON(MenomineePath)
-    const MenomineeLang = this.languages.find(lang => lang.name.eng === `Menominee`)
-
-    for (const lexeme of MenomineeData) {
-      lexeme.language = {
-        defaultOrthography: MenomineeLang.defaultOrthography,
-        id:                 MenomineeLang.id,
-        name:               MenomineeLang.name,
-      }
-    }
-
-    this.lexemes.push(...OjibweData, ...MenomineeData)
-
-    for (const lexeme of this.lexemes) {
-      lexeme.projects ??= []
-    }
-
+  constructor() {
+    Object.assign(this, data)
   }
 
-  async getLanguage(id, user) {
+  getLanguage(id, user) {
 
     const language = this.languages.find(lang => lang.id === id)
 
@@ -148,12 +78,12 @@ export default class Database {
    * @param {String} user The email address of the user
    * @returns Array
    */
-  async getLanguages(user) {
+  getLanguages(user) {
     const results = this.languages.filter(lang => hasAccess(user, lang))
     return new DatabaseResponse(200, copy(results))
   }
 
-  async getLexeme(id, user) {
+  getLexeme(id, user) {
 
     const lexeme = this.lexemes.find(lex => lex.id === id)
 
@@ -172,7 +102,7 @@ export default class Database {
 
   }
 
-  async getLexemes(options = {}, user) {
+  getLexemes(options = {}, user) {
 
     const { language: languageID, project: projectID } = options
 
@@ -196,7 +126,7 @@ export default class Database {
 
   }
 
-  async getProject(projectID, user) {
+  getProject(projectID, user) {
 
     const project = this.projects.find(proj => proj.id === projectID)
 
@@ -211,8 +141,8 @@ export default class Database {
 
   }
 
-  async getProjects(user) {
-    const projects = await this.projects.filter(proj => hasAccess(user, proj))
+  getProjects(user) {
+    const projects = this.projects.filter(proj => hasAccess(user, proj))
     return new DatabaseResponse(200, copy(projects))
   }
 

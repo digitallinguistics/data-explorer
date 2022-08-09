@@ -4,7 +4,11 @@ export default defineConfig({
   downloadsFolder: `test/downloads`,
   e2e:                    {
     baseUrl:     `http://localhost:3001`,
-    specPattern: `pages/**/*.e2e.js`,
+    specPattern: [
+      `components/**/*.component.js`,
+      `pages/**/*.e2e.js`,
+      `pages/**/*.component.js`,
+    ],
     supportFile: false,
   },
   env:             {
