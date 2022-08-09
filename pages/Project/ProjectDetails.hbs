@@ -1,1 +1,18 @@
-<section class=project-details>Project Details</section>
+<section class=project-details>
+
+  <h1>{{ name }}</h1>
+
+  <label for=project-url>Project URL</label>
+  <input readonly spellcheck=false type=url value='https://data.digitallinguistics.io/projects/{{ id }}'>
+
+  <dl>
+
+    <dt>Date Created</dt>
+    <dd>{{date dateCreated }}</dd>
+
+    <dt>Date Modified</dt>
+    <dd>{{date dateModified }}</dd>
+
+  </dl>
+
+</section>
