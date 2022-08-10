@@ -7,7 +7,8 @@
     mod: cuw-
     swd: čuw-
     ipa: t͡ʃuw-
-  projects: []
+  projects:
+    - 6a0fcc10-859c-4af1-8105-156ccfd95310 # Public Test Project
   senses:
     - gloss: go
     - gloss: walk
@@ -30,6 +31,7 @@
   lemma:
     spa: correr
   projects:
+    - 6a0fcc10-859c-4af1-8105-156ccfd95310 # Public Test Project
     - 198c9710-451c-413b-abf5-b3daa4c15156 # Private Test Project
   senses:
     - gloss: run

@@ -12,7 +12,7 @@
     - 3876b870-e7cd-46d2-bca8-2db1cd0a51ac # Public Test Language
     - 20dae36b-4f8f-46ac-b174-767a17bcc0dc # Another Public Test Language
   permissions:
-    owners:  []
+    owners:  [test@digitallinguistics.io]
     editors: []
     viewers: []
     public:  true
@@ -56,7 +56,7 @@
   languages:
     - 0a25188c-158b-4daf-bd17-5c4cdd6bd40b
   permissions:
-    owners:  []
+    owners:  [test@digitallinguistics.io]
     editors: []
     viewers: []
     public:  false

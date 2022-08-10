@@ -15,22 +15,15 @@
   }
 
   tbody tr {
+    border-bottom: 1px solid var(--border-color);
+  }
 
-    --table-border: 1px solid var(--border-color);
+  tbody tr:hover {
 
-    border-bottom: var(--table-border);
-    border-top:    var(--table-border);
+    background-color: var(--blue-1);
 
-    &:hover {
-
-      background-color: var(--blue-1);
-      border-color    : var(--blue);
-      border-top      : 1.25px solid var(--blue);
-
-      @media (prefers-color-scheme: dark) {
-        color: var(--background-color-dark);
-      }
-
+    @media (prefers-color-scheme: dark) {
+      color: var(--background-color-dark);
     }
 
   }

@@ -8,7 +8,7 @@
   name:
     eng: Ojibwe
   permissions:
-    owners:  []
+    owners:  [test@digitallinguistics.io]
     editors: []
     viewers: []
     public:  true
@@ -21,7 +21,7 @@
   name:
     eng: Menominee
   permissions:
-    owners:  []
+    owners:  [test@digitallinguistics.io]
     editors: []
     viewers: []
     public:  true
@@ -34,7 +34,7 @@
   name:
     eng: Potawatomi
   permissions:
-    owners:  []
+    owners:  [test@digitallinguistics.io]
     editors: []
     viewers: []
     public:  true
@@ -47,7 +47,7 @@
   name:
     eng: Plains Cree
   permissions:
-    owners:  []
+    owners:  [test@digitallinguistics.io]
     editors: []
     viewers: []
     public:  true
@@ -60,7 +60,7 @@
   name:
     eng: Meskwaki
   permissions:
-    owners:  []
+    owners:  [test@digitallinguistics.io]
     editors: []
     viewers: []
     public:  true
@@ -100,7 +100,7 @@
       source:       KW
       text:         The tribe prefers to use the term "sleeping" or "dormant" rather than "extinct".
   permissions:
-    owners:  []
+    owners:  [test@digitallinguistics.io]
     editors: []
     viewers: []
     public:  true
@@ -115,7 +115,7 @@
   name:
     eng: Blackfoot
   permissions:
-    owners:  []
+    owners:  [test@digitallinguistics.io]
     editors: []
     viewers: []
     public:  true
@@ -130,7 +130,7 @@
   name:
     eng: Public Test Language
   permissions:
-    owners:  []
+    owners:  [test@digitallinguistics.io]
     editors: []
     viewers: []
     public:  true
@@ -146,7 +146,7 @@
   name:
     eng: Private Test Language
   permissions:
-    owners:  []
+    owners:  [test@digitallinguistics.io]
     editors: []
     viewers: []
     public:  false
@@ -176,7 +176,7 @@
   name:
     eng: Another Public Test Language
   permissions:
-    owners:  []
+    owners:  [test@digitallinguistics.io]
     editors: []
     viewers: []
     public:  true

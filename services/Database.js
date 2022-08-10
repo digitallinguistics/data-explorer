@@ -18,6 +18,18 @@ function copy(obj) {
   return JSON.parse(JSON.stringify(obj))
 }
 
+/**
+ * Create an index using the `id` property from an array of object.
+ * @param   {Array} arr An array of items to index by their `id` property
+ * @returns {Map}
+ */
+function createIndex(arr) {
+  return arr.reduce((map, item) => {
+    map.set(item.id, item)
+    return map
+  }, new Map)
+}
+
 class DatabaseResponse {
 
   constructor(statusCode, data, errorMessage) {
@@ -55,12 +67,18 @@ class DatabaseResponse {
 export default class Database {
 
   constructor() {
+
     Object.assign(this, data)
+
+    this.projects.index  = createIndex(this.projects)
+    this.languages.index = createIndex(this.languages)
+    this.lexemes.index   = createIndex(this.lexemes)
+
   }
 
   getLanguage(id, user) {
 
-    const language = this.languages.find(lang => lang.id === id)
+    const language = this.languages.index.get(id)
 
     if (!language) return new DatabaseResponse(404)
 
@@ -87,7 +105,7 @@ export default class Database {
 
   getLexeme(id, user) {
 
-    const lexeme = this.lexemes.find(lex => lex.id === id)
+    const lexeme = this.lexemes.index.get(id)
 
     if (!lexeme) return new DatabaseResponse(404)
 
@@ -113,7 +131,7 @@ export default class Database {
     const itemType       = projectID ? `project` : `language`
     const collectionType = projectID ? `projects` : `languages`
     const id             = projectID ?? languageID
-    const collection     = this[collectionType].find(item => item.id === id)
+    const collection     = this[collectionType].index.get(id)
 
     if (!collection) return new DatabaseResponse(404, undefined, `A ${ itemType } with that ID does not exist.`)
     if (!collection.permissions.public && !user) return new DatabaseResponse(401)
@@ -122,15 +140,27 @@ export default class Database {
     const projectFilter  = lexeme => lexeme.projects.includes(projectID)
     const languageFilter = lexeme => lexeme.language === languageID
     const filter         = itemType === `project` ? projectFilter : languageFilter
-    const results        = this.lexemes.filter(filter)
+    const results        = copy(this.lexemes.filter(filter))
 
-    return new DatabaseResponse(200, copy(results))
+    // add basic language info to lexeme
+    for (const lexeme of results) {
+
+      const language = this.languages.index.get(lexeme.language)
+
+      lexeme.language = {
+        id:   language.id,
+        name: language.name,
+      }
+
+    }
+
+    return new DatabaseResponse(200, results) // NB: The results have already been duplicated.
 
   }
 
   getProject(projectID, user) {
 
-    const project = this.projects.find(proj => proj.id === projectID)
+    const project = this.projects.index.get(projectID)
 
     if (!project) return new DatabaseResponse(404)
 
