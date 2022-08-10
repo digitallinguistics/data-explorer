@@ -1,17 +1,46 @@
 <section class=project-details>
 
-  <h1>{{ name }}</h1>
+  <header>
 
-  <label for=project-url>Project URL</label>
-  <input readonly spellcheck=false type=url value='https://data.digitallinguistics.io/projects/{{ id }}'>
+    <h1>{{ project.name }}</h1>
+
+    <label for=project-url>Project URL</label>
+    <input readonly spellcheck=false type=url value='https://data.digitallinguistics.io/projects/{{ project.id }}'>
+
+  </header>
+
+  <h2>Statistics</h2>
+
+  <dl>
+
+    <dt># of languages</dt>
+    <dd>{{ numLanguages }}</dd>
+
+    <dt># of lexemes</dt>
+    <dd>{{ numLexemes }}</dd>
+
+    <dt># of collaborators</dt>
+    <dd>{{ numCollaborators }}</dd>
+
+  </dl>
+
+  <h2>Readme</h2>
+
+  <div>{{{ project.readme.html }}}</div>
+
+  <h2>Access Conditions</h2>
+
+  <div>{{{ project.access.note.html }}}</div>
+
+  <h2>Metadata</h2>
 
   <dl>
 
     <dt>Date Created</dt>
-    <dd>{{date dateCreated }}</dd>
+    <dd>{{date project.dateCreated }}</dd>
 
     <dt>Date Modified</dt>
-    <dd>{{date dateModified }}</dd>
+    <dd>{{date project.dateModified }}</dd>
 
   </dl>
 

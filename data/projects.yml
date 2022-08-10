@@ -6,6 +6,7 @@
   type:         Project
   access:
     note:
+      html: Anyone can view the items in this project.
       text: Anyone can view the items in this project.
   languages:
     - 3876b870-e7cd-46d2-bca8-2db1cd0a51ac # Public Test Language
@@ -15,20 +16,32 @@
     editors: []
     viewers: []
     public:  true
-  readme: |
-    # Public Test Project
+  readme:
+    html: |
+      <h1>Public Test Project</h1>
+      <p>This is the description for the Public Test Project. <a href="https://data.digitallinguistics.io">Here's a link.</a></p>
+      <h2>Heading</h2>
+      <p>Here's another section of the description.</p>
+      <p>This is a list.</p>
+      <ul>
+        <li>Item A</li>
+        <li>Item B</li>
+        <li>Item C</li>
+      </ul>
+    markdown: |
+      # Public Test Project
 
-    This is the description for the Public Test Project. [Here's a link.](https://data.digitallinguistics.io)
+      This is the description for the Public Test Project. [Here's a link.](https://data.digitallinguistics.io)
 
-    ## Heading
+      ## Heading
 
-    Here's another section of the description.
+      Here's another section of the description.
 
-    This is a list.
+      This is a list.
 
-    - Item A
-    - Item B
-    - Item C
+      - Item A
+      - Item B
+      - Item C
 
 - id:           198c9710-451c-413b-abf5-b3daa4c15156
   name:         Private Test Project
@@ -38,6 +51,7 @@
   type:         Project
   access:
     note:
+      html: Nobody can view the items in this project.
       text: Nobody can view the items in this project.
   languages:
     - 0a25188c-158b-4daf-bd17-5c4cdd6bd40b
@@ -46,20 +60,32 @@
     editors: []
     viewers: []
     public:  false
-  readme: |
-    # Private Test Project
+  readme:
+    html:
+      <h1>Public Test Project</h1>
+      <p>This is the description for the Public Test Project. <a href="https://data.digitallinguistics.io">Here's a link.</a></p>
+      <h2>Heading</h2>
+      <p>Here's another section of the description.</p>
+      <p>This is a list.</p>
+      <ul>
+        <li>Item A</li>
+        <li>Item B</li>
+        <li>Item C</li>
+      </ul>
+    markdown: |
+      # Private Test Project
 
-    This is the description for the Private Test Project. [Here's a link.](https://data.digitallinguistics.io)
+      This is the description for the Private Test Project. [Here's a link.](https://data.digitallinguistics.io)
 
-    ## Heading
+      ## Heading
 
-    Here's another section of the description.
+      Here's another section of the description.
 
-    This is a list.
+      This is a list.
 
-    - Item A
-    - Item B
-    - Item C
+      - Item A
+      - Item B
+      - Item C
 
 - id:           382dc20d-4641-4325-8e48-3b0462b703e9
   name:         Private Test Project with Permissions
@@ -69,6 +95,7 @@
   type:         Project
   access:
     note:
+      html: Only test users can view the items in this project.
       text: Only test users can view the items in this project.
   languages:
     - c99c461d-42c6-4f58-83dd-d94bb472da0e
@@ -77,18 +104,29 @@
     editors: []
     viewers: []
     public:  false
-  readme: |
-    # Private Test Project with Permissions
+  readme:
+    html:
+      <h1>Public Test Project</h1>
+      <p>This is the description for the Public Test Project. <a href="https://data.digitallinguistics.io">Here's a link.</a></p>
+      <h2>Heading</h2>
+      <p>Here's another section of the description.</p>
+      <p>This is a list.</p>
+      <ul>
+        <li>Item A</li>
+        <li>Item B</li>
+        <li>Item C</li>
+      </ul>
+    markdown: |
+      # Private Test Project with Permissions
 
-    This is the description for the Private Test Project with Permissions. [Here's a link.](https://data.digitallinguistics.io)
+      This is the description for the Private Test Project with Permissions. [Here's a link.](https://data.digitallinguistics.io)
 
-    ## Heading
+      ## Heading
 
-    Here's another section of the description.
+      Here's another section of the description.
 
-    This is a list.
+      This is a list.
 
-    - Item A
-    - Item B
-    - Item C
-
+      - Item A
+      - Item B
+      - Item C

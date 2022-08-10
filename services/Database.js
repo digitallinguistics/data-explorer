@@ -76,11 +76,13 @@ export default class Database {
   /**
    * Returns all the Languages that the user has access to.
    * @param {String} user The email address of the user
-   * @returns Array
    */
   getLanguages(user) {
+
     const results = this.languages.filter(lang => hasAccess(user, lang))
+
     return new DatabaseResponse(200, copy(results))
+
   }
 
   getLexeme(id, user) {
