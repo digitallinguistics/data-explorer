@@ -12,6 +12,9 @@ export default function get(req, res) {
       },
     },
     layout:    false,
-    styles:    [`LanguagesTable`],
+    styles:    [
+      `LanguagesTable`,
+      `Link`,
+    ],
   })
 }
