@@ -2,10 +2,12 @@
 
   <header>
 
-    <h1>{{ project.name }}</h1>
+    <h1 class=page-title>{{ project.name }}</h1>
 
-    <label for=project-url>Project URL</label>
-    <input readonly spellcheck=false type=url value='https://data.digitallinguistics.io/projects/{{ project.id }}'>
+    <div class=project-url-field>
+      <label class=label for=project-url>Project URL</label>
+      <input id=project-url readonly spellcheck=false type=url value='https://data.digitallinguistics.io/projects/{{ project.id }}'>
+    </div>
 
   </header>
 

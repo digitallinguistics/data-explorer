@@ -18,6 +18,7 @@ export default function get(req, res) {
       `LexemesTable`,
       `Link`,
       `Numbered`,
+      `Table`,
     ],
   })
 

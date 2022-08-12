@@ -14,7 +14,11 @@ export default function get(req, res) {
     },
     layout:    false,
     scripts:   [],
-    styles:    [`ProjectDetails`],
+    styles:    [
+      `Label`,
+      `PageTitle`,
+      `ProjectDetails`,
+    ],
   })
 
 }
