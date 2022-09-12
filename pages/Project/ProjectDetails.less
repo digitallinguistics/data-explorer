@@ -1,9 +1,12 @@
-@import 'BoxInput/BoxInput.less';
-
 .project-details {
 
   inline-size    : var(--measure);
   max-inline-size: var(--measure);
+
+  // label for project URL
+  [for='project-url'] {
+    padding: var(--text-padding);
+  }
 
   #project-url {
     flex-grow    : 1;
@@ -13,6 +16,22 @@
   .project-url-field {
     align-items   : baseline;
     flex-direction: row;
+  }
+
+  .section-header {
+    padding-block: var(--text-block-padding);
+  }
+
+  .statistics {
+
+    display              : grid;
+    grid-template-columns: 1fr 1fr;
+    inline-size          : fit-content;
+
+    :is(dt, dd) {
+      padding: var(--text-padding);
+    }
+
   }
 
 }
