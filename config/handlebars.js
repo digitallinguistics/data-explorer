@@ -26,6 +26,10 @@ function mls(data, lang) {
   return getDefaultLanguage(data, lang)
 }
 
+function number(num) {
+  return num.toLocaleString()
+}
+
 function section(name, opts) {
   this.sections       ??= {}
   this.sections[name]   = opts.fn(this)
@@ -49,6 +53,7 @@ const hbs = new ExpressHandlebars({
   helpers:       {
     date,
     mls,
+    number,
     section,
     txn,
   },
