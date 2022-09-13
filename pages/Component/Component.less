@@ -1,0 +1,32 @@
+// Globals
+@import 'node_modules/flexbox-reset/flexbox-reset.less';
+@import 'global/colors.less';
+@import 'global/spacing.less';
+@import 'global/fonts.less';
+@import 'global/typography.less';
+@import 'global/utilities.less';
+@import 'global/borders.less';
+
+// App Styles
+@import '../main/app.less';
+
+// Design Library Components
+@import 'ColorBlock/ColorBlock.less';
+@import 'BlockHeader/BlockHeader.less';
+@import 'BoxInput/BoxInput.less';
+@import 'Markdown/Markdown.less';
+@import 'SectionHeader/SectionHeader.less';
+
+// Test-Specific Styles
+.component-page {
+  align-items: center;
+  padding    : 5em;
+}
+
+.notes {
+  min-width: 20em;
+}
+
+.project-details {
+  max-inline-size: 100% !important;
+}

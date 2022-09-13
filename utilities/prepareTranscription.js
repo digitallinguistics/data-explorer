@@ -4,5 +4,6 @@
  * @returns {String}
  */
 export default function prepareTranscription(str) {
+  if (!str) return ``
   return str.replaceAll(/-/gu, `‑`) // use non-breaking hyphen
 }

@@ -25,24 +25,25 @@ export default async function buildCSS() {
 
   // Build CSS file for main layout
 
-  const layoutLESSPath = path.join(__dirname, `../layout/layout.less`)
+  const layoutLESSPath = path.join(__dirname, `../layouts/main/main.less`)
 
   await buildCSSFile(layoutLESSPath)
 
   // Build CSS files for individual pages
 
-  const pagesPath = path.join(__dirname, `../pages`)
+  const componentsPath = path.join(__dirname, `../components`)
+  const pagesPath      = path.join(__dirname, `../pages`)
 
   const recurseOptions = {
     depth:      1,
     fileFilter(entry) {
-      // Only process LESS files with the same name as their parent folder.
       const ext = path.extname(entry.basename)
-      if (ext !== `.less`) return false
-      const filename = path.basename(entry.basename, ext)
-      const folder   = path.basename(path.dirname(entry.path))
-      return filename === folder
+      return ext === `.less`
     },
+  }
+
+  for await (const entry of recurse(componentsPath, recurseOptions)) {
+    await buildCSSFile(entry.fullPath)
   }
 
   for await (const entry of recurse(pagesPath, recurseOptions)) {

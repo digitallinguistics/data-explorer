@@ -1,0 +1,49 @@
+<section class=project-details>
+
+  <header>
+
+    <h1 class=page-title>{{ project.name }}</h1>
+
+    <div class='color-block project-url-field'>
+      <label class=label for=project-url>Project URL</label>
+      <input class=box-input id=project-url readonly spellcheck=false type=url value='https://data.digitallinguistics.io/projects/{{ project.id }}'>
+    </div>
+
+  </header>
+
+  <h2 class=section-header>Statistics</h2>
+
+  <dl class='color-block statistics'>
+
+    <dt class=label># of languages</dt>
+    <dd>{{number numLanguages }}</dd>
+
+    <dt class=label># of lexemes</dt>
+    <dd>{{number numLexemes }}</dd>
+
+    <dt class=label># of collaborators</dt>
+    <dd>{{number numCollaborators }}</dd>
+
+  </dl>
+
+  <h2 class=section-header>Readme</h2>
+
+  <div class='color-block md readme'>{{{ project.readme.html }}}</div>
+
+  <h2 class=section-header>Access Conditions</h2>
+
+  <div class='access color-block md'>{{{ project.access.note.html }}}</div>
+
+  <h2 class=section-header>Metadata</h2>
+
+  <dl class='color-block metadata'>
+
+    <dt class=label>Date Created</dt>
+    <dd>{{date project.dateCreated }}</dd>
+
+    <dt class=label>Date Modified</dt>
+    <dd>{{date project.dateModified }}</dd>
+
+  </dl>
+
+</section>

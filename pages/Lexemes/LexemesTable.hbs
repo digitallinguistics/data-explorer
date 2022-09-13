@@ -1,4 +1,4 @@
-<table class=lexemes-table>
+<table class='lexemes-table table'>
 
   <caption class=visually-hidden>Lexemes: {{ project.name }}</caption>
 
@@ -18,18 +18,18 @@
 
         {{!-- language --}}
         <td>
-          <a class=link href='/languages/{{ lexeme.language.id }}'>{{mls lexeme.language.name }}</a>
+          <a class=link href='/languages/{{ language.id }}'>{{mls language.name }}</a>
         </td>
 
         {{!-- lemma --}}
         <td class=lemma>
-          <a class=link href='/lexemes/{{ lexeme.id }}'>{{txn lexeme.lemma ../project.defaultOrthography }}</a>
+          <a class=link href='/lexemes/{{ id }}'>{{txn lemma ../project.defaultOrthography }}</a>
         </td>
 
         {{!-- glosses --}}
         <td>
           <ol class=numbered>
-            {{#each lexeme.senses as |sense|}}
+            {{#each senses as |sense|}}
               {{#if sense.gloss}}
                 <li>{{ sense.gloss }}</li>
               {{/if}}
@@ -38,10 +38,10 @@
         </td>
 
         {{!-- date created --}}
-        <td class=date-created>{{date lexeme.dateCreated }}</td>
+        <td class=date-created>{{date dateCreated }}</td>
 
         {{!-- date modified --}}
-        <td class=date-modified>{{date lexeme.dateModified }}</td>
+        <td class=date-modified>{{date dateModified }}</td>
 
       </tr>
     {{/each}}

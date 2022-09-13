@@ -13,7 +13,7 @@ const __dirname  = path.dirname(__filename)
  * @param {Date} d A Date Object
  */
 function date(d) {
-  return new Date(d).toLocaleDateString(`en-CA`)
+  return d ? new Date(d).toLocaleDateString(`en-CA`) : ``
 }
 
 /**
@@ -24,6 +24,10 @@ function date(d) {
  */
 function mls(data, lang) {
   return getDefaultLanguage(data, lang)
+}
+
+function number(num) {
+  return num.toLocaleString()
 }
 
 function section(name, opts) {
@@ -44,18 +48,19 @@ function txn(data, ortho) {
 }
 
 const hbs = new ExpressHandlebars({
-  defaultLayout: `layout`,
+  defaultLayout: `main/main.hbs`,
   extname:       `hbs`,
   helpers:       {
     date,
     mls,
+    number,
     section,
     txn,
   },
-  layoutsDir:    path.resolve(__dirname, `../layout`),
+  layoutsDir:    path.resolve(__dirname, `../layouts`),
   partialsDir:   [
     path.resolve(__dirname, `../components`),
-    path.resolve(__dirname, `../layout`),
+    path.resolve(__dirname, `../layouts/main`),
     path.resolve(__dirname, `../pages`),
   ],
 })

@@ -1,50 +1,11 @@
 .lexemes-table {
 
-  white-space: nowrap;
-
   :is(.date-created, .date-modified) {
     font-family: var(--font-mono);
   }
 
   .lemma {
     font-family: var(--font-unicode);
-  }
-
-  td, th {
-    padding: var(--text-padding-lg);
-  }
-
-  tbody tr {
-
-    --table-border: 1px solid var(--border-color);
-
-    border-bottom: var(--table-border);
-    border-top:    var(--table-border);
-
-    &:hover {
-
-      background-color: var(--blue-1);
-      border-color    : var(--blue);
-      border-top      : 1.25px solid var(--blue);
-
-      @media (prefers-color-scheme: dark) {
-        color: var(--background-color-dark);
-      }
-
-    }
-
-  }
-
-  thead {
-
-    border-bottom: 0.1em solid black;
-    font-weight  : 500;
-    text-align   : left;
-
-    @media (prefers-color-scheme: dark) {
-      border-bottom-color: var(--text-color-dark);
-    }
-
   }
 
 }

@@ -18,11 +18,6 @@ import { env, port } from '../config/app.js'
 const __filename = fileURLToPath(import.meta.url)
 const __dirname  = path.dirname(__filename)
 
-function serverCallback() {
-  console.info(`Server started on port ${ port } in ${ env } mode. Press Ctrl+C to terminate.`)
-}
-
-// Handle uncaught exceptions
 process.on(`uncaughtException`, handleUncaughtException)
 
 // Initialize
@@ -33,7 +28,7 @@ app.enable(`trust proxy`)
 app.engine(`hbs`, hbs.engine)
 app.set(`env`, env)
 app.set(`view engine`, `hbs`)
-app.set(`views`, path.resolve(__dirname, `../pages`))
+app.set(`views`, path.join(__dirname, `../pages`))
 
 await addLocals(app.locals)
 
@@ -49,4 +44,6 @@ app.use(logger)
 addRoutes(app.router)
 
 // Start server
-app.listen(port, serverCallback)
+app.listen(port, () => {
+  console.info(`Server started on port ${ port } in ${ env } mode. Press Ctrl+C to terminate.`)
+})

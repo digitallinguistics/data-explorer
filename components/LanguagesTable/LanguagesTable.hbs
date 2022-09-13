@@ -1,0 +1,50 @@
+<table class='languages-table table'>
+
+  <caption>Languages: {{ project.name }}</caption>
+
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Autonym</th>
+      <th>ISO Code</th>
+      <th>Abbreviation</th>
+      <th>Glottocode</th>
+      <th>Date Created</th>
+      <th>Date Modified</th>
+    </tr>
+  </thead>
+
+  <tbody>
+    {{#each languages as |language|}}
+      <tr>
+
+        {{!-- name --}}
+        <td>
+          <a class=link href='/languages/{{ id }}'>{{mls name defaultAnalysisLanguage }}</a>
+        </td>
+
+        {{!-- autonym --}}
+        <td class=autonym>
+          <a class=link href='/languages/{{ id }}'>{{txn autonym defaultOrthography }}</a>
+        </td>
+
+        {{!-- abbreviation --}}
+        <td class=abbreviation>{{ abbreviation }}</td>
+
+        {{!-- Glottocode --}}
+        <td class=glottocode>{{ glottocode }}</td>
+
+        {{!-- ISO --}}
+        <td class=iso>{{ iso }}</td>
+
+        {{!-- date created --}}
+        <td class=date-created>{{date dateCreated }}</td>
+
+        {{!-- date modified --}}
+        <td class=date-modified>{{date dateModified }}</td>
+
+      </tr>
+    {{/each}}
+  </tbody>
+
+</table>

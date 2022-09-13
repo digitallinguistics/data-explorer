@@ -9,9 +9,12 @@ env:
 
 plugins:
   - chai-friendly
+  - cypress
 
 overrides:
   - files:
+      - '**/*.component.*'
+      - '**/*.e2e.*'
       - '**/*.test.*'
       - '**/*.unit.*'
     globals:

@@ -1,0 +1,28 @@
+body {
+
+  font-family: var(--font);
+  line-height: 1.5;
+
+  @media (max-width: 45em) {
+    font-size: 125%;
+  }
+
+}
+
+main {
+  flex-grow: 1;
+}
+
+@media (prefers-color-scheme: dark) {
+  body {
+    background-color: var(--background-color-dark);
+    color: var(--text-color-dark);
+  }
+}
+
+// temporary fixes and overrides
+
+button {
+  // background-color for buttons is not reset in the current version of flexbox-reset.
+  background-color: transparent;
+}
