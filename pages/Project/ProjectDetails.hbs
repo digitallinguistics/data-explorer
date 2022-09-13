@@ -4,7 +4,7 @@
 
     <h1 class=page-title>{{ project.name }}</h1>
 
-    <div class=project-url-field>
+    <div class='color-block project-url-field'>
       <label class=label for=project-url>Project URL</label>
       <input class=box-input id=project-url readonly spellcheck=false type=url value='https://data.digitallinguistics.io/projects/{{ project.id }}'>
     </div>
@@ -13,7 +13,7 @@
 
   <h2 class=section-header>Statistics</h2>
 
-  <dl class=statistics>
+  <dl class='color-block statistics'>
 
     <dt class=label># of languages</dt>
     <dd>{{number numLanguages }}</dd>
@@ -28,20 +28,20 @@
 
   <h2 class=section-header>Readme</h2>
 
-  <div class=md>{{{ project.readme.html }}}</div>
+  <div class='color-block md readme'>{{{ project.readme.html }}}</div>
 
-  <h2>Access Conditions</h2>
+  <h2 class=section-header>Access Conditions</h2>
 
-  <div>{{{ project.access.note.html }}}</div>
+  <div class='access color-block md'>{{{ project.access.note.html }}}</div>
 
-  <h2>Metadata</h2>
+  <h2 class=section-header>Metadata</h2>
 
-  <dl>
+  <dl class='color-block metadata'>
 
-    <dt>Date Created</dt>
+    <dt class=label>Date Created</dt>
     <dd>{{date project.dateCreated }}</dd>
 
-    <dt>Date Modified</dt>
+    <dt class=label>Date Modified</dt>
     <dd>{{date project.dateModified }}</dd>
 
   </dl>

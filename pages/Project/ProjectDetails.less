@@ -3,6 +3,33 @@
   inline-size    : var(--measure);
   max-inline-size: var(--measure);
 
+  .access {
+    --block-color: var(--yellow-1);
+    padding      : var(--text-padding);
+  }
+
+  .color-block {
+    margin-inline: var(--text-inline-padding);
+  }
+
+  :is(dt, dd) {
+    padding: var(--text-padding);
+  }
+
+  dd {
+    font-family: var(--font-mono);
+  }
+
+  dl {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    inline-size: fit-content;
+  }
+
+  .metadata {
+    --block-color: var(--teal-1);
+  }
+
   // label for project URL
   [for='project-url'] {
     padding: var(--text-padding);
@@ -14,8 +41,13 @@
   }
 
   .project-url-field {
+    --block-color : var(--orange-1);
     align-items   : baseline;
     flex-direction: row;
+  }
+
+  .readme {
+    --block-color: var(--cyan-1);
   }
 
   .section-header {
@@ -23,15 +55,7 @@
   }
 
   .statistics {
-
-    display              : grid;
-    grid-template-columns: 1fr 1fr;
-    inline-size          : fit-content;
-
-    :is(dt, dd) {
-      padding: var(--text-padding);
-    }
-
+    --block-color: var(--blue-1);
   }
 
 }
