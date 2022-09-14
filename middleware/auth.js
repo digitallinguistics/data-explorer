@@ -7,7 +7,7 @@ export default function auth(req, res, next) {
   res.locals.loggedIn = Boolean(authCookie)
 
   if (env === `localhost` && res.locals.loggedIn) {
-    req.headers[msAuthHeader] = msAuthUser
+    req.headers[msAuthHeader] = authCookie ?? msAuthUser
   }
 
   if (res.locals.loggedIn) {

@@ -1,0 +1,13 @@
+{{#section 'head'}}
+  <link rel=stylesheet href=/styles/Project.css>
+{{/section}}
+
+<main id=main class=project-page>
+
+  {{#if project}}
+    {{> Project/ProjectDetails }}
+  {{else}}
+    <p class=error-message>Either this project does not exist, you are not logged in, or you do not have permission to view it.</p>
+  {{/if}}
+
+</main>

@@ -22,11 +22,17 @@
       <p>This is the description for the Public Test Project. <a href="https://data.digitallinguistics.io">Here's a link.</a></p>
       <h2>Heading</h2>
       <p>Here's another section of the description.</p>
-      <p>This is a list.</p>
+      <p>This is an unordered list.</p>
       <ul>
         <li>Item A</li>
         <li>Item B</li>
         <li>Item C</li>
+      </ul>
+      <p>This is an ordered list.</p>
+      <ul>
+        <li>Item 1</li>
+        <li>Item 2</li>
+        <li>Item 3</li>
       </ul>
     markdown: |
       # Public Test Project
@@ -37,11 +43,17 @@
 
       Here's another section of the description.
 
-      This is a list.
+      This is an unordered list.
 
       - Item A
       - Item B
       - Item C
+
+      This is an ordered list.
+
+      1. Item 1
+      2. Item 2
+      3. Item 3
 
 - id:           198c9710-451c-413b-abf5-b3daa4c15156
   name:         Private Test Project

@@ -28,11 +28,23 @@
 
   <h2 class=section-header>Readme</h2>
 
-  <div class='color-block md readme'>{{{ project.readme.html }}}</div>
+  <div class='color-block md readme'>
+    {{#if project.readme }}
+      {{{ project.readme.html }}}
+    {{else}}
+      No readme provided.
+    {{/if}}
+  </div>
 
   <h2 class=section-header>Access Conditions</h2>
 
-  <div class='access color-block md'>{{{ project.access.note.html }}}</div>
+  <div class='access color-block md'>
+    {{#if project.access }}
+      {{{ project.access.note.html }}}
+    {{else}}
+      None.
+    {{/if}}
+  </div>
 
   <h2 class=section-header>Metadata</h2>
 
