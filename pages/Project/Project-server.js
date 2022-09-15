@@ -6,23 +6,27 @@ export default async function get(req, res) {
   const { projectID }       = req.params
   const { data: project }   = await db.getProject(projectID, res.locals.user)
 
-  const { owners, editors } = project.permissions
-  const numCollaborators    = new Set([...owners, ...editors]).size
-
-  let numLexemes = 0
-
-  for (const language of project.languages) {
-    const { data: lexemes } = await db.getLexemes({ language }, res.locals.user)
-    numLexemes += lexemes.length
+  const context = {
+    project,
+    [title]: true,
+    title:   `{ Project Title }`,
   }
 
-  res.render(`Project/Project`, {
-    numCollaborators,
-    numLanguages:     project.languages.length,
-    numLexemes,
-    project,
-    [title]:          true,
-    title:            `{ Project Title }`,
-  })
+  if (project) {
+
+    const { owners, editors } = project.permissions
+
+    context.numCollaborators = new Set([...owners, ...editors]).size
+    context.numLanguages     = project.languages.length
+    context.numLexemes       = 0
+
+    for (const language of project.languages) {
+      const { data } = await db.getLexemes({ language, summary: true }, res.locals.user)
+      context.numLexemes += data.count
+    }
+
+  }
+
+  res.render(`Project/Project`, context)
 
 }
