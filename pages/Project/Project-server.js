@@ -20,9 +20,16 @@ export default async function get(req, res) {
     context.numLanguages     = project.languages.length
     context.numLexemes       = 0
 
-    for (const language of project.languages) {
-      const { data } = await db.getLexemes({ language, summary: true }, res.locals.user)
-      context.numLexemes += data.count
+    for (const languageID of project.languages) {
+
+
+      const { data: languages } = await db.getLanguages(languageID, res.locals.user)
+      context.languages = languages
+
+      const lexemesRequestOptions             = { language: languageID, summary: true }
+      const { data: { count } } = await db.getLexemes(lexemesRequestOptions, res.locals.user)
+      context.numLexemes += count
+
     }
 
   }
