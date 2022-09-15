@@ -142,7 +142,7 @@ describe(`Database`, function() {
       const db = new Database
       const { data, status } = await db.getLexemes({ language: publicLanguageID })
       expect(status).to.equal(200)
-      expect(data.every(lexeme => lexeme.language === publicLanguageID)).to.be.true
+      expect(data.every(lexeme => lexeme.language.id === publicLanguageID)).to.be.true
     })
 
     it(`option: project`, async function() {
