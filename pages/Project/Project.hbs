@@ -1,0 +1,98 @@
+{{#section 'head'}}
+  <link rel=stylesheet href=/styles/Project.css>
+{{/section}}
+
+<main id=main class=project-page>
+  {{#if project}}
+
+    <header>
+
+      <h1 class=page-title>{{ project.name }}</h1>
+
+      <div class='color-block project-url-field'>
+        <label class=label for=project-url>Project URL</label>
+        <input class=box-input id=project-url readonly spellcheck=false type=url
+          value='https://data.digitallinguistics.io/projects/{{ project.id }}'>
+      </div>
+
+    </header>
+
+    <section class=statistics-section>
+
+      <h2 class=section-header>Statistics</h2>
+
+      <dl class='color-block statistics'>
+
+        <dt class=label># of languages</dt>
+        <dd>{{number numLanguages }}</dd>
+
+        <dt class=label># of lexemes</dt>
+        <dd>{{number numLexemes }}</dd>
+
+        <dt class=label># of collaborators</dt>
+        <dd>{{number numCollaborators }}</dd>
+
+      </dl>
+
+    </section>
+
+    <section class=readme-section>
+
+      <h2 class=section-header>Readme</h2>
+
+      <div class='color-block md readme'>
+        {{#if project.readme }}
+        {{{ project.readme.html }}}
+        {{else}}
+        No readme provided.
+        {{/if}}
+      </div>
+
+    </section>
+
+    <section class=access-section>
+
+      <h2 class=section-header>Access Conditions</h2>
+
+      <div class='access color-block md'>
+        {{#if project.access }}
+        {{{ project.access.note.html }}}
+        {{else}}
+        None.
+        {{/if}}
+      </div>
+
+    </section>
+
+    <section class=metadata-section>
+
+      <h2 class=section-header>Metadata</h2>
+
+      <dl class='color-block metadata'>
+
+        <dt class=label>Date Created</dt>
+        <dd>{{date project.dateCreated }}</dd>
+
+        <dt class=label>Date Modified</dt>
+        <dd>{{date project.dateModified }}</dd>
+
+      </dl>
+
+    </section>
+
+    <section class=languages-section>
+
+      <h2 class='languages-section__header section-header'>Languages</h2>
+
+      <div class=table-wrapper>
+        {{> LanguagesTable/LanguagesTable }}
+      </div>
+
+    </section>
+
+  {{else}}
+
+    <p class=error-message>Either this project does not exist, you are not logged in, or you do not have permission to view it.</p>
+
+  {{/if}}
+</main>

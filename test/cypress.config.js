@@ -5,9 +5,8 @@ export default defineConfig({
   e2e:                    {
     baseUrl:     `http://localhost:3001`,
     specPattern: [
-      `components/**/*.component.js`,
-      `pages/**/*.e2e.js`,
-      `pages/**/*.component.js`,
+      `components/**/*.test.js`,
+      `pages/**/*.test.js`,
     ],
     supportFile: false,
   },

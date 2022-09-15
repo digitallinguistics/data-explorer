@@ -142,7 +142,7 @@ describe(`Database`, function() {
       const db = new Database
       const { data, status } = await db.getLexemes({ language: publicLanguageID })
       expect(status).to.equal(200)
-      expect(data.every(lexeme => lexeme.language === publicLanguageID)).to.be.true
+      expect(data.every(lexeme => lexeme.language.id === publicLanguageID)).to.be.true
     })
 
     it(`option: project`, async function() {
@@ -150,6 +150,13 @@ describe(`Database`, function() {
       const { data, status } = await db.getLexemes({ project: publicProjectID })
       expect(status).to.equal(200)
       expect(data.every(lexeme => lexeme.projects.includes(publicProjectID))).to.be.true
+    })
+
+    it.only(`option: summary`, async function() {
+      const db = new Database
+      const { data, status } = await db.getLexemes({ project: publicProjectID, summary: true })
+      expect(status).to.equal(200)
+      expect(data.count).to.equal(2)
     })
 
     it(`401 Unauthenticated`, async function() {

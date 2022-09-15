@@ -122,9 +122,18 @@ export default class Database {
 
   }
 
+  /**
+   * Gets all the lexemes that match the provided query. Note that either the `language` or `project` option is required.
+   * @param {Object}  options          An options hash
+   * @param {String}  options.language The ID of the language to retrieve lexemes for.
+   * @param {String}  options.project  The ID of the project to retrieve lexemes for.
+   * @param {Boolean} options.summary  If truthy, returns a summary of the results rather than the actual results.
+   * @param {String}  user             The email of the user requesting access.
+   * @returns DatabaseResponse
+   */
   getLexemes(options = {}, user) {
 
-    const { language: languageID, project: projectID } = options
+    const { language: languageID, project: projectID, summary } = options
 
     if (!(languageID || projectID)) return new DatabaseResponse(400, undefined, `No project/language specified.`)
 
@@ -141,6 +150,8 @@ export default class Database {
     const languageFilter = lexeme => lexeme.language === languageID
     const filter         = itemType === `project` ? projectFilter : languageFilter
     const results        = copy(this.lexemes.filter(filter))
+
+    if (summary) return new DatabaseResponse(200, { count: results.length })
 
     // add basic language info to lexeme
     for (const lexeme of results) {

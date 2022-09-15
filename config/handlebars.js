@@ -27,7 +27,7 @@ function mls(data, lang) {
 }
 
 function number(num) {
-  return num.toLocaleString()
+  return Number(num).toLocaleString()
 }
 
 function section(name, opts) {

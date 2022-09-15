@@ -9,7 +9,6 @@ import Transcription   from './Transcription/Transcription-server.js'
 import LanguageDetails from '../pages/Languages/LanguageDetails-server.js'
 import LexemeDetails   from '../pages/Lexeme/LexemeDetails-server.js'
 import LexemesTable    from '../pages/Lexemes/LexemesTable-server.js'
-import ProjectDetails  from '../pages/Project/ProjectDetails-server.js'
 
 export default function addComponentRoutes(app) {
   app.get(`/components/LanguageDetails`, LanguageDetails)
@@ -19,6 +18,5 @@ export default function addComponentRoutes(app) {
   app.get(`/components/MultiLangString`, MultiLangString)
   app.get(`/components/Note`, Note)
   app.get(`/components/Notes`, Notes)
-  app.get(`/components/ProjectDetails`, ProjectDetails)
   app.get(`/components/Transcription`, Transcription)
 }
