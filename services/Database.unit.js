@@ -152,6 +152,13 @@ describe(`Database`, function() {
       expect(data.every(lexeme => lexeme.projects.includes(publicProjectID))).to.be.true
     })
 
+    it.only(`option: summary`, async function() {
+      const db = new Database
+      const { data, status } = await db.getLexemes({ project: publicProjectID, summary: true })
+      expect(status).to.equal(200)
+      expect(data.count).to.equal(2)
+    })
+
     it(`401 Unauthenticated`, async function() {
       const db = new Database
       const { data, message, status } = await db.getLexemes({ project: privateProjectID })
