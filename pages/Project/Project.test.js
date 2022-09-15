@@ -33,6 +33,7 @@ describe(`Project Page`, function() {
     cy.get(`.access`).should(`include.text`, `Anyone can view the items in this project.`)
     cy.contains(`Date Created`).next().should(`have.text`, `2022-07-16`)
     cy.contains(`Date Modified`).next().should(`have.text`, `2022-07-17`)
+    cy.get(`tbody`).children().should(`have.length`, 9)
   })
 
 })
