@@ -12,15 +12,19 @@
 
         <h2 class=section-header>Names</h2>
 
-        <div class='color-block names'>
+        <fieldset class='color-block names'>
 
-          <label class='label sci-name-label'>Scientific Name</label>
-          {{> MultiLangString/MultiLangString name }}
+          <div class=name>
+            <label class=label>Scientific Name</label>
+            {{> MultiLangString/MultiLangString name }}
+          </div>
 
-          <label class=label>Autonym</label>
-          {{> Transcription/Transcription txn=autonym lang=iso }}
+          <div class=name>
+            <label class=label>Autonym</label>
+            {{> Transcription/Transcription txn=autonym lang=iso }}
+          </div>
 
-        </div>
+        </fieldset>
 
       </section>
 
@@ -28,15 +32,18 @@
 
         <h2 class=section-header>Metadata</h2>
 
-        <dl class='color-block def-list metadata'>
+        <fieldset class='color-block def-list metadata'>
 
-          <dt class=label>Date Created:</dt>
-          <dd>{{date dateCreated }}</dd>
+          <label class=label for=url>URL:</label>
+          <output class=box-input id=url>https://data.digitallinguistics.io/languages/{{ id }}</output>
 
-          <dt class=label>Date Modified:</dt>
-          <dd>{{date dateModified }}</dd>
+          <label class=label for=date-created>Date Created:</label>
+          <output id=date-created>{{date dateCreated }}</output>
 
-        </dl>
+          <label class=label for=date-modified>Date Modified:</label>
+          <output id=date-modified>{{date dateModified }}</output>
+
+        </fieldset>
 
       </section>
 

@@ -64,8 +64,9 @@ describe(`Language Page`, function() {
     // Metadata
     cy.get(`.metadata`)
     .children()
-    .filter(`dd`)
-    .then(([dateCreatedEl, dateModifiedEl]) => {
+    .filter(`output`)
+    .then(([urlEl, dateCreatedEl, dateModifiedEl]) => {
+      expect(urlEl.textContent).to.equal(`https://data.digitallinguistics.io/languages/${ chitiLanguageID }`)
       expect(dateCreatedEl.textContent).to.equal(new Date(data.dateCreated).toLocaleDateString(`en-CA`))
       expect(dateModifiedEl.textContent).to.equal(new Date(data.dateModified).toLocaleDateString(`en-CA`))
     })

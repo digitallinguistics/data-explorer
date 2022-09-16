@@ -1,4 +1,5 @@
 @import 'ColorBlock/ColorBlock.less';
+@import 'BoxInput/BoxInput.less';
 @import 'DefinitionList/DefinitionList.less';
 @import 'MultiLangString/MultiLangString.less';
 @import 'Label/Label.less';
@@ -14,10 +15,11 @@
   padding    : var(--space-lg);
 
   .color-block {
-    margin-inline: var(--text-inline-padding);
+    margin-inline  : var(--text-inline-padding);
+    max-inline-size: 100%;
   }
 
-  .def-list dd {
+  .def-list output {
     font-family: var(--font-mono);
   }
 
@@ -32,12 +34,26 @@
   }
 
   .metadata {
+
     --block-color: var(--orange-1);
+
+    output {
+      white-space: nowrap;
+    }
+
   }
 
   .names {
-    --block-color: var(--blue-1);
-    padding      : var(--space);
+
+    --block-color : var(--blue-1);
+    flex-direction: row;
+    flex-wrap     : wrap;
+    padding       : var(--space);
+
+    .name {
+      flex-grow: 1;
+    }
+
   }
 
   > section {
@@ -47,6 +63,10 @@
 
   .section-header {
     padding-block: var(--text-block-padding);
+  }
+
+  #url {
+    overflow-x: auto;
   }
 
 }
