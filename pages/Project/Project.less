@@ -1,5 +1,6 @@
 @import 'BoxInput/BoxInput.less';
 @import 'ColorBlock/ColorBlock.less';
+@import 'DefinitionList/DefinitionList.less';
 @import 'Label/Label.less';
 @import 'LanguagesTable/LanguagesTable.less';
 @import 'Markdown/Markdown.less';
@@ -22,18 +23,8 @@
     margin-inline: var(--text-inline-padding);
   }
 
-  :is(dt, dd) {
-    padding: var(--text-padding);
-  }
-
   dd {
     font-family: var(--font-mono);
-  }
-
-  dl {
-    display              : grid;
-    grid-template-columns: auto auto;
-    justify-content      : start;
   }
 
   .error-message {

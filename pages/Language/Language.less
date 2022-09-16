@@ -1,4 +1,5 @@
 @import 'ColorBlock/ColorBlock.less';
+@import 'DefinitionList/DefinitionList.less';
 @import 'MultiLangString/MultiLangString.less';
 @import 'Label/Label.less';
 @import 'PageTitle/PageTitle.less';
@@ -16,20 +17,8 @@
     margin-inline: var(--text-inline-padding);
   }
 
-  .def-list {
-
-    display              : grid;
-    grid-template-columns: auto auto;
-    justify-content      : start;
-
-    :is(dd, dt) {
-      padding: var(--text-padding);
-    }
-
-    dd {
-      font-family: var(--font-mono);
-    }
-
+  .def-list dd {
+    font-family: var(--font-mono);
   }
 
   .error-message {

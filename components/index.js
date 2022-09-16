@@ -1,4 +1,5 @@
 // global components
+import DefinitionList  from './DefinitionList/DefinitionList-server.js'
 import LanguagesTable  from './LanguagesTable/LanguagesTable-server.js'
 import MultiLangString from './MultiLangString/MultiLangString-server.js'
 import Note            from './Note/Note-server.js'
@@ -11,6 +12,7 @@ import LexemeDetails   from '../pages/Lexeme/LexemeDetails-server.js'
 import LexemesTable    from '../pages/Lexemes/LexemesTable-server.js'
 
 export default function addComponentRoutes(app) {
+  app.get(`/components/DefinitionList`, DefinitionList)
   app.get(`/components/LanguageDetails`, LanguageDetails)
   app.get(`/components/LanguagesTable`, LanguagesTable)
   app.get(`/components/LexemeDetails`, LexemeDetails)
