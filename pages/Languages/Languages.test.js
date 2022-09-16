@@ -91,26 +91,6 @@ describe(`Languages`, function() {
       cy.contains(`.languages-list li`, `Chitimacha`)
       .should(`have.class`, `current`)
 
-      // Scientific Name
-      cy.get(`.language-details .names .mls`)
-      .children()
-      .filter(`dd`)
-      .then(([eng, ctm, fra]) => {
-        expect(eng).to.contain(name.eng)
-        expect(ctm).contain(name.ctm)
-        expect(fra).to.contain(name.fra)
-      })
-
-      // Autonym
-      cy.get(`.language-details .names .txn`)
-      .children()
-      .filter(`dd`)
-      .then(([mod, swd, ipa]) => {
-        expect(mod).to.contain(autonym.mod)
-        expect(swd).contain(autonym.swd)
-        expect(ipa).to.contain(autonym.ipa)
-      })
-
       // Codes
       cy.get(`.language-details .codes .def-list`)
       .children()
@@ -139,15 +119,6 @@ describe(`Languages`, function() {
         expect(b).to.contain(noteDataB.text)
         expect(b).to.contain(noteDataB.source)
 
-      })
-
-      // Metadata
-      cy.get(`.language-details .metadata .def-list`)
-      .children()
-      .filter(`dd`)
-      .then(([dateCreatedEl, dateModifiedEl]) => {
-        expect(dateCreatedEl.textContent).to.equal(new Date(dateCreated).toLocaleDateString(`en-CA`))
-        expect(dateModifiedEl.textContent).to.equal(new Date(dateModified).toLocaleDateString(`en-CA`))
       })
 
     })

@@ -1,0 +1,63 @@
+@import 'ColorBlock/ColorBlock.less';
+@import 'MultiLangString/MultiLangString.less';
+@import 'Label/Label.less';
+@import 'PageTitle/PageTitle.less';
+@import 'SectionHeader/SectionHeader.less';
+@import 'Transcription/Transcription.less';
+
+.language-page {
+
+  align-items: center;
+  gap        : var(--space);
+  inline-size: 100%;
+  padding    : var(--space-lg);
+
+  .color-block {
+    margin-inline: var(--text-inline-padding);
+  }
+
+  .def-list {
+
+    display              : grid;
+    grid-template-columns: auto auto;
+    justify-content      : start;
+
+    :is(dd, dt) {
+      padding: var(--text-padding);
+    }
+
+    dd {
+      font-family: var(--font-mono);
+    }
+
+  }
+
+  .error-message {
+    margin    : var(--space);
+    text-align: center;
+  }
+
+  :is(.mls, .txn) {
+    font-size: larger;
+    padding  : var(--text-padding);
+  }
+
+  .metadata {
+    --block-color: var(--orange-1);
+  }
+
+  .names {
+    --block-color: var(--blue-1);
+    padding      : var(--space);
+  }
+
+  > section {
+    inline-size    : var(--measure);
+    max-inline-size: 100%;
+  }
+
+  .section-header {
+    padding-block: var(--text-block-padding);
+  }
+
+}

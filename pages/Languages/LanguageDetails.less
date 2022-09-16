@@ -5,24 +5,6 @@
   --icon-margin: var(--space-xs);
   --icon-size  : 1em;
 
-  align-items     : stretch;
-  background-color: white;
-  gap             : var(--space);
-
-  :is(.codes, .description, .metadata, .names) {
-    margin-inline: var(--space-xs);
-  }
-
-  :is(.codes, .metadata) .def-list {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-  }
-
-  :is(.codes, .metadata, .names) {
-    border-radius: var(--border-radius);
-    padding      : var(--space-xs);
-  }
-
   .codes {
 
     background-color: var(--orange-1);
@@ -33,41 +15,8 @@
 
   }
 
-  .def-list {
-
-    dd {
-      padding: var(--text-padding-sm);
-    }
-
-  }
-
-  .label {
-    padding: var(--text-padding-sm);
-  }
-
-  .metadata {
-    background-color: var(--cyan-1);
-  }
-
-  .mls {
-    font-size: larger;
-    padding  : var(--text-padding);
-  }
-
-  .names {
-    background-color: var(--blue-1);
-  }
-
   .notes__notes-container {
     border-radius: 0 0 var(--border-radius) var(--border-radius);
-  }
-
-  .sci-name-label {
-    font-size: larger;
-  }
-
-  .txn {
-    padding: var(--text-padding);
   }
 
   @media (prefers-color-scheme: dark) {

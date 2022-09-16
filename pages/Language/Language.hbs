@@ -1,0 +1,50 @@
+{{#section 'head'}}
+  <link rel=stylesheet href=/styles/Language.css>
+{{/section}}
+
+<main id=main class=language-page>
+  {{#if language}}
+    {{#with language}}
+
+      <h1 class=page-title>{{mls name }}</h1>
+
+      <section>
+
+        <h2 class=section-header>Names</h2>
+
+        <div class='color-block names'>
+
+          <label class='label sci-name-label'>Scientific Name</label>
+          {{> MultiLangString/MultiLangString name }}
+
+          <label class=label>Autonym</label>
+          {{> Transcription/Transcription txn=autonym lang=iso }}
+
+        </div>
+
+      </section>
+
+      <section>
+
+        <h2 class=section-header>Metadata</h2>
+
+        <dl class='color-block def-list metadata'>
+
+          <dt class=label>Date Created:</dt>
+          <dd>{{date dateCreated }}</dd>
+
+          <dt class=label>Date Modified:</dt>
+          <dd>{{date dateModified }}</dd>
+
+        </dl>
+
+      </section>
+
+    {{/with}}
+  {{else}}
+
+    <p class=error-message>Either this language does not exist, you are not logged in, or you do not have permission to view
+      it.</p>
+
+  {{/if}}
+</main>

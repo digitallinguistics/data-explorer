@@ -18,7 +18,7 @@ overrides:
       - '**/*.test.*'
       - '**/*.unit.*'
     globals:
-      expect: off
+      expect: on
     rules:
       func-names:            off
       prefer-arrow-callback: off
