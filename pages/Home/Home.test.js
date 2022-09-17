@@ -7,7 +7,7 @@ describe(`Home`, function() {
 
   it(`has correct title`, function() {
     cy.visit(`/`)
-    cy.title().should('eq','Oxalis | Home')
+    cy.title().should(`eq`, `Oxalis | Home`)
   })
 
 })
