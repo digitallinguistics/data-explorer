@@ -1,9 +1,9 @@
-describe(`layout`, function() {
+describe(`app shell`, function() {
 
   describe(`Main Nav`, function() {
 
     it(`Home`, function() {
-      cy.visit(`/languages`)
+      cy.visit(`/test`, { failOnStatusCode: false })
       cy.contains(`.navbar a`, `Home`)
       .click()
       cy.contains(`h1`, `Oxalis`)

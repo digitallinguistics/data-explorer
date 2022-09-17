@@ -6,6 +6,7 @@ export default defineConfig({
     baseUrl:     `http://localhost:3001`,
     specPattern: [
       `components/**/*.test.js`,
+      `layouts/**/*.test.js`,
       `pages/**/*.test.js`,
     ],
     supportFile: false,

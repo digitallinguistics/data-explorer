@@ -9,7 +9,7 @@ export default async function get(req, res) {
   const context = {
     project,
     [title]: true,
-    title:   `{ Project Title }`,
+    title:   project.name,
   }
 
   if (project) {
@@ -21,7 +21,6 @@ export default async function get(req, res) {
     context.numLexemes       = 0
 
     for (const languageID of project.languages) {
-
 
       const { data: languages } = await db.getLanguages(languageID, res.locals.user)
       context.languages = languages

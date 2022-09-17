@@ -1,0 +1,108 @@
+@import 'ColorBlock/ColorBlock.less';
+@import 'BoxInput/BoxInput.less';
+@import 'DefinitionList/DefinitionList.less';
+@import 'Markdown/Markdown.less';
+@import 'MultiLangString/MultiLangString.less';
+@import 'Note/Note.less';
+@import 'Notes/Notes.less';
+@import 'Label/Label.less';
+@import 'PageTitle/PageTitle.less';
+@import 'SectionHeader/SectionHeader.less';
+@import 'Transcription/Transcription.less';
+
+.language-page {
+
+  align-items: center;
+  gap        : var(--space);
+  inline-size: 100%;
+  padding    : var(--space-lg);
+
+  // override Definition List layout
+  .codes {
+    --block-color  : var(--green-1);
+    display        : flex;
+    flex-direction : row;
+    flex-wrap      : wrap;
+    justify-content: space-between;
+  }
+
+  .color-block {
+    margin-inline  : var(--text-inline-padding);
+    max-inline-size: 100%;
+  }
+
+  .def-list :is(dd, output) {
+    font-family: var(--font-mono);
+  }
+
+  .description {
+    --block-color: var(--cyan-1);
+  }
+
+  .error-message {
+    margin    : var(--space);
+    text-align: center;
+  }
+
+  :is(.mls, .txn) {
+    font-size: larger;
+    padding  : var(--text-padding);
+  }
+
+  .metadata {
+
+    --block-color: var(--orange-1);
+
+    output {
+      white-space: nowrap;
+    }
+
+  }
+
+  .names {
+
+    --block-color : var(--blue-1);
+    flex-direction: row;
+    flex-wrap     : wrap;
+    padding       : var(--space);
+
+    .name {
+      flex-grow: 1;
+    }
+
+  }
+
+  .notes-section {
+
+    align-items        : center;
+    display            : grid;
+    grid-template-areas:
+      'header toggle .'
+      'notes notes notes';
+    grid-template-columns: min-content;
+
+    .notes {
+      grid-area    : notes;
+      margin-inline: var(--text-inline-padding);
+    }
+
+    .section-header {
+      grid-area: header;
+    }
+
+  }
+
+  > section {
+    inline-size    : var(--measure);
+    max-inline-size: 100%;
+  }
+
+  .section-header {
+    padding-block: var(--text-block-padding);
+  }
+
+  #url {
+    overflow-x: auto;
+  }
+
+}

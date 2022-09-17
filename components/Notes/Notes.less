@@ -1,1 +1,126 @@
-@import 'node_modules/@digitallinguistics/design/components/Notes/Notes.less';
+@import (reference) 'global/utilities.less';
+
+.notes {
+
+  background-color: var(--teal-1);
+  border          : var(--border);
+  border-radius   : var(--border-radius);
+  box-shadow      : inset var(--box-shadow);
+
+  &:empty {
+    border : none;
+    display: none;
+  }
+
+}
+
+.notes-toggle {
+
+  cursor   : pointer;
+  grid-area: toggle;
+  margin   : var(--space-xs);
+
+  .label-text {
+    .visually-hidden;
+  }
+
+}
+
+:is(.notes, .notes-toggle) svg {
+
+  --icon-size: 1em;
+  block-size : var(--icon-size);
+  inline-size: var(--icon-size);
+
+  @media (prefers-color-scheme: dark) {
+    fill: var(--text-color-dark);
+  }
+
+}
+
+// open
+#notes-toggle-checkbox:checked + label .chevron-right {
+  display: none;
+}
+
+// closed
+#notes-toggle-checkbox:not(:checked) + label .chevron-down {
+  display: none;
+}
+
+// open
+#notes-toggle-checkbox:checked ~ .notes {
+
+  .note-button {
+    display: none;
+  }
+
+  .note-item {
+    margin-block-end: var(--space);
+    margin-inline   : var(--space);
+  }
+
+  .note-item:first-of-type {
+    margin-block-start: var(--space);
+  }
+
+}
+
+// closed
+#notes-toggle-checkbox:not(:checked) ~ .notes {
+
+  flex-flow: row wrap;
+  position : relative;
+
+  .note {
+    display: none;
+  }
+
+  .note-button {
+
+    background-color: white;
+    border          : var(--border);
+    box-shadow      : var(--box-shadow);
+    cursor          : pointer;
+    display         : flex;
+    border-radius   : var(--border-radius);
+    padding         : var(--space-xxs);
+
+    @media (prefers-color-scheme: dark) {
+      background-color: var(--background-color-dark);
+      color           : var(--text-color-dark);
+    }
+
+  }
+
+  .note-item {
+
+    margin: var(--space-xxs);
+
+    &:focus-within,
+    &:hover {
+
+      .note {
+        display           : block;
+        inset-inline-start: 0;
+        inset-block-end   : 1.5em;
+        position          : absolute;
+        z-index           : 1;
+      }
+
+      .note-button {
+
+        outline: black solid var(--focus-width);
+
+        @media (prefers-color-scheme: dark) {
+          color: var(--background-color-dark);
+        }
+
+      }
+
+    }
+
+  }
+
+}
+
