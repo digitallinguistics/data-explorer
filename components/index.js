@@ -7,13 +7,11 @@ import Notes           from './Notes/Notes-server.js'
 import Transcription   from './Transcription/Transcription-server.js'
 
 // page-specific components
-import LanguageDetails from '../pages/Languages/LanguageDetails-server.js'
-import LexemeDetails   from '../pages/Lexeme/LexemeDetails-server.js'
-import LexemesTable    from '../pages/Lexemes/LexemesTable-server.js'
+import LexemeDetails from '../pages/Lexeme/LexemeDetails-server.js'
+import LexemesTable  from '../pages/Lexemes/LexemesTable-server.js'
 
 export default function addComponentRoutes(app) {
   app.get(`/components/DefinitionList`, DefinitionList)
-  app.get(`/components/LanguageDetails`, LanguageDetails)
   app.get(`/components/LanguagesTable`, LanguagesTable)
   app.get(`/components/LexemeDetails`, LexemeDetails)
   app.get(`/components/LexemesTable`, LexemesTable)
