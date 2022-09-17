@@ -1,32 +1,12 @@
-<section class=notes>
-
-    <input id=notes-toggle-checkbox type=checkbox hidden checked>
-
-    <label class=notes-toggle for=notes-toggle-checkbox>
-      <svg class=chevron-right>
-        <use href=#chevron-right>
-      </svg>
-      <svg class=chevron-down>
-        <use href=#chevron-down>
-      </svg>
-      <span class=label-text>Show / Hide Notes</span>
-    </label>
-
-    <header>
-      <h3 class=notes__title>Notes</h3>
-    </header>
-
-    <ul class=notes__notes-container>{{!-- comments avoid whitespace so that the :empty selector works
-      --}}{{#each this as |note|}}
-        <li class=note-item>
-          <button class=note-button aria-label='Show note' type=button>
-            <svg>
-              <use href=#sticky-note>
-            </svg>
-          </button>
-          {{> Note/Note note }}
-        </li>
-      {{/each}}{{!--
-    --}}</ul>
-
-</section>
+<ul class=notes>{{!-- comments avoid whitespace so that the :empty selector works
+  --}}{{#each this as |note|}}
+    <li class=note-item>
+      <button class=note-button aria-label='Show note' type=button>
+        <svg>
+          <use href=#sticky-note>
+        </svg>
+      </button>
+      {{> Note/Note note }}
+    </li>
+  {{/each}}{{!--
+--}}</ul>

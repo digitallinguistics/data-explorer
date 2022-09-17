@@ -61,6 +61,18 @@ describe(`Language Page`, function() {
       expect(ipa).to.contain(data.autonym.ipa)
     })
 
+    // Language Codes
+    cy.get(`.codes dd`)
+    .then(([glottocodeEl, isoEl, abbreviationEl]) => {
+      expect(glottocodeEl.textContent).to.equal(`chit1248`)
+      expect(isoEl.textContent).to.equal(`ctm`)
+      expect(abbreviationEl.textContent).to.equal(`chiti`)
+    })
+
+    // Description
+    cy.get(`.description`)
+    .should(`include.text`, `Chitimacha is a language isolate`)
+
     // Metadata
     cy.get(`.metadata`)
     .children()
@@ -69,6 +81,20 @@ describe(`Language Page`, function() {
       expect(urlEl.textContent).to.equal(`https://data.digitallinguistics.io/languages/${ chitiLanguageID }`)
       expect(dateCreatedEl.textContent).to.equal(new Date(data.dateCreated).toLocaleDateString(`en-CA`))
       expect(dateModifiedEl.textContent).to.equal(new Date(data.dateModified).toLocaleDateString(`en-CA`))
+    })
+
+    // Notes
+    cy.get(`.notes`)
+    .children()
+    .then(([a, b]) => {
+
+      const [noteDataA, noteDataB] = data.notes
+
+      expect(a).to.contain(noteDataA.text)
+      expect(a).to.contain(noteDataA.source)
+      expect(b).to.contain(noteDataB.text)
+      expect(b).to.contain(noteDataB.source)
+
     })
 
   })

@@ -72,54 +72,13 @@ describe(`Languages`, function() {
 
     it(`renders data correctly`, function() {
 
-      const {
-        abbreviation,
-        autonym,
-        dateCreated,
-        dateModified,
-        description: { html },
-        glottocode,
-        id,
-        iso,
-        name,
-        notes,
-      } = this.data
+      const { id } = this.data
 
       cy.visit(`/languages/${ id }`)
 
       // shows Chitimacha as the selected language in the Languages List
       cy.contains(`.languages-list li`, `Chitimacha`)
       .should(`have.class`, `current`)
-
-      // Codes
-      cy.get(`.language-details .codes .def-list`)
-      .children()
-      .filter(`dd`)
-      .then(([glottocodeEl, isoEl, abbrEl]) => {
-        expect(glottocodeEl).to.contain(glottocode)
-        expect(isoEl).to.contain(iso)
-        expect(abbrEl).to.contain(abbreviation)
-      })
-
-      // Description
-      cy.get(`.language-details .md`)
-      .then(([div]) => {
-        expect(div.innerHTML.trim()).to.equal(html.trim())
-      })
-
-      // Notes
-      cy.get(`.language-details .notes__notes-container`)
-      .children()
-      .then(([a, b]) => {
-
-        const [noteDataA, noteDataB] = notes
-
-        expect(a).to.contain(noteDataA.text)
-        expect(a).to.contain(noteDataA.source)
-        expect(b).to.contain(noteDataB.text)
-        expect(b).to.contain(noteDataB.source)
-
-      })
 
     })
 
