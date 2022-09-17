@@ -2,33 +2,27 @@ import yamlParser from 'js-yaml'
 
 describe(`Lexeme page`, function() {
 
-  it(`displays an error message for nonexistent / unpermitted lexemes`, function() {
-
-    cy.visit(`/lexemes/test`)
-    cy.title().should(`eq`, `Oxalis | Lexeme`)
-    cy.contains(`main`, `This lexeme does not exist, or you do not have permission to view it.`)
-
-  })
-
-})
-
-describe(`Lexeme Details`, function() {
-
   before(function() {
     cy.readFile(`data/lexemes.yml`)
     .then(yaml => yamlParser.load(yaml))
     .as(`lexemes`)
-    .then(lexemes => lexemes.find(lex => lex.lemma.mod === `cuw-`))
+    .then(lexemes => lexemes.find(lex => lex.id === `abc56564-5754-4698-845c-2ea32a760bbd`))
     .as(`data`)
   })
 
-  it(`renders data correctly`, function() {
+  // Note: The `<title>` content should be different for each of these too.
+  it(`displays an error for nonexistent lexemes`)
+  it(`displays an error when the user is not logged in and trys to access a private lexeme`)
+  it(`displays an error when the user does not have permission to access a private lexeme`)
 
-    const { id } = this.data
-    cy.visit(`/lexemes/${ id }`)
+  it(`displays the lexeme data correctly`, function() {
+
+    const { data } = this
+
+    cy.visit(`/lexemes/${ data.id }`)
 
     // page title
-    cy.title().should(`eq`, `Oxalis | cuw-`)
+    cy.title().should(`eq`, `Oxalis | ${ data.lemma.mod }`)
 
     // summary details
     cy.contains(`.page-title`, `cuw‑`) // NOTE: This uses a non-breaking hyphen.

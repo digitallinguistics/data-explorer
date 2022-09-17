@@ -5,7 +5,7 @@ export default async function get(req, res) {
 
   const title        = `Lexeme`
   const { lexemeID } = req.params
-  const lexeme       = await db.getLexeme(lexemeID, res.locals.user)
+  const { data: lexeme }       = await db.getLexeme(lexemeID, res.locals.user)
 
   res.render(`Lexeme/Lexeme`, {
     lexeme,

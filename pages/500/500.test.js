@@ -10,7 +10,7 @@ describe(`500`, function() {
     })
 
     it(`has the correct title`, function() {
-      cy.title().should(`eq`, `Oxalis | 500`)
+      cy.title().should(`eq`, `Oxalis | Error`)
     })
 
   }
