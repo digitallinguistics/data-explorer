@@ -9,8 +9,8 @@ import PageNotFound    from './PageNotFound/PageNotFound-server.js'
 import Project         from './Project/Project-server.js'
 import ProjectLexemes  from './ProjectLexemes/ProjectLexemes-server.js'
 import Projects        from './Projects/Projects-server.js'
-import ServerError     from './500/500-server.js'
-import ServerErrorTest from './500/500-test.js'
+import ServerError     from './ServerError/ServerError-server.js'
+import ServerErrorTest from './ServerError/ServerError-test.js'
 
 export default {
   About,

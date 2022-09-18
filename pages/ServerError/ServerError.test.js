@@ -1,6 +1,6 @@
 import { env }  from '../../config/app.js'
 
-describe(`500`, function() {
+describe(`Server Error`, function() {
 
   if (env !== `production`) {
 

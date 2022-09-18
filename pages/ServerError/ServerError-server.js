@@ -10,9 +10,9 @@ export default function get(err, req, res, next) {
   if (env !== `production`) console.error(err)
 
   res.status(500)
-  res.render(`500/500`, {
-    500:   true,
-    title: `Error`,
+  res.render(`ServerError/ServerError`, {
+    ServerError: true,
+    title:       `Error`,
   })
 
 }

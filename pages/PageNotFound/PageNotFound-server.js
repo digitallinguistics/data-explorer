@@ -8,8 +8,8 @@ export default function get(req, res) {
   res.status(404)
 
   res.render(`PageNotFound/PageNotFound`, {
-    404:   true,
-    title: `Page Not Found`,
+    PageNotFound:   true,
+    title:        `Page Not Found`,
   })
 
 }
