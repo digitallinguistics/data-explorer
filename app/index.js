@@ -2,6 +2,7 @@ import addLocals               from './locals.js'
 import addRoutes               from './routes.js'
 import auth                    from '../middleware/auth.js'
 import cookieParser            from 'cookie-parser'
+import errors                  from '../middleware/errors.js'
 import express                 from 'express'
 import { fileURLToPath }       from 'url'
 import handleUncaughtException from './errors.js'
@@ -33,6 +34,7 @@ app.set(`views`, path.join(__dirname, `../pages`))
 await addLocals(app.locals)
 
 // Middleware
+app.use(errors)
 app.use(helmet)
 app.use(vary)
 app.use(staticMiddleware(express))

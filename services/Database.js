@@ -76,19 +76,10 @@ export default class Database {
 
   }
 
-  getLanguage(id, user) {
-
+  getLanguage(id) {
     const language = this.languages.index.get(id)
-
     if (!language) return new DatabaseResponse(404)
-
-    if (!language.permissions.public) {
-      if (!user) return new DatabaseResponse(401)
-      if (!hasAccess(user, language)) return new DatabaseResponse(403)
-    }
-
     return new DatabaseResponse(200, copy(language))
-
   }
 
   /**
