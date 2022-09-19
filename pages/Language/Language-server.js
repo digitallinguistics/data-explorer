@@ -6,16 +6,21 @@ export default async function get(req, res) {
   const { languageID }     = req.params
   const { data: language } = await db.getLanguage(languageID, res.locals.user)
 
-  const context = {
+  if (!language) {
+
+    res.status(404)
+
+    return res.render(`ItemNotFound/ItemNotFound`, {
+      ItemNotFound: true,
+      title:        `Item Not Found`,
+    })
+
+  }
+
+  res.render(`Language/Language`, {
     language,
     Language: true,
-    title:    `Language`,
-  }
-
-  if (language) {
-    context.title = getDefaultOrthography(language.name)
-  }
-
-  res.render(`Language/Language`, context)
+    title:    getDefaultOrthography(language.name) ?? `Language`,
+  })
 
 }

@@ -14,11 +14,6 @@ describe(`Language Page`, function() {
     .as(`data`)
   })
 
-  it(`displays an error message for nonexistent languages`, function() {
-    cy.visit(`/languages/bad-id`)
-    cy.contains(`this language does not exist`)
-  })
-
   it(`displays an error message when unauthenticated users try to access a private language`, function() {
     cy.visit(`/languages/${ privateLanguageID }`)
     cy.contains(`you are not logged in`)
