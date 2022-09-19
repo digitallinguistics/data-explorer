@@ -1,5 +1,4 @@
 import data             from '../data/index.js'
-import hasAccess        from '../utilities/hasAccess.js'
 import { STATUS_CODES } from 'http'
 
 // NOTES
@@ -30,8 +29,17 @@ function createIndex(arr) {
   }, new Map)
 }
 
+/**
+ * Class representing a Database Response.
+ */
 class DatabaseResponse {
 
+  /**
+   * Create a Database Reponse.
+   * @param {Number} statusCode   The status code of the response.
+   * @param {Any}    data         The data returned from the database.
+   * @param {String} errorMessage An error message returned from the database.
+   */
   constructor(statusCode, data, errorMessage) {
 
     if (statusCode >= 400) {
@@ -58,10 +66,13 @@ class DatabaseResponse {
 }
 
 /**
- * A class for managing the database connection.
+ * A class for managing a database connection.
  */
 export default class Database {
 
+  /**
+   * Create a new database connection.
+   */
   constructor() {
 
     Object.assign(this, data)
@@ -72,6 +83,11 @@ export default class Database {
 
   }
 
+  /**
+   * Get a language from the database.
+   * @param {String} id The ID of the language to retrieve.
+   * @returns DatabaseResponse
+   */
   getLanguage(id) {
     const language = this.languages.index.get(id)
     if (!language) return new DatabaseResponse(404)
@@ -79,13 +95,18 @@ export default class Database {
   }
 
   /**
-   * Returns all the Languages that the user has access to.
-   * @param {String} user The email address of the user
+   * Retrieve all languages from the database.
+   * @returns DatabaseResponse
    */
   getLanguages() {
     return new DatabaseResponse(200, copy(this.languages))
   }
 
+  /**
+   * Get a lexeme from the database.
+   * @param {String} id The ID of the lexeme to retrieve.
+   * @returns DatabaseResponse
+   */
   getLexeme(id) {
     const lexeme = this.lexemes.index.get(id)
     if (!lexeme) return new DatabaseResponse(404)
@@ -93,12 +114,11 @@ export default class Database {
   }
 
   /**
-   * Gets all the lexemes that match the provided query. Note that either the `language` or `project` option is required.
-   * @param {Object}  options          An options hash
-   * @param {String}  options.language The ID of the language to retrieve lexemes for.
-   * @param {String}  options.project  The ID of the project to retrieve lexemes for.
-   * @param {Boolean} options.summary  If truthy, returns a summary of the results rather than the actual results.
-   * @param {String}  user             The email of the user requesting access.
+   * Gets all the lexemes that match the provided query options.
+   * @param {Object}  [options={}]       An options hash
+   * @param {String}  [options.language] The ID of the language to retrieve lexemes for.
+   * @param {String}  [options.project]  The ID of the project to retrieve lexemes for.
+   * @param {Boolean} [options.summary]  If truthy, returns a summary of the results rather than the actual results.
    * @returns DatabaseResponse
    */
   getLexemes(options = {}) {
@@ -128,12 +148,21 @@ export default class Database {
 
   }
 
+  /**
+   * Get a project from the database.
+   * @param {String} projectID The ID of the project to retrieve.
+   * @returns DatabaseResponse
+   */
   getProject(projectID) {
     const project = this.projects.index.get(projectID)
     if (!project) return new DatabaseResponse(404)
     return new DatabaseResponse(200, copy(project))
   }
 
+  /**
+   * Get all the projects from the database.
+   * @returns DatabaseResponse
+   */
   getProjects() {
     return new DatabaseResponse(200, copy(this.projects))
   }
