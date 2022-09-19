@@ -96,10 +96,19 @@ export default class Database {
 
   /**
    * Retrieve all languages from the database.
+   * @param {Object} [options={}]      An optional options object.
+   * @param {String} [options.project] Filter the results by project.
    * @returns DatabaseResponse
    */
-  getLanguages() {
-    return new DatabaseResponse(200, copy(this.languages))
+  getLanguages(options = {}) {
+
+    const { project: projectID } = options
+    let   results                = this.languages
+
+    if (projectID) results = results.filter(language => language.projects.includes(projectID))
+
+    return new DatabaseResponse(200, copy(results))
+
   }
 
   /**

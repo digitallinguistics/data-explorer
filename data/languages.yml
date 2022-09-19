@@ -180,4 +180,5 @@
     editors: []
     viewers: []
     public:  true
-  projects: []
+  projects:
+    - 6a0fcc10-859c-4af1-8105-156ccfd95310 # Public Test Project

@@ -8,9 +8,6 @@
     note:
       html: Anyone can view the items in this project.
       text: Anyone can view the items in this project.
-  languages:
-    - 3876b870-e7cd-46d2-bca8-2db1cd0a51ac # Public Test Language
-    - 20dae36b-4f8f-46ac-b174-767a17bcc0dc # Another Public Test Language
   permissions:
     owners:  [test@digitallinguistics.io]
     editors: []
@@ -65,8 +62,6 @@
     note:
       html: Nobody can view the items in this project.
       text: Nobody can view the items in this project.
-  languages:
-    - 0a25188c-158b-4daf-bd17-5c4cdd6bd40b
   permissions:
     owners:  [test@digitallinguistics.io]
     editors: []
@@ -109,8 +104,6 @@
     note:
       html: Only test users can view the items in this project.
       text: Only test users can view the items in this project.
-  languages:
-    - c99c461d-42c6-4f58-83dd-d94bb472da0e
   permissions:
     owners:  [test@digitallinguistics.io]
     editors: []

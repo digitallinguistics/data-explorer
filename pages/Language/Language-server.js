@@ -1,6 +1,6 @@
 import db                    from '../../config/database.js'
 import getDefaultOrthography from '../../utilities/getDefaultOrthography.js'
-import hasAccess from '../../utilities/hasAccess.js'
+import hasAccess             from '../../utilities/hasAccess.js'
 
 export default async function get(req, res) {
 

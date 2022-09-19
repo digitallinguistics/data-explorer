@@ -42,19 +42,18 @@ describe(`Database`, function() {
       expect(a).to.not.equal(b)
     })
 
-    it(`returns all languages`, async function() {
+    it(`returns all languages by default`, async function() {
       const db = new Database
       const { data, status } = await db.getLanguages()
       expect(status).to.equal(200)
       expect(data).to.have.lengthOf(11)
     })
 
-    it(`returns an empty array if there are no languages`, async function() {
+    it(`option: project`, async function() {
       const db = new Database
-      db.languages = []
-      const { data, status } = await db.getLanguages()
+      const { data, status } = await db.getLanguages({ project: projectID })
       expect(status).to.equal(200)
-      expect(data).to.be.empty
+      expect(data.every(language => language.projects.includes(projectID))).to.be.true
     })
 
   })
