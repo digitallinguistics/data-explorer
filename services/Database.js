@@ -34,11 +34,7 @@ class DatabaseResponse {
 
   constructor(statusCode, data, errorMessage) {
 
-    if (statusCode === 401) {
-      errorMessage = `Unauthenticated`
-    } else if (statusCode === 403) {
-      errorMessage = `Unauthorized`
-    } else if (statusCode >= 400) {
+    if (statusCode >= 400) {
       errorMessage ??= STATUS_CODES[statusCode]
     }
 
@@ -86,31 +82,14 @@ export default class Database {
    * Returns all the Languages that the user has access to.
    * @param {String} user The email address of the user
    */
-  getLanguages(user) {
-
-    const results = this.languages.filter(lang => hasAccess(user, lang))
-
-    return new DatabaseResponse(200, copy(results))
-
+  getLanguages() {
+    return new DatabaseResponse(200, copy(this.languages))
   }
 
-  getLexeme(id, user) {
-
+  getLexeme(id) {
     const lexeme = this.lexemes.index.get(id)
-
     if (!lexeme) return new DatabaseResponse(404)
-
-    const projects           = this.projects.filter(project => lexeme.projects.includes(project.id))
-    const hasPrivateProjects = projects.some(project => !project.permissions.public)
-
-    if (hasPrivateProjects && !user) return new DatabaseResponse(401)
-
-    const userHasAccess = projects.some(project => hasAccess(user, project))
-
-    if (!userHasAccess) return new DatabaseResponse(403)
-
     return new DatabaseResponse(200, copy(lexeme))
-
   }
 
   /**
@@ -122,25 +101,14 @@ export default class Database {
    * @param {String}  user             The email of the user requesting access.
    * @returns DatabaseResponse
    */
-  getLexemes(options = {}, user) {
+  getLexemes(options = {}) {
 
     const { language: languageID, project: projectID, summary } = options
 
-    if (!(languageID || projectID)) return new DatabaseResponse(400, undefined, `No project/language specified.`)
+    let results = copy(this.lexemes)
 
-    const itemType       = projectID ? `project` : `language`
-    const collectionType = projectID ? `projects` : `languages`
-    const id             = projectID ?? languageID
-    const collection     = this[collectionType].index.get(id)
-
-    if (!collection) return new DatabaseResponse(404, undefined, `A ${ itemType } with that ID does not exist.`)
-    if (!collection.permissions.public && !user) return new DatabaseResponse(401)
-    if (!hasAccess(user, collection)) return new DatabaseResponse(403)
-
-    const projectFilter  = lexeme => lexeme.projects.includes(projectID)
-    const languageFilter = lexeme => lexeme.language === languageID
-    const filter         = itemType === `project` ? projectFilter : languageFilter
-    const results        = copy(this.lexemes.filter(filter))
+    if (languageID) results = results.filter(lexeme => lexeme.language === languageID)
+    if (projectID) results = results.filter(lexeme => lexeme.projects.includes(projectID))
 
     if (summary) return new DatabaseResponse(200, { count: results.length })
 
@@ -160,24 +128,14 @@ export default class Database {
 
   }
 
-  getProject(projectID, user) {
-
+  getProject(projectID) {
     const project = this.projects.index.get(projectID)
-
     if (!project) return new DatabaseResponse(404)
-
-    if (!project.permissions.public) {
-      if (!user) return new DatabaseResponse(401)
-      if (!hasAccess(user, project)) return new DatabaseResponse(403)
-    }
-
     return new DatabaseResponse(200, copy(project))
-
   }
 
-  getProjects(user) {
-    const projects = this.projects.filter(proj => hasAccess(user, proj))
-    return new DatabaseResponse(200, copy(projects))
+  getProjects() {
+    return new DatabaseResponse(200, copy(this.projects))
   }
 
 }
