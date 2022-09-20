@@ -1,38 +1,38 @@
-import db from '../../config/database.js'
+import db        from '../../config/database.js'
+import hasAccess from '../../utilities/hasAccess.js'
 
 export default async function get(req, res) {
 
-  const title               = `Project`
-  const { projectID }       = req.params
-  const { data: project }   = await db.getProject(projectID, res.locals.user)
+  const { projectID }     = req.params
+  const { data: project } = await db.getProject(projectID)
 
-  const context = {
+  if (!project) return res.error(`ItemNotFound`)
+  if (!project.permissions.public && !res.locals.user) return res.error(`Unauthenticated`)
+  if (!hasAccess(res.locals.user, project)) return res.error(`Unauthorized`)
+
+  const { data: languages } = await db.getLanguages({ project: projectID })
+  const { owners, editors } = project.permissions
+
+  const numCollaborators = new Set([...owners, ...editors]).size
+  let   numLexemes       = 0
+
+  for (const language of languages) {
+
+    const lexemesRequestOptions = { language: language.id, summary: true }
+    const { data: { count } }   = await db.getLexemes(lexemesRequestOptions)
+
+    numLexemes += count
+
+  }
+
+  res.render(`Project/Project`, {
+    languages,
+    numCollaborators,
+    numLanguages: languages.length,
+    numLexemes,
     project,
-    [title]: true,
-    title:   project.name,
-  }
-
-  if (project) {
-
-    const { owners, editors } = project.permissions
-
-    context.numCollaborators = new Set([...owners, ...editors]).size
-    context.numLanguages     = project.languages.length
-    context.numLexemes       = 0
-
-    for (const languageID of project.languages) {
-
-      const { data: languages } = await db.getLanguages(languageID, res.locals.user)
-      context.languages = languages
-
-      const lexemesRequestOptions             = { language: languageID, summary: true }
-      const { data: { count } } = await db.getLexemes(lexemesRequestOptions, res.locals.user)
-      context.numLexemes += count
-
-    }
-
-  }
-
-  res.render(`Project/Project`, context)
+    Project:      true,
+    title:        project.name,
+  })
 
 }

@@ -1,10 +1,8 @@
-import { msAuthCookie } from '../../constants/index.js'
-import yamlParser       from 'js-yaml'
+import yamlParser from 'js-yaml'
 
 describe(`Language Page`, function() {
 
-  const chitiLanguageID   = `cc4978f6-13a9-4735-94c5-10e4e8030437`
-  const privateLanguageID = `0a25188c-158b-4daf-bd17-5c4cdd6bd40b`
+  const chitiLanguageID = `cc4978f6-13a9-4735-94c5-10e4e8030437`
 
   before(function() {
     cy.readFile(`data/languages.yml`)
@@ -14,24 +12,7 @@ describe(`Language Page`, function() {
     .as(`data`)
   })
 
-  it(`displays an error message for nonexistent languages`, function() {
-    cy.visit(`/languages/bad-id`)
-    cy.contains(`this language does not exist`)
-  })
-
-  it(`displays an error message when unauthenticated users try to access a private language`, function() {
-    cy.visit(`/languages/${ privateLanguageID }`)
-    cy.contains(`you are not logged in`)
-  })
-
-  it(`displays an error message when unauthorized users try to access a private language`, function() {
-    cy.visit(`/languages/${ privateLanguageID }`)
-    cy.setCookie(msAuthCookie, `bademail@digitallinguistics.io`)
-    cy.visit(`/languages/${ privateLanguageID }`)
-    cy.contains(`you do not have permission`)
-  })
-
-  it.only(`displays the language details`, function() {
+  it(`displays the language details`, function() {
 
     const { data } = this
 

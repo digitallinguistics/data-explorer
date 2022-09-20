@@ -5,12 +5,15 @@ import Language        from './Language/Language-server.js'
 import LanguageLexemes from './LanguageLexemes/LanguageLexemes-server.js'
 import Languages       from './Languages/Languages-server.js'
 import Lexeme          from './Lexeme/Lexeme-server.js'
-import NotFound        from './404/404-server.js'
 import Project         from './Project/Project-server.js'
 import ProjectLexemes  from './ProjectLexemes/ProjectLexemes-server.js'
 import Projects        from './Projects/Projects-server.js'
-import ServerError     from './500/500-server.js'
-import ServerErrorTest from './500/500-test.js'
+
+import {
+  PageNotFound,
+  ServerError,
+  ServerErrorTest,
+} from './Error/Error-server.js'
 
 export default {
   About,
@@ -20,7 +23,7 @@ export default {
   LanguageLexemes,
   Languages,
   Lexeme,
-  NotFound,
+  PageNotFound,
   Project,
   ProjectLexemes,
   Projects,

@@ -10,11 +10,6 @@ describe(`Lexeme page`, function() {
     .as(`data`)
   })
 
-  // Note: The `<title>` content should be different for each of these too.
-  it(`displays an error for nonexistent lexemes`)
-  it(`displays an error when the user is not logged in and trys to access a private lexeme`)
-  it(`displays an error when the user does not have permission to access a private lexeme`)
-
   it(`displays the lexeme data correctly`, function() {
 
     const { data } = this

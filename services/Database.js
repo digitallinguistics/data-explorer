@@ -1,5 +1,4 @@
 import data             from '../data/index.js'
-import hasAccess        from '../utilities/hasAccess.js'
 import { STATUS_CODES } from 'http'
 
 // NOTES
@@ -30,15 +29,20 @@ function createIndex(arr) {
   }, new Map)
 }
 
+/**
+ * Class representing a Database Response.
+ */
 class DatabaseResponse {
 
+  /**
+   * Create a Database Reponse.
+   * @param {Number} statusCode   The status code of the response.
+   * @param {Any}    data         The data returned from the database.
+   * @param {String} errorMessage An error message returned from the database.
+   */
   constructor(statusCode, data, errorMessage) {
 
-    if (statusCode === 401) {
-      errorMessage = `Unauthenticated`
-    } else if (statusCode === 403) {
-      errorMessage = `Unauthorized`
-    } else if (statusCode >= 400) {
+    if (statusCode >= 400) {
       errorMessage ??= STATUS_CODES[statusCode]
     }
 
@@ -62,10 +66,13 @@ class DatabaseResponse {
 }
 
 /**
- * A class for managing the database connection.
+ * A class for managing a database connection.
  */
 export default class Database {
 
+  /**
+   * Create a new database connection.
+   */
   constructor() {
 
     Object.assign(this, data)
@@ -76,80 +83,61 @@ export default class Database {
 
   }
 
-  getLanguage(id, user) {
-
+  /**
+   * Get a language from the database.
+   * @param {String} id The ID of the language to retrieve.
+   * @returns DatabaseResponse
+   */
+  getLanguage(id) {
     const language = this.languages.index.get(id)
-
     if (!language) return new DatabaseResponse(404)
-
-    if (!language.permissions.public) {
-      if (!user) return new DatabaseResponse(401)
-      if (!hasAccess(user, language)) return new DatabaseResponse(403)
-    }
-
     return new DatabaseResponse(200, copy(language))
-
   }
 
   /**
-   * Returns all the Languages that the user has access to.
-   * @param {String} user The email address of the user
+   * Retrieve all languages from the database.
+   * @param {Object} [options={}]      An optional options object.
+   * @param {String} [options.project] Filter the results by project.
+   * @returns DatabaseResponse
    */
-  getLanguages(user) {
+  getLanguages(options = {}) {
 
-    const results = this.languages.filter(lang => hasAccess(user, lang))
+    const { project: projectID } = options
+    let   results                = this.languages
+
+    if (projectID) results = results.filter(language => language.projects.includes(projectID))
 
     return new DatabaseResponse(200, copy(results))
 
   }
 
-  getLexeme(id, user) {
-
+  /**
+   * Get a lexeme from the database.
+   * @param {String} id The ID of the lexeme to retrieve.
+   * @returns DatabaseResponse
+   */
+  getLexeme(id) {
     const lexeme = this.lexemes.index.get(id)
-
     if (!lexeme) return new DatabaseResponse(404)
-
-    const projects           = this.projects.filter(project => lexeme.projects.includes(project.id))
-    const hasPrivateProjects = projects.some(project => !project.permissions.public)
-
-    if (hasPrivateProjects && !user) return new DatabaseResponse(401)
-
-    const userHasAccess = projects.some(project => hasAccess(user, project))
-
-    if (!userHasAccess) return new DatabaseResponse(403)
-
     return new DatabaseResponse(200, copy(lexeme))
-
   }
 
   /**
-   * Gets all the lexemes that match the provided query. Note that either the `language` or `project` option is required.
-   * @param {Object}  options          An options hash
-   * @param {String}  options.language The ID of the language to retrieve lexemes for.
-   * @param {String}  options.project  The ID of the project to retrieve lexemes for.
-   * @param {Boolean} options.summary  If truthy, returns a summary of the results rather than the actual results.
-   * @param {String}  user             The email of the user requesting access.
+   * Gets all the lexemes that match the provided query options.
+   * @param {Object}  [options={}]       An options hash
+   * @param {String}  [options.language] The ID of the language to retrieve lexemes for.
+   * @param {String}  [options.project]  The ID of the project to retrieve lexemes for.
+   * @param {Boolean} [options.summary]  If truthy, returns a summary of the results rather than the actual results.
    * @returns DatabaseResponse
    */
-  getLexemes(options = {}, user) {
+  getLexemes(options = {}) {
 
     const { language: languageID, project: projectID, summary } = options
 
-    if (!(languageID || projectID)) return new DatabaseResponse(400, undefined, `No project/language specified.`)
+    let results = copy(this.lexemes)
 
-    const itemType       = projectID ? `project` : `language`
-    const collectionType = projectID ? `projects` : `languages`
-    const id             = projectID ?? languageID
-    const collection     = this[collectionType].index.get(id)
-
-    if (!collection) return new DatabaseResponse(404, undefined, `A ${ itemType } with that ID does not exist.`)
-    if (!collection.permissions.public && !user) return new DatabaseResponse(401)
-    if (!hasAccess(user, collection)) return new DatabaseResponse(403)
-
-    const projectFilter  = lexeme => lexeme.projects.includes(projectID)
-    const languageFilter = lexeme => lexeme.language === languageID
-    const filter         = itemType === `project` ? projectFilter : languageFilter
-    const results        = copy(this.lexemes.filter(filter))
+    if (languageID) results = results.filter(lexeme => lexeme.language === languageID)
+    if (projectID) results = results.filter(lexeme => lexeme.projects.includes(projectID))
 
     if (summary) return new DatabaseResponse(200, { count: results.length })
 
@@ -169,24 +157,23 @@ export default class Database {
 
   }
 
-  getProject(projectID, user) {
-
+  /**
+   * Get a project from the database.
+   * @param {String} projectID The ID of the project to retrieve.
+   * @returns DatabaseResponse
+   */
+  getProject(projectID) {
     const project = this.projects.index.get(projectID)
-
     if (!project) return new DatabaseResponse(404)
-
-    if (!project.permissions.public) {
-      if (!user) return new DatabaseResponse(401)
-      if (!hasAccess(user, project)) return new DatabaseResponse(403)
-    }
-
     return new DatabaseResponse(200, copy(project))
-
   }
 
-  getProjects(user) {
-    const projects = this.projects.filter(proj => hasAccess(user, proj))
-    return new DatabaseResponse(200, copy(projects))
+  /**
+   * Get all the projects from the database.
+   * @returns DatabaseResponse
+   */
+  getProjects() {
+    return new DatabaseResponse(200, copy(this.projects))
   }
 
 }
