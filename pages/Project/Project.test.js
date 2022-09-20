@@ -11,8 +11,8 @@ describe(`Project Page`, function() {
     cy.contains(`# of collaborators`).next().should(`have.text`, `1`)
     cy.get(`.readme`).should(`include.text`, `Public Test Project`)
     cy.get(`.access`).should(`include.text`, `Anyone can view the items in this project.`)
-    cy.contains(`Date Created`).next().should(`have.text`, `2022-07-16`)
-    cy.contains(`Date Modified`).next().should(`have.text`, `2022-07-17`)
+    cy.contains(`Date Created`).next().should(`have.text`, new Date(`2022-07-17T00:00:00.000Z`).toLocaleDateString(`en-CA`))
+    cy.contains(`Date Modified`).next().should(`have.text`, new Date(`2022-07-18T00:00:00.000Z`).toLocaleDateString(`en-CA`))
     cy.get(`tbody`).children().should(`have.length`, 2)
   })
 
