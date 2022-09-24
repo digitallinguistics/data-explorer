@@ -3,108 +3,101 @@
 {{/section}}
 
 <main id=main class=language-page>
-  {{#if language}}
-    {{#with language}}
+  {{#with language}}
 
-      <h1 class=page-title>{{mls name }}</h1>
+    <h1 class=page-title>{{mls name }}</h1>
 
-      <section>
+    <section>
 
-        <h2 class=section-header>Names</h2>
+      <h2 class=section-header>Names</h2>
 
-        <fieldset class='color-block names'>
+      <fieldset class='color-block names'>
 
-          <div class=name>
-            <label class=label>Scientific Name</label>
-            {{> MultiLangString/MultiLangString name }}
-          </div>
+        <div class=name>
+          <label class=label>Scientific Name</label>
+          {{> MultiLangString/MultiLangString name }}
+        </div>
 
-          <div class=name>
-            <label class=label>Autonym</label>
-            {{> Transcription/Transcription txn=autonym lang=iso }}
-          </div>
+        <div class=name>
+          <label class=label>Autonym</label>
+          {{> Transcription/Transcription txn=autonym lang=iso }}
+        </div>
 
-        </fieldset>
+      </fieldset>
 
-      </section>
+    </section>
 
-      <section>
+    <section>
 
-        <h2 class=section-header>Language Codes</h2>
+      <h2 class=section-header>Language Codes</h2>
 
-        <dl class='codes color-block def-list'>
+      <dl class='codes color-block def-list'>
 
-          <div>
-            <dt class=label>Glottocode:</dt>
-            <dd>{{ glottocode }}</dd>
-          </div>
+        <div>
+          <dt class=label>Glottocode:</dt>
+          <dd>{{ glottocode }}</dd>
+        </div>
 
-          <div>
-            <dt class=label>ISO 639-3 Code:</dt>
-            <dd>{{ iso }}</dd>
-          </div>
+        <div>
+          <dt class=label>ISO 639-3 Code:</dt>
+          <dd>{{ iso }}</dd>
+        </div>
 
-          <div>
-            <dt class=label>Abbreviation:</dt>
-            <dd>{{ abbreviation }}</dd>
-          </div>
+        <div>
+          <dt class=label>Abbreviation:</dt>
+          <dd>{{ abbreviation }}</dd>
+        </div>
 
-        </dl>
+      </dl>
 
-      </section>
+    </section>
 
-      <section>
+    <section>
 
-        <h2 class=section-header>Description</h2>
+      <h2 class=section-header>Description</h2>
 
-        <article class='color-block description md'>{{{ description.html }}}</article>
+      <article class='color-block description md'>{{{ description.html }}}</article>
 
-      </section>
+    </section>
 
-      <section>
+    <section>
 
-        <h2 class=section-header>Metadata</h2>
+      <h2 class=section-header>Metadata</h2>
 
-        <fieldset class='color-block def-list metadata'>
+      <fieldset class='color-block def-list metadata'>
 
-          <label class=label for=url>URL:</label>
-          <output class=box-input id=url>https://data.digitallinguistics.io/languages/{{ id }}</output>
+        <label class=label for=url>URL:</label>
+        <output class=box-input id=url>https://data.digitallinguistics.io/languages/{{ id }}</output>
 
-          <label class=label for=date-created>Date Created:</label>
-          <output id=date-created>{{date dateCreated }}</output>
+        <label class=label for=date-created>Date Created:</label>
+        <output id=date-created>{{date dateCreated }}</output>
 
-          <label class=label for=date-modified>Date Modified:</label>
-          <output id=date-modified>{{date dateModified }}</output>
+        <label class=label for=date-modified>Date Modified:</label>
+        <output id=date-modified>{{date dateModified }}</output>
 
-        </fieldset>
+      </fieldset>
 
-      </section>
+    </section>
 
-      <section class=notes-section>
+    <section class=notes-section>
 
-        <h2 class=section-header>Notes</h2>
+      <h2 class=section-header>Notes</h2>
 
-        <input id=notes-toggle-checkbox type=checkbox hidden checked>
+      <input id=notes-toggle-checkbox type=checkbox hidden checked>
 
-        <label class=notes-toggle for=notes-toggle-checkbox>
-          <svg class=chevron-right>
-            <use href=#chevron-right>
-          </svg>
-          <svg class=chevron-down>
-            <use href=#chevron-down>
-          </svg>
-          <span class=label-text>Show / Hide Notes</span>
-        </label>
+      <label class=notes-toggle for=notes-toggle-checkbox>
+        <svg class=chevron-right>
+          <use href=#chevron-right>
+        </svg>
+        <svg class=chevron-down>
+          <use href=#chevron-down>
+        </svg>
+        <span class=label-text>Show / Hide Notes</span>
+      </label>
 
-        {{> Notes/Notes notes }}
+      {{> Notes/Notes notes }}
 
-      </section>
+    </section>
 
-    {{/with}}
-  {{else}}
-
-    <p class=error-message>Either you are not logged in, or you do not have permission to view
-      it.</p>
-
-  {{/if}}
+  {{/with}}
 </main>

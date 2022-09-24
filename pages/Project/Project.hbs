@@ -3,96 +3,83 @@
 {{/section}}
 
 <main id=main class=project-page>
-  {{#if project}}
 
-    <header>
+  <h1 class=page-title>{{ project.name }}</h1>
 
-      <h1 class=page-title>{{ project.name }}</h1>
+  <section class=statistics-section>
 
-      <div class='color-block project-url-field'>
-        <label class=label for=project-url>Project URL</label>
-        <input class=box-input id=project-url readonly spellcheck=false type=url
-          value='https://data.digitallinguistics.io/projects/{{ project.id }}'>
-      </div>
+    <h2 class=section-header>Statistics</h2>
 
-    </header>
+    <dl class='color-block def-list statistics'>
 
-    <section class=statistics-section>
+      <dt class=label># of languages</dt>
+      <dd>{{number numLanguages }}</dd>
 
-      <h2 class=section-header>Statistics</h2>
+      <dt class=label># of lexemes</dt>
+      <dd>{{number numLexemes }}</dd>
 
-      <dl class='color-block def-list statistics'>
+      <dt class=label># of collaborators</dt>
+      <dd>{{number numCollaborators }}</dd>
 
-        <dt class=label># of languages</dt>
-        <dd>{{number numLanguages }}</dd>
+    </dl>
 
-        <dt class=label># of lexemes</dt>
-        <dd>{{number numLexemes }}</dd>
+  </section>
 
-        <dt class=label># of collaborators</dt>
-        <dd>{{number numCollaborators }}</dd>
+  <section class=readme-section>
 
-      </dl>
+    <h2 class=section-header>Readme</h2>
 
-    </section>
-
-    <section class=readme-section>
-
-      <h2 class=section-header>Readme</h2>
-
-      <div class='color-block md readme'>
-        {{#if project.readme }}
+    <div class='color-block md readme'>
+      {{#if project.readme.html }}
         {{{ project.readme.html }}}
-        {{else}}
-        No readme provided.
-        {{/if}}
-      </div>
+      {{else}}
+        [No readme provided.]
+      {{/if}}
+    </div>
 
-    </section>
+  </section>
 
-    <section class=access-section>
+  <section class=access-section>
 
-      <h2 class=section-header>Access Conditions</h2>
+    <h2 class=section-header>Access Conditions</h2>
 
-      <div class='access color-block md'>
-        {{#if project.access }}
+    <div class='access color-block md'>
+      {{#if project.access.note.html }}
         {{{ project.access.note.html }}}
-        {{else}}
-        None.
-        {{/if}}
-      </div>
+      {{else}}
+        [No access conditions provided.]
+      {{/if}}
+    </div>
 
-    </section>
+  </section>
 
-    <section class=metadata-section>
+  <section class=metadata-section>
 
-      <h2 class=section-header>Metadata</h2>
+    <h2 class=section-header>Metadata</h2>
 
-      <dl class='color-block def-list metadata'>
+    <fieldset class='color-block def-list metadata'>
 
-        <dt class=label>Date Created</dt>
-        <dd>{{date project.dateCreated }}</dd>
+      <label class=label for=url>URL:</label>
+      <output class=box-input id=url>https://data.digitallinguistics.io/projects/{{ project.id }}</output>
 
-        <dt class=label>Date Modified</dt>
-        <dd>{{date project.dateModified }}</dd>
+      <label class=label for=date-created>Date Created:</label>
+      <output id=date-created>{{date project.dateCreated }}</output>
 
-      </dl>
+      <label class=label for=date-modified>Date Modified:</label>
+      <output id=date-modified>{{date project.dateModified }}</output>
 
-    </section>
+    </fieldset>
 
-    <section class=languages-section>
+  </section>
 
-      <h2 class='languages-section__header section-header'>Languages</h2>
+  <section class=languages-section>
 
-      <div class=table-wrapper>
-        {{> LanguagesTable/LanguagesTable }}
-      </div>
+    <h2 class='languages-section__header section-header'>Languages</h2>
 
-    </section>
+    <div class=table-wrapper>
+      {{> LanguagesTable/LanguagesTable }}
+    </div>
 
-  {{else}}
+  </section>
 
-    <p class=error-message>Either you are not logged in, or you do not have permission to view it.</p>
-
-  {{/if}}
 </main>
