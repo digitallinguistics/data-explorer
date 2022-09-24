@@ -27,8 +27,14 @@
   }
 
   .color-block {
+
     margin-inline  : var(--text-inline-padding);
     max-inline-size: 100%;
+
+    .link svg {
+      color: black;
+    }
+
   }
 
   .def-list :is(dd, output) {
@@ -37,11 +43,6 @@
 
   .description {
     --block-color: var(--cyan-1);
-  }
-
-  .error-message {
-    margin    : var(--space);
-    text-align: center;
   }
 
   :is(.mls, .txn) {

@@ -11,8 +11,9 @@
 .project-page {
 
   align-items: center;
+  gap        : var(--space);
   inline-size: 100%;
-  padding    : var(--space);
+  padding    : var(--space-lg);
 
   .access {
     --block-color: var(--yellow-1);
@@ -20,16 +21,12 @@
   }
 
   .color-block {
-    margin-inline: var(--text-inline-padding);
+    margin-inline  : var(--text-inline-padding);
+    max-inline-size: 100%;
   }
 
   dd {
     font-family: var(--font-mono);
-  }
-
-  .error-message {
-    margin    : var(--space);
-    text-align: center;
   }
 
   .languages-section {
@@ -49,30 +46,20 @@
   }
 
   .metadata {
-    --block-color: var(--teal-1);
-  }
 
-  // label for project URL
-  [for='project-url'] {
-    padding: var(--text-padding);
-  }
+    --block-color: var(--orange-1);
 
-  #project-url {
-    flex-grow    : 1;
-    margin-inline: var(--space);
-  }
+    output {
+      white-space: nowrap;
+    }
 
-  .project-url-field {
-    --block-color : var(--orange-1);
-    align-items   : baseline;
-    flex-direction: row;
   }
 
   .readme {
     --block-color: var(--cyan-1);
   }
 
-  > section:not(.languages-section), header {
+  > section:not(.languages-section) {
     inline-size    : var(--measure);
     max-inline-size: 100%;
   }
@@ -82,12 +69,16 @@
   }
 
   .statistics {
-    --block-color: var(--blue-1);
+    --block-color: var(--green-1);
   }
 
   .table-wrapper {
     max-inline-size: 100%;
     overflow-x     : auto;
+  }
+
+  #url {
+    overflow-x: auto;
   }
 
 }

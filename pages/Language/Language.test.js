@@ -45,9 +45,9 @@ describe(`Language Page`, function() {
     // Language Codes
     cy.get(`.codes dd`)
     .then(([glottocodeEl, isoEl, abbreviationEl]) => {
-      expect(glottocodeEl.textContent).to.equal(`chit1248`)
-      expect(isoEl.textContent).to.equal(`ctm`)
-      expect(abbreviationEl.textContent).to.equal(`chiti`)
+      expect(glottocodeEl.textContent).to.include(`chit1248`)
+      expect(isoEl.textContent).to.include(`ctm`)
+      expect(abbreviationEl.textContent).to.include(`chiti`)
     })
 
     // Description
