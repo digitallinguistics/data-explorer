@@ -35,17 +35,35 @@
 
         <div>
           <dt class=label>Glottocode:</dt>
-          <dd>{{ glottocode }}</dd>
+          <dd>
+            {{#if glottocode}}
+              <a class=link href='https://glottolog.org/resource/languoid/id/{{ glottocode }}'>{{ glottocode }}</a>
+            {{else}}
+              —
+            {{/if}}
+          </dd>
         </div>
 
         <div>
           <dt class=label>ISO 639-3 Code:</dt>
-          <dd>{{ iso }}</dd>
+          <dd>
+            {{#if iso}}
+              <a class=link href='https://www.ethnologue.com/language/{{ iso }}'>{{ iso }}</a>
+            {{else}}
+              —
+            {{/if}}
+          </dd>
         </div>
 
         <div>
           <dt class=label>Abbreviation:</dt>
-          <dd>{{ abbreviation }}</dd>
+          <dd>
+            {{#if abbreviation }}
+              {{ abbreviation }}
+            {{else}}
+              —
+            {{/if}}
+          </dd>
         </div>
 
       </dl>
@@ -56,7 +74,13 @@
 
       <h2 class=section-header>Description</h2>
 
-      <article class='color-block description md'>{{{ description.html }}}</article>
+      <article class='color-block description md'>
+      {{#if description.html }}
+        {{{ description.html }}}
+      {{else}}
+        [No description provided.]
+      {{/if}}
+      </article>
 
     </section>
 
