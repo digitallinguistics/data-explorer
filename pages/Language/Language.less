@@ -3,12 +3,12 @@
 @import 'DefinitionList/DefinitionList.less';
 @import 'Markdown/Markdown.less';
 @import 'MultiLangString/MultiLangString.less';
+@import 'MultiOrthoTranscription/MultiOrthoTranscription.less';
 @import 'Note/Note.less';
 @import 'Notes/Notes.less';
 @import 'Label/Label.less';
 @import 'PageTitle/PageTitle.less';
 @import 'SectionHeader/SectionHeader.less';
-@import 'Transcription/Transcription.less';
 
 .language-page {
 
@@ -45,7 +45,7 @@
     --block-color: var(--cyan-1);
   }
 
-  :is(.mls, .txn) {
+  :is(.mls, .mot) {
     font-size: larger;
     padding  : var(--text-padding);
   }

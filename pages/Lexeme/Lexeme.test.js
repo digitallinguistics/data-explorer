@@ -29,9 +29,9 @@ describe(`Lexeme page`, function() {
     cy.get(`#form`).should(`be.visible`)
 
     // Lemma
-    cy.contains(`.txn`, `cuw‑`)
-    cy.contains(`.txn`, `čuw‑`)
-    cy.contains(`.txn`, `t͡ʃuw‑`)
+    cy.contains(`.mot`, `cuw‑`)
+    cy.contains(`.mot`, `čuw‑`)
+    cy.contains(`.mot`, `t͡ʃuw‑`)
 
   })
 

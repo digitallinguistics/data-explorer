@@ -33,7 +33,7 @@ describe(`Language Page`, function() {
     })
 
     // Autonym
-    cy.get(`.names .txn`)
+    cy.get(`.names .mot`)
     .children()
     .filter(`dd`)
     .then(([mod, swd, ipa]) => {
