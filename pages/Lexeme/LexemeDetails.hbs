@@ -1,7 +1,7 @@
 <section class=lexeme-details>
 
   <header>
-    <h1 class=page-title lang='{{ language.iso }}'>{{txn lexeme.lemma language.defaultOrthography }}</h1>
+    <h1 class=page-title lang='{{ language.iso }}'>{{mot lexeme.lemma language.defaultOrthography }}</h1>
     <ol class=numbered>
       {{#each lexeme.senses as |sense| }}
         <li class=tln>{{mls sense.gloss }}</li>
@@ -19,7 +19,7 @@
 
   <section class=panel role=tabpanel id=form aria-labelledby=form-link>
     <label class=label>Lemma</label>
-    {{> Transcription/Transcription txn=lexeme.lemma lang=language.iso }}
+    {{> MultiOrthoTranscription/MultiOrthoTranscription txn=lexeme.lemma lang=language.iso }}
   </section>
 
   <section class=panel role=tabpanel id=meaning aria-labelledby=meaning-link>

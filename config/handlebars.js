@@ -42,7 +42,7 @@ function section(name, opts) {
  * @param   {String}        ortho The orthography to render the Transcription in.
  * @returns {String}
  */
-function txn(data, ortho) {
+function mot(data, ortho) {
   if (typeof data === `string`) return prepareTranscription(data)
   return prepareTranscription(getDefaultOrthography(data, ortho))
 }
@@ -53,9 +53,9 @@ const hbs = new ExpressHandlebars({
   helpers:       {
     date,
     mls,
+    mot,
     number,
     section,
-    txn,
   },
   layoutsDir:    path.resolve(__dirname, `../layouts`),
   partialsDir:   [
