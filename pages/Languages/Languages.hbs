@@ -4,12 +4,10 @@
 
 <main id=main class=languages-page>
 
-  <h1 class=page-title>Languages</h1>
+  <h1 class=page-title>{{ title }}</h1>
 
-  <ul class='languages-list nav-list'>
-    {{#each languages}}
-      <li {{#if current}} class=current {{/if}}><a href=/languages/{{ id }}>{{mls name defaultAnalysisLanguage }}</a></li>
-    {{/each}}
-  </ul>
+  <div class=table-wrapper>
+    {{> LanguagesTable/LanguagesTable }}
+  </div>
 
 </main>
