@@ -1,12 +1,19 @@
 describe(`Languages`, function() {
 
-  it(`when the user is not logged in, it only displays public languages`, function() {
+  it(`displays all public languages`, function() {
     cy.visit(`/languages`)
     cy.title().should(`eq`, `Oxalis | Languages`)
-    // TODO: Check the rest of the displayed data.
+    cy.get(`.page-title`).should(`have.text`, `Languages`)
+    cy.get(`.languages-table caption`).should(`have.text`, `Languages`)
+    cy.get(`.languages-table tbody`).children().should(`have.length`, 9)
+    cy.contains(`td`, `Private`).should(`not.exist`)
   })
 
-  it(`when the user is logged in, it displays languages that are public or that they own, edit, or view`)
-  it(`clicking a language loads the Language page`)
+  it(`displays all (and only all) private languages with permissions`)
+
+  it(`displays data for a project`)
+  // /projects/{id}/languages
+  // NB: If a person has permissions for a project, they'll have permissions for all the languages in the project.
+  // TODO: Page Title should display the project name.
 
 })

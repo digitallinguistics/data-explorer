@@ -1,17 +1,16 @@
-import db from '../../config/database.js'
+import db        from '../../config/database.js'
+import hasAccess from '../../utilities/hasAccess.js'
 
 export default async function get(req, res) {
 
-  const title          = `Languages`
-  // const languages      = await db.getLanguages(res.locals.user)
-  // const { languageID } = req.params
-  // const language       = languages.find(lang => lang.id === languageID)
+  const title               = `Languages`
+  let   { data: languages } = await db.getLanguages()
 
-  // if (language) language.current = true
+  languages = languages.filter(lang => hasAccess(res.locals.user, lang))
 
   res.render(`Languages/Languages`, {
-    // language,
-    // languages,
+    caption: title,
+    languages,
     [title]: true,
     title,
   })
