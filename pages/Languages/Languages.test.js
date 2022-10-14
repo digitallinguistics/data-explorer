@@ -1,3 +1,5 @@
+import { msAuthCookie } from '../../constants/index.js'
+
 describe(`Languages`, function() {
 
   it(`displays all public languages`, function() {
@@ -9,7 +11,12 @@ describe(`Languages`, function() {
     cy.contains(`td`, `Private`).should(`not.exist`)
   })
 
-  it(`displays all (and only all) private languages with permissions`)
+  it.only(`displays all (and only all) private languages with permissions`, function() {
+    cy.visit(`/languages`)
+    cy.setCookie(msAuthCookie, `test@digitallinguistics.io`)
+    cy.visit(`/languages`)
+    cy.contains(`td`, `Private Test Language`)
+  })
 
   it(`displays data for a project`)
   // /projects/{id}/languages
