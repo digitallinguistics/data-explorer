@@ -9,13 +9,19 @@
   <ul class='bordered nav-list projects-list'>
     {{#each projects as |project|}}
       <li>
-        <a class=link href='https://data.digitallinguistics.io/projects/{{ id }}'>{{ name }}</a>
-        {{#if permissions.public }}
-          <svg class=icon><use href=#globe></svg>
-        {{else}}
-          <svg class=icon><use href=#lock></svg>
-        {{/if}}
-        <span>Created {{date dateCreated 'long' }}</span>
+        <header class=project__header>
+
+          <a class='link project-name' href='https://data.digitallinguistics.io/projects/{{ id }}'>{{ name }}</a>
+
+          {{#if permissions.public }}
+            <svg class=icon><use href=#globe></svg>
+          {{else}}
+            <svg class=icon><use href=#lock></svg>
+          {{/if}}
+
+          <span class=date-created>Created {{date dateCreated 'long' }}</span>
+
+        </header>
       </li>
     {{/each}}
   </ul>
