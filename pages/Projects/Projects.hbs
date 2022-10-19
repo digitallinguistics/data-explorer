@@ -22,6 +22,10 @@
           <span class=date-created>Created {{date dateCreated 'long' }}</span>
 
         </header>
+        <details>
+          <summary>Description</summary>
+          <div class=md>{{{ readme.html }}}</div>
+        </details>
       </li>
     {{/each}}
   </ul>
