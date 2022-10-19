@@ -69,8 +69,8 @@
     public:  false
   readme:
     html:
-      <h1>Public Test Project</h1>
-      <p>This is the description for the Public Test Project. <a href="https://data.digitallinguistics.io">Here's a link.</a></p>
+      <h1>Private Test Project</h1>
+      <p>This is the description for the Private Test Project. <a href="https://data.digitallinguistics.io">Here's a link.</a></p>
       <h2>Heading</h2>
       <p>Here's another section of the description.</p>
       <p>This is a list.</p>
@@ -111,8 +111,8 @@
     public:  false
   readme:
     html:
-      <h1>Public Test Project</h1>
-      <p>This is the description for the Public Test Project. <a href="https://data.digitallinguistics.io">Here's a link.</a></p>
+      <h1>Private Test Project with Permissions</h1>
+      <p>This is the description for the Private Test Project with Permissions. <a href="https://data.digitallinguistics.io">Here's a link.</a></p>
       <h2>Heading</h2>
       <p>Here's another section of the description.</p>
       <p>This is a list.</p>
@@ -135,3 +135,110 @@
       - Item A
       - Item B
       - Item C
+- id:           5478d915-8407-4c00-906c-a16a1a70b9a6
+  name:         Public Test Project 2
+  dateCreated:  2022-10-18T00:00:00.000Z
+  dateModified: 2022-10-19T00:00:00.000Z
+  link:         https://data.digitallinguistics.io/projects/5ad82262-b194-47b7-bf20-511727653912
+  type:         Project
+  access:
+    note:
+      html: Anyone can view the items in this project.
+      text: Anyone can view the items in this project.
+  permissions:
+    owners:  [test@digitallinguistics.io]
+    editors: []
+    viewers: []
+    public:  true
+  readme:
+    html: |
+      <h1>Public Test Project 2</h1>
+      <p>This is the description for the Public Test Project 2. <a href="https://data.digitallinguistics.io">Here's a link.</a></p>
+      <h2>Heading</h2>
+      <p>Here's another section of the description.</p>
+      <p>This is an unordered list.</p>
+      <ul>
+        <li>Item A</li>
+        <li>Item B</li>
+        <li>Item C</li>
+      </ul>
+      <p>This is an ordered list.</p>
+      <ul>
+        <li>Item 1</li>
+        <li>Item 2</li>
+        <li>Item 3</li>
+      </ul>
+    markdown: |
+      # Public Test Project 2
+
+      This is the description for the Public Test Project 2. [Here's a link.](https://data.digitallinguistics.io)
+
+      ## Heading
+
+      Here's another section of the description.
+
+      This is an unordered list.
+
+      - Item A
+      - Item B
+      - Item C
+
+      This is an ordered list.
+
+      1. Item 1
+      2. Item 2
+      3. Item 3
+
+- id:           c47f661f-d07f-431b-b87b-a2559b071acd
+  name:         Public Test Project 3
+  dateCreated:  2022-10-17T00:00:00.000Z
+  dateModified: 2022-10-18T00:00:00.000Z
+  link:         https://data.digitallinguistics.io/projects/402052d3-b3a8-4869-8f29-3e932110c522
+  type:         Project
+  access:
+    note:
+      html: Anyone can view the items in this project.
+      text: Anyone can view the items in this project.
+  permissions:
+    owners:  [test@digitallinguistics.io]
+    editors: []
+    viewers: []
+    public:  true
+  readme:
+    html: |
+      <h1>Public Test Project 3</h1>
+      <p>This is the description for the Public Test Project 3. <a href="https://data.digitallinguistics.io">Here's a link.</a></p>
+      <h2>Heading</h2>
+      <p>Here's another section of the description.</p>
+      <p>This is an unordered list.</p>
+      <ul>
+        <li>Item A</li>
+        <li>Item B</li>
+        <li>Item C</li>
+      </ul>
+      <p>This is an ordered list.</p>
+      <ul>
+        <li>Item 1</li>
+        <li>Item 2</li>
+        <li>Item 3</li>
+      </ul>
+    markdown: |
+      # Public Test Project 3
+
+      This is the description for the Public Test Project 3. [Here's a link.](https://data.digitallinguistics.io)
+
+      ## Heading
+
+      Here's another section of the description.
+
+      This is an unordered list.
+
+      - Item A
+      - Item B
+      - Item C
+
+      This is an ordered list.
+
+      1. Item 1
+      2. Item 2
+      3. Item 3

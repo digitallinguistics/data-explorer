@@ -8,7 +8,10 @@
 
   <ul class='bordered nav-list projects-list'>
     {{#each projects as |project|}}
-      <li>This is a project.</li>
+      <li>
+        <a class=link href='https://data.digitallinguistics.io/projects/{{ id }}'>{{ name }}</a>
+        <span>Created {{date dateCreated 'long' }}</span>
+      </li>
     {{/each}}
   </ul>
 

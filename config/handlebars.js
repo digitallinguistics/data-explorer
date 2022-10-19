@@ -12,8 +12,10 @@ const __dirname  = path.dirname(__filename)
  * Renders a Date object as a short date (YYYY-MM-DD).
  * @param {Date} d A Date Object
  */
-function date(d) {
-  return d ? new Date(d).toLocaleDateString(`en-CA`) : ``
+function date(d, type = `short`) {
+  if (!d) return ``
+  if (type === `long`) return new Date(d).toLocaleDateString(undefined, { dateStyle: `long` })
+  return new Date(d).toLocaleDateString(`en-CA`)
 }
 
 /**
