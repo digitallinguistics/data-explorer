@@ -1,11 +1,14 @@
+@import 'NavList/NavList.less';
+@import 'PageTitle/PageTitle.less';
+
 .projects-page {
 
-  align-self     : center;
-  max-inline-size: var(--measure);
-  padding-inline : var(--space);
+  margin-inline: var(--space);
 
-  p {
-    padding: var(--text-padding);
+  .nav-list {
+    inline-size    : 100%;
+    margin-inline  : auto;
+    max-inline-size: var(--measure);
   }
 
 }

@@ -4,17 +4,22 @@ describe(`app shell`, function() {
 
     it(`Home`, function() {
       cy.visit(`/test`, { failOnStatusCode: false })
-      cy.contains(`.navbar a`, `Home`)
-      .click()
-      cy.contains(`h1`, `Oxalis`)
+      cy.contains(`.navbar a`, `Home`).click()
+      cy.get(`.page-title`).should(`have.text`, `Oxalis`)
+    })
+
+    it(`Projects`, function() {
+      cy.visit(`/`)
+      cy.contains(`.navbar a`, `Projects`).click()
+      cy.url().should(`include`, `/projects`)
+      cy.get(`.page-title`).should(`have.text`, `Projects`)
     })
 
     it(`Languages`, function() {
       cy.visit(`/`)
-      cy.contains(`.navbar a`, `Languages`)
-      .click()
+      cy.contains(`.navbar a`, `Languages`).click()
       cy.url().should(`include`, `/languages`)
-      cy.contains(`h1`, `Languages`)
+      cy.get(`.page-title`).should(`have.text`, `Languages`)
     })
 
   })

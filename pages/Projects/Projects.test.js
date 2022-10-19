@@ -1,8 +1,9 @@
 describe(`Projects`, function() {
 
-  it(`has correct title`, function() {
+  it(`displays data correctly`, function() {
     cy.visit(`/projects`)
     cy.title().should(`eq`, `Oxalis | Projects`)
+    cy.get(`.projects-list`)
   })
 
 })
