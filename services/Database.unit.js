@@ -167,7 +167,7 @@ describe(`Database`, function() {
       const db = new Database
       const { data, status } = await db.getProjects()
       expect(status).to.equal(200)
-      expect(data).to.have.length(3)
+      expect(data).to.have.length(5)
     })
 
     it(`returns an empty array if there are no projects`, async function() {

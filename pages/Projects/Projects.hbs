@@ -6,6 +6,35 @@
 
   <h1 class=page-title>Projects</h1>
 
-  <p>Coming soon!</p>
+  <ul class='bordered nav-list projects-list'>
+    {{#each projects as |project|}}
+      <li class=project>
+        <header class=project__header>
+
+          <a class='link project__name' href='/projects/{{ id }}'>{{ name }}</a>
+
+          {{#if permissions.public }}
+            <svg class=icon><use href=#globe></svg>
+          {{else}}
+            <svg class=icon><use href=#lock></svg>
+          {{/if}}
+
+          <span class=date-created>Created {{date dateCreated 'long' }}</span>
+
+        </header>
+        <details>
+          <summary>
+            <header class=project__description-header>
+              <span class=project__description-title>Description</span>
+              <span class=project__read-more>(click to expand)</span>
+              <span class=project__read-less>(click to collapse)</span>
+            </header>
+            <span class=project__description-preview>{{{ readme.markdown }}}</span>
+          </summary>
+          <div class=md>{{{ readme.html }}}</div>
+        </details>
+      </li>
+    {{/each}}
+  </ul>
 
 </main>
