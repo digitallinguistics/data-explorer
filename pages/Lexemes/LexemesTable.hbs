@@ -4,8 +4,8 @@
 
   <thead>
     <tr>
-      <th>Language</th>
       <th>Lemma</th>
+      <th>Language</th>
       <th>Glosses</th>
       <th>Date Created</th>
       <th>Date Modified</th>
@@ -16,14 +16,14 @@
     {{#each lexemes as |lexeme|}}
       <tr>
 
-        {{!-- language --}}
-        <td>
-          <a class=link href='/languages/{{ language.id }}'>{{mls language.name }}</a>
-        </td>
-
         {{!-- lemma --}}
         <td class=lemma>
           <a class=link href='/lexemes/{{ id }}'>{{mot lemma ../project.defaultOrthography }}</a>
+        </td>
+
+        {{!-- language --}}
+        <td>
+          <a class=link href='/languages/{{ language.id }}'>{{mls language.name }}</a>
         </td>
 
         {{!-- glosses --}}
