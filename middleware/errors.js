@@ -28,9 +28,17 @@ const errorData = {
 
 export default function errors(req, res, next) {
 
-  res.error = function error(errorType = `ServerError`) {
+  res.error = function error(errorType = `ServerError`, options = {}) {
 
-    const { message, status, title } = errorData[errorType]
+    const {
+      message: defaultMessage,
+      status : defaultStatus,
+      title  : defaultTitle,
+    } = errorData[errorType]
+
+    const message = options.message ?? defaultMessage
+    const status  = options.status ?? defaultStatus
+    const title   = options.title ?? defaultTitle
 
     res.status(status)
 
