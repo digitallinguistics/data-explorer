@@ -1,2 +1,75 @@
-- id:   c554474c-7f39-4ede-941b-c40b8f58b059
-  name: Chitimacha Dictionary Project
+- id:          c554474c-7f39-4ede-941b-c40b8f58b059
+  name:        Nisinoon
+  dateCreated: 2022-01-01T00:00:00.000Z
+  dateCreated: 2022-01-02T00:00:00.000Z
+  link:        https://data.digitallinguistics.io/projects/c554474c-7f39-4ede-941b-c40b8f58b059
+  type:        Project
+  access:
+    note:
+      html: Anyone may view this project.
+      text: Anyone may view this project.
+  permissions:
+    owners:  [owner@digitallinguistics.io]
+    editors: [editor@digitallinguistics.io]
+    viewers: []
+    public:  true
+  readme:
+    html:     This project is meant to emulate the Nisinoon project.
+    markdown: This project is meant to emulate the Nisinoon project.
+
+- id:          a24157c1-000f-4771-aa47-485fb91bf24f
+  name:        Swahili
+  dateCreated: 2022-01-01T00:00:00.000Z
+  dateCreated: 2022-01-02T00:00:00.000Z
+  link:        https://data.digitallinguistics.io/projects/a24157c1-000f-4771-aa47-485fb91bf24f
+  type:        Project
+  access:
+    note:
+      html: Nobody may access this project.
+      text: Nobody may access this project.
+  permissions:
+    owners:  [owner@digitallinguistics.io]
+    editors: []
+    viewers: []
+    public:  false
+  readme:
+    html:     This project is meant to emulate a Lone Wolf project (one linguist working by themselves, without collaboration or data sharing.)
+    markdown: This project is meant to emulate a Lone Wolf project (one linguist working by themselves, without collaboration or data sharing.)
+
+- id:          26d40299-98fb-48c8-b51f-e62397269817
+  name:        Menominee Dictionary
+  dateCreated: 2022-01-01T00:00:00.000Z
+  dateCreated: 2022-01-02T00:00:00.000Z
+  link:        https://data.digitallinguistics.io/projects/26d40299-98fb-48c8-b51f-e62397269817
+  type:        Project
+  access:
+    note:
+      html: Only Monica Macaulay and members of the Menominee language team may access this project.
+      text: Only Monica Macaulay and members of the Menominee language team may access this project.
+  permissions:
+    owners:  [owner@digitallinguistics.io]
+    editors: [editor@digitallinguistics.io]
+    viewers: []
+    public:  false
+  readme:
+    html:     This project is meant to emulate the Menominee dictionary.
+    markdown: This project is meant to emulate the Menominee dictionary.
+
+- id:          683a5d27-53bf-451b-80d1-f6e731674c9e
+  name:        Chitimacha Dictionary
+  dateCreated: 2022-01-01T00:00:00.000Z
+  dateCreated: 2022-01-02T00:00:00.000Z
+  link:        https://data.digitallinguistics.io/projects/683a5d27-53bf-451b-80d1-f6e731674c9e
+  type:        Project
+  access:
+    note:
+      html: Only Daniel Hieber and members of the Chitimacha language team may access this project.
+      text: Only Daniel Hieber and members of the Chitimacha language team may access this project.
+  permissions:
+    owners:  [owner@digitallinguistics.io]
+    editors: []
+    viewers: [viewer@digitallinguistics.io]
+    public:  false
+  readme:
+    html:     This project is meant to emulate the Chitimacha dictionary.
+    markdown: This project is meant to emulate the Chitimacha dictionary.

@@ -2,32 +2,32 @@
 
 ## Projects
 
-- [ ] Chitimacha Dictionary
-- [ ] Nisinoon
-- [ ] Public Project
-- [ ] Private Project (no permissions)
-- [ ] Private Project (with permissions)
+- [x] Public Project [Nisinoon]
+- [x] Private Project without Permissions [Swahili]
+- [x] Private Project with Editor [Menominee Dictionary]
+- [x] Private Project with Viewer [Chitimacha Dictionary]
 
 ## Languages
 
-- [ ] Chitimacha (project: Chitimacha; public)
-- [ ] Menominee (project: Nisinoon; public)
-- [ ] Potawatomi (project: Nisinoon; public)
-- [ ] Cree (project: Nisinoon; public)
-- [ ] Public Language (project: Public Project)
-- [ ] Private Language (no permissions; no project)
-- [ ] Private Language (with permissions; project: Private Project (with permissions))
+- [ ] Public Language 1 (project: Public Project) [Cree]
+- [ ] Public Language 2 (project: Public Project) [Ojibwe]
+- [ ] Public Language 3 (project: Public Project) [Potawatomi]
+- [ ] Private Language without Permissions (project: Private Project without Permissions) [Swahili]
+- [ ] Private Language with Viewer (project: Private Project with Viewer) [Chitimacha]
+- [ ] Mixed-Privacy Language (projects: Public Project; Private Project without Permissions) [Menominee]
 
 ## Lexemes
 
-- [ ] 3 Chitimacha
-- [ ] 3 Public Language
-- [ ] 3 Private Language (no permissions)
-- [ ] 3 Private Language (with permissions)
-- [ ] 3 Menominee
-- [ ] 3 Potawatomi
-- [ ] 3 Cree
+- [ ] 3 Public Language 1
+- [ ] 3 Public Language 2
+- [ ] 3 Public Language 3
+- [ ] 3 Private Language without Permissions
+- [ ] 3 Private Language with Editor
+- [ ] 3 Private Language with Viewer
+- [ ] 3 Mixed-Privacy Language (2 public, 1 private)
 
 ## Users
 
-- [ ] Test User
+- [ ] Owner
+- [ ] Editor
+- [ ] Viewer
