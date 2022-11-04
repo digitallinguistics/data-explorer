@@ -4,10 +4,59 @@
 
 <main id=main class=lexemes-page>
 
-  <h1 class=page-title>Lexemes: {{ summaryName }}</h1>
+  <h1 class=page-title>{{ caption }}</h1>
 
   <div class=table-wrapper>
-    {{> Lexemes/LexemesTable }}
+    <table class='lexemes-table table'>
+
+      <caption class=visually-hidden>{{ caption }}</caption>
+
+      <thead>
+        <tr>
+          <th>Lemma</th>
+          <th>Language</th>
+          <th>Glosses</th>
+          <th>Date Created</th>
+          <th>Date Modified</th>
+        </tr>
+      </thead>
+
+      <tbody>
+        {{#each lexemes as |lexeme|}}
+          <tr>
+
+            {{!-- lemma --}}
+            <td class=lemma>
+              <a class=link href='/languages/{{ language.id }}/lexemes/{{ id }}'>{{mot lemma ../project.defaultOrthography }}</a>
+            </td>
+
+            {{!-- language --}}
+            <td>
+              <a class=link href='/languages/{{ language.id }}'>{{mls language.name }}</a>
+            </td>
+
+            {{!-- glosses --}}
+            <td>
+              <ol class=numbered>
+                {{#each senses as |sense|}}
+                  {{#if sense.gloss}}
+                    <li>{{ sense.gloss }}</li>
+                  {{/if}}
+                {{/each}}
+              </ol>
+            </td>
+
+            {{!-- date created --}}
+            <td class=date-created>{{date dateCreated }}</td>
+
+            {{!-- date modified --}}
+            <td class=date-modified>{{date dateModified }}</td>
+
+          </tr>
+        {{/each}}
+      </tbody>
+
+    </table>
   </div>
 
 </main>

@@ -30,7 +30,7 @@ describe(`Projects`, function() {
     cy.contains(`header`, `Nisinoon`)
   })
 
-  it.only(`displays all private projects the user has permission to access (viewer)`, function() {
+  it(`displays all private projects the user has permission to access (viewer)`, function() {
     cy.visit(`/projects`)
     cy.setCookie(msAuthCookie, `viewer@digitallinguistics.io`)
     cy.visit(`/projects`)
