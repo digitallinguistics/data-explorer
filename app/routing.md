@@ -23,6 +23,7 @@ Each of the routes displaying lists should eventually have search/filter/sort fu
 | `/languages/{languageID}`                                         |   ☐    | language details page                                                                                         |
 | `/languages/{languageID}/lexemes`                                 |   ☐    | lists the lexemes associated with a language                                                                  |
 | `/languages/{languageID}/lexemes/{lexemeID}`                      |   ☐    | lexeme details page                                                                                           |
+| ~~`/lexemes`~~                                                    |   ☐    | ❌                                                                                                             |
 | ~~`/me`~~                                                         |   ☐    | ❌                                                                                                             |
 | `/projects`                                                       |   ☐    | publicly-accessible projects                                                                                  |
 | `/projects/{projectID}`                                           |   ☐    | project details page                                                                                          |

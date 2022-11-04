@@ -1,85 +1,18 @@
-- id:                      bc93d0ad-5afb-462b-b68c-13913124fd3e
-  type:                    Language
-  autonym:                 {}
-  dateCreated:             2020-01-01T00:00:00.000Z
-  dateModified:            2022-01-01T00:00:00.000Z
-  defaultAnalysisLanguage: eng
-  defaultOrthography:      default
-  name:
-    eng: Ojibwe
-  permissions:
-    owners:  [test@digitallinguistics.io]
-    editors: []
-    viewers: []
-    public:  true
-  projects: []
-- id:                      a6560b52-162e-40b2-8b56-f9f9ce1e808a
-  type:                    Language
-  autonym:                 {}
-  defaultAnalysisLanguage: eng
-  defaultOrthography:      default
-  name:
-    eng: Menominee
-  permissions:
-    owners:  [test@digitallinguistics.io]
-    editors: []
-    viewers: []
-    public:  true
-  projects: []
-- id:                      9fd44608-43ab-48c8-a676-a480f6e7ce7c
-  type:                    Language
-  autonym:                 {}
-  defaultAnalysisLanguage: eng
-  defaultOrthography:      default
-  name:
-    eng: Potawatomi
-  permissions:
-    owners:  [test@digitallinguistics.io]
-    editors: []
-    viewers: []
-    public:  true
-  projects: []
-- id:                      9737c8cb-7a97-4fda-bbdf-2c6d5528cea4
-  type:                    Language
-  autonym:                 {}
-  defaultAnalysisLanguage: eng
-  defaultOrthography:      default
-  name:
-    eng: Plains Cree
-  permissions:
-    owners:  [test@digitallinguistics.io]
-    editors: []
-    viewers: []
-    public:  true
-  projects: []
-- id:                      6dc1ea50-6590-4d81-a34b-4562455a5cdd
-  type:                    Language
-  autonym:                 {}
-  defaultAnalysisLanguage: eng
-  defaultOrthography:      default
-  name:
-    eng: Meskwaki
-  permissions:
-    owners:  [test@digitallinguistics.io]
-    editors: []
-    viewers: []
-    public:  true
-  projects: []
 - id:                      cc4978f6-13a9-4735-94c5-10e4e8030437
   abbreviation:            chiti
-  dateCreated:             2020-01-01T00:00:00.000Z
-  dateModified:            2022-01-01T00:00:00.000Z
+  dateCreated:             2022-01-01T00:00:00.000Z
+  dateCreated:             2022-01-02T00:00:00.000Z
   defaultAnalysisLanguage: eng
-  defaultOrthography:      mod
+  defaultOrthography:      Mod
   glottocode:              chit1248
   iso:                     ctm
   type:                    Language
   autonym:
-    mod: Sitimaxa
-    swd: sitimaša
-    ipa: sitimaʃa
+    Mod: Sitimaxa
+    Swd: sitimaša
+    IPA: sitimaʃa
   description:
-    html:     >
+    html: >
       <p>Chitimacha is a language isolate spoken by the Chitimacha people of Louisiana, United States. Its last two fluent speakers died in 1934 and 1940, but today the Chitimacha Tribe of Louisiana is working to revitalize the language using documentary archival materials.</p>
       <p>Documentation of the language exists from Martin Duralde (1802), Albert S. Gatschet (1881–1882), John R. Swanton (1907–1920), and Morris Swadesh (1930–1934), however little of this was ever published (see Swadesh [1946]).</p>
     markdown: >
@@ -100,85 +33,130 @@
       source:       KW
       text:         The tribe prefers to use the term "sleeping" or "dormant" rather than "extinct".
   permissions:
-    owners:  [test@digitallinguistics.io]
+    owners:  [owner@digitallinguistics.io]
     editors: []
-    viewers: []
-    public:  true
-  projects: []
-- id:                      bc93d0ad-5afb-462b-b68c-13913124fd3e
-  type:                    Language
-  autonym:                 {}
-  dateCreated:             2020-01-01T00:00:00.000Z
-  dateModified:            2022-01-01T00:00:00.000Z
+    viewers: [viewer@digitallinguistics.io]
+    public:  false
+  projects: [683a5d27-53bf-451b-80d1-f6e731674c9e] # Chitimacha Dictionary Project (Private Project with Viewer)
+
+- id:                      5fc405aa-a1a3-41e5-a80d-adb9dfbaa293
+  abbreviation:            men
+  dateCreated:             2022-01-01T00:00:00.000Z
+  dateCreated:             2022-01-02T00:00:00.000Z
   defaultAnalysisLanguage: eng
-  defaultOrthography:      default
-  name:
-    eng: Blackfoot
-  permissions:
-    owners:  [test@digitallinguistics.io]
-    editors: []
-    viewers: []
-    public:  true
-  projects: []
-- id:                      3876b870-e7cd-46d2-bca8-2db1cd0a51ac
+  defaultOrthography:      men
+  glottocode:              meno1252
+  iso:                     mez
+  link:                    https://data.digitallinguistics.io/languages/5fc405aa-a1a3-41e5-a80d-adb9dfbaa293
   type:                    Language
-  autonym:                 {}
-  dateCreated:             2022-07-11T00:00:00.000Z
-  dateModified:            2022-07-11T00:00:00.000Z
-  defaultAnalysisLanguage: eng
-  defaultOrthography:      default
+  autonym:
+    men: omǣqnomenēweqnæsewen
+  description:
+    html:     This is the description for the Menominee language.
+    markdown: This is the description for the Menominee language.
   name:
-    eng: Public Test Language
+    eng: Menominee
   permissions:
-    owners:  [test@digitallinguistics.io]
+    owners:  [owner@digitallinguistics.io]
     editors: []
     viewers: []
     public:  true
   projects:
-    - 6a0fcc10-859c-4af1-8105-156ccfd95310 # Public Test Project
-- id:                      0a25188c-158b-4daf-bd17-5c4cdd6bd40b
-  type:                    Language
-  autonym:                 {}
-  dateCreated:             2022-07-11T00:00:00.000Z
-  dateModified:            2022-07-11T00:00:00.000Z
+    - c554474c-7f39-4ede-941b-c40b8f58b059 # Nisinoon (Public Project)
+    - 26d40299-98fb-48c8-b51f-e62397269817 # Menominee Dictionary Project (Private Project with Editor)
+
+- id:                      a6c9b191-1ef8-4379-9e94-9f1347917558
+  abbreviation:            oji
+  dateCreated:             2022-01-01T00:00:00.000Z
+  dateCreated:             2022-01-02T00:00:00.000Z
   defaultAnalysisLanguage: eng
-  defaultOrthography:      default
-  name:
-    eng: Private Test Language
-  permissions:
-    owners:  [test@digitallinguistics.io]
-    editors: []
-    viewers: []
-    public:  false
-  projects: []
-- id:                      c99c461d-42c6-4f58-83dd-d94bb472da0e
+  defaultOrthography:      fiero
+  glottocode:              ojib1241
+  iso:                     oji
+  link:                    https://data.digitallinguistics.io/languages/a6c9b191-1ef8-4379-9e94-9f1347917558
   type:                    Language
-  autonym:                 {}
-  dateCreated:             2022-07-12T00:00:00.000Z
-  dateModified:            2022-07-12T00:00:00.000Z
-  defaultAnalysisLanguage: eng
-  defaultOrthography:      default
+  autonym:
+    fiero: Anishinaabemowin
+  description:
+    html:     This is the description for the Ojibwe language.
+    markdown: This is the description for the Ojibwe language.
   name:
-    eng: Private Test Language with Permissions
+    eng: Ojibwe
   permissions:
-    owners: [test@digitallinguistics.io]
-    editors: []
-    viewers: []
-    public:  false
-  projects: [382dc20d-4641-4325-8e48-3b0462b703e9]
-- id:                      20dae36b-4f8f-46ac-b174-767a17bcc0dc
-  type:                    Language
-  autonym:                 {}
-  dateCreated:             2022-07-11T00:00:00.000Z
-  dateModified:            2022-07-11T00:00:00.000Z
-  defaultAnalysisLanguage: eng
-  defaultOrthography:      default
-  name:
-    eng: Another Public Test Language
-  permissions:
-    owners:  [test@digitallinguistics.io]
+    owners:  [owner@digitallinguistics.io]
     editors: []
     viewers: []
     public:  true
-  projects:
-    - 6a0fcc10-859c-4af1-8105-156ccfd95310 # Public Test Project
+  projects: [c554474c-7f39-4ede-941b-c40b8f58b059] # Nisinoon (Public Project)
+
+- id:                      850f3bd9-2a57-4289-bc57-05640b5d8d7d
+  abbreviation:            pc
+  dateCreated:             2022-01-01T00:00:00.000Z
+  dateCreated:             2022-01-02T00:00:00.000Z
+  defaultAnalysisLanguage: eng
+  defaultOrthography:      SRO
+  glottocode:              plai1258
+  iso:                     swa
+  link:                    https://data.digitallinguistics.io/languages/850f3bd9-2a57-4289-bc57-05640b5d8d7d
+  type:                    Language
+  autonym:
+    SRO: nêhiyawêwin
+    syl: ᓀᐦᐃᔭᐍᐏᐣ
+  description:
+    html:     This is the description for the Plains Cree language.
+    markdown: This is the description for the Plains Cree language.
+  name:
+    eng: Plains Cree
+  permissions:
+    owners:  [owner@digitallinguistics.io]
+    editors: []
+    viewers: []
+    public:  true
+  projects: [c554474c-7f39-4ede-941b-c40b8f58b059] # Nisinoon (Public Project)
+
+- id:                      4c0a3e19-0281-4621-9ad6-76da5a32c125
+  abbreviation:            pot
+  dateCreated:             2022-01-01T00:00:00.000Z
+  dateCreated:             2022-01-02T00:00:00.000Z
+  defaultAnalysisLanguage: eng
+  defaultOrthography:      WNALP
+  glottocode:              pota1247
+  iso:                     pot
+  link:                    https://data.digitallinguistics.io/languages/4c0a3e19-0281-4621-9ad6-76da5a32c125
+  type:                    Language
+  autonym:
+    WNALP: bodéwadmimwen
+  description:
+    html:     This is the description for the Potawatomi language.
+    markdown: This is the description for the Potawatomi language.
+  name:
+    eng: Potawatomi
+  permissions:
+    owners:  [owner@digitallinguistics.io]
+    editors: []
+    viewers: []
+    public:  true
+  projects: [c554474c-7f39-4ede-941b-c40b8f58b059] # Nisinoon (Public Project)
+
+- id:                      4580756f-ce39-4ea0-b96e-8f176371afcb
+  abbreviation:            swa
+  dateCreated:             2022-01-01T00:00:00.000Z
+  dateCreated:             2022-01-02T00:00:00.000Z
+  defaultAnalysisLanguage: eng
+  defaultOrthography:      swa
+  glottocode:              swah1254
+  link:                    https://data.digitallinguistics.io/languages/4580756f-ce39-4ea0-b96e-8f176371afcb
+  type:                    Language
+  autonym:
+    swa: Kiswahili
+  description:
+    html:     This is the description for the Swahili language.
+    markdown: This is the description for the Swahili language.
+  name:
+    eng: Swahili
+  permissions:
+    owners:  [owner@digitallinguistics.io]
+    editors: []
+    viewers: []
+    public:  false
+  projects: [a24157c1-000f-4771-aa47-485fb91bf24f] # Swahili (Private Project without Permissions)
