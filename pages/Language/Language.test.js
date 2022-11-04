@@ -1,10 +1,12 @@
-import yamlParser from 'js-yaml'
+import { msAuthCookie } from '../../constants/index.js'
+import yamlParser       from 'js-yaml'
 
 describe(`Language Page`, function() {
 
-  const publicLanguageID = `850f3bd9-2a57-4289-bc57-05640b5d8d7d`
+  const publicLanguageID  = `850f3bd9-2a57-4289-bc57-05640b5d8d7d` // Plains Cree
+  const privateLanguageID = `4580756f-ce39-4ea0-b96e-8f176371afcb` // Swahili
 
-  before(function() {
+  beforeEach(function() {
     cy.readFile(`data/languages.yml`)
     .then(yaml => yamlParser.load(yaml))
     .as(`languages`)
@@ -12,7 +14,29 @@ describe(`Language Page`, function() {
     .as(`data`)
   })
 
-  it.only(`displays the language details`, function() {
+  it(`Not Found`, function() {
+    cy.visit(`/languages/1234`, { failOnStatusCode: false })
+    cy.title().should(`eq`, `Oxalis | Item Not Found`)
+    cy.get(`.page-title`).should(`have.text`, `404: Item Not Found`)
+    cy.get(`.error-message`).should(`have.text`, `No language exists with ID 1234.`)
+  })
+
+  it(`Unauthenticated`, function() {
+    cy.visit(`/languages/${ privateLanguageID }`, { failOnStatusCode: false })
+    cy.get(`.page-title`).should(`have.text`, `401: Unauthenticated`)
+    cy.get(`.error-message`).should(`have.text`, `You must be logged in to view this language.`)
+  })
+
+  it(`Unauthorized`, function() {
+    cy.visit(`/`)
+    cy.setCookie(msAuthCookie, `bademail@digitallinguistics.io`)
+    cy.visit(`/languages/${ privateLanguageID }`, { failOnStatusCode: false })
+    cy.title().should(`eq`, `Oxalis | Unauthorized`)
+    cy.get(`.page-title`).should(`have.text`, `403: Unauthorized`)
+    cy.get(`.error-message`).should(`have.text`, `You do not have permission to view this language.`)
+  })
+
+  it(`Language Details`, function() {
 
     const { data } = this
 

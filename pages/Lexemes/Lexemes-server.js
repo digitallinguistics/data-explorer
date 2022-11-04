@@ -13,7 +13,7 @@ export default async function get(req, res) {
 
   if (!collection) {
     return res.error(`ItemNotFound`, {
-      message: `This ${ collectionType } does not exist.`,
+      message: `No ${ collectionType } exists with ID <code class=code>${ collectionID }</code>.`,
     })
   }
 
