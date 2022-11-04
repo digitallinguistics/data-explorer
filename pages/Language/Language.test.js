@@ -23,6 +23,7 @@ describe(`Language Page`, function() {
 
   it(`Unauthenticated`, function() {
     cy.visit(`/languages/${ privateLanguageID }`, { failOnStatusCode: false })
+    cy.title().should(`eq`, `Oxalis | Unauthenticated`)
     cy.get(`.page-title`).should(`have.text`, `401: Unauthenticated`)
     cy.get(`.error-message`).should(`have.text`, `You must be logged in to view this language.`)
   })
