@@ -1,12 +1,35 @@
 import Database   from './Database.js'
 import { expect } from 'chai'
+import fs         from 'fs-extra'
+import yamlParser from 'js-yaml'
+
+const { readFile } = fs
 
 describe(`Database`, function() {
 
   const badUser    = `bademail@digitallinguistics.io`
-  const languageID = `3876b870-e7cd-46d2-bca8-2db1cd0a51ac`
-  const lexemeID   = `c00d0d77-4615-46f5-af59-f4b8c795311a`
-  const projectID  = `6a0fcc10-859c-4af1-8105-156ccfd95310`
+  const languageID = `850f3bd9-2a57-4289-bc57-05640b5d8d7d` // Plains Cree
+  const lexemeID   = `79eb0aaf-944c-40b4-93f3-e1785ec0adde` // cīkahikan (Plains Cree)
+  const projectID  = `c554474c-7f39-4ede-941b-c40b8f58b059` // Nisinoon
+
+  before(async function() {
+
+    const languagesYAML = await readFile(`data/languages.yml`, `utf8`)
+    const languages     = yamlParser.load(languagesYAML)
+
+    this.language = languages.find(lang => lang.id === languageID)
+
+    const lexemesYAML = await readFile(`data/lexemes.yml`, `utf8`)
+    const lexemes     = yamlParser.load(lexemesYAML)
+
+    this.lexeme = lexemes.find(lex => lex.id === lexemeID)
+
+    const projectsYAML = await readFile(`data/projects.yml`, `utf8`)
+    const projects     = yamlParser.load(projectsYAML)
+
+    this.project = projects.find(proj => proj.id === projectID)
+
+  })
 
   describe(`getLanguage`, function() {
 
@@ -21,7 +44,7 @@ describe(`Database`, function() {
       const db = new Database
       const { data: language, status } = await db.getLanguage(languageID)
       expect(status).to.equal(200)
-      expect(language.name.eng).to.equal(`Public Test Language`)
+      expect(language.name.eng).to.equal(this.language.name.eng)
     })
 
     it(`404 Not Found`, async function() {
@@ -46,13 +69,14 @@ describe(`Database`, function() {
       const db = new Database
       const { data, status } = await db.getLanguages()
       expect(status).to.equal(200)
-      expect(data).to.have.lengthOf(11)
+      expect(data).to.have.lengthOf(6)
     })
 
     it(`option: project`, async function() {
       const db = new Database
       const { data, status } = await db.getLanguages({ project: projectID })
       expect(status).to.equal(200)
+      expect(data).to.have.lengthOf(4)
       expect(data.every(language => language.projects.includes(projectID))).to.be.true
     })
 
@@ -71,7 +95,7 @@ describe(`Database`, function() {
       const db = new Database
       const { data, status } = await db.getLexeme(lexemeID)
       expect(status).to.equal(200)
-      expect(data.lemma.spa).to.equal(`vivir`)
+      expect(data.lemma.SRO).to.equal(this.lexeme.lemma.SRO)
     })
 
     it(`404 Not Found`, async function() {
@@ -96,13 +120,14 @@ describe(`Database`, function() {
       const db = new Database
       const { data, status } = await db.getLexemes()
       expect(status).to.equal(200)
-      expect(data).to.have.lengthOf(3)
+      expect(data).to.have.lengthOf(18)
     })
 
     it(`option: language`, async function() {
       const db = new Database
       const { data, status } = await db.getLexemes({ language: languageID })
       expect(status).to.equal(200)
+      expect(data).to.have.lengthOf(3)
       expect(data.every(lexeme => lexeme.language.id === languageID)).to.be.true
     })
 
@@ -110,6 +135,7 @@ describe(`Database`, function() {
       const db = new Database
       const { data, status } = await db.getLexemes({ project: projectID })
       expect(status).to.equal(200)
+      expect(data).to.have.lengthOf(11)
       expect(data.every(lexeme => lexeme.projects.includes(projectID))).to.be.true
     })
 
@@ -117,7 +143,7 @@ describe(`Database`, function() {
       const db = new Database
       const { data, status } = await db.getLexemes({ project: projectID, summary: true })
       expect(status).to.equal(200)
-      expect(data.count).to.equal(2)
+      expect(data.count).to.equal(11)
     })
 
     it(`returns an empty array for nonexistent projects/languages`, async function() {
@@ -142,7 +168,7 @@ describe(`Database`, function() {
       const db = new Database
       const { data, status } = await db.getProject(projectID)
       expect(status).to.equal(200)
-      expect(data.name).to.equal(`Public Test Project`)
+      expect(data.name).to.equal(this.project.name)
     })
 
     it(`404 Not Found`, async function() {
@@ -167,7 +193,7 @@ describe(`Database`, function() {
       const db = new Database
       const { data, status } = await db.getProjects()
       expect(status).to.equal(200)
-      expect(data).to.have.length(5)
+      expect(data).to.have.length(4)
     })
 
     it(`returns an empty array if there are no projects`, async function() {

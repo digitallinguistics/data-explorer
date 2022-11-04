@@ -5,7 +5,7 @@
 import { msAuthCookie } from '../constants/index.js'
 
 function login(req, res) {
-  res.cookie(msAuthCookie, `12345`)
+  res.cookie(msAuthCookie, `owner@digitallinguistics.io`)
   res.redirect(req.query.post_login_redirect_uri)
 }
 

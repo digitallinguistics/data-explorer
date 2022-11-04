@@ -1,22 +1,47 @@
-import yamlParser from 'js-yaml'
+import { msAuthCookie } from '../../constants/index.js'
+import yamlParser       from 'js-yaml'
 
 describe(`Language Page`, function() {
 
-  const chitiLanguageID = `cc4978f6-13a9-4735-94c5-10e4e8030437`
+  const publicLanguageID  = `850f3bd9-2a57-4289-bc57-05640b5d8d7d` // Plains Cree
+  const privateLanguageID = `4580756f-ce39-4ea0-b96e-8f176371afcb` // Swahili
 
-  before(function() {
+  beforeEach(function() {
     cy.readFile(`data/languages.yml`)
     .then(yaml => yamlParser.load(yaml))
     .as(`languages`)
-    .then(languages => languages.find(lang => lang.id === chitiLanguageID))
+    .then(languages => languages.find(lang => lang.id === publicLanguageID))
     .as(`data`)
   })
 
-  it(`displays the language details`, function() {
+  it(`Not Found`, function() {
+    cy.visit(`/languages/1234`, { failOnStatusCode: false })
+    cy.title().should(`eq`, `Oxalis | Item Not Found`)
+    cy.get(`.page-title`).should(`have.text`, `404: Item Not Found`)
+    cy.get(`.error-message`).should(`have.text`, `No language exists with ID 1234.`)
+  })
+
+  it(`Unauthenticated`, function() {
+    cy.visit(`/languages/${ privateLanguageID }`, { failOnStatusCode: false })
+    cy.title().should(`eq`, `Oxalis | Unauthenticated`)
+    cy.get(`.page-title`).should(`have.text`, `401: Unauthenticated`)
+    cy.get(`.error-message`).should(`have.text`, `You must be logged in to view this language.`)
+  })
+
+  it(`Unauthorized`, function() {
+    cy.visit(`/`)
+    cy.setCookie(msAuthCookie, `bademail@digitallinguistics.io`)
+    cy.visit(`/languages/${ privateLanguageID }`, { failOnStatusCode: false })
+    cy.title().should(`eq`, `Oxalis | Unauthorized`)
+    cy.get(`.page-title`).should(`have.text`, `403: Unauthorized`)
+    cy.get(`.error-message`).should(`have.text`, `You do not have permission to view this language.`)
+  })
+
+  it(`Language Details`, function() {
 
     const { data } = this
 
-    cy.visit(`/languages/${ chitiLanguageID }`)
+    cy.visit(`/languages/${ publicLanguageID }`)
     cy.title().should(`equal`, `Oxalis | ${ data.name.eng }`)
 
     // Page Title
@@ -26,40 +51,37 @@ describe(`Language Page`, function() {
     cy.get(`.names .mls`)
     .children()
     .filter(`dd`)
-    .then(([eng, ctm, fra]) => {
+    .then(([eng]) => {
       expect(eng).to.contain(data.name.eng)
-      expect(ctm).contain(data.name.ctm)
-      expect(fra).to.contain(data.name.fra)
     })
 
     // Autonym
     cy.get(`.names .mot`)
     .children()
     .filter(`dd`)
-    .then(([mod, swd, ipa]) => {
-      expect(mod).to.contain(data.autonym.mod)
-      expect(swd).contain(data.autonym.swd)
-      expect(ipa).to.contain(data.autonym.ipa)
+    .then(([SRO, syl]) => {
+      expect(SRO).to.contain(data.autonym.SRO)
+      expect(syl).contain(data.autonym.syl)
     })
 
     // Language Codes
     cy.get(`.codes dd`)
     .then(([glottocodeEl, isoEl, abbreviationEl]) => {
-      expect(glottocodeEl.textContent).to.include(`chit1248`)
-      expect(isoEl.textContent).to.include(`ctm`)
-      expect(abbreviationEl.textContent).to.include(`chiti`)
+      expect(glottocodeEl.textContent).to.include(data.glottocode)
+      expect(isoEl.textContent).to.include(data.iso)
+      expect(abbreviationEl.textContent).to.include(data.abbreviation)
     })
 
     // Description
     cy.get(`.description`)
-    .should(`include.text`, `Chitimacha is a language isolate`)
+    .should(`include.text`, `Plains Cree`)
 
     // Metadata
     cy.get(`.metadata`)
     .children()
     .filter(`output`)
     .then(([urlEl, dateCreatedEl, dateModifiedEl]) => {
-      expect(urlEl.textContent).to.equal(`https://data.digitallinguistics.io/languages/${ chitiLanguageID }`)
+      expect(urlEl.textContent).to.equal(`https://data.digitallinguistics.io/languages/${ publicLanguageID }`)
       expect(dateCreatedEl.textContent).to.equal(new Date(data.dateCreated).toLocaleDateString(`en-CA`))
       expect(dateModifiedEl.textContent).to.equal(new Date(data.dateModified).toLocaleDateString(`en-CA`))
     })

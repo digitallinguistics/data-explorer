@@ -2,33 +2,80 @@ import { msAuthCookie } from '../../constants/index.js'
 
 describe(`Languages`, function() {
 
-  it(`displays all public languages`, function() {
-    cy.visit(`/languages`)
-    cy.title().should(`eq`, `Oxalis | Languages`)
-    cy.get(`.page-title`).should(`have.text`, `Languages`)
-    cy.get(`.languages-table caption`).should(`have.text`, `Languages`)
-    cy.get(`.languages-table tbody`).children().should(`have.length`, 9)
-    cy.contains(`td`, `Private`).should(`not.exist`)
+  describe(`/languages`, function() {
+
+    it(`displays all public languages`, function() {
+      cy.visit(`/languages`)
+      cy.title().should(`eq`, `Oxalis | Languages`)
+      cy.get(`.page-title`).should(`have.text`, `Languages | All`)
+      cy.get(`.languages-table caption`).should(`have.text`, `Languages | All`)
+      cy.get(`.languages-table tbody`).children().should(`have.length`, 4)
+      cy.contains(`td`, `Chitimacha`).should(`not.exist`)
+      cy.contains(`td`, `Swahili`).should(`not.exist`)
+    })
+
+    it(`displays all private languages the user has permission to access (owner@digitallinguistics.io)`, function() {
+      cy.visit(`/languages`)
+      cy.setCookie(msAuthCookie, `owner@digitallinguistics.io`)
+      cy.visit(`/languages`)
+      cy.get(`.languages-table tbody`).children().should(`have.length`, 6)
+    })
+
+    it(`displays all private languages the user has permission to access (editor@digitallinguistics.io)`, function() {
+      cy.visit(`/languages`)
+      cy.setCookie(msAuthCookie, `editor@digitallinguistics.io`)
+      cy.visit(`/languages`)
+      cy.get(`.languages-table tbody`).children().should(`have.length`, 4)
+      cy.contains(`td`, `Menominee`)
+    })
+
+    it(`displays all private languages the user has permission to access (viewer@digitallinguistics.io)`, function() {
+      cy.visit(`/languages`)
+      cy.setCookie(msAuthCookie, `viewer@digitallinguistics.io`)
+      cy.visit(`/languages`)
+      cy.get(`.languages-table tbody`).children().should(`have.length`, 5)
+      cy.contains(`td`, `Chitimacha`)
+    })
+
   })
 
-  it(`displays all (and only all) private languages with permissions`, function() {
-    cy.visit(`/languages`)
-    cy.setCookie(msAuthCookie, `test@digitallinguistics.io`)
-    cy.visit(`/languages`)
-    cy.contains(`td`, `Private Test Language`)
-  })
+  describe(`/projects/{projectID}/languages`, function() {
 
-  // NB: If a person has permissions for a project, they'll have permissions for all the languages in the project.
-  it.only(`displays data for a project`, function() {
-    cy.visit(`/`)
-    cy.setCookie(msAuthCookie, `test@digitallinguistics.io`)
-    const projectID = `382dc20d-4641-4325-8e48-3b0462b703e9`
-    const title     = `Private Test Project with Permissions: Languages`
-    cy.visit(`/projects/${ projectID }/languages`)
-    cy.get(`.page-title`).should(`have.text`, title)
-    cy.get(`.languages-table caption`).should(`have.text`, title)
-    cy.get(`.languages-table tbody`).children().should(`have.length`, 1)
-    cy.contains(`td`, `Private Test Language with Permissions`)
+    const privateProjectID = `a24157c1-000f-4771-aa47-485fb91bf24f` // Swahili
+
+    it(`displays a 404 page for nonexistent projects`, function() {
+      cy.visit(`/projects/1234/languages`, { failOnStatusCode: false })
+      cy.title().should(`eq`, `Oxalis | Item Not Found`)
+      cy.get(`.page-title`).should(`have.text`, `404: Item Not Found`)
+      cy.get(`.error-message`).should(`have.text`, `No project exists with ID 1234.`)
+    })
+
+    it(`displays an Unauthenticated error for private projects`, function() {
+      cy.visit(`/projects/${ privateProjectID }/languages`, { failOnStatusCode: false })
+      cy.title().should(`eq`, `Oxalis | Unauthenticated`)
+      cy.get(`.page-title`).should(`have.text`, `401: Unauthenticated`)
+      cy.get(`.error-message`).should(`have.text`, `You must be logged in to view this project.`)
+    })
+
+    it(`displays an Unauthorized error for private projects`, function() {
+      cy.visit(`/`)
+      cy.setCookie(msAuthCookie, `bademail@digitallinguistics.io`)
+      cy.visit(`/projects/${ privateProjectID }`, { failOnStatusCode: false })
+      cy.title().should(`eq`, `Oxalis | Unauthorized`)
+      cy.get(`.page-title`).should(`have.text`, `403: Unauthorized`)
+      cy.get(`.error-message`).should(`have.text`, `You do not have permission to view this project.`)
+    })
+
+    it(`displays all (and only all) project languages`, function() {
+
+      const publicProjectID = `c554474c-7f39-4ede-941b-c40b8f58b059` // Nisinoon
+
+      cy.visit(`/projects/${ publicProjectID }/languages`)
+      cy.title().should(`eq`, `Oxalis | Nisinoon | Languages`)
+      cy.get(`tbody`).children().should(`have.length`, 4)
+
+    })
+
   })
 
 })

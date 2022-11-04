@@ -4,7 +4,21 @@ import hasAccess from '../../utilities/hasAccess.js'
 export default async function get(req, res) {
 
   if (req.params.projectID) {
+
     var { data: project } = await db.getProject(req.params.projectID)
+
+    if (!project) {
+      return res.error(`ItemNotFound`, {
+        message: `No project exists with ID <code class=code>${ req.params.projectID }</code>.`,
+      })
+    }
+
+    if (!project.permissions.public && !res.locals.user) {
+      return res.error(`Unauthenticated`, {
+        message: `You must be logged in to view this project.`,
+      })
+    }
+
   }
 
   let { data: languages } = await db.getLanguages()
@@ -13,12 +27,14 @@ export default async function get(req, res) {
 
   if (project) languages = languages.filter(lang => lang.projects.includes(project.id))
 
-  const title = project ? `${ project.name }: Languages` : `Languages`
+  const collectionName = project?.name ?? `All`
+  const title          = project ? `${ project.name } | Languages` : `Languages`
 
   res.render(`Languages/Languages`, {
-    caption: title,
+    caption:   `Languages | ${ collectionName }`,
     languages,
-    [title]: true,
+    Languages: true,
+    project,
     title,
   })
 

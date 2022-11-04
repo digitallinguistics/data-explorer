@@ -4,7 +4,15 @@
 
 <main id=main class=languages-page>
 
-  <h1 class=page-title>{{ title }}</h1>
+  <h1 class=page-title>{{ caption }}</h1>
+
+  <p class=page-description>
+    {{#if project}}
+      This page shows all the languages associated with the {{ project.name }} project.
+    {{else}}
+      This page shows all languages that you have permissions to view. A language may appear multiple times if more than one user has created a language with that name.
+    {{/if}}
+  </p>
 
   <div class=table-wrapper>
     {{> LanguagesTable/LanguagesTable }}

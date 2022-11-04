@@ -1,36 +1,261 @@
+# Chitimacha
+
 - id:           abc56564-5754-4698-845c-2ea32a760bbd
-  type:         Lexeme
-  dateCreated:  2020-01-01T00:00:00.000Z
-  dateModified: 2022-01-01T00:00:00.000Z
+  dateCreated:  2022-01-01T00:00:00.000Z
+  dateModified: 2022-01-02T00:00:00.000Z
   language:     cc4978f6-13a9-4735-94c5-10e4e8030437 # Chitimacha
+  link:         https://data.digitallinguistics.io/languages/cc4978f6-13a9-4735-94c5-10e4e8030437/lexemes/abc56564-5754-4698-845c-2ea32a760bbd
+  type:         Lexeme
   lemma:
-    mod: cuw-
-    swd: čuw-
-    ipa: t͡ʃuw-
+    Mod: cuw-
+    Swd: čuw-
+    IPA: t͡ʃuw-
   projects:
-    - 6a0fcc10-859c-4af1-8105-156ccfd95310 # Public Test Project
+    - 683a5d27-53bf-451b-80d1-f6e731674c9e # Chitimacha Dictionary Project
   senses:
     - gloss: go
     - gloss: walk
-- id:           c00d0d77-4615-46f5-af59-f4b8c795311a
+
+- id:           1a28ce6c-6721-41a1-9209-7a50f77e5244
+  dateCreated:  2022-01-01T00:00:00.000Z
+  dateModified: 2022-01-02T00:00:00.000Z
+  language:     cc4978f6-13a9-4735-94c5-10e4e8030437 # Chitimacha
+  link:         https://data.digitallinguistics.io/languages/cc4978f6-13a9-4735-94c5-10e4e8030437/lexemes/1a28ce6c-6721-41a1-9209-7a50f77e5244
   type:         Lexeme
-  dateCreated:  2022-07-11T00:00:00.000Z
-  dateModified: 2022-07-12T00:00:00.000Z
-  language:     3876b870-e7cd-46d2-bca8-2db1cd0a51ac # Public Test Language
   lemma:
-    spa: vivir
+    Mod: panx
+    Swd: panš
+    IPA: panʃ
   projects:
-    - 6a0fcc10-859c-4af1-8105-156ccfd95310 # Public Test Project
+    - 683a5d27-53bf-451b-80d1-f6e731674c9e # Chitimacha Dictionary Project
   senses:
-    - gloss: live
-- id:           ecc1ec29-979f-4cf2-8715-b0e0ad6b27a0
+    - gloss: person
+
+- id:           53828e02-e424-4309-804e-7d2e363d208b
+  dateCreated:  2022-01-01T00:00:00.000Z
+  dateModified: 2022-01-02T00:00:00.000Z
+  language:     cc4978f6-13a9-4735-94c5-10e4e8030437 # Chitimacha
+  link:         https://data.digitallinguistics.io/languages/cc4978f6-13a9-4735-94c5-10e4e8030437/lexemes/53828e02-e424-4309-804e-7d2e363d208b
   type:         Lexeme
-  dateCreated:  2022-07-11T00:00:00.000Z
-  dateModified: 2022-07-12T00:00:00.000Z
-  language:     3876b870-e7cd-46d2-bca8-2db1cd0a51ac # Public Test Language
   lemma:
-    spa: correr
+    Mod: huygi
+    Swd: huygi
+    IPA: hujkʼi
   projects:
-    - 198c9710-451c-413b-abf5-b3daa4c15156 # Private Test Project
+    - 683a5d27-53bf-451b-80d1-f6e731674c9e # Chitimacha Dictionary Project
   senses:
-    - gloss: run
+    - gloss: good
+
+# Menominee
+
+- id:           2eb35661-8e27-461a-820c-20c0a0a56c67
+  dateCreated:  2022-01-01T00:00:00.000Z
+  dateModified: 2022-01-02T00:00:00.000Z
+  language:     5fc405aa-a1a3-41e5-a80d-adb9dfbaa293 # Menominee
+  link:         https://data.digitallinguistics.io/languages/5fc405aa-a1a3-41e5-a80d-adb9dfbaa293/lexemes/2eb35661-8e27-461a-820c-20c0a0a56c67
+  type:         Lexeme
+  lemma:
+    Men: wāqnenekan
+  projects:
+    - c554474c-7f39-4ede-941b-c40b8f58b059 # Nisinoon
+    - 26d40299-98fb-48c8-b51f-e62397269817 # Menominee Dictionary Project
+  senses:
+    - gloss: lamp
+    - gloss: candle
+
+- id:           53b003db-2927-4306-9230-aae501e44d6f
+  dateCreated:  2022-01-01T00:00:00.000Z
+  dateModified: 2022-01-02T00:00:00.000Z
+  language:     5fc405aa-a1a3-41e5-a80d-adb9dfbaa293 # Menominee
+  link:         https://data.digitallinguistics.io/languages/5fc405aa-a1a3-41e5-a80d-adb9dfbaa293/lexemes/53b003db-2927-4306-9230-aae501e44d6f
+  type:         Lexeme
+  lemma:
+    Men: sūniyanikamek
+  projects:
+    - c554474c-7f39-4ede-941b-c40b8f58b059 # Nisinoon
+    - 26d40299-98fb-48c8-b51f-e62397269817 # Menominee Dictionary Project
+  senses:
+    - gloss: bank
+
+- id:           11879394-ddf9-431d-9948-c75129e76b36
+  dateCreated:  2022-01-01T00:00:00.000Z
+  dateModified: 2022-01-02T00:00:00.000Z
+  language:     5fc405aa-a1a3-41e5-a80d-adb9dfbaa293 # Menominee
+  link:         https://data.digitallinguistics.io/languages/5fc405aa-a1a3-41e5-a80d-adb9dfbaa293/lexemes/11879394-ddf9-431d-9948-c75129e76b36
+  type:         Lexeme
+  lemma:
+    Men: sūniyanikamekmahka͞esen
+  projects:
+    - 26d40299-98fb-48c8-b51f-e62397269817 # Menominee Dictionary Project (NOT included in Nisinoon)
+  senses:
+    - gloss: shoe
+    - gloss: moccasin
+
+# Ojibwe
+
+- id:           626996ce-9d90-4ad8-855b-5e72e5a5f684
+  dateCreated:  2022-01-01T00:00:00.000Z
+  dateModified: 2022-01-02T00:00:00.000Z
+  language:     a6c9b191-1ef8-4379-9e94-9f1347917558 # Ojibwe
+  link:         https://data.digitallinguistics.io/languages/a6c9b191-1ef8-4379-9e94-9f1347917558/lexemes/626996ce-9d90-4ad8-855b-5e72e5a5f684
+  type:         Lexeme
+  lemma:
+    Fiero: naboob
+  projects:
+    - c554474c-7f39-4ede-941b-c40b8f58b059 # Nisinoon
+  senses:
+    - gloss: soup
+
+- id:           6c18aca0-68fd-471e-a71a-3669fc6eac2e
+  dateCreated:  2022-01-01T00:00:00.000Z
+  dateModified: 2022-01-02T00:00:00.000Z
+  language:     a6c9b191-1ef8-4379-9e94-9f1347917558 # Ojibwe
+  link:         https://data.digitallinguistics.io/languages/a6c9b191-1ef8-4379-9e94-9f1347917558/lexemes/6c18aca0-68fd-471e-a71a-3669fc6eac2e
+  type:         Lexeme
+  lemma:
+    Fiero: ikwe
+  projects:
+    - c554474c-7f39-4ede-941b-c40b8f58b059 # Nisinoon
+  senses:
+    - gloss: woman
+
+- id:           f3e2df61-9ef7-42b2-96b0-ef989240292f
+  dateCreated:  2022-01-01T00:00:00.000Z
+  dateModified: 2022-01-02T00:00:00.000Z
+  language:     a6c9b191-1ef8-4379-9e94-9f1347917558 # Ojibwe
+  link:         https://data.digitallinguistics.io/languages/a6c9b191-1ef8-4379-9e94-9f1347917558/lexemes/f3e2df61-9ef7-42b2-96b0-ef989240292f
+  type:         Lexeme
+  lemma:
+    Fiero: inini
+  projects:
+    - c554474c-7f39-4ede-941b-c40b8f58b059 # Nisinoon
+  senses:
+    - gloss: man
+
+# Plains Cree
+
+- id:           79eb0aaf-944c-40b4-93f3-e1785ec0adde
+  dateCreated:  2022-01-01T00:00:00.000Z
+  dateModified: 2022-01-02T00:00:00.000Z
+  language:     850f3bd9-2a57-4289-bc57-05640b5d8d7d # Plains Cree
+  link:         https://data.digitallinguistics.io/languages/850f3bd9-2a57-4289-bc57-05640b5d8d7d/lexemes/79eb0aaf-944c-40b4-93f3-e1785ec0adde
+  type:         Lexeme
+  lemma:
+    SRO: cīkahikan
+    syl: ᒌᑲᐦᐃᑲᐣ
+  projects:
+    - c554474c-7f39-4ede-941b-c40b8f58b059 # Nisinoon
+  senses:
+    - gloss: axe
+
+- id:           3a3df0ac-04be-4fe7-985d-cf5895b745ee
+  dateCreated:  2022-01-01T00:00:00.000Z
+  dateModified: 2022-01-02T00:00:00.000Z
+  language:     850f3bd9-2a57-4289-bc57-05640b5d8d7d # Plains Cree
+  link:         https://data.digitallinguistics.io/languages/850f3bd9-2a57-4289-bc57-05640b5d8d7d/lexemes/3a3df0ac-04be-4fe7-985d-cf5895b745ee
+  type:         Lexeme
+  lemma:
+    SRO: maskwa
+    syl: ᒪᐢᑿ
+  projects:
+    - c554474c-7f39-4ede-941b-c40b8f58b059 # Nisinoon
+  senses:
+    - gloss: bear
+
+- id:           8874c4a5-720a-42cb-83c7-f66cf1eaebde
+  dateCreated:  2022-01-01T00:00:00.000Z
+  dateModified: 2022-01-02T00:00:00.000Z
+  language:     850f3bd9-2a57-4289-bc57-05640b5d8d7d # Plains Cree
+  link:         https://data.digitallinguistics.io/languages/850f3bd9-2a57-4289-bc57-05640b5d8d7d/lexemes/8874c4a5-720a-42cb-83c7-f66cf1eaebde
+  type:         Lexeme
+  lemma:
+    SRO: masinahikan
+    syl: ᒪᓯᓇᐦᐃᑲᐣ
+  projects:
+    - c554474c-7f39-4ede-941b-c40b8f58b059 # Nisinoon
+  senses:
+    - gloss: book
+
+# Potawatomi
+
+- id:           4ce57ae3-c620-4d80-8b5c-e9f3f13e73be
+  dateCreated:  2022-01-01T00:00:00.000Z
+  dateModified: 2022-01-02T00:00:00.000Z
+  language:     4c0a3e19-0281-4621-9ad6-76da5a32c125 # Potawatomi
+  link:         https://data.digitallinguistics.io/languages/4c0a3e19-0281-4621-9ad6-76da5a32c125/lexemes/4ce57ae3-c620-4d80-8b5c-e9f3f13e73be
+  type:         Lexeme
+  lemma:
+    WNALP: débabjegen
+  projects:
+    - c554474c-7f39-4ede-941b-c40b8f58b059 # Nisinoon
+  senses:
+    - gloss: watchtower
+
+- id:           41a90c8e-3be0-4610-8096-c4ca9208036e
+  dateCreated:  2022-01-01T00:00:00.000Z
+  dateModified: 2022-01-02T00:00:00.000Z
+  language:     4c0a3e19-0281-4621-9ad6-76da5a32c125 # Potawatomi
+  link:         https://data.digitallinguistics.io/languages/4c0a3e19-0281-4621-9ad6-76da5a32c125/lexemes/41a90c8e-3be0-4610-8096-c4ca9208036e
+  type:         Lexeme
+  lemma:
+    WNALP: mzen’egen
+  projects:
+    - c554474c-7f39-4ede-941b-c40b8f58b059 # Nisinoon
+  senses:
+    - gloss: book
+
+- id:           da22d1b9-f512-458d-8029-af660ce9c20a
+  dateCreated:  2022-01-01T00:00:00.000Z
+  dateModified: 2022-01-02T00:00:00.000Z
+  language:     4c0a3e19-0281-4621-9ad6-76da5a32c125 # Potawatomi
+  link:         https://data.digitallinguistics.io/languages/4c0a3e19-0281-4621-9ad6-76da5a32c125/lexemes/da22d1b9-f512-458d-8029-af660ce9c20a
+  type:         Lexeme
+  lemma:
+    WNALP: zhadi
+  projects:
+    - c554474c-7f39-4ede-941b-c40b8f58b059 # Nisinoon
+  senses:
+    - gloss: arrowhead
+    - gloss: bullet
+
+# Swahili
+
+- id:           b05e479f-29c9-466d-932a-715431e905b5
+  dateCreated:  2022-01-01T00:00:00.000Z
+  dateModified: 2022-01-02T00:00:00.000Z
+  language:     4580756f-ce39-4ea0-b96e-8f176371afcb # Swahili
+  link:         https://data.digitallinguistics.io/languages/4580756f-ce39-4ea0-b96e-8f176371afcb/lexemes/b05e479f-29c9-466d-932a-715431e905b5
+  type:         Lexeme
+  lemma:
+    swa: kula
+  projects:
+    - a24157c1-000f-4771-aa47-485fb91bf24f # Swahili Project
+  senses:
+    - gloss: eat
+
+- id:           dace030e-997a-40ec-82d9-5073c6d40faa
+  dateCreated:  2022-01-01T00:00:00.000Z
+  dateModified: 2022-01-02T00:00:00.000Z
+  language:     4580756f-ce39-4ea0-b96e-8f176371afcb # Swahili
+  link:         https://data.digitallinguistics.io/languages/4580756f-ce39-4ea0-b96e-8f176371afcb/lexemes/dace030e-997a-40ec-82d9-5073c6d40faa
+  type:         Lexeme
+  lemma:
+    swa: mtu
+  projects:
+    - a24157c1-000f-4771-aa47-485fb91bf24f # Swahili Project
+  senses:
+    - gloss: person
+
+- id:           1e288abd-f49c-46b7-aa9f-780367141c49
+  dateCreated:  2022-01-01T00:00:00.000Z
+  dateModified: 2022-01-02T00:00:00.000Z
+  language:     4580756f-ce39-4ea0-b96e-8f176371afcb # Swahili
+  link:         https://data.digitallinguistics.io/languages/4580756f-ce39-4ea0-b96e-8f176371afcb/lexemes/1e288abd-f49c-46b7-aa9f-780367141c49
+  type:         Lexeme
+  lemma:
+    swa: -zuri
+  projects:
+    - a24157c1-000f-4771-aa47-485fb91bf24f # Swahili Project
+  senses:
+    - gloss: good
+    - gloss: beautiful
