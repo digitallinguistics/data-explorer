@@ -18,6 +18,7 @@ export default async function get(req, res) {
   res.render(`Languages/Languages`, {
     caption: title,
     languages,
+    project,
     [title]: true,
     title,
   })

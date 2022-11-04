@@ -12,15 +12,15 @@ Each of the routes displaying lists should eventually have search/filter/sort fu
 
 | Route                                                             | Status | Description                                                                                                   |
 | ----------------------------------------------------------------- | :----: | ------------------------------------------------------------------------------------------------------------- |
-| `/`                                                               |   🏗️    | Home Page / Dashboard, showing My Projects and My Languages, and links to Search and Browse                   |
+| `/`                                                               |   ☐    | Home Page / Dashboard, showing My Projects and My Languages, and links to Search and Browse                   |
 | `/browse`                                                         |   ☐    | landing page, directing users to Languages, Lexemes, or Projects pages                                        |
 | `/codes`                                                          |   ☐    | landing page, directing users to search or browse by Glottocode or ISO codes                                  |
 | `/codes/{glottolog‖iso}`                                          |   ☐    | list of Glottocodes in the database, with stats on the # of public/private languages and lexemes              |
 | `/codes/{glottolog‖iso}/{code}`                                   |   ☐    | list of languages with the given code                                                                         |
 | ~~`/dashboard`~~                                                  |   ☐    | ❌                                                                                                             |
 | ~~`/home`~~                                                       |   ☐    | ❌                                                                                                             |
-| `/languages`                                                      |   ☐    | publicly-accessible languages                                                                                 |
-| `/languages/{languageID}`                                         |   ☐    | language details page                                                                                         |
+| `/languages`                                                      |   ✅    | lists all languages the user has permissions to view                                                          |
+| `/languages/{languageID}`                                         |   🏗️    | language details page                                                                                         |
 | `/languages/{languageID}/lexemes`                                 |   ☐    | lists the lexemes associated with a language                                                                  |
 | `/languages/{languageID}/lexemes/{lexemeID}`                      |   ☐    | lexeme details page                                                                                           |
 | ~~`/lexemes`~~                                                    |   ☐    | ❌                                                                                                             |
