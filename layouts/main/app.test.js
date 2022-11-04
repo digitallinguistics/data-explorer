@@ -19,7 +19,7 @@ describe(`app shell`, function() {
       cy.visit(`/`)
       cy.contains(`.navbar a`, `Languages`).click()
       cy.url().should(`include`, `/languages`)
-      cy.get(`.page-title`).should(`have.text`, `Languages`)
+      cy.get(`.page-title`).should(`have.text`, `Languages | All`)
     })
 
   })
