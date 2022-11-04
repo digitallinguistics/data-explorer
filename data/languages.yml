@@ -1,7 +1,7 @@
 - id:                      cc4978f6-13a9-4735-94c5-10e4e8030437
   abbreviation:            chiti
   dateCreated:             2022-01-01T00:00:00.000Z
-  dateCreated:             2022-01-02T00:00:00.000Z
+  dateModified:            2022-01-02T00:00:00.000Z
   defaultAnalysisLanguage: eng
   defaultOrthography:      Mod
   glottocode:              chit1248
@@ -42,15 +42,15 @@
 - id:                      5fc405aa-a1a3-41e5-a80d-adb9dfbaa293
   abbreviation:            men
   dateCreated:             2022-01-01T00:00:00.000Z
-  dateCreated:             2022-01-02T00:00:00.000Z
+  dateModified:            2022-01-02T00:00:00.000Z
   defaultAnalysisLanguage: eng
-  defaultOrthography:      men
+  defaultOrthography:      Men
   glottocode:              meno1252
   iso:                     mez
   link:                    https://data.digitallinguistics.io/languages/5fc405aa-a1a3-41e5-a80d-adb9dfbaa293
   type:                    Language
   autonym:
-    men: omǣqnomenēweqnæsewen
+    Men: omǣqnomenēweqnæsewen
   description:
     html:     This is the description for the Menominee language.
     markdown: This is the description for the Menominee language.
@@ -68,15 +68,15 @@
 - id:                      a6c9b191-1ef8-4379-9e94-9f1347917558
   abbreviation:            oji
   dateCreated:             2022-01-01T00:00:00.000Z
-  dateCreated:             2022-01-02T00:00:00.000Z
+  dateModified:            2022-01-02T00:00:00.000Z
   defaultAnalysisLanguage: eng
-  defaultOrthography:      fiero
+  defaultOrthography:      Fiero
   glottocode:              ojib1241
   iso:                     oji
   link:                    https://data.digitallinguistics.io/languages/a6c9b191-1ef8-4379-9e94-9f1347917558
   type:                    Language
   autonym:
-    fiero: Anishinaabemowin
+    Fiero: Anishinaabemowin
   description:
     html:     This is the description for the Ojibwe language.
     markdown: This is the description for the Ojibwe language.
@@ -92,7 +92,7 @@
 - id:                      850f3bd9-2a57-4289-bc57-05640b5d8d7d
   abbreviation:            pc
   dateCreated:             2022-01-01T00:00:00.000Z
-  dateCreated:             2022-01-02T00:00:00.000Z
+  dateModified:            2022-01-02T00:00:00.000Z
   defaultAnalysisLanguage: eng
   defaultOrthography:      SRO
   glottocode:              plai1258
@@ -107,6 +107,15 @@
     markdown: This is the description for the Plains Cree language.
   name:
     eng: Plains Cree
+  notes:
+    - dateCreated:  2020-01-01T00:00:00.000Z
+      dateModified: 2022-01-01T00:00:00.000Z
+      source:       DWH
+      text:         This is a note for Plains Cree.
+    - dateCreated:  2020-01-01T00:00:00.000Z
+      dateModified: 2022-01-01T00:00:00.000Z
+      source:       DWH
+      text:         This is a another note for Plains Cree.
   permissions:
     owners:  [owner@digitallinguistics.io]
     editors: []
@@ -117,7 +126,7 @@
 - id:                      4c0a3e19-0281-4621-9ad6-76da5a32c125
   abbreviation:            pot
   dateCreated:             2022-01-01T00:00:00.000Z
-  dateCreated:             2022-01-02T00:00:00.000Z
+  dateModified:            2022-01-02T00:00:00.000Z
   defaultAnalysisLanguage: eng
   defaultOrthography:      WNALP
   glottocode:              pota1247
@@ -141,7 +150,7 @@
 - id:                      4580756f-ce39-4ea0-b96e-8f176371afcb
   abbreviation:            swa
   dateCreated:             2022-01-01T00:00:00.000Z
-  dateCreated:             2022-01-02T00:00:00.000Z
+  dateModified:            2022-01-02T00:00:00.000Z
   defaultAnalysisLanguage: eng
   defaultOrthography:      swa
   glottocode:              swah1254

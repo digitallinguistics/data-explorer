@@ -3,7 +3,7 @@ import { msAuthCookie } from '../../constants/index.js'
 
 describe(`Error Page`, function() {
 
-  const privateLanguageID = `0a25188c-158b-4daf-bd17-5c4cdd6bd40b`
+  const privateLanguageID = `cc4978f6-13a9-4735-94c5-10e4e8030437`
 
   it(`401: Unauthenticated`, function() {
     cy.visit(`/languages/${ privateLanguageID }`, { failOnStatusCode: false })
