@@ -1,5 +1,5 @@
-import db        from '../../config/database.js'
-import hasAccess from '../../utilities/hasAccess.js'
+import db            from '../../config/database.js'
+import { hasAccess } from '../../utilities/permissions.js'
 
 export default async function get(req, res) {
 

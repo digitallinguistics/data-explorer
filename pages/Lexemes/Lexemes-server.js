@@ -1,7 +1,7 @@
 import compareLemmas      from '../../utilities/compareLemmas.js'
 import db                 from '../../config/database.js'
 import getDefaultLanguage from '../../utilities/getDefaultLanguage.js'
-import hasAccess          from '../../utilities/hasAccess.js'
+import { hasAccess }      from '../../utilities/permissions.js'
 
 export default async function get(req, res) {
 

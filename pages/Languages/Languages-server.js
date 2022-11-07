@@ -1,5 +1,10 @@
-import db        from '../../config/database.js'
-import hasAccess from '../../utilities/hasAccess.js'
+import db from '../../config/database.js'
+
+import {
+  hasAccess,
+  isEditor,
+  isOwner,
+} from '../../utilities/permissions.js'
 
 export default async function get(req, res) {
 
@@ -29,6 +34,11 @@ export default async function get(req, res) {
 
   const collectionName = project?.name ?? `All`
   const title          = project ? `${ project.name } | Languages` : `Languages`
+
+  for (const language of languages) {
+    language.permissions.isOwner  = isOwner(res.locals.user, language)
+    language.permissions.isEditor = isEditor(res.locals.user, language)
+  }
 
   res.render(`Languages/Languages`, {
     caption:   `Languages | ${ collectionName }`,

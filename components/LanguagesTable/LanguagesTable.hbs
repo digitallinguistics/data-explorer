@@ -4,6 +4,14 @@
 
   <thead>
     <tr>
+      <th class=privacy title='privacy setting'>
+        <svg aria-hidden=true><use href=#lock></svg>
+        <span class=visually-hidden>Privacy</span>
+      </th>
+      <th class=permissions title='your permissions'>
+        <svg aria-hidden=true><use href=#key></svg>
+        <span class=visually-hidden>Permissions</span>
+      </th>
       <th>Name</th>
       <th>Autonym</th>
       <th>Abbreviation</th>
@@ -17,6 +25,39 @@
   <tbody>
     {{#each languages as |language|}}
       <tr>
+
+        {{#if permissions.public }}
+          <td class=privacy title=public>
+            <svg aria-hidden=true><use href=#globe></svg>
+            <span class=visually-hidden>public</span>
+          </td>
+        {{else}}
+          <td class=privacy title=private>
+            <svg aria-hidden=true><use href=#lock></svg>
+            <span class=visually-hidden>private</span>
+          </td>
+        {{/if}}
+
+        {{#with permissions }}
+          {{#if isOwner}}
+            <td class=permissions title=owner>
+              <svg aria-hidden=true><use href=#shield-with-check></svg>
+              <span class=visually-hidden>owner</span>
+            </td>
+          {{/if}}
+          {{#if isEditor}}
+            <td class=permissions title=editor>
+              <svg aria-hidden=true><use href=#shield-with-check></svg>
+              <span class=visually-hidden>editor</span>
+            </td>
+          {{/if}}
+          {{#if isViewer}}
+            <td class=permissions title=viewer>
+              <svg aria-hidden=true><use href=#shield-with-check></svg>
+              <span class=visually-hidden>viewer</span>
+            </td>
+          {{/if}}
+        {{/with}}
 
         {{!-- name --}}
         <td>
