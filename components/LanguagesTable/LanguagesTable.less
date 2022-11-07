@@ -10,4 +10,21 @@
     font-family: var(--font-unicode);
   }
 
+  :is(.privacy, .permissions) {
+
+    padding   : var(--space-xxs);
+    text-align: center;
+
+    svg {
+      block-size    : 1em;
+      inline-size   : 1em;
+      vertical-align: middle;
+    }
+
+    &:hover {
+      cursor: help;
+    }
+
+  }
+
 }
