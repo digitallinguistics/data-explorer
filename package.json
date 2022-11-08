@@ -44,7 +44,7 @@
     "unit-tests": "mocha"
   },
   "devDependencies": {
-    "@digitallinguistics/design": "^0.23.0",
+    "@digitallinguistics/design": "^0.23.1",
     "@digitallinguistics/eslint-config": "^0.2.0",
     "@digitallinguistics/stylelint-config": "^0.1.2",
     "@digitallinguistics/styles": "^2.0.3",
@@ -58,7 +58,7 @@
     "eslint-plugin-chai-friendly": "^0.7.2",
     "eslint-plugin-cypress": "^2.12.1",
     "express-handlebars": "^6.0.6",
-    "flexbox-reset": "^8.0.1",
+    "flexbox-reset": "^8.0.2",
     "fs-extra": "^10.1.0",
     "handlebars": "^4.7.7",
     "helmet": "^6.0.0",
