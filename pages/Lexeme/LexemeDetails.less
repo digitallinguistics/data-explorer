@@ -1,4 +1,4 @@
-// Handle case where user navigates to main content with skip link.
+// Handle case where the URL has no hash.
 body:target #form {
   display: flex;
 }
@@ -12,10 +12,6 @@ body:target #form {
   inline-size    : 100%;
   max-inline-size: var(--measure);
 
-  [aria-selected] {
-    border-bottom: var(--selected-width) solid var(--cyan);
-  }
-
   .label {
     padding: var(--text-padding);
   }
@@ -25,10 +21,9 @@ body:target #form {
   }
 
   .page-title {
-    align-self    : flex-start;
-    font-family   : var(--font-unicode);
-    padding-inline: 0;
-    text-align    : left;
+    align-self : flex-start;
+    font-family: var(--font-unicode);
+    text-align : left;
   }
 
   .panel:not(.current, :target) {
@@ -44,17 +39,63 @@ body:target #form {
   }
 
   .tabs {
-    border-bottom : var(--border);
-    flex-direction: row;
-    font-size     : large;
-    inline-size   : 100%;
+    border-bottom: var(--border);
+    font-size    : large;
+    inline-size  : 100%;
   }
 
   .mot {
     padding: var(--text-padding);
   }
 
+  @media (prefers-color-scheme: dark) {
+    .tab:hover {
+      color: var(--background-color-dark);
+    }
+  }
+
+  // small screens
+  @media (max-width: @breakpoint) {
+
+    [aria-selected] {
+      position: relative;
+    }
+
+    [aria-selected]::before {
+      background-color  : var(--cyan);
+      inset-block-end   : 0;
+      content           : '';
+      inset-inline-start: 0;
+      position          : absolute;
+      inset-block-start : 0;
+      inline-size       : 0.25em;
+    }
+
+    .tab:first-child {
+      border-block-start: var(--border);
+    }
+
+    .tab:not(:last-child) {
+      border-block-end: var(--border);
+    }
+
+  }
+
   // large screens
-  @media (min-width: @breakpoint) {}
+  @media (min-width: @breakpoint) {
+
+    [aria-selected] {
+      border-bottom: var(--selected-width) solid var(--cyan);
+    }
+
+    .page-title {
+      padding-inline: 0;
+    }
+
+    .tabs {
+      flex-direction: row;
+    }
+
+  }
 
 }

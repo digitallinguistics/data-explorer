@@ -1,4 +1,4 @@
-function setCurrentTab(ev) {
+function setCurrentTab(hash) {
 
   const links = document.querySelectorAll(`.tabs a`)
 
@@ -6,25 +6,31 @@ function setCurrentTab(ev) {
     link.removeAttribute(`aria-selected`)
   }
 
-  const li = ev.target.closest(`li`)
-  const a  = li.firstChild
+  const link = document.querySelector(`[href="${ hash }"]`)
 
-  a.setAttribute(`aria-selected`, true)
+  link.setAttribute(`aria-selected`, true)
 
   const panels = document.querySelectorAll(`.panel`)
 
-  // Use of the .current class is necessary
-  // to allow the Form section to be displayed by default
   for (const panel of panels) {
     panel.classList.remove(`current`)
   }
 
-  const panel = document.querySelector(a.hash)
+  const panel = document.querySelector(hash)
 
-  panel.focus()
+  panel.classList.add(`current`)
 
 }
 
 const tablist = document.querySelector(`.tabs`)
 
-tablist.addEventListener(`click`, setCurrentTab)
+tablist.addEventListener(`click`, ev => {
+
+  const li = ev.target.closest(`li`)
+  const a  = li.firstChild
+
+  setCurrentTab(a.hash)
+
+})
+
+if (location.hash) setCurrentTab(location.hash)
