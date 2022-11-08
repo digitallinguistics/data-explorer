@@ -31,7 +31,18 @@
   </section>
 
   <section class=panel role=tabpanel id=metadata aria-labelledby=metadata-link>
-    <h1>Metadata</h1>
+    <dl class=def-list>
+
+      <label class=label for=url>URL:</label>
+      <output class=box-input id=url>https://data.digitallinguistics.io/languages/{{ language.id }}/lexemes/{{ lexeme.id }}</output>
+
+      <label class=label for=date-created>Date Created:</label>
+      <output id=date-created>{{date lexeme.dateCreated }}</output>
+
+      <label class=label for=date-modified>Date Modified:</label>
+      <output id=date-modified>{{date lexeme.dateModified }}</output>
+
+    </dl>
   </section>
 
 </main>
