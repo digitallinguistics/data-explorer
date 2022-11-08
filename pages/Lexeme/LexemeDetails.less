@@ -1,3 +1,8 @@
+// Handle case where user navigates to main content with skip link.
+body:target #form {
+  display: flex;
+}
+
 .lexeme-details {
 
   @breakpoint: 45em;
@@ -26,7 +31,7 @@
     text-align    : left;
   }
 
-  .panel:not(:target) {
+  .panel:not(.current, :target) {
     display: none;
   }
 
