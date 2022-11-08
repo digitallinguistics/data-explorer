@@ -1,5 +1,3 @@
-const tablist = document.querySelector(`.tabs`)
-
 function setCurrentTab(ev) {
 
   const links = document.querySelectorAll(`.tabs a`)
@@ -13,9 +11,20 @@ function setCurrentTab(ev) {
 
   a.setAttribute(`aria-selected`, true)
 
+  const panels = document.querySelectorAll(`.panel`)
+
+  // Use of the .current class is necessary
+  // to allow the Form section to be displayed by default
+  for (const panel of panels) {
+    panel.classList.remove(`current`)
+  }
+
+  const panel = document.querySelector(a.hash)
+
+  panel.focus()
+
 }
 
-if (tablist) {
-  location.hash = `form` // initialize to Form tab
-  tablist.addEventListener(`click`, setCurrentTab)
-}
+const tablist = document.querySelector(`.tabs`)
+
+tablist.addEventListener(`click`, setCurrentTab)
