@@ -4,6 +4,8 @@ body {
   line-height   : 1.5;
   min-block-size: 100vh;
 
+  // CSS variables cannot be used in media queries
+  // so var(--measure-sm) doesn't work here.
   @media (max-width: 45em) {
     font-size: 125%;
   }
