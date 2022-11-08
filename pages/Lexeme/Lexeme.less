@@ -1,3 +1,5 @@
+@import 'BoxInput/BoxInput.less';
+@import 'DefinitionList/DefinitionList.less';
 @import 'Label/Label.less';
 @import 'Numbered/Numbered.less';
 @import 'PageTitle/PageTitle.less';
@@ -16,6 +18,11 @@ body:target #form {
   align-self     : center;
   inline-size    : 100%;
   max-inline-size: var(--measure);
+
+  .def-list {
+    margin-block-start: var(--space-xs);
+    padding           : var(--text-padding);
+  }
 
   .label {
     padding: var(--text-padding);
@@ -51,6 +58,11 @@ body:target #form {
     border-bottom: var(--border);
     font-size    : large;
     inline-size  : 100%;
+  }
+
+  #url {
+    overflow-x : auto;
+    white-space: nowrap;
   }
 
   @media (prefers-color-scheme: dark) {
