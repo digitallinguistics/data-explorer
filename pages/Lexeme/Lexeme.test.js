@@ -39,7 +39,7 @@ describe(`Lexeme page`, function() {
     cy.get(`.error-message`).should(`have.text`, `You do not have permission to view this lexeme.`)
   })
 
-  it(`Lexeme Details`, function() {
+  it.only(`Lexeme Details`, function() {
 
     const { data } = this
 
@@ -52,13 +52,20 @@ describe(`Lexeme page`, function() {
     cy.contains(`.page-title`, data.lemma.SRO) // NOTE: This uses a non-breaking hyphen.
     cy.contains(`header`, data.senses[0].gloss)
 
-    // Form tab
-    cy.hash().should(`eq`, `#form`)
+    // default view (no tab selected)
+    cy.hash().should(`eq`, ``)
     cy.get(`#form`).should(`be.visible`)
 
     // Lemma
     cy.contains(`.mot`, data.lemma.SRO)
     cy.contains(`.mot`, data.lemma.syl)
+
+    // switch tabs
+    cy.get(`#meaning-link`).click()
+    cy.hash().should(`eq`, `#meaning`)
+    cy.get(`#meaning`).should(`be.visible`)
+    cy.get(`#form`).should(`not.be.visible`)
+
 
   })
 
