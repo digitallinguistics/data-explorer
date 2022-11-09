@@ -48,13 +48,19 @@
     <h2 class=section-header>Bibliography</h2>
 
     {{#if references}}
+
+      <a class='bib-table-link link' href='/languages/{{ language.id }}/lexemes/{{ lexeme.id }}/references?view=table'>View Bibliography as Table</a>
+
       <ul class=bibliography>
         {{#each references as |reference|}}
           <li>{{{ reference.custom.bibEntry }}}</li>
         {{/each}}
       </ul>
+
     {{else}}
+
       <p class=no-bib>None.</p>
+
     {{/if}}
 
   </section>

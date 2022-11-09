@@ -78,6 +78,13 @@ describe(`Lexeme page`, function() {
     cy.get(`#date-modified`).should(`have.text`, new Date(data.dateModified).toLocaleDateString(`en-CA`))
 
     // Bibliography
+    cy.get(`.bibliography`).children()
+    .should(`have.length`, 3)
+    .then(([a, b, c]) => {
+      expect(a).to.contain(`Bloomfield`)
+      expect(b).to.contain(`Goddard`)
+      expect(c).to.contain(`Macaulay`)
+    })
 
   })
 

@@ -1,3 +1,4 @@
+import compare               from '../../utilities/compare.js'
 import db                    from '../../config/database.js'
 import getDefaultOrthography from '../../utilities/getDefaultOrthography.js'
 import { hasAccess }         from '../../utilities/permissions.js'
@@ -34,6 +35,8 @@ export default async function get(req, res) {
 
   const { data: language }   = await db.getLanguage(lexeme.language)
   const { data: references } = await db.getReferences({ bibliography: lexeme.bibliography })
+
+  references.sort((a, b) => compare(a.id, b.id))
 
   res.render(`Lexeme/Lexeme`, {
     language,
