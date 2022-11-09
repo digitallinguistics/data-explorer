@@ -1,10 +1,13 @@
+@import 'Bulleted/Bulleted.less';
 @import 'BoxInput/BoxInput.less';
+@import 'Cite/Cite.less';
 @import 'DefinitionList/DefinitionList.less';
 @import 'Label/Label.less';
 @import 'Numbered/Numbered.less';
 @import 'PageTitle/PageTitle.less';
 @import 'Translation/Translation.less';
 @import 'MultiOrthoTranscription/MultiOrthoTranscription.less';
+@import 'SectionHeader/SectionHeader.less';
 
 // Handle case where the URL has no hash.
 body:target #form {
@@ -19,9 +22,27 @@ body:target #form {
   inline-size    : 100%;
   max-inline-size: var(--measure);
 
+  .bib-entry {
+    margin-inline-start: 1.5em;
+    padding            : var(--text-padding);
+    text-indent        : -1.5em;
+  }
+
+  .bib-table-link {
+    padding: var(--text-padding-lg);
+  }
+
+  .bibliography {
+    padding: var(--text-padding);
+  }
+
   .def-list {
     margin-block-start: var(--space-xs);
     padding           : var(--text-padding);
+  }
+
+  .glosses {
+    padding: var(--text-padding);
   }
 
   .label {
@@ -36,6 +57,10 @@ body:target #form {
     margin-block-start: var(--space);
   }
 
+  .no-bib {
+    padding: var(--text-padding-lg);
+  }
+
   .page-title {
     align-self : flex-start;
     font-family: var(--font-unicode);
@@ -44,6 +69,10 @@ body:target #form {
 
   .panel:not(.current, :target) {
     display: none;
+  }
+
+  .section-header {
+    padding: var(--text-padding);
   }
 
   .tab:hover {
@@ -103,10 +132,6 @@ body:target #form {
 
     [aria-selected] {
       border-bottom: 0.25em solid var(--cyan);
-    }
-
-    .page-title {
-      padding-inline: 0;
     }
 
     .tabs {

@@ -17,11 +17,39 @@ const lexemes   = await loadData(`lexemes`)
 const projects  = await loadData(`projects`)
 const users     = await loadData(`users`)
 
-const bibtex               = await readFile(path.join(__dirname, `references.bib`), `utf8`)
-const { data: references } = new Cite(bibtex, {
+const bibtex            = await readFile(path.join(__dirname, `references.bib`), `utf8`)
+const styleTemplateName = `ling`
+const styleTemplate     = await readFile(path.join(__dirname, `../config/generic-style-rules-for-linguistics.csl`), `utf8`)
+const config            = Cite.plugins.config.get(`@csl`)
+
+config.templates.add(styleTemplateName, styleTemplate)
+
+const cite = new Cite(bibtex, {
   forceType:     `@bibtex/text`,
   generateGraph: false,
 })
+
+const references = cite.get()
+
+for (const reference of references) {
+
+  const raw = cite.format(`bibliography`, {
+    entry:    reference.id,
+    format:   `html`,
+    template: `ling`,
+  })
+
+  const html = raw
+  .replace(/^.+\n\s*/u, ``)                                                            // remove start of wrapper <div>
+  .replace(/\n\s*.+$/u, ``)                                                            // remove end of wrapper <div>
+  .replace(/<div.+?>(.+)<\/div>/u, `<p class=bib-entry id='${ reference.id }'>$1</p>`) // replace <div> with <p>
+  .replace(/<i>(.+)<\/i>/u, `<cite class=cite>$1</cite>`)                              // replace <i> with <cite>
+
+  reference.custom = {
+    bibEntry: html,
+  }
+
+}
 
 export default {
   languages,

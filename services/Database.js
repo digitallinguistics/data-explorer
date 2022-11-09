@@ -199,15 +199,21 @@ export default class Database {
    * @param {Boolean} [options.summary]      If truthy, returns a summary of the results rather than the actual results.
    * @returns DatabaseResponse
    */
-  getReferences({ bibliography, summary } = {}) {
+  getReferences(options = {}) {
+
+    const { bibliography, summary } = options
 
     let results = copy(this.references)
 
-    if (bibliography) results = results.filter(ref => bibliography.includes(ref.id))
+    if (`bibliography` in options) {
+      if (!bibliography) return new DatabaseResponse(200, [])
+      results = results.filter(ref => bibliography.includes(ref.id))
+    }
 
     if (summary) return new DatabaseResponse(200, { count: results.length })
 
     return new DatabaseResponse(200, results)
+
   }
 
 }
