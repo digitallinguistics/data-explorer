@@ -1,3 +1,4 @@
+import Cite                    from 'citation-js'
 import { load as convertYAML } from 'js-yaml'
 import { fileURLToPath }       from 'url'
 import path                    from 'path'
@@ -16,9 +17,16 @@ const lexemes   = await loadData(`lexemes`)
 const projects  = await loadData(`projects`)
 const users     = await loadData(`users`)
 
+const bibtex               = await readFile(path.join(__dirname, `references.bib`), `utf8`)
+const { data: references } = new Cite(bibtex, {
+  forceType:     `@bibtex/text`,
+  generateGraph: false,
+})
+
 export default {
   languages,
   lexemes,
   projects,
+  references,
   users,
 }

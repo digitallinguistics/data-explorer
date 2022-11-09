@@ -77,9 +77,10 @@ export default class Database {
 
     Object.assign(this, data)
 
-    this.projects.index  = createIndex(this.projects)
-    this.languages.index = createIndex(this.languages)
-    this.lexemes.index   = createIndex(this.lexemes)
+    this.projects.index   = createIndex(this.projects)
+    this.languages.index  = createIndex(this.languages)
+    this.lexemes.index    = createIndex(this.lexemes)
+    this.references.index = createIndex(this.references)
 
   }
 
@@ -132,7 +133,11 @@ export default class Database {
    */
   getLexemes(options = {}) {
 
-    const { language: languageID, project: projectID, summary } = options
+    const {
+      language: languageID,
+      project: projectID,
+      summary,
+    } = options
 
     let results = copy(this.lexemes)
 
@@ -174,6 +179,35 @@ export default class Database {
    */
   getProjects() {
     return new DatabaseResponse(200, copy(this.projects))
+  }
+
+  /**
+   * Get a reference from the database.
+   * @param {String} referenceID The ID of the reference to retrieve.
+   * @returns DatabaseResponse
+   */
+  getReference(referenceID) {
+    const reference = this.references.index.get(referenceID)
+    if (!reference) return new DatabaseResponse(404)
+    return new DatabaseResponse(200, copy(reference))
+  }
+
+  /**
+   * Get all the references that match the provided query options.
+   * @param {Object}  [options={}]           An options hash
+   * @param {Array}   [options.bibliography] An array of IDs of references to retrieve.
+   * @param {Boolean} [options.summary]      If truthy, returns a summary of the results rather than the actual results.
+   * @returns DatabaseResponse
+   */
+  getReferences({ bibliography, summary } = {}) {
+
+    let results = copy(this.references)
+
+    if (bibliography) results = results.filter(ref => bibliography.includes(ref.id))
+
+    if (summary) return new DatabaseResponse(200, { count: results.length })
+
+    return new DatabaseResponse(200, results)
   }
 
 }
