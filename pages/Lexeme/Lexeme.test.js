@@ -49,10 +49,10 @@ describe(`Lexeme page`, function() {
     cy.title().should(`eq`, `Oxalis | ${ data.lemma.SRO }`)
 
     // summary details
-    cy.contains(`.page-title`, data.lemma.SRO) // NOTE: This uses a non-breaking hyphen.
+    cy.contains(`.page-title`, data.lemma.SRO)
     cy.contains(`header`, data.senses[0].gloss)
 
-    // default view (no tab selected)
+    // default view: Form Tab (no tab selected)
     cy.hash().should(`eq`, ``)
     cy.get(`#form`).should(`be.visible`)
 
@@ -60,12 +60,24 @@ describe(`Lexeme page`, function() {
     cy.contains(`.mot`, data.lemma.SRO)
     cy.contains(`.mot`, data.lemma.syl)
 
-    // switch tabs
+    // Meaning Tab
     cy.get(`#meaning-link`).click()
     cy.hash().should(`eq`, `#meaning`)
     cy.get(`#meaning`).should(`be.visible`)
     cy.get(`#form`).should(`not.be.visible`)
 
+    // Metadata Tab
+    cy.get(`#metadata-link`).click()
+    cy.hash().should(`eq`, `#metadata`)
+    cy.get(`#metadata`).should(`be.visible`)
+    cy.get(`#meaning`).should(`not.be.visible`)
+
+    // Metadata
+    cy.get(`#url`).should(`have.text`, data.link)
+    cy.get(`#date-created`).should(`have.text`, new Date(data.dateCreated).toLocaleDateString(`en-CA`))
+    cy.get(`#date-modified`).should(`have.text`, new Date(data.dateModified).toLocaleDateString(`en-CA`))
+
+    // Bibliography
 
   })
 

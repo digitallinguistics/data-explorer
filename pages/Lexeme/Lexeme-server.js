@@ -32,11 +32,13 @@ export default async function get(req, res) {
     })
   }
 
-  const { data: language } = await db.getLanguage(lexeme.language)
+  const { data: language }   = await db.getLanguage(lexeme.language)
+  const { data: references } = await db.getReferences({ bibliography: lexeme.bibliography })
 
   res.render(`Lexeme/Lexeme`, {
     language,
     lexeme,
+    references,
     [title]: true,
     title:   lexeme ? getDefaultOrthography(lexeme.lemma) : title,
   })

@@ -6,7 +6,7 @@
 
   <header>
     <h1 class=page-title lang='{{ language.iso }}'>{{mot lexeme.lemma language.defaultOrthography }}</h1>
-    <ol class=numbered>
+    <ol class='glosses numbered'>
       {{#each lexeme.senses as |sense| }}
         <li class=tln>{{mls sense.gloss }}</li>
       {{/each}}
@@ -31,6 +31,7 @@
   </section>
 
   <section class=panel role=tabpanel id=metadata aria-labelledby=metadata-link>
+
     <dl class=def-list>
 
       <label class=label for=url>URL:</label>
@@ -43,6 +44,19 @@
       <output id=date-modified>{{date lexeme.dateModified }}</output>
 
     </dl>
+
+    <h2 class=section-header>Bibliography</h2>
+
+    {{#if references}}
+      <ul class=bibliography>
+        {{#each references as |reference|}}
+          <li>{{{ reference.custom.bibEntry }}}</li>
+        {{/each}}
+      </ul>
+    {{else}}
+      <p class=no-bib>None.</p>
+    {{/if}}
+
   </section>
 
 </main>
