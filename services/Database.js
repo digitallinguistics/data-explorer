@@ -1,3 +1,4 @@
+import Cite             from '../config/cite.js'
 import data             from '../data/index.js'
 import { STATUS_CODES } from 'http'
 
@@ -7,6 +8,32 @@ import { STATUS_CODES } from 'http'
 // - Cannot use `structuredClone()` yet
 //   because it's only supported in Node v17.
 // - Do not sort results before returning.
+
+function cite(reference, locator) {
+
+  const citer    = new Cite(reference)
+  const template = `ling`
+
+  const entry = {
+    id: reference.id,
+    locator,
+  }
+
+  const firstPart = citer.format(`citation`, {
+    entry:  Object.assign({ 'author-only': true }, entry),
+    format: `html`,
+    template,
+  })
+
+  const secondPart = citer.format(`citation`, {
+    entry:  Object.assign({ 'suppress-author': true }, entry),
+    format: `html`,
+    template,
+  })
+
+  return `${ firstPart } ${ secondPart }`
+
+}
 
 /**
  * Creates a deep copy of an object.
@@ -201,13 +228,35 @@ export default class Database {
    */
   getReferences(options = {}) {
 
-    const { bibliography, summary } = options
+    const { bibliography, citations, summary } = options
 
     let results = copy(this.references)
 
     if (`bibliography` in options) {
       if (!bibliography) return new DatabaseResponse(200, [])
       results = results.filter(ref => bibliography.includes(ref.id))
+    }
+
+    if (`citations` in options) {
+
+      if (!citations) return new DatabaseResponse(200, [])
+
+      const filteredResults = []
+
+      for (const citation of citations) {
+
+        const reference = results.find(ref => ref.id === citation.id)
+
+        if (!reference) continue
+
+        reference.custom.locator  = citation.locator
+        reference.custom.citation = cite(reference, citation.locator)
+        filteredResults.push(reference)
+
+      }
+
+      results = filteredResults
+
     }
 
     if (summary) return new DatabaseResponse(200, { count: results.length })

@@ -1,4 +1,4 @@
-import Cite                    from 'citation-js'
+import Cite                    from '../config/cite.js'
 import { load as convertYAML } from 'js-yaml'
 import { fileURLToPath }       from 'url'
 import path                    from 'path'
@@ -16,13 +16,7 @@ const languages = await loadData(`languages`)
 const lexemes   = await loadData(`lexemes`)
 const projects  = await loadData(`projects`)
 const users     = await loadData(`users`)
-
-const bibtex            = await readFile(path.join(__dirname, `references.bib`), `utf8`)
-const styleTemplateName = `ling`
-const styleTemplate     = await readFile(path.join(__dirname, `../config/generic-style-rules-for-linguistics.csl`), `utf8`)
-const config            = Cite.plugins.config.get(`@csl`)
-
-config.templates.add(styleTemplateName, styleTemplate)
+const bibtex    = await readFile(path.join(__dirname, `references.bib`), `utf8`)
 
 const cite = new Cite(bibtex, {
   forceType:     `@bibtex/text`,
@@ -30,6 +24,9 @@ const cite = new Cite(bibtex, {
 })
 
 const references = cite.get()
+
+// TODO: Use `asEntryArray` option here
+// https://citation.js.org/api/0.5/module-@citation-js_plugin-csl.output.html#.citation
 
 for (const reference of references) {
 
