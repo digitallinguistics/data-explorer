@@ -39,7 +39,7 @@ describe(`Lexeme page`, function() {
     cy.get(`.error-message`).should(`have.text`, `You do not have permission to view this lexeme.`)
   })
 
-  it.only(`Lexeme Details`, function() {
+  it(`Lexeme Details`, function() {
 
     const { data } = this
 
@@ -57,8 +57,11 @@ describe(`Lexeme page`, function() {
     cy.get(`#form`).should(`be.visible`)
 
     // Lemma
-    cy.contains(`.mot`, data.lemma.SRO)
-    cy.contains(`.mot`, data.lemma.syl)
+    cy.contains(`#lemma`, data.lemma.SRO)
+    cy.contains(`#lemma`, data.lemma.syllabics)
+
+    // Citation Form (without data; see below for test with data)
+    cy.contains(`#citation-form`, `—`)
 
     // Meaning Tab
     cy.get(`#meaning-link`).click()
@@ -78,13 +81,32 @@ describe(`Lexeme page`, function() {
     cy.get(`#date-modified`).should(`have.text`, new Date(data.dateModified).toLocaleDateString(`en-CA`))
 
     // Bibliography
-    cy.get(`.bibliography`).children()
+    cy.get(`.references`).children()
     .should(`have.length`, 3)
     .then(([a, b, c]) => {
       expect(a).to.contain(`Bloomfield`)
       expect(b).to.contain(`Goddard`)
       expect(c).to.contain(`Macaulay`)
     })
+
+    // ---
+
+    // Citation Form (with data)
+    const chitiLangID = `cc4978f6-13a9-4735-94c5-10e4e8030437`
+    const chitiVerbID = `abc56564-5754-4698-845c-2ea32a760bbd`
+
+    cy.visit(`/`)
+    cy.setCookie(msAuthCookie, `owner@digitallinguistics.io`)
+    cy.visit(`/languages/${ chitiLangID }/lexemes/${ chitiVerbID }`)
+
+    cy.contains(`#lemma`, `cuw‑`)
+    cy.contains(`#lemma`, `čuw‑`)
+    cy.contains(`#lemma`, `t͡ʃuw‑`)
+
+    cy.contains(`#citation-form`, `cuyi`)
+    cy.contains(`#citation-form`, `čuyi`)
+    cy.contains(`#citation-form`, `t͡ʃuji`)
+
 
   })
 

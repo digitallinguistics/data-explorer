@@ -6,10 +6,14 @@
   language:     cc4978f6-13a9-4735-94c5-10e4e8030437 # Chitimacha
   link:         https://data.digitallinguistics.io/languages/cc4978f6-13a9-4735-94c5-10e4e8030437/lexemes/abc56564-5754-4698-845c-2ea32a760bbd
   type:         Lexeme
+  citationForm:
+    Modern:  cuyi
+    Swadesh: čuyi
+    IPA:     t͡ʃuji
   lemma:
-    Mod: cuw-
-    Swd: čuw-
-    IPA: t͡ʃuw-
+    Modern:  cuw-
+    Swadesh: čuw-
+    IPA:     t͡ʃuw-
   projects:
     - 683a5d27-53bf-451b-80d1-f6e731674c9e # Chitimacha Dictionary Project
   senses:
@@ -22,10 +26,11 @@
   language:     cc4978f6-13a9-4735-94c5-10e4e8030437 # Chitimacha
   link:         https://data.digitallinguistics.io/languages/cc4978f6-13a9-4735-94c5-10e4e8030437/lexemes/1a28ce6c-6721-41a1-9209-7a50f77e5244
   type:         Lexeme
+  citationForm:
   lemma:
-    Mod: panx
-    Swd: panš
-    IPA: panʃ
+    Modern:  panx
+    Swadesh: panš
+    IPA:     panʃ
   projects:
     - 683a5d27-53bf-451b-80d1-f6e731674c9e # Chitimacha Dictionary Project
   senses:
@@ -37,10 +42,14 @@
   language:     cc4978f6-13a9-4735-94c5-10e4e8030437 # Chitimacha
   link:         https://data.digitallinguistics.io/languages/cc4978f6-13a9-4735-94c5-10e4e8030437/lexemes/53828e02-e424-4309-804e-7d2e363d208b
   type:         Lexeme
+  citationForm:
+    Modern:  huygi
+    Swadesh: huygi
+    IPA:     hujkʼi
   lemma:
-    Mod: huygi
-    Swd: huygi
-    IPA: hujkʼi
+    Modern:  huygi
+    Swadesh: huygi
+    IPA:     hujkʼi
   projects:
     - 683a5d27-53bf-451b-80d1-f6e731674c9e # Chitimacha Dictionary Project
   senses:
@@ -149,8 +158,8 @@
     - id:      Bloomfield1924
       locator: 10
   lemma:
-    SRO: cīkahikan
-    syl: ᒌᑲᐦᐃᑲᐣ
+    SRO:       cīkahikan
+    syllabics: ᒌᑲᐦᐃᑲᐣ
   projects:
     - c554474c-7f39-4ede-941b-c40b8f58b059 # Nisinoon
   senses:
@@ -163,8 +172,8 @@
   link:         https://data.digitallinguistics.io/languages/850f3bd9-2a57-4289-bc57-05640b5d8d7d/lexemes/3a3df0ac-04be-4fe7-985d-cf5895b745ee
   type:         Lexeme
   lemma:
-    SRO: maskwa
-    syl: ᒪᐢᑿ
+    SRO:       maskwa
+    syllabics: ᒪᐢᑿ
   projects:
     - c554474c-7f39-4ede-941b-c40b8f58b059 # Nisinoon
   senses:
@@ -177,12 +186,33 @@
   link:         https://data.digitallinguistics.io/languages/850f3bd9-2a57-4289-bc57-05640b5d8d7d/lexemes/8874c4a5-720a-42cb-83c7-f66cf1eaebde
   type:         Lexeme
   lemma:
-    SRO: masinahikan
-    syl: ᒪᓯᓇᐦᐃᑲᐣ
+    SRO:       masinahikan
+    syllabics: ᒪᓯᓇᐦᐃᑲᐣ
   projects:
     - c554474c-7f39-4ede-941b-c40b8f58b059 # Nisinoon
   senses:
     - gloss: book
+
+- id:           78aee6e0-64a4-4fac-affe-de1a79ca6e66
+  dateCreated:  2022-11-10T00:00:00.000Z
+  dateModified: 2022-11-10T00:00:00.000Z
+  language:     850f3bd9-2a57-4289-bc57-05640b5d8d7d # Plains Cree
+  link:         https://data.digitallinguistics.io/languages/850f3bd9-2a57-4289-bc57-05640b5d8d7d/lexemes/78aee6e0-64a4-4fac-affe-de1a79ca6e66
+  type:         Lexeme
+  bibliography:
+    - id:      Wolvengrey2001
+      locator: 'I.79, II.lxxiv'
+  # Stem is kotiskāwēwatimw-
+  citationForm:
+    SRO:       kotiskāwēwatim
+    syllabics: ᑯᑎᐢᑳᐍᐘᑎᒼ
+  lemma:
+    SRO:       kotiskāwēwatim
+    syllabics: ᑯᑎᐢᑳᐍᐘᑎᒼ
+  projects:
+    - c554474c-7f39-4ede-941b-c40b8f58b059 # Nisinoon
+  senses:
+    - gloss: racehorse
 
 # Potawatomi
 
@@ -234,6 +264,8 @@
   language:     4580756f-ce39-4ea0-b96e-8f176371afcb # Swahili
   link:         https://data.digitallinguistics.io/languages/4580756f-ce39-4ea0-b96e-8f176371afcb/lexemes/b05e479f-29c9-466d-932a-715431e905b5
   type:         Lexeme
+  citationForm:
+    swa: kula
   lemma:
     swa: kula
   projects:
@@ -247,6 +279,8 @@
   language:     4580756f-ce39-4ea0-b96e-8f176371afcb # Swahili
   link:         https://data.digitallinguistics.io/languages/4580756f-ce39-4ea0-b96e-8f176371afcb/lexemes/dace030e-997a-40ec-82d9-5073c6d40faa
   type:         Lexeme
+  citationForm:
+    swa: mtu
   lemma:
     swa: mtu
   projects:
@@ -260,6 +294,8 @@
   language:     4580756f-ce39-4ea0-b96e-8f176371afcb # Swahili
   link:         https://data.digitallinguistics.io/languages/4580756f-ce39-4ea0-b96e-8f176371afcb/lexemes/1e288abd-f49c-46b7-aa9f-780367141c49
   type:         Lexeme
+  citationForm:
+    swa: -zuri
   lemma:
     swa: -zuri
   projects:

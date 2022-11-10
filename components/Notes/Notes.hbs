@@ -1,5 +1,5 @@
-<ul class=notes>{{!-- comments avoid whitespace so that the :empty selector works
-  --}}{{#each this as |note|}}
+<ul class=notes>
+  {{~#each this as |note|}}
     <li class=note-item>
       <button class=note-button aria-label='Show note' type=button>
         <svg>
@@ -8,5 +8,5 @@
       </button>
       {{> Note/Note note }}
     </li>
-  {{/each}}{{!--
---}}</ul>
+  {{/each~}}
+</ul>

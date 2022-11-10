@@ -39,15 +39,6 @@ body:target #form {
     padding: var(--text-padding-lg);
   }
 
-  label[for=bibliography] {
-    padding-block-start: 1.95em; // vertically aligns label with citation tags
-  }
-
-  .bibliography {
-    display            : inline;
-    margin-inline-start: calc(var(--space-xxxs) * -1); // aligns first tag vertically
-  }
-
   .citation {
 
     --tag-color: var(--indigo-1);
@@ -55,6 +46,10 @@ body:target #form {
     display            : inline;
     margin-inline-start: var(--space-xxxs);
 
+  }
+
+  #citation-form {
+    padding: var(--text-padding-lg);
   }
 
   :is(#date-created, #date-modified) {
@@ -78,8 +73,8 @@ body:target #form {
     padding: var(--text-padding);
   }
 
-  .mot {
-    padding: var(--text-padding);
+  #lemma {
+    padding: var(--text-padding-lg);
   }
 
   nav {
@@ -94,6 +89,14 @@ body:target #form {
 
   .panel:not(.current, :target) {
     display: none;
+  }
+
+  .references {
+    display: inline;
+  }
+
+  ul.references {
+    margin-inline-start: calc(var(--space-xxxs) * -1); // aligns first tag vertically
   }
 
   .section-header {

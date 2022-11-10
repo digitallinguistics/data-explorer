@@ -22,8 +22,17 @@
   </nav>
 
   <section class='current panel' role=tabpanel id=form aria-labelledby=form-link>
-    <label class=label>Lemma</label>
-    {{> MultiOrthoTranscription/MultiOrthoTranscription txn=lexeme.lemma lang=language.iso }}
+
+    <label class=label for=lemma>Lemma</label>
+    {{> MultiOrthoTranscription/MultiOrthoTranscription txn=lexeme.lemma lang=language.iso attributes='id=lemma' }}
+
+    <label class=label for=citation-form>Citation Form</label>
+    {{#if lexeme.citationForm}}
+      {{> MultiOrthoTranscription/MultiOrthoTranscription txn=lexeme.citationForm lang=language.iso attributes='id=citation-form' }}
+    {{else}}
+      <span id=citation-form>—</span>
+    {{/if}}
+
   </section>
 
   <section class=panel role=tabpanel id=meaning aria-labelledby=meaning-link>
@@ -43,13 +52,13 @@
       <label class=label for=date-modified>Date Modified:</label>
       <output id=date-modified>{{date lexeme.dateModified }}</output>
 
-      <label class=label for=bibliography>Bibliography:</label>
+      <label class=label for=references>References:</label>
       {{#if references}}
         <div>
 
           <span class=help-text>Hover over a citation to see its full bibliographic entry. Click to view the page for the entry.</span>
 
-          <ul class=bibliography>
+          <ul class=references>
             {{#each references as |reference|}}
               {{!-- Keep the <li> and <a> on the same line to avoid extra whitespace in the rendered page. --}}
               <li class='citation tag' title='{{ reference.custom.bibEntry.text }}'><a href='/references/{{ reference.id }}'>{{ reference.custom.citation }}</a></li>
@@ -62,7 +71,7 @@
 
         </div>
       {{else}}
-        <p class=bibliography>None.</p>
+        <p class=references>None.</p>
       {{/if}}
 
     </fieldset>

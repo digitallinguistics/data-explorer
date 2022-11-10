@@ -131,14 +131,14 @@ describe(`Database`, function() {
       const db = new Database
       const { data, status } = await db.getLexemes()
       expect(status).to.equal(200)
-      expect(data).to.have.lengthOf(18)
+      expect(data).to.have.lengthOf(19)
     })
 
     it(`option: language`, async function() {
       const db = new Database
       const { data, status } = await db.getLexemes({ language: languageID })
       expect(status).to.equal(200)
-      expect(data).to.have.lengthOf(3)
+      expect(data).to.have.lengthOf(4)
       expect(data.every(lexeme => lexeme.language.id === languageID)).to.be.true
     })
 
@@ -146,7 +146,7 @@ describe(`Database`, function() {
       const db = new Database
       const { data, status } = await db.getLexemes({ project: projectID })
       expect(status).to.equal(200)
-      expect(data).to.have.lengthOf(11)
+      expect(data).to.have.lengthOf(12)
       expect(data.every(lexeme => lexeme.projects.includes(projectID))).to.be.true
     })
 
@@ -154,7 +154,7 @@ describe(`Database`, function() {
       const db = new Database
       const { data, status } = await db.getLexemes({ project: projectID, summary: true })
       expect(status).to.equal(200)
-      expect(data.count).to.equal(11)
+      expect(data.count).to.equal(12)
     })
 
     it(`returns an empty array for nonexistent projects/languages`, async function() {
@@ -278,7 +278,7 @@ describe(`Database`, function() {
       const db = new Database
       const { data, status } = await db.getReferences()
       expect(status).to.equal(200)
-      expect(data).to.have.length(6)
+      expect(data).to.have.length(7)
     })
 
     it(`option: bibliography`, async function() {

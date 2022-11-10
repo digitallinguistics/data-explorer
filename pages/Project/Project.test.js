@@ -41,7 +41,7 @@ describe(`Project Page`, function() {
     const { data } = this
     cy.visit(`/projects/${ publicProjectID }`)
     cy.contains(`# of languages`).next().should(`have.text`, `4`)
-    cy.contains(`# of lexemes`).next().should(`have.text`, `12`)
+    cy.contains(`# of lexemes`).next().should(`have.text`, `13`)
     cy.contains(`# of collaborators`).next().should(`have.text`, `2`)
     cy.get(`.readme`).should(`include.text`, data.readme.markdown)
     cy.get(`.access`).should(`include.text`, data.access.note.text)
