@@ -59,6 +59,12 @@
               <span class=visually-hidden>viewer</span>
             </td>
           {{/if}}
+          {{#unless @root.user }}
+            <td class=permissions title=public>
+              <svg aria-hidden=true><use href=#globe></svg>
+              <span class=visually-hidden>public</span>
+            </td>
+          {{/unless}}
         {{/with}}
 
         {{!-- name --}}
