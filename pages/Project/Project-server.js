@@ -40,7 +40,7 @@ export default async function get(req, res) {
     language.permissions.isOwner  = isOwner(res.locals.user, language)
     language.permissions.isEditor = isEditor(res.locals.user, language)
 
-    const lexemesRequestOptions = { language: language.id, summary: true }
+    const lexemesRequestOptions = { language: language.id, project: project.id, summary: true }
     const { data: { count } }   = await db.getLexemes(lexemesRequestOptions)
 
     numLexemes += count

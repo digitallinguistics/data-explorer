@@ -7,11 +7,21 @@ describe(`Project Page`, function() {
   const privateProjectID = `a24157c1-000f-4771-aa47-485fb91bf24f`  // Swahili project
 
   beforeEach(function() {
+
     cy.readFile(`data/projects.yml`)
     .then(yaml => yamlParser.load(yaml))
     .as(`projects`)
     .then(projects => projects.find(proj => proj.id === publicProjectID))
     .as(`data`)
+
+    cy.readFile(`data/languages.yml`)
+    .then(yaml => yamlParser.load(yaml))
+    .as(`languages`)
+
+    cy.readFile(`data/lexemes.yml`)
+    .then(yaml => yamlParser.load(yaml))
+    .as(`lexemes`)
+
   })
 
   it(`Not Found`, function() {
@@ -38,10 +48,15 @@ describe(`Project Page`, function() {
   })
 
   it(`Project Details`, function() {
+
     const { data } = this
+
+    const languages = this.languages.filter(language => language.projects.includes(data.id))
+    const lexemes   = this.lexemes.filter(lexeme => lexeme.projects.includes(data.id))
+
     cy.visit(`/projects/${ publicProjectID }`)
-    cy.contains(`# of languages`).next().should(`have.text`, `4`)
-    cy.contains(`# of lexemes`).next().should(`have.text`, `13`)
+    cy.contains(`# of languages`).next().should(`have.text`, languages.length)
+    cy.contains(`# of lexemes`).next().should(`have.text`, lexemes.length)
     cy.contains(`# of collaborators`).next().should(`have.text`, `2`)
     cy.get(`.readme`).should(`include.text`, data.readme.markdown)
     cy.get(`.access`).should(`include.text`, data.access.note.text)
@@ -49,6 +64,7 @@ describe(`Project Page`, function() {
     cy.contains(`Date Created`).next().should(`have.text`, new Date(data.dateCreated).toLocaleDateString(`en-CA`))
     cy.contains(`Date Modified`).next().should(`have.text`, new Date(data.dateModified).toLocaleDateString(`en-CA`))
     cy.get(`tbody`).children().should(`have.length`, 4)
+
   })
 
 })
