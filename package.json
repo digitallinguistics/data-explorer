@@ -34,8 +34,8 @@
   },
   "scripts": {
     "build": "node build/index.js",
-    "cypress": "server-test 3001 cypress-open",
-    "cypress-open": "cypress open --config-file=test/cypress.config.js",
+    "cypress": "server-test 3001 open-cypress",
+    "open-cypress": "cypress open --config-file=test/cypress.config.js",
     "cypress-run": "cypress run --config-file=test/cypress.config.js",
     "prepare-release": "node build/updateCitation.js",
     "start": "node index.js",

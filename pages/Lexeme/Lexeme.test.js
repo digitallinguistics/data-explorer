@@ -52,7 +52,7 @@ describe(`Lexeme page`, function() {
     cy.contains(`.page-title`, data.lemma.SRO)
     cy.contains(`header`, data.senses[0].gloss)
 
-    // default view: Form Tab (no tab selected)
+    // Form Tab (default)
     cy.hash().should(`eq`, ``)
     cy.get(`#form`).should(`be.visible`)
 
@@ -62,6 +62,9 @@ describe(`Lexeme page`, function() {
 
     // Citation Form (without data; see below for test with data)
     cy.contains(`#citation-form`, `—`)
+
+    // Morpheme Type
+    cy.contains(`#morpheme-type`, `stem`)
 
     // Meaning Tab
     cy.get(`#meaning-link`).click()
@@ -82,11 +85,12 @@ describe(`Lexeme page`, function() {
 
     // Bibliography
     cy.get(`.references`).children()
-    .should(`have.length`, 3)
-    .then(([a, b, c]) => {
+    .should(`have.length`, 4)
+    .then(([a, b, c, d]) => {
       expect(a).to.contain(`Bloomfield`)
       expect(b).to.contain(`Goddard`)
       expect(c).to.contain(`Macaulay`)
+      expect(d).to.contain(`Wolvengrey`)
     })
 
     // ---

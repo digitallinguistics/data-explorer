@@ -23,15 +23,36 @@
 
   <section class='current panel' role=tabpanel id=form aria-labelledby=form-link>
 
-    <label class=label for=lemma>Lemma</label>
-    {{> MultiOrthoTranscription/MultiOrthoTranscription txn=lexeme.lemma lang=language.iso attributes='id=lemma' }}
+    <div class=transcriptions>
 
-    <label class=label for=citation-form>Citation Form</label>
-    {{#if lexeme.citationForm}}
-      {{> MultiOrthoTranscription/MultiOrthoTranscription txn=lexeme.citationForm lang=language.iso attributes='id=citation-form' }}
-    {{else}}
-      <span id=citation-form>—</span>
-    {{/if}}
+      <label class=label for=lemma>Lemma</label>
+      {{> MultiOrthoTranscription/MultiOrthoTranscription txn=lexeme.lemma lang=language.iso attributes='id=lemma' }}
+
+      <label class=label for=citation-form>Citation Form</label>
+      {{#if lexeme.citationForm}}
+        {{> MultiOrthoTranscription/MultiOrthoTranscription txn=lexeme.citationForm lang=language.iso attributes='id=citation-form' }}
+      {{else}}
+        <span id=citation-form>—</span>
+      {{/if}}
+
+    </div>
+
+    <div class=properties>
+
+      <dl class=def-list>
+
+        <dt class=label for=morpheme-type>Morpheme Type:</dt>
+        <dd id=morpheme-type>
+          {{#if lexeme.morphemeType }}
+            {{> MultiLangString/MultiLangString lexeme.morphemeType }}
+          {{else~}}
+            —
+          {{~/if}}
+        </dd>
+
+      </dl>
+
+    </div>
 
   </section>
 
@@ -41,7 +62,7 @@
 
   <section class=panel role=tabpanel id=metadata aria-labelledby=metadata-link>
 
-    <fieldset class=def-list>
+    <fieldset class='def-list metadata-props'>
 
       <label class=label for=url>URL:</label>
       <output class=box-input id=url>https://data.digitallinguistics.io/languages/{{ language.id }}/lexemes/{{ lexeme.id }}</output>
