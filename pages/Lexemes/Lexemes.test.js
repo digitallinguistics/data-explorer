@@ -1,4 +1,5 @@
 import { msAuthCookie } from '../../constants/index.js'
+import yamlParser       from 'js-yaml'
 
 describe(`Lexemes Page`, function() {
 
@@ -72,19 +73,29 @@ describe(`Lexemes Page`, function() {
     })
 
     it(`displays the lexemes for a project`, function() {
-      cy.visit(`/projects/${ publicProjectID }/lexemes`)
-      cy.title().should(`eq`, `Oxalis | Nisinoon | Lexemes`)
-      cy.get(`tbody`).children().should(`have.length`, 12)
-      cy.contains(`.lemma`, `cīkahikan`)
-      cy.contains(`.lemma`, `sūniyanikamekmahka͞esen`).should(`not.exist`)
+
+      cy.readFile(`data/lexemes.yml`)
+      .then(yaml => yamlParser.load(yaml))
+      .then(data => {
+
+        const lexemes = data.filter(lexeme => lexeme.projects.includes(publicProjectID))
+
+        cy.visit(`/projects/${ publicProjectID }/lexemes`)
+        cy.title().should(`eq`, `Oxalis | Nisinoon | Lexemes`)
+        cy.get(`tbody`).children().should(`have.length`, lexemes.length)
+        cy.contains(`.lemma`, `cīkahikan`)
+        cy.contains(`.lemma`, `sūniyanikamekmahka͞esen`).should(`not.exist`)
+
+      })
+
     })
 
   })
 
   describe(`/projects/:projectID/languages/:languageID/lexemes`, function() {
 
-    const MenomineeProjectID = `26d40299-98fb-48c8-b51f-e62397269817` // Menominee Dictionary
-    const MenomineeLanguageID = `5fc405aa-a1a3-41e5-a80d-adb9dfbaa293` // Menominee
+    const MenomineeProjectID  = `26d40299-98fb-48c8-b51f-e62397269817`  // Menominee Dictionary
+    const MenomineeLanguageID = `5fc405aa-a1a3-41e5-a80d-adb9dfbaa293`  // Menominee
 
     it(`Not Found: Project`, function() {
       cy.visit(`/projects/1234/languages/${ publicLanguageID }/lexemes`, { failOnStatusCode: false })
@@ -135,12 +146,22 @@ describe(`Lexemes Page`, function() {
       // because only some Menominee lexemes are associated with the Nisinoon project,
       // and this will test that only the appropriate lexemes are shown.
 
-      cy.visit(`/projects/${ publicProjectID }/languages/${ MenomineeLanguageID }/lexemes`)
-      cy.title().should(`eq`, `Oxalis | Nisinoon | Menominee | Lexemes`)
-      cy.get(`tbody`).children().should(`have.length`, 2)
-      cy.contains(`.lemma`, `sūniyanikamek`)
-      cy.contains(`.lemma`, `wāqnenekan`)
-      cy.contains(`.lemma`, `sūniyanikamekmahka͞esen`).should(`not.exist`)
+      cy.readFile(`data/lexemes.yml`)
+      .then(yaml => yamlParser.load(yaml))
+      .then(data => {
+
+        // Reassigning the data/lexemes parameter doesn't seem to work here.
+        // Need to save to a new variable instead.
+        const lexemes = data.filter(lexeme => lexeme.projects.includes(publicProjectID) && lexeme.language === MenomineeLanguageID)
+
+        cy.visit(`/projects/${ publicProjectID }/languages/${ MenomineeLanguageID }/lexemes`)
+        cy.title().should(`eq`, `Oxalis | Nisinoon | Menominee | Lexemes`)
+        cy.get(`tbody`).children().should(`have.length`, lexemes.length)
+        cy.contains(`.lemma`, `sūniyanikamek`)
+        cy.contains(`.lemma`, `wāqnenekan`)
+        cy.contains(`.lemma`, `sūniyanikamekmahka͞esen`).should(`not.exist`)
+
+      })
 
     })
 
