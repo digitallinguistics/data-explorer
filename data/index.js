@@ -1,8 +1,9 @@
-import Cite                    from 'citation-js'
+import Cite                    from '../config/cite.js'
 import { load as convertYAML } from 'js-yaml'
 import { fileURLToPath }       from 'url'
 import path                    from 'path'
 import { readFile }            from 'fs/promises'
+import compare from '../utilities/compare.js'
 
 const __filename = fileURLToPath(import.meta.url)
 const __dirname  = path.dirname(__filename)
@@ -16,37 +17,49 @@ const languages = await loadData(`languages`)
 const lexemes   = await loadData(`lexemes`)
 const projects  = await loadData(`projects`)
 const users     = await loadData(`users`)
-
-const bibtex            = await readFile(path.join(__dirname, `references.bib`), `utf8`)
-const styleTemplateName = `ling`
-const styleTemplate     = await readFile(path.join(__dirname, `../config/generic-style-rules-for-linguistics.csl`), `utf8`)
-const config            = Cite.plugins.config.get(`@csl`)
-
-config.templates.add(styleTemplateName, styleTemplate)
+const bibtex    = await readFile(path.join(__dirname, `references.bib`), `utf8`)
 
 const cite = new Cite(bibtex, {
   forceType:     `@bibtex/text`,
   generateGraph: false,
 })
 
+cite.sort([`issued`, `author`, `editor`, `title`])
+
 const references = cite.get()
+
+const textBibEntries = cite.format(`bibliography`, {
+  asEntryArray: true,
+  template:     `ling`,
+}).reduce((map, [id, entry]) => {
+  map.set(id, entry.trim())
+  return map
+}, new Map)
+
+const htmlBibEntries = cite.format(`bibliography`, {
+  asEntryArray: true,
+  format:       `html`,
+  template:     `ling`,
+}).reduce((map, [id, raw]) => {
+
+  const html = raw
+  .trim()
+  .replace(/<div.+?>(.+)<\/div>/u, `<p class=bib-entry id='${ id }'>$1</p>`) // replace <div> with <p>
+  .replace(/<i>(.+)<\/i>/u, `<cite class=cite>$1</cite>`)                    // replace <i> with <cite>
+
+  map.set(id, html)
+  return map
+
+}, new Map)
 
 for (const reference of references) {
 
-  const raw = cite.format(`bibliography`, {
-    entry:    reference.id,
-    format:   `html`,
-    template: `ling`,
-  })
-
-  const html = raw
-  .replace(/^.+\n\s*/u, ``)                                                            // remove start of wrapper <div>
-  .replace(/\n\s*.+$/u, ``)                                                            // remove end of wrapper <div>
-  .replace(/<div.+?>(.+)<\/div>/u, `<p class=bib-entry id='${ reference.id }'>$1</p>`) // replace <div> with <p>
-  .replace(/<i>(.+)<\/i>/u, `<cite class=cite>$1</cite>`)                              // replace <i> with <cite>
-
   reference.custom = {
-    bibEntry: html,
+    bibEntry: {
+      html: htmlBibEntries.get(reference.id),
+      text: textBibEntries.get(reference.id),
+    },
+    sortKey: ``,
   }
 
 }

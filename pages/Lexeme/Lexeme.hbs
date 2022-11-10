@@ -32,7 +32,7 @@
 
   <section class=panel role=tabpanel id=metadata aria-labelledby=metadata-link>
 
-    <dl class=def-list>
+    <fieldset class=def-list>
 
       <label class=label for=url>URL:</label>
       <output class=box-input id=url>https://data.digitallinguistics.io/languages/{{ language.id }}/lexemes/{{ lexeme.id }}</output>
@@ -43,25 +43,29 @@
       <label class=label for=date-modified>Date Modified:</label>
       <output id=date-modified>{{date lexeme.dateModified }}</output>
 
-    </dl>
+      <label class=label for=bibliography>Bibliography:</label>
+      {{#if references}}
+        <div>
 
-    <h2 class=section-header>Bibliography</h2>
+          <span class=help-text>Hover over a citation to see its full bibliographic entry. Click to view the page for the entry.</span>
 
-    {{#if references}}
+          <ul class=bibliography>
+            {{#each references as |reference|}}
+              {{!-- Keep the <li> and <a> on the same line to avoid extra whitespace in the rendered page. --}}
+              <li class='citation tag' title='{{ reference.custom.bibEntry.text }}'><a href='/references/{{ reference.id }}'>{{ reference.custom.citation }}</a></li>
+            {{/each}}
+          </ul>
 
-      <a class='bib-table-link link' href='/languages/{{ language.id }}/lexemes/{{ lexeme.id }}/references?view=table'>View Bibliography as Table</a>
+          <span class=bib-links>
+            <a class='link subtle' href='/languages/{{ language.id }}/lexemes/{{ lexeme.id }}/references?view=bibliography'>View as Bibliography</a> | <a class='link subtle' href='/languages/{{ language.id }}/lexemes/{{ lexeme.id }}/references?view=table'>View as Table</a>
+          </span>
 
-      <ul class=bibliography>
-        {{#each references as |reference|}}
-          <li>{{{ reference.custom.bibEntry }}}</li>
-        {{/each}}
-      </ul>
+        </div>
+      {{else}}
+        <p class=bibliography>None.</p>
+      {{/if}}
 
-    {{else}}
-
-      <p class=no-bib>None.</p>
-
-    {{/if}}
+    </fieldset>
 
   </section>
 

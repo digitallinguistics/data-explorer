@@ -2,12 +2,14 @@
 @import 'BoxInput/BoxInput.less';
 @import 'Cite/Cite.less';
 @import 'DefinitionList/DefinitionList.less';
+@import 'HelpText/HelpText.less';
 @import 'Label/Label.less';
 @import 'Numbered/Numbered.less';
 @import 'PageTitle/PageTitle.less';
 @import 'Translation/Translation.less';
 @import 'MultiOrthoTranscription/MultiOrthoTranscription.less';
 @import 'SectionHeader/SectionHeader.less';
+@import 'Tag/Tag.less';
 
 // Handle case where the URL has no hash.
 body:target #form {
@@ -28,12 +30,35 @@ body:target #form {
     text-indent        : -1.5em;
   }
 
+  .bib-links {
+    font-size    : smaller;
+    padding-block: var(--text-block-padding-lg);
+  }
+
   .bib-table-link {
     padding: var(--text-padding-lg);
   }
 
+  label[for=bibliography] {
+    padding-block-start: 1.95em; // vertically aligns label with citation tags
+  }
+
   .bibliography {
-    padding: var(--text-padding);
+    display            : inline;
+    margin-inline-start: calc(var(--space-xxxs) * -1); // aligns first tag vertically
+  }
+
+  .citation {
+
+    --tag-color: var(--indigo-1);
+
+    display            : inline;
+    margin-inline-start: var(--space-xxxs);
+
+  }
+
+  :is(#date-created, #date-modified) {
+    font-family: var(--font-mono);
   }
 
   .def-list {
@@ -43,6 +68,10 @@ body:target #form {
 
   .glosses {
     padding: var(--text-padding);
+  }
+
+  .help-text {
+    padding-block: var(--text-block-padding);
   }
 
   .label {
@@ -55,10 +84,6 @@ body:target #form {
 
   nav {
     margin-block-start: var(--space);
-  }
-
-  .no-bib {
-    padding: var(--text-padding-lg);
   }
 
   .page-title {
@@ -76,7 +101,13 @@ body:target #form {
   }
 
   .tab:hover {
+
     background-color: var(--cyan-1);
+
+    @media (prefers-color-scheme: dark) {
+      color: var(--background-color-dark);
+    }
+
   }
 
   .tab-link {
@@ -90,14 +121,18 @@ body:target #form {
   }
 
   #url {
-    overflow-x : auto;
-    white-space: nowrap;
-  }
 
-  @media (prefers-color-scheme: dark) {
-    .tab:hover {
+    background-color: var(--orange-1);
+    border          : none;
+    font-family     : var(--font-mono);
+    margin          : var(--space-xs);
+    overflow-x      : auto;
+    white-space     : nowrap;
+
+    @media (prefers-color-scheme: dark) {
       color: var(--background-color-dark);
     }
+
   }
 
   // small screens

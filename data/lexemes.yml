@@ -142,9 +142,12 @@
   type:         Lexeme
   bibliography:
     # These are intentionally out of order, to test that they display in order when rendered.
-    - Goddard1990
-    - Macaulay2017
-    - Bloomfield1924
+    - id:      Goddard1990
+      locator: 144
+    - id:      Macaulay2017
+      locator: 1-3
+    - id:      Bloomfield1924
+      locator: 10
   lemma:
     SRO: cīkahikan
     syl: ᒌᑲᐦᐃᑲᐣ
