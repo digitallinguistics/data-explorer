@@ -37,10 +37,11 @@ describe(`Lexemes Page`, function() {
       cy.title().should(`eq`, `Oxalis | Plains Cree | Lexemes`)
       cy.get(`.page-title`).should(`have.text`, `Lexemes | Plains Cree`)
       cy.get(`.lexemes-table caption`).should(`have.text`, `Lexemes | Plains Cree`)
-      cy.get(`tbody`).children().should(`have.length`, 3)
+      cy.get(`tbody`).children().should(`have.length`, 4)
       cy.contains(`.lemma`, `cīkahikan`)
       cy.contains(`.lemma`, `masinahikan`)
       cy.contains(`.lemma`, `maskwa`)
+      cy.contains(`.lemma`, `kotiskāwēwatim`)
     })
 
   })
@@ -73,7 +74,7 @@ describe(`Lexemes Page`, function() {
     it(`displays the lexemes for a project`, function() {
       cy.visit(`/projects/${ publicProjectID }/lexemes`)
       cy.title().should(`eq`, `Oxalis | Nisinoon | Lexemes`)
-      cy.get(`tbody`).children().should(`have.length`, 11)
+      cy.get(`tbody`).children().should(`have.length`, 12)
       cy.contains(`.lemma`, `cīkahikan`)
       cy.contains(`.lemma`, `sūniyanikamekmahka͞esen`).should(`not.exist`)
     })
