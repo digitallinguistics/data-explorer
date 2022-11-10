@@ -32,11 +32,15 @@ body:target #form {
 
   .bib-links {
     font-size    : smaller;
-    padding-block: var(--text-block-padding);
+    padding-block: var(--text-block-padding-lg);
   }
 
   .bib-table-link {
     padding: var(--text-padding-lg);
+  }
+
+  label[for=bibliography] {
+    padding-block-start: 1.95em; // vertically aligns label with citation tags
   }
 
   .bibliography {
@@ -46,10 +50,8 @@ body:target #form {
 
   .citation {
 
-    // gray?
     --tag-color: var(--indigo-1);
 
-    // cursor             : pointer;
     display            : inline;
     margin-inline-start: var(--space-xxxs);
 
@@ -69,7 +71,7 @@ body:target #form {
   }
 
   .help-text {
-    padding-block-end: var(--text-block-padding);
+    padding-block: var(--text-block-padding);
   }
 
   .label {
