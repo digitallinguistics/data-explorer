@@ -8,11 +8,11 @@ const { readFile } = fs
 
 describe(`Database`, function() {
 
-  const badUser    = `bademail@digitallinguistics.io`
-  const languageID = `850f3bd9-2a57-4289-bc57-05640b5d8d7d` // Plains Cree
-  const lexemeID   = `79eb0aaf-944c-40b4-93f3-e1785ec0adde` // cīkahikan (Plains Cree)
-  const projectID  = `c554474c-7f39-4ede-941b-c40b8f58b059` // Nisinoon
-  const referenceID = `Hieber2019` // Semantic alignment in Chitimacha
+  const badUser     = `bademail@digitallinguistics.io`
+  const languageID  = `850f3bd9-2a57-4289-bc57-05640b5d8d7d`  // Plains Cree
+  const lexemeID    = `79eb0aaf-944c-40b4-93f3-e1785ec0adde`  // cīkahikan (Plains Cree)
+  const projectID   = `c554474c-7f39-4ede-941b-c40b8f58b059`  // Nisinoon
+  const referenceID = `Hieber2019b`                           // Semantic alignment in Chitimacha
 
   before(async function() {
 
@@ -226,6 +226,13 @@ describe(`Database`, function() {
       expect(a).to.not.equal(b)
     })
 
+    it(`includes the bibliography entry`, async function() {
+      const db = new Database
+      const { data } = await db.getReference(referenceID)
+      expect(data.custom.bibEntry.html.startsWith(`<p class=bib-entry`)).to.be.true
+      expect(data.custom.bibEntry.text.startsWith(`Hieber, Daniel W. 2019b. Semantic alignment`)).to.be.true
+    })
+
     it(`200 OK`, async function() {
       const db = new Database
       const { data, status } = await db.getReference(referenceID)
@@ -249,6 +256,17 @@ describe(`Database`, function() {
       `Goddard1990`,
     ]
 
+    const citations = [
+      {
+        id:      `Bloomfield1924`,
+        locator: `1-3`,
+      },
+      {
+        id:      `Goddard1990`,
+        locator: 144,
+      },
+    ]
+
     it(`returns copies of the data`, async function() {
       const db = new Database
       const { data: [a] } = await db.getReferences()
@@ -260,7 +278,7 @@ describe(`Database`, function() {
       const db = new Database
       const { data, status } = await db.getReferences()
       expect(status).to.equal(200)
-      expect(data).to.have.length(4)
+      expect(data).to.have.length(6)
     })
 
     it(`option: bibliography`, async function() {
@@ -274,6 +292,19 @@ describe(`Database`, function() {
       const [a, b] = data
       expect(a.title).to.equal(`The Menomini language`)
       expect(b.title).to.equal(`Primary and secondary stem derivation in Algonquian`)
+
+    })
+
+    it(`option: citations`, async function() {
+
+      const db = new Database
+      const { data, status } = await db.getReferences({ citations })
+      expect(status).to.equal(200)
+      expect(data).to.have.lengthOf(2)
+
+      const [a, b] = data
+      expect(a.custom.citation).to.equal(`Bloomfield (1924: 1–3)`)
+      expect(b.custom.citation).to.equal(`Goddard (1990: 144)`)
 
     })
 

@@ -21,13 +21,11 @@ function cite(reference, locator) {
 
   const firstPart = citer.format(`citation`, {
     entry:  Object.assign({ 'author-only': true }, entry),
-    format: `html`,
     template,
   })
 
   const secondPart = citer.format(`citation`, {
     entry:  Object.assign({ 'suppress-author': true }, entry),
-    format: `html`,
     template,
   })
 
