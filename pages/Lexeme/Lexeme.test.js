@@ -39,7 +39,7 @@ describe(`Lexeme page`, function() {
     cy.get(`.error-message`).should(`have.text`, `You do not have permission to view this lexeme.`)
   })
 
-  it.only(`Lexeme Details`, function() {
+  it(`Lexeme Details`, function() {
 
     const { data } = this
 
