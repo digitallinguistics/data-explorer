@@ -22,9 +22,9 @@ describe(`Database`, function() {
     this.language = languages.find(lang => lang.id === languageID)
 
     const lexemesYAML = await readFile(`data/lexemes.yml`, `utf8`)
-    const lexemes     = yamlParser.load(lexemesYAML)
 
-    this.lexeme = lexemes.find(lex => lex.id === lexemeID)
+    this.lexemes = yamlParser.load(lexemesYAML)
+    this.lexeme  = this.lexemes.find(lex => lex.id === lexemeID)
 
     const projectsYAML = await readFile(`data/projects.yml`, `utf8`)
     const projects     = yamlParser.load(projectsYAML)
@@ -38,7 +38,8 @@ describe(`Database`, function() {
       generateGraph: false,
     })
 
-    this.reference = references.find(ref => ref.id === referenceID)
+    this.references = references
+    this.reference  = references.find(ref => ref.id === referenceID)
 
   })
 
@@ -131,7 +132,7 @@ describe(`Database`, function() {
       const db = new Database
       const { data, status } = await db.getLexemes()
       expect(status).to.equal(200)
-      expect(data).to.have.lengthOf(19)
+      expect(data).to.have.lengthOf(this.lexemes.length)
     })
 
     it(`option: language`, async function() {
@@ -143,18 +144,26 @@ describe(`Database`, function() {
     })
 
     it(`option: project`, async function() {
-      const db = new Database
+
+      const db               = new Database
       const { data, status } = await db.getLexemes({ project: projectID })
+      const projectLexemes   = this.lexemes.filter(lexeme => lexeme.projects.includes(projectID))
+
       expect(status).to.equal(200)
-      expect(data).to.have.lengthOf(12)
+      expect(data).to.have.lengthOf(projectLexemes.length)
       expect(data.every(lexeme => lexeme.projects.includes(projectID))).to.be.true
+
     })
 
     it(`option: summary`, async function() {
-      const db = new Database
+
+      const db               = new Database
       const { data, status } = await db.getLexemes({ project: projectID, summary: true })
+      const projectLexemes   = this.lexemes.filter(lexeme => lexeme.projects.includes(projectID))
+
       expect(status).to.equal(200)
-      expect(data.count).to.equal(12)
+      expect(data.count).to.equal(projectLexemes.length)
+
     })
 
     it(`returns an empty array for nonexistent projects/languages`, async function() {
@@ -278,7 +287,7 @@ describe(`Database`, function() {
       const db = new Database
       const { data, status } = await db.getReferences()
       expect(status).to.equal(200)
-      expect(data).to.have.length(7)
+      expect(data).to.have.length(this.references.length)
     })
 
     it(`option: bibliography`, async function() {
