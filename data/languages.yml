@@ -58,7 +58,7 @@
     eng: Menominee
   permissions:
     owners:  [owner@digitallinguistics.io]
-    editors: []
+    editors: [editor@digitallinguistics.io]
     viewers: []
     public:  true
   projects:
