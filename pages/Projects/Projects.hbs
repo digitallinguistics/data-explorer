@@ -16,31 +16,44 @@
           <a class='link project__name' href='/projects/{{ id }}'>{{ name }}</a>
 
           {{#if permissions.public }}
-            <svg aria-hidden=true class=icon><use href=#globe></svg>
+            <svg aria-hidden=true class=icon>
+              <title>public</title>
+              <use href=#globe>
+            </svg>
             <span class=visually-hidden>public</span>
           {{else}}
-            <svg aria-hidden=true class=icon><use href=#lock></svg>
+            <svg aria-hidden=true class=icon>
+              <title>private</title>
+              <use href=#lock>
+            svg>
             <span class=visually-hidden>private</span>
           {{/if}}
 
           {{#with permissions }}
             {{#if isOwner }}
-              <td class=permissions title=owner>
-                <svg aria-hidden=true class=icon><use href=#shield-with-check></svg>
-                <span class=visually-hidden>owner</span>
-              </td>
-            {{/if}}
-            {{#if isEditor }}
-              <td class=permissions title=editor>
-                <svg aria-hidden=true class=icon><use href=#edit></svg>
-                <span class=visually-hidden>editor</span>
-              </td>
-            {{/if}}
-            {{#if isViewer }}
-              <td class=permissions title=viewer>
-                <svg aria-hidden=true class=icon><use href=#eye></svg>
-                <span class=visually-hidden>viewer</span>
-              </td>
+              <svg aria-hidden=true class=icon>
+                <title>owner</title>
+                <use href=#shield-with-check>
+              </svg>
+              <span class=visually-hidden>owner</span>
+            {{else if isEditor }}
+              <svg aria-hidden=true class=icon>
+                <title>editor</title>
+                <use href=#edit>
+              </svg>
+              <span class=visually-hidden>editor</span>
+            {{else if isViewer }}
+              <svg aria-hidden=true class=icon>
+                <title>viewer</title>
+                <use href=#eye>
+              </svg>
+              <span class=visually-hidden>viewer</span>
+            {{else if @root.user }}
+              <svg aria-hidden=true class=icon>
+                <title>public</title>
+                <use href=#globe>
+              </svg>
+              <span class=visually-hidden>public</span>
             {{/if}}
           {{/with}}
 
