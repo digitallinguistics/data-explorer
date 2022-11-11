@@ -41,10 +41,19 @@
 
       <dl class=def-list>
 
-        <dt class=label for=morpheme-type>Morpheme Type:</dt>
-        <dd id=morpheme-type>
-          {{#if lexeme.morphemeType }}
-            {{> MultiLangString/MultiLangString lexeme.morphemeType }}
+        <dt class=label for=morph-type>Morph Type:</dt>
+        <dd id=morph-type>
+          {{#if lexeme.morphType }}
+            {{> MultiLangString/MultiLangString lexeme.morphType }}
+          {{else~}}
+            —
+          {{~/if}}
+        </dd>
+
+        <dt class=label for=slot>Slot:</dt>
+        <dd id=slot>
+          {{#if lexeme.slot }}
+            {{> MultiLangString/MultiLangString lexeme.slot }}
           {{else~}}
             —
           {{~/if}}
