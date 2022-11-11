@@ -63,8 +63,8 @@ describe(`Lexeme page`, function() {
     // Citation Form (without data; see below for test with data)
     cy.contains(`#citation-form`, `—`)
 
-    // Morpheme Type
-    cy.contains(`#morpheme-type`, `stem`)
+    // Morph Type
+    cy.contains(`#morph-type`, `stem`)
 
     // Meaning Tab
     cy.get(`#meaning-link`).click()
@@ -110,7 +110,6 @@ describe(`Lexeme page`, function() {
     cy.contains(`#citation-form`, `cuyi`)
     cy.contains(`#citation-form`, `čuyi`)
     cy.contains(`#citation-form`, `t͡ʃuji`)
-
 
   })
 

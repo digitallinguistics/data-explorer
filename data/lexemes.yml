@@ -14,6 +14,8 @@
     Modern:  cuw-
     Swadesh: čuw-
     IPA:     t͡ʃuw-
+  morphType:
+    eng: stem
   projects:
     - 683a5d27-53bf-451b-80d1-f6e731674c9e # Chitimacha Dictionary Project
   senses:
@@ -75,6 +77,8 @@
   lemma:
     Nisinoon: -ænææ-
     'MN:1':   -ɛnɛ·-
+  morphType:
+    eng: suffix
   projects:
     - c554474c-7f39-4ede-941b-c40b8f58b059 # Nisinoon
   senses:
@@ -188,7 +192,7 @@
   # stem: cīkahikan-
   # Leave citationForm blank for testing purposes
   citationForm:
-  morphemeType:
+  morphType:
     eng: stem
   lemma:
     SRO:       cīkahikan
