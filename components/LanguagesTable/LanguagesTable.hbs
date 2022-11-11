@@ -46,17 +46,20 @@
               <svg aria-hidden=true><use href=#shield-with-check></svg>
               <span class=visually-hidden>owner</span>
             </td>
-          {{/if}}
-          {{#if isEditor }}
+          {{else if isEditor }}
             <td class=permissions title=editor>
               <svg aria-hidden=true><use href=#edit></svg>
               <span class=visually-hidden>editor</span>
             </td>
-          {{/if}}
-          {{#if isViewer }}
+          {{else if isViewer }}
             <td class=permissions title=viewer>
               <svg aria-hidden=true><use href=#eye></svg>
               <span class=visually-hidden>viewer</span>
+            </td>
+          {{else if public }}
+            <td class=permissions title=public>
+              <svg aria-hidden=true><use href=#globe></svg>
+              <span class=visually-hidden>public</span>
             </td>
           {{/if}}
         {{/with}}

@@ -4,6 +4,7 @@ import {
   hasAccess,
   isEditor,
   isOwner,
+  isViewer,
 } from '../../utilities/permissions.js'
 
 export default async function get(req, res) {
@@ -38,6 +39,7 @@ export default async function get(req, res) {
   for (const language of languages) {
     language.permissions.isOwner  = isOwner(res.locals.user, language)
     language.permissions.isEditor = isEditor(res.locals.user, language)
+    language.permissions.isViewer = isViewer(res.locals.user, language)
   }
 
   res.render(`Languages/Languages`, {

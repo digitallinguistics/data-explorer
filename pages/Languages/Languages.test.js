@@ -12,29 +12,65 @@ describe(`Languages`, function() {
       cy.get(`.languages-table tbody`).children().should(`have.length`, 4)
       cy.contains(`td`, `Chitimacha`).should(`not.exist`)
       cy.contains(`td`, `Swahili`).should(`not.exist`)
+      cy.get(`tbody .privacy`).each(td => expect(td).to.contain(`public`))
+      cy.get(`tbody .permissions`).each(td => expect(td).to.contain(`public`))
     })
 
     it(`displays all private languages the user has permission to access (owner@digitallinguistics.io)`, function() {
+
       cy.visit(`/languages`)
       cy.setCookie(msAuthCookie, `owner@digitallinguistics.io`)
       cy.visit(`/languages`)
       cy.get(`.languages-table tbody`).children().should(`have.length`, 6)
+
+      cy.contains(`td`, `Chitimacha`).parent()
+      .within(() => {
+        cy.get(`.privacy`).should(`include.text`, `private`)
+        cy.get(`.permissions`).should(`include.text`, `owner`)
+      })
+
+      cy.contains(`td`, `Menominee`).parent()
+      .within(() => {
+        cy.get(`.privacy`).should(`include.text`, `public`)
+        cy.get(`.permissions`).should(`include.text`, `owner`)
+      })
+
     })
 
     it(`displays all private languages the user has permission to access (editor@digitallinguistics.io)`, function() {
+
       cy.visit(`/languages`)
       cy.setCookie(msAuthCookie, `editor@digitallinguistics.io`)
       cy.visit(`/languages`)
       cy.get(`.languages-table tbody`).children().should(`have.length`, 4)
-      cy.contains(`td`, `Menominee`)
+
+      cy.contains(`td`, `Menominee`).parent()
+      .within(() => {
+        cy.get(`.privacy`).should(`include.text`, `public`)
+        cy.get(`.permissions`).should(`include.text`, `editor`)
+      })
+
+      cy.contains(`td`, `Ojibwe`).parent()
+      .within(() => {
+        cy.get(`.privacy`).should(`include.text`, `public`)
+        cy.get(`.permissions`).should(`include.text`, `public`)
+      })
+
     })
 
     it(`displays all private languages the user has permission to access (viewer@digitallinguistics.io)`, function() {
+
       cy.visit(`/languages`)
       cy.setCookie(msAuthCookie, `viewer@digitallinguistics.io`)
       cy.visit(`/languages`)
       cy.get(`.languages-table tbody`).children().should(`have.length`, 5)
-      cy.contains(`td`, `Chitimacha`)
+
+      cy.contains(`td`, `Chitimacha`).parent()
+      .within(() => {
+        cy.get(`.privacy`).should(`include.text`, `private`)
+        cy.get(`.permissions`).should(`include.text`, `viewer`)
+      })
+
     })
 
   })
