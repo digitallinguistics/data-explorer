@@ -4,8 +4,17 @@
 
 <main id=main class=lexeme-page>
 
-  <header>
+  <header class=header>
     <h1 class=page-title lang='{{ language.iso }}'>{{mot lexeme.lemma language.defaultOrthography }}</h1>
+    <span class=language>
+      {{~#if language.name ~}}
+        {{mls language.name language.defaultAnalysisLanguage }}
+      {{~/if~}}
+      {{~#if (all language.name language.autonym) }} | {{/if~}}
+      {{~#if language.autonym ~}}
+        <span class=txn>{{mot language.autonym language.defaultOrthography }}</span>
+      {{~/if~}}
+    </span>
     <ol class='glosses numbered'>
       {{#each lexeme.senses as |sense| }}
         <li class=tln>{{mls sense.gloss }}</li>
@@ -26,11 +35,11 @@
     <div class=transcriptions>
 
       <label class=label for=lemma>Lemma</label>
-      {{> MultiOrthoTranscription/MultiOrthoTranscription txn=lexeme.lemma lang=language.iso attributes='id=lemma' }}
+      {{> MultiOrthoTranscription/MultiOrthoTranscription data=lexeme.lemma lang=language.iso attributes='id=lemma' }}
 
       <label class=label for=citation-form>Citation Form</label>
       {{#if lexeme.citationForm}}
-        {{> MultiOrthoTranscription/MultiOrthoTranscription txn=lexeme.citationForm lang=language.iso attributes='id=citation-form' }}
+        {{> MultiOrthoTranscription/MultiOrthoTranscription data=lexeme.citationForm lang=language.iso attributes='id=citation-form' }}
       {{else}}
         <span id=citation-form>—</span>
       {{/if}}
@@ -44,7 +53,7 @@
         <dt class=label for=morph-type>Morph Type:</dt>
         <dd id=morph-type>
           {{#if lexeme.morphType }}
-            {{> MultiLangString/MultiLangString lexeme.morphType }}
+            {{> MultiLangString/MultiLangString data=lexeme.morphType }}
           {{else~}}
             —
           {{~/if}}
@@ -53,7 +62,7 @@
         <dt class=label for=slot>Slot:</dt>
         <dd id=slot>
           {{#if lexeme.slot }}
-            {{> MultiLangString/MultiLangString lexeme.slot }}
+            {{> MultiLangString/MultiLangString data=lexeme.slot }}
           {{else~}}
             —
           {{~/if}}
@@ -72,6 +81,16 @@
   <section class=panel role=tabpanel id=metadata aria-labelledby=metadata-link>
 
     <fieldset class='def-list metadata-props'>
+
+      <label class=label for=language-name>Language Name</label>
+      {{> MultiLangString/MultiLangString data=language.name attributes='id=language-name' }}
+
+      <label class=label for=language-autonym>Language Autonym</label>
+      {{#if (obj language.autonym)}}
+        {{> MultiOrthoTranscription/MultiOrthoTranscription data=language.autonym attributes='id=language-autonym' }}
+      {{else}}
+        <span id=language-autonym>—</span>
+      {{/if}}
 
       <label class=label for=url>URL:</label>
       <output class=box-input id=url>https://data.digitallinguistics.io/languages/{{ language.id }}/lexemes/{{ lexeme.id }}</output>
@@ -98,7 +117,7 @@
           {{/each}}
         </ul>
       {{else}}
-        <p id=tags>None.</p>
+        <span id=tags>None.</span>
       {{/if}}
 
       <label class=label for=references>References:</label>
@@ -120,7 +139,7 @@
 
         </div>
       {{else}}
-        <p class=references>None.</p>
+        <span class=references>None.</span>
       {{/if}}
 
     </fieldset>
