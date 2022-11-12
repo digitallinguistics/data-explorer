@@ -1,3 +1,27 @@
+# Arapaho
+
+- id:           9471ed59-5b56-4379-81dc-fa56555cdfd1
+  dateCreated:  2022-01-01T00:00:00Z
+  dateModified: 2022-01-01T00:00:00Z
+  language:     e2b3b685-fd01-40ea-96ae-cb22f2511cd1
+  link:         https://data.digitallinguistics.io/languages/e2b3b685-fd01-40ea-96ae-cb22f2511cd1/lexemes/9471ed59-5b56-4379-81dc-fa56555cdfd1
+  type:         Lexeme
+  bibliography:
+    - id:      CowellMoss2008
+      locator: 180, 203, 293, 295
+  lemma:
+    default: eeɜ
+  morphType:
+    eng: root
+  projects:
+    - c554474c-7f39-4ede-941b-c40b8f58b059 # Nisinoon
+  senses:
+    - gloss: how
+  slot:
+    eng: initial
+  tags:
+    'relative root': true
+
 # Chitimacha
 
 - id:           abc56564-5754-4698-845c-2ea32a760bbd
@@ -23,6 +47,12 @@
     - gloss: walk
   slot:
     eng: stem
+  tags:
+    checked:         yes
+    ejectives:       0
+    irregular:       true
+    'movement verb': null
+    syllables:       1
 
 - id:           1a28ce6c-6721-41a1-9209-7a50f77e5244
   dateCreated:  2022-01-01T00:00:00.000Z
@@ -93,7 +123,7 @@
   link:         https://data.digitallinguistics.io/languages/5fc405aa-a1a3-41e5-a80d-adb9dfbaa293/lexemes/53b003db-2927-4306-9230-aae501e44d6f
   type:         Lexeme
   lemma:
-    Men: sūniyanikamek
+    default: sūniyanikamek
   projects:
     - c554474c-7f39-4ede-941b-c40b8f58b059 # Nisinoon
     - 26d40299-98fb-48c8-b51f-e62397269817 # Menominee Dictionary Project
@@ -107,7 +137,7 @@
   link:         https://data.digitallinguistics.io/languages/5fc405aa-a1a3-41e5-a80d-adb9dfbaa293/lexemes/11879394-ddf9-431d-9948-c75129e76b36
   type:         Lexeme
   lemma:
-    Men: sūniyanikamekmahka͞esen
+    default: sūniyanikamekmahka͞esen
   projects:
     - 26d40299-98fb-48c8-b51f-e62397269817 # Menominee Dictionary Project (NOT included in Nisinoon)
   senses:
@@ -121,7 +151,7 @@
   link:         https://data.digitallinguistics.io/languages/5fc405aa-a1a3-41e5-a80d-adb9dfbaa293/lexemes/2eb35661-8e27-461a-820c-20c0a0a56c67
   type:         Lexeme
   lemma:
-    Men: wāqnenekan
+    default: wāqnenekan
   projects:
     - c554474c-7f39-4ede-941b-c40b8f58b059 # Nisinoon
     - 26d40299-98fb-48c8-b51f-e62397269817 # Menominee Dictionary Project
