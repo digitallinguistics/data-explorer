@@ -82,6 +82,23 @@
       <label class=label for=date-modified>Date Modified:</label>
       <output id=date-modified>{{date lexeme.dateModified }}</output>
 
+      <label for=tags>Tags:</label>
+      {{#if lexeme.tags}}
+        <ul>
+          {{#each lexeme.tags as |tag| }}
+            <li class=tag>
+              {{#if this includeZero=true }}
+                {{ @key }}: {{ this }}
+              {{else}}
+                {{ @key }}
+              {{/if}}
+            </li>
+          {{/each}}
+        </ul>
+      {{else}}
+        <p class=tags>None.</p>
+      {{/if}}
+
       <label class=label for=references>References:</label>
       {{#if references}}
         <div>
@@ -89,7 +106,7 @@
           <span class=help-text>Hover over a citation to see its full bibliographic entry. Click to view the page for the entry.</span>
 
           <ul class=references>
-            {{#each references as |reference|}}
+            {{#each references as |reference| }}
               {{!-- Keep the <li> and <a> on the same line to avoid extra whitespace in the rendered page. --}}
               <li class='citation tag' title='{{ reference.custom.bibEntry.text }}'><a href='/references/{{ reference.id }}'>{{ reference.custom.citation }}</a></li>
             {{/each}}
