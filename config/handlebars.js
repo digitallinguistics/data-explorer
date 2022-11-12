@@ -68,6 +68,7 @@ function section(name, opts) {
  * @returns {String}
  */
 function mot(data, ortho) {
+  if (!data) return ``
   if (typeof data === `string`) return prepareTranscription(data)
   return prepareTranscription(getDefaultOrthography(data, ortho))
 }

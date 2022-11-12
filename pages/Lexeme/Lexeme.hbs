@@ -5,21 +5,25 @@
 <main id=main class=lexeme-page>
 
   <header class=header>
+
     <h1 class=page-title lang='{{ language.iso }}'>{{mot lexeme.lemma language.defaultOrthography }}</h1>
+
     <span class=language>
       {{~#if language.name ~}}
-        {{mls language.name language.defaultAnalysisLanguage }}
+        <a class='link' href='/languages/{{ language.id }}'>{{mls language.name language.defaultAnalysisLanguage }}</a>
       {{~/if~}}
       {{~#if (all language.name language.autonym) }} | {{/if~}}
       {{~#if language.autonym ~}}
-        <span class=txn>{{mot language.autonym language.defaultOrthography }}</span>
+        <a class='link txn' href='/languages/{{ language.id }}'>{{mot language.autonym language.defaultOrthography }}</a>
       {{~/if~}}
     </span>
+
     <ol class='glosses numbered'>
       {{#each lexeme.senses as |sense| }}
         <li class=tln>{{mls sense.gloss }}</li>
       {{/each}}
     </ol>
+
   </header>
 
   <nav>
