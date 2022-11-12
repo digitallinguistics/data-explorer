@@ -1,6 +1,7 @@
 @import 'Bulleted/Bulleted.less';
 @import 'BoxInput/BoxInput.less';
 @import 'Cite/Cite.less';
+@import 'Code/Code.less';
 @import 'DefinitionList/DefinitionList.less';
 @import 'HelpText/HelpText.less';
 @import 'Label/Label.less';
@@ -41,12 +42,7 @@ body:target #form {
   }
 
   .citation {
-
     --tag-color: var(--indigo-1);
-
-    display            : inline;
-    margin-inline-start: var(--space-xxxs);
-
   }
 
   #citation-form {
@@ -98,12 +94,10 @@ body:target #form {
     display: none;
   }
 
-  .references {
-    display: inline;
-  }
-
-  ul.references {
-    margin-inline-start: calc(var(--space-xxxs) * -1); // aligns first tag vertically
+  .tags-list {
+    flex-direction: row;
+    flex-wrap     : wrap;
+    gap           : var(--space-xs);
   }
 
   .transcriptions {
@@ -129,9 +123,13 @@ body:target #form {
   }
 
   .tabs {
-    box-shadow   : inset 0em calc(var(--border-width) * -1) var(--border-color);
-    font-size    : large;
-    inline-size  : 100%;
+    box-shadow : inset 0em calc(var(--border-width) * -1) var(--border-color);
+    font-size  : large;
+    inline-size: 100%;
+  }
+
+  #tags .tag {
+    --tag-color: var(--cyan-1);
   }
 
   #url {

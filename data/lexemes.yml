@@ -20,7 +20,7 @@
   slot:
     eng: initial
   tags:
-    'relative root': true
+    'relative root': null
 
 # Chitimacha
 
@@ -47,12 +47,6 @@
     - gloss: walk
   slot:
     eng: stem
-  tags:
-    checked:         yes
-    ejectives:       0
-    irregular:       true
-    'movement verb': null
-    syllables:       1
 
 - id:           1a28ce6c-6721-41a1-9209-7a50f77e5244
   dateCreated:  2022-01-01T00:00:00.000Z
@@ -231,6 +225,12 @@
     - c554474c-7f39-4ede-941b-c40b8f58b059 # Nisinoon
   senses:
     - gloss: axe
+  tags:
+    checked:         yes
+    elicited:        null
+    irregular:       false
+    preverbs:        0
+    syllables:       4
 
 - id:           3a3df0ac-04be-4fe7-985d-cf5895b745ee
   dateCreated:  2022-01-01T00:00:00.000Z

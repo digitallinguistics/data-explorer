@@ -18,6 +18,14 @@ function date(d, type = `short`) {
   return new Date(d).toLocaleDateString(`en-CA`)
 }
 
+function isFalse(value) {
+  return value === false
+}
+
+function isNull(value) {
+  return value === null
+}
+
 /**
  * Renders the given analysis language for a MultiLangString.
  * @param   {MultiLangString} data The MultiLangString object to render.
@@ -54,6 +62,8 @@ const hbs = new ExpressHandlebars({
   extname:       `hbs`,
   helpers:       {
     date,
+    isFalse,
+    isNull,
     mls,
     mot,
     number,
