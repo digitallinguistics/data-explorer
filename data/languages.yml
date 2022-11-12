@@ -1,3 +1,26 @@
+- id:                      e2b3b685-fd01-40ea-96ae-cb22f2511cd1
+  abbrevation:             arp
+  dateCreated:             2022-11-11T00:00:00.000Z
+  dateModified:            2022-11-11T00:00:00.000Z
+  defaultAnalysisLanguage: eng
+  defaultOrthography:      default
+  glottocode:              arap1274
+  iso:                     arp
+  type:                    Language
+  autonym:
+    default: Hinónoʼeitíít
+  description:
+    html: This is the description for the Arapaho language.
+    text: This is the description for the Arapaho language.
+  name:
+    eng: Arapaho
+  permissions:
+    owners:  [owner@digitallinguistics.io]
+    editors: []
+    viewers: []
+    public:  true
+  projects: [c554474c-7f39-4ede-941b-c40b8f58b059] # Nisinoon (Public Project)
+
 - id:                      cc4978f6-13a9-4735-94c5-10e4e8030437
   abbreviation:            chiti
   dateCreated:             2022-01-01T00:00:00.000Z
