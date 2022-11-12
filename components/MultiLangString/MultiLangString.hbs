@@ -1,5 +1,5 @@
-<dl class=mls>
-  {{#each this as |value| }}
+<dl class=mls {{{ attributes }}}>
+  {{#each data as |value| }}
     <dt class=label-sm>{{ @key }}</dt>
     <dd lang='{{ @key }}'>{{ value }}</dd>
   {{/each}}

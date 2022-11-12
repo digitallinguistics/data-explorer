@@ -48,11 +48,12 @@ describe(`Lexeme page`, function() {
     // page title
     cy.title().should(`eq`, `Oxalis | ${ data.lemma.SRO }`)
 
-    // summary details
+    // SUMMARY
     cy.contains(`.page-title`, data.lemma.SRO)
-    cy.contains(`header`, data.senses[0].gloss)
+    cy.contains(`.header`, data.senses[0].gloss)
+    cy.get(`.header .language`).should(`have.text`, `Plains Cree | nêhiyawêwin`)
 
-    // Form Tab (default)
+    // FORM TAB (default)
     cy.hash().should(`eq`, ``)
     cy.get(`#form`).should(`be.visible`)
 
@@ -66,19 +67,23 @@ describe(`Lexeme page`, function() {
     // Morph Type
     cy.contains(`#morph-type`, `stem`)
 
-    // Meaning Tab
+    // MEANING TAB
     cy.get(`#meaning-link`).click()
     cy.hash().should(`eq`, `#meaning`)
     cy.get(`#meaning`).should(`be.visible`)
     cy.get(`#form`).should(`not.be.visible`)
 
-    // Metadata Tab
+    // METADATA TAB
     cy.get(`#metadata-link`).click()
     cy.hash().should(`eq`, `#metadata`)
     cy.get(`#metadata`).should(`be.visible`)
     cy.get(`#meaning`).should(`not.be.visible`)
 
-    // Metadata
+    // Language Details
+    cy.get(`#language-name`).should(`include.text`, `Plains Cree`)
+    cy.get(`#language-autonym`).should(`include.text`, `nêhiyawêwin`)
+
+    // Metadata Properties
     cy.get(`#url`).should(`have.text`, data.link)
     cy.get(`#date-created`).should(`have.text`, new Date(data.dateCreated).toLocaleDateString(`en-CA`))
     cy.get(`#date-modified`).should(`have.text`, new Date(data.dateModified).toLocaleDateString(`en-CA`))
@@ -127,6 +132,8 @@ describe(`Lexeme page`, function() {
       cy.contains(`#citation-form`, `t͡ʃuji`)
 
     })
+
+    it(`Language Autonym (without data)`)
 
   })
 

@@ -61,7 +61,7 @@ describe(`Language Page`, function() {
     .filter(`dd`)
     .then(([SRO, syl]) => {
       expect(SRO).to.contain(data.autonym.SRO)
-      expect(syl).contain(data.autonym.syl)
+      expect(syl).contain(data.autonym.syllabics)
     })
 
     // Language Codes

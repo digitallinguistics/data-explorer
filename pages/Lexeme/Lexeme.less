@@ -12,6 +12,7 @@
 @import 'MultiOrthoTranscription/MultiOrthoTranscription.less';
 @import 'SectionHeader/SectionHeader.less';
 @import 'Tag/Tag.less';
+@import 'Transcription/Transcription.less';
 
 // Handle case where the URL has no hash.
 body:target #form {
@@ -59,8 +60,21 @@ body:target #form {
     padding       : var(--space-sm);
   }
 
-  .glosses {
-    padding: var(--text-padding);
+  .header {
+
+    flex-direction : row;
+    flex-wrap      : wrap;
+    justify-content: space-between;
+
+    .glosses {
+      inline-size: 100%;
+      padding    : var(--text-padding);
+    }
+
+    .language {
+      padding: var(--text-padding-lg);
+    }
+
   }
 
   .help-text {

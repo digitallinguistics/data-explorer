@@ -71,7 +71,11 @@
 
         {{!-- autonym --}}
         <td class=autonym>
-          <a class=link href='/languages/{{ id }}'>{{mot autonym defaultOrthography }}</a>
+          {{~#if (obj autonym) ~}}
+            <a class=link href='/languages/{{ id }}'>{{mot autonym defaultOrthography }}</a>
+          {{~else~}}
+            —
+          {{~/if~}}
         </td>
 
         {{!-- abbreviation --}}

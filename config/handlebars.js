@@ -18,6 +18,17 @@ function date(d, type = `short`) {
   return new Date(d).toLocaleDateString(`en-CA`)
 }
 
+/**
+ * Checks to see whether the object passed to the helper has any data in it (any keys), and whether the object exists at all.
+ */
+function all(...args) {
+  return args.every(arg => {
+    if (!arg) return false
+    if (Array.isArray(arg) && !arg.length) return false
+    return Object.keys(arg).length > 0
+  })
+}
+
 function isFalse(value) {
   return value === false
 }
@@ -40,6 +51,10 @@ function number(num) {
   return Number(num).toLocaleString()
 }
 
+function obj(value) {
+  return value && Object.keys(value).length > 0
+}
+
 function section(name, opts) {
   this.sections       ??= {}
   this.sections[name]   = opts.fn(this)
@@ -53,6 +68,7 @@ function section(name, opts) {
  * @returns {String}
  */
 function mot(data, ortho) {
+  if (!data) return ``
   if (typeof data === `string`) return prepareTranscription(data)
   return prepareTranscription(getDefaultOrthography(data, ortho))
 }
@@ -61,12 +77,14 @@ const hbs = new ExpressHandlebars({
   defaultLayout: `main/main.hbs`,
   extname:       `hbs`,
   helpers:       {
+    all,
     date,
     isFalse,
     isNull,
     mls,
     mot,
     number,
+    obj,
     section,
   },
   layoutsDir:    path.resolve(__dirname, `../layouts`),
