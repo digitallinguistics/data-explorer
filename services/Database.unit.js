@@ -17,9 +17,9 @@ describe(`Database`, function() {
   before(async function() {
 
     const languagesYAML = await readFile(`data/languages.yml`, `utf8`)
-    const languages     = yamlParser.load(languagesYAML)
 
-    this.language = languages.find(lang => lang.id === languageID)
+    this.languages = yamlParser.load(languagesYAML)
+    this.language  = this.languages.find(lang => lang.id === languageID)
 
     const lexemesYAML = await readFile(`data/lexemes.yml`, `utf8`)
 
@@ -81,14 +81,14 @@ describe(`Database`, function() {
       const db = new Database
       const { data, status } = await db.getLanguages()
       expect(status).to.equal(200)
-      expect(data).to.have.lengthOf(6)
+      expect(data).to.have.lengthOf(this.languages.length)
     })
 
     it(`option: project`, async function() {
       const db = new Database
       const { data, status } = await db.getLanguages({ project: projectID })
       expect(status).to.equal(200)
-      expect(data).to.have.lengthOf(4)
+      expect(data).to.have.lengthOf(5)
       expect(data.every(language => language.projects.includes(projectID))).to.be.true
     })
 
