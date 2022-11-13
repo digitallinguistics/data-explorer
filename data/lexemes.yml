@@ -79,9 +79,9 @@
       relation:     Compare
       relationType: open set
       members:
-        - d1cb976b-23b4-4758-aa9d-c7bfa3ed8ee4 # ci-
-        - 5fa2fd0c-527c-47f1-b297-fbee78c29763 # pe-
+        - d1cb976b-23b4-4758-aa9d-c7bfa3ed8ee4 # ci- <- this
         - 6a7915d6-085f-46f8-98ba-6555d761a943 # hi-
+        - 5fa2fd0c-527c-47f1-b297-fbee78c29763 # pe-
   lemma:
     Modern:  ci-
     Swadesh: či-
@@ -136,8 +136,8 @@
       relationType: open set
       members:
         - d1cb976b-23b4-4758-aa9d-c7bfa3ed8ee4 # ci-
+        - 6a7915d6-085f-46f8-98ba-6555d761a943 # hi- <- this
         - 5fa2fd0c-527c-47f1-b297-fbee78c29763 # pe-
-        - 6a7915d6-085f-46f8-98ba-6555d761a943 # hi-
   lemma:
     Modern:  hi-
     Swadesh: hi-
@@ -208,8 +208,8 @@
       relationType: open set
       members:
         - d1cb976b-23b4-4758-aa9d-c7bfa3ed8ee4 # ci-
-        - 5fa2fd0c-527c-47f1-b297-fbee78c29763 # pe-
         - 6a7915d6-085f-46f8-98ba-6555d761a943 # hi-
+        - 5fa2fd0c-527c-47f1-b297-fbee78c29763 # pe- <- this
   lemma:
     Modern:  pe-
     Swadesh: pe-
@@ -256,6 +256,14 @@
   bibliography:
     - id:      Rhodes1980
       locator: 196
+  crossReferences:
+    - relation:     Animacy/Transitivity Matches
+      relationType: enumerated set
+      members:
+        AI:
+        II:
+        TA: 99c7f697-2613-437a-b729-f612dd0045a0 # peN <- this
+        TI: bfddb47b-6a84-4a14-b267-131193c41bf9 # petō
   lemma:
     Nisinoon:   peN
     'MN:WNALP': peN
@@ -278,6 +286,14 @@
   bibliography:
     - id:      Rhodes1980
       locator: 196
+  crossReferences:
+    - relation:     Animacy/Transitivity Matches
+      relationType: enumerated set
+      members:
+        AI:
+        II:
+        TA: 99c7f697-2613-437a-b729-f612dd0045a0 # peN
+        TI: bfddb47b-6a84-4a14-b267-131193c41bf9 # petō <- this
   lemma:
     Nisinoon:   petoo
     'MN:WNALP': petō
