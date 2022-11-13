@@ -74,6 +74,14 @@
     Modern:  ciqi
     Swadesh: čiʔi
     IPA:     t͡ʃiʔi
+  crossReferences:
+    - label:        compare
+      relation:     Compare
+      relationType: open set
+      members:
+        - d1cb976b-23b4-4758-aa9d-c7bfa3ed8ee4 # ci-
+        - 5fa2fd0c-527c-47f1-b297-fbee78c29763 # pe-
+        - 6a7915d6-085f-46f8-98ba-6555d761a943 # hi-
   lemma:
     Modern:  ci-
     Swadesh: či-
@@ -122,6 +130,14 @@
     Modern:  hiqi
     Swadesh: hiʔi
     IPA:     hiʔi
+  crossReferences:
+    - label:        compare
+      relation:     Compare
+      relationType: open set
+      members:
+        - d1cb976b-23b4-4758-aa9d-c7bfa3ed8ee4 # ci-
+        - 5fa2fd0c-527c-47f1-b297-fbee78c29763 # pe-
+        - 6a7915d6-085f-46f8-98ba-6555d761a943 # hi-
   lemma:
     Modern:  hi-
     Swadesh: hi-
@@ -186,6 +202,14 @@
     Modern:  peqe
     Swadesh: peʔe
     IPA:     peʔe
+  crossReferences:
+    - label:        compare
+      relation:     Compare
+      relationType: open set
+      members:
+        - d1cb976b-23b4-4758-aa9d-c7bfa3ed8ee4 # ci-
+        - 5fa2fd0c-527c-47f1-b297-fbee78c29763 # pe-
+        - 6a7915d6-085f-46f8-98ba-6555d761a943 # hi-
   lemma:
     Modern:  pe-
     Swadesh: pe-
