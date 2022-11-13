@@ -110,6 +110,50 @@
   slot:
     eng: final
 
+- id:           99c7f697-2613-437a-b729-f612dd0045a0
+  dateCreated:  2022-11-12T00:00:00.000Z
+  dateModified: 2022-11-12T00:00:00.000Z
+  language:     5fc405aa-a1a3-41e5-a80d-adb9dfbaa293 # Menominee
+  link:         https://data.digitallinguistics.io/languages/5fc405aa-a1a3-41e5-a80d-adb9dfbaa293/lexemes/99c7f697-2613-437a-b729-f612dd0045a0
+  type:         Lexeme
+  bibliography:
+    - id:      Rhodes1980
+      locator: 196
+  lemma:
+    Nisinoon:   peN
+    'MN:WNALP': peN
+  morphType:
+    eng: suffix
+  projects:
+    - c554474c-7f39-4ede-941b-c40b8f58b059 # Nisinoon
+  senses:
+    - gloss: tie
+      # category: TA
+  slot:
+    eng: final
+
+- id:           bfddb47b-6a84-4a14-b267-131193c41bf9
+  dateCreated:  2022-11-12T00:00:00.000Z
+  dateModified: 2022-11-12T00:00:00.000Z
+  language:     5fc405aa-a1a3-41e5-a80d-adb9dfbaa293 # Menominee
+  link:         https://data.digitallinguistics.io/languages/5fc405aa-a1a3-41e5-a80d-adb9dfbaa293/lexemes/bfddb47b-6a84-4a14-b267-131193c41bf9
+  type:         Lexeme
+  bibliography:
+    - id:      Rhodes1980
+      locator: 196
+  lemma:
+    Nisinoon:   petoo
+    'MN:WNALP': petō
+  morphType:
+    eng: suffix
+  projects:
+    - c554474c-7f39-4ede-941b-c40b8f58b059 # Nisinoon
+  senses:
+    - gloss: tie
+      # category: TI
+  slot:
+    eng: final
+
 - id:           53b003db-2927-4306-9230-aae501e44d6f
   dateCreated:  2022-01-01T00:00:00.000Z
   dateModified: 2022-01-02T00:00:00.000Z
