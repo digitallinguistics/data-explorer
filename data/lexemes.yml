@@ -138,6 +138,12 @@
         - d1cb976b-23b4-4758-aa9d-c7bfa3ed8ee4 # ci-
         - 6a7915d6-085f-46f8-98ba-6555d761a943 # hi- <- this
         - 5fa2fd0c-527c-47f1-b297-fbee78c29763 # pe-
+    - label:        see also
+      relation:     See Also
+      relationType: open set
+      members:
+        - 6a7915d6-085f-46f8-98ba-6555d761a943 # hi- <- this
+        - ba46b22a-6837-4797-ba99-77117f1e9272 # qix-
   lemma:
     Modern:  hi-
     Swadesh: hi-
@@ -223,6 +229,38 @@
     - gloss: AUX(HORIZ)
   slot:
     eng: stem
+
+- id:           ba46b22a-6837-4797-ba99-77117f1e9272
+  dateCreated:  2022-11-13T00:00:00.000Z
+  dateModified: 2022-11-13T00:00:00.000Z
+  language:     cc4978f6-13a9-4735-94c5-10e4e8030437 # Chitimacha
+  link:         https://data.digitallinguistics.io/languages/cc4978f6-13a9-4735-94c5-10e4e8030437/lexemes/ba46b22a-6837-4797-ba99-77117f1e9272
+  type:         Lexeme
+  citationForm:
+    Modern:  qixi
+    Swadesh: ʔiši
+    IPA:     ʔiʃi
+  crossReferences:
+    - label:        see also
+      relation:     See Also
+      relationType: open set
+      members:
+        - 6a7915d6-085f-46f8-98ba-6555d761a943 # hi-
+        - ba46b22a-6837-4797-ba99-77117f1e9272 # qix- <- this
+  lemma:
+    Modern:  qix-
+    Swadesh: ʔiš-
+    IPA:     ʔiʃ-
+  morphType:
+    eng: stem
+  projects:
+    - 683a5d27-53bf-451b-80d1-f6e731674c9e # Chitimacha Dictionary Project
+  senses:
+    - gloss: COP(EMPH)
+    - gloss: AUX(EMPH)
+  slot:
+    eng: stem
+
 
 # Menominee
 
