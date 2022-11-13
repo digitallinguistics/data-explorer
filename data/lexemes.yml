@@ -10,7 +10,7 @@
     - id:      CowellMoss2008
       locator: 180, 203, 293, 295
   lemma:
-    default: eeɜ
+    'AR:1': eeɜ-
   morphType:
     eng: root
   projects:
@@ -21,6 +21,46 @@
     eng: initial
   tags:
     'relative root': null
+
+- id:           f19f279b-97a5-4e07-bae0-7bb67699e745
+  dateCreated:  2022-01-01T00:00:00Z
+  dateModified: 2022-01-01T00:00:00Z
+  language:     e2b3b685-fd01-40ea-96ae-cb22f2511cd1
+  link:         https://data.digitallinguistics.io/languages/e2b3b685-fd01-40ea-96ae-cb22f2511cd1/lexemes/f19f279b-97a5-4e07-bae0-7bb67699e745
+  type:         Lexeme
+  bibliography:
+    - id:      CowellMoss2008
+      locator: 179, 221
+  crossReferences:
+    - label:          deverbal from
+      referencedItem: 3742294d-9887-47bb-b778-a23e78a9209a
+      relation:       Deverbal
+      relationType:   unidirectional
+  lemma:
+    'AR:1': wo'oteen-
+  senses:
+    - black
+  slot:
+    eng: initial
+  tags:
+    deverbal: null
+
+- id:           3742294d-9887-47bb-b778-a23e78a9209a
+  dateCreated:  2022-01-01T00:00:00Z
+  dateModified: 2022-01-01T00:00:00Z
+  language:     e2b3b685-fd01-40ea-96ae-cb22f2511cd1
+  link:         https://data.digitallinguistics.io/languages/e2b3b685-fd01-40ea-96ae-cb22f2511cd1/lexemes/3742294d-9887-47bb-b778-a23e78a9209a
+  type:         Lexeme
+  bibliography:
+    - id:      CowellMoss2008
+      locator: 221
+  lemma:
+    'AR:1': wo'oteeneihi
+  senses:
+    - gloss: to be black
+      # category: AI
+  slot:
+    eng: stem
 
 # Chitimacha
 
