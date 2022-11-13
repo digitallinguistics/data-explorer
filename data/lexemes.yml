@@ -64,6 +64,30 @@
 
 # Chitimacha
 
+- id:           d1cb976b-23b4-4758-aa9d-c7bfa3ed8ee4
+  dateCreated:  2022-11-13T00:00:00.000Z
+  dateModified: 2022-11-13T00:00:00.000Z
+  language:     cc4978f6-13a9-4735-94c5-10e4e8030437 # Chitimacha
+  link:         https://data.digitallinguistics.io/languages/cc4978f6-13a9-4735-94c5-10e4e8030437/lexemes/d1cb976b-23b4-4758-aa9d-c7bfa3ed8ee4
+  type:         Lexeme
+  citationForm:
+    Modern:  ciqi
+    Swadesh: čiʔi
+    IPA:     t͡ʃiʔi
+  lemma:
+    Modern:  ci-
+    Swadesh: či-
+    IPA:     t͡ʃi-
+  morphType:
+    eng: stem
+  projects:
+    - 683a5d27-53bf-451b-80d1-f6e731674c9e # Chitimacha Dictionary Project
+  senses:
+    - gloss: COP(VERT)
+    - gloss: AUX(VERT)
+  slot:
+    eng: stem
+
 - id:           abc56564-5754-4698-845c-2ea32a760bbd
   dateCreated:  2022-01-01T00:00:00.000Z
   dateModified: 2022-01-02T00:00:00.000Z
@@ -88,21 +112,28 @@
   slot:
     eng: stem
 
-- id:           1a28ce6c-6721-41a1-9209-7a50f77e5244
-  dateCreated:  2022-01-01T00:00:00.000Z
-  dateModified: 2022-01-02T00:00:00.000Z
+- id:           6a7915d6-085f-46f8-98ba-6555d761a943
+  dateCreated:  2022-11-13T00:00:00.000Z
+  dateModified: 2022-11-13T00:00:00.000Z
   language:     cc4978f6-13a9-4735-94c5-10e4e8030437 # Chitimacha
-  link:         https://data.digitallinguistics.io/languages/cc4978f6-13a9-4735-94c5-10e4e8030437/lexemes/1a28ce6c-6721-41a1-9209-7a50f77e5244
+  link:         https://data.digitallinguistics.io/languages/cc4978f6-13a9-4735-94c5-10e4e8030437/lexemes/6a7915d6-085f-46f8-98ba-6555d761a943
   type:         Lexeme
   citationForm:
+    Modern:  hiqi
+    Swadesh: hiʔi
+    IPA:     hiʔi
   lemma:
-    Modern:  panx
-    Swadesh: panš
-    IPA:     panʃ
+    Modern:  hi-
+    Swadesh: hi-
+    IPA:     hi-
+  morphType:
+    eng: stem
   projects:
     - 683a5d27-53bf-451b-80d1-f6e731674c9e # Chitimacha Dictionary Project
   senses:
-    - gloss: person
+    - gloss: COP(NEUT)
+    - gloss: AUX(NEUT)
+    - gloss: equal
   slot:
     eng: stem
 
@@ -124,6 +155,48 @@
     - 683a5d27-53bf-451b-80d1-f6e731674c9e # Chitimacha Dictionary Project
   senses:
     - gloss: good
+  slot:
+    eng: stem
+
+- id:           1a28ce6c-6721-41a1-9209-7a50f77e5244
+  dateCreated:  2022-01-01T00:00:00.000Z
+  dateModified: 2022-01-02T00:00:00.000Z
+  language:     cc4978f6-13a9-4735-94c5-10e4e8030437 # Chitimacha
+  link:         https://data.digitallinguistics.io/languages/cc4978f6-13a9-4735-94c5-10e4e8030437/lexemes/1a28ce6c-6721-41a1-9209-7a50f77e5244
+  type:         Lexeme
+  citationForm:
+  lemma:
+    Modern:  panx
+    Swadesh: panš
+    IPA:     panʃ
+  projects:
+    - 683a5d27-53bf-451b-80d1-f6e731674c9e # Chitimacha Dictionary Project
+  senses:
+    - gloss: person
+  slot:
+    eng: stem
+
+- id:           5fa2fd0c-527c-47f1-b297-fbee78c29763
+  dateCreated:  2022-11-13T00:00:00.000Z
+  dateModified: 2022-11-13T00:00:00.000Z
+  language:     cc4978f6-13a9-4735-94c5-10e4e8030437 # Chitimacha
+  link:         https://data.digitallinguistics.io/languages/cc4978f6-13a9-4735-94c5-10e4e8030437/lexemes/5fa2fd0c-527c-47f1-b297-fbee78c29763
+  type:         Lexeme
+  citationForm:
+    Modern:  peqe
+    Swadesh: peʔe
+    IPA:     peʔe
+  lemma:
+    Modern:  pe-
+    Swadesh: pe-
+    IPA:     pe-
+  morphType:
+    eng: stem
+  projects:
+    - 683a5d27-53bf-451b-80d1-f6e731674c9e # Chitimacha Dictionary Project
+  senses:
+    - gloss: COP(HORIZ)
+    - gloss: AUX(HORIZ)
   slot:
     eng: stem
 
