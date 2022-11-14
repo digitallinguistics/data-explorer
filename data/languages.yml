@@ -3,7 +3,7 @@
   dateCreated:             2022-11-11T00:00:00.000Z
   dateModified:            2022-11-11T00:00:00.000Z
   defaultAnalysisLanguage: eng
-  defaultOrthography:      default
+  defaultOrthography:      'AR:1'
   glottocode:              arap1274
   iso:                     arp
   type:                    Language

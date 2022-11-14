@@ -10,7 +10,7 @@
     - id:      CowellMoss2008
       locator: 180, 203, 293, 295
   lemma:
-    default: eeɜ
+    'AR:1': eeɜ-
   morphType:
     eng: root
   projects:
@@ -22,7 +22,97 @@
   tags:
     'relative root': null
 
+- id:           f19f279b-97a5-4e07-bae0-7bb67699e745
+  dateCreated:  2022-01-01T00:00:00Z
+  dateModified: 2022-01-01T00:00:00Z
+  language:     e2b3b685-fd01-40ea-96ae-cb22f2511cd1
+  link:         https://data.digitallinguistics.io/languages/e2b3b685-fd01-40ea-96ae-cb22f2511cd1/lexemes/f19f279b-97a5-4e07-bae0-7bb67699e745
+  type:         Lexeme
+  bibliography:
+    - id:      CowellMoss2008
+      locator: 179, 221
+  crossReferences:
+    - id:             3742294d-9887-47bb-b778-a23e78a9209a
+      label:          deverbal from
+      lemma:
+        'AR:1': wo'oteeneihi
+      relation:       Deverbal
+      relationType:   unidirectional
+  lemma:
+    'AR:1': wo'oteen-
+  projects:
+    - c554474c-7f39-4ede-941b-c40b8f58b059 # Nisinoon
+  senses:
+    - gloss: black
+  slot:
+    eng: initial
+  tags:
+    deverbal: null
+
+- id:           3742294d-9887-47bb-b778-a23e78a9209a
+  dateCreated:  2022-01-01T00:00:00Z
+  dateModified: 2022-01-01T00:00:00Z
+  language:     e2b3b685-fd01-40ea-96ae-cb22f2511cd1
+  link:         https://data.digitallinguistics.io/languages/e2b3b685-fd01-40ea-96ae-cb22f2511cd1/lexemes/3742294d-9887-47bb-b778-a23e78a9209a
+  type:         Lexeme
+  bibliography:
+    - id:      CowellMoss2008
+      locator: 221
+  lemma:
+    'AR:1': wo'oteeneihi
+  projects:
+    - c554474c-7f39-4ede-941b-c40b8f58b059 # Nisinoon
+  senses:
+    - gloss: to be black
+      # category: AI
+  slot:
+    eng: stem
+
 # Chitimacha
+
+- id:           d1cb976b-23b4-4758-aa9d-c7bfa3ed8ee4
+  dateCreated:  2022-11-13T00:00:00.000Z
+  dateModified: 2022-11-13T00:00:00.000Z
+  language:     cc4978f6-13a9-4735-94c5-10e4e8030437 # Chitimacha
+  link:         https://data.digitallinguistics.io/languages/cc4978f6-13a9-4735-94c5-10e4e8030437/lexemes/d1cb976b-23b4-4758-aa9d-c7bfa3ed8ee4
+  type:         Lexeme
+  citationForm:
+    Modern:  ciqi
+    Swadesh: čiʔi
+    IPA:     t͡ʃiʔi
+  crossReferences:
+    - label:        compare
+      relation:     Compare
+      relationType: open set
+      members:
+        - id:    d1cb976b-23b4-4758-aa9d-c7bfa3ed8ee4 # ci- <- this
+          lemma:
+            Modern:  ci-
+            Swadesh: či-
+            IPA:     t͡ʃi-
+        - id:    6a7915d6-085f-46f8-98ba-6555d761a943 # hi-
+          lemma:
+            Modern:  hi-
+            Swadesh: hi-
+            IPA:     hi-
+        - id:    5fa2fd0c-527c-47f1-b297-fbee78c29763 # pe-
+          lemma:
+            Modern:  pe-
+            Swadesh: pe-
+            IPA:     pe-
+  lemma:
+    Modern:  ci-
+    Swadesh: či-
+    IPA:     t͡ʃi-
+  morphType:
+    eng: stem
+  projects:
+    - 683a5d27-53bf-451b-80d1-f6e731674c9e # Chitimacha Dictionary Project
+  senses:
+    - gloss: COP(VERT)
+    - gloss: AUX(VERT)
+  slot:
+    eng: stem
 
 - id:           abc56564-5754-4698-845c-2ea32a760bbd
   dateCreated:  2022-01-01T00:00:00.000Z
@@ -48,21 +138,62 @@
   slot:
     eng: stem
 
-- id:           1a28ce6c-6721-41a1-9209-7a50f77e5244
-  dateCreated:  2022-01-01T00:00:00.000Z
-  dateModified: 2022-01-02T00:00:00.000Z
+- id:           6a7915d6-085f-46f8-98ba-6555d761a943
+  dateCreated:  2022-11-13T00:00:00.000Z
+  dateModified: 2022-11-13T00:00:00.000Z
   language:     cc4978f6-13a9-4735-94c5-10e4e8030437 # Chitimacha
-  link:         https://data.digitallinguistics.io/languages/cc4978f6-13a9-4735-94c5-10e4e8030437/lexemes/1a28ce6c-6721-41a1-9209-7a50f77e5244
+  link:         https://data.digitallinguistics.io/languages/cc4978f6-13a9-4735-94c5-10e4e8030437/lexemes/6a7915d6-085f-46f8-98ba-6555d761a943
   type:         Lexeme
   citationForm:
+    Modern:  hiqi
+    Swadesh: hiʔi
+    IPA:     hiʔi
+  crossReferences:
+    - label:        compare
+      relation:     Compare
+      relationType: open set
+      members:
+        - id:    d1cb976b-23b4-4758-aa9d-c7bfa3ed8ee4 # ci-
+          lemma:
+            Modern:  ci-
+            Swadesh: či-
+            IPA:     t͡ʃi-
+        - id:    6a7915d6-085f-46f8-98ba-6555d761a943 # hi- <- this
+          lemma:
+            Modern:  hi-
+            Swadesh: hi-
+            IPA:     hi-
+        - id:    5fa2fd0c-527c-47f1-b297-fbee78c29763 # pe-
+          lemma:
+            Modern:  pe-
+            Swadesh: pe-
+            IPA:     pe-
+    - label:        see also
+      relation:     See Also
+      relationType: open set
+      members:
+        - id: 6a7915d6-085f-46f8-98ba-6555d761a943 # hi- <- this
+          lemma:
+            Modern:  hi-
+            Swadesh: hi-
+            IPA:     hi-
+        - id: ba46b22a-6837-4797-ba99-77117f1e9272 # qix-
+          lemma:
+            Modern:  qix-
+            Swadesh: ʔiš-
+            IPA:     ʔiʃ-
   lemma:
-    Modern:  panx
-    Swadesh: panš
-    IPA:     panʃ
+    Modern:  hi-
+    Swadesh: hi-
+    IPA:     hi-
+  morphType:
+    eng: stem
   projects:
     - 683a5d27-53bf-451b-80d1-f6e731674c9e # Chitimacha Dictionary Project
   senses:
-    - gloss: person
+    - gloss: COP(NEUT)
+    - gloss: AUX(NEUT)
+    - gloss: be equal
   slot:
     eng: stem
 
@@ -87,6 +218,108 @@
   slot:
     eng: stem
 
+- id:           1a28ce6c-6721-41a1-9209-7a50f77e5244
+  dateCreated:  2022-01-01T00:00:00.000Z
+  dateModified: 2022-01-02T00:00:00.000Z
+  language:     cc4978f6-13a9-4735-94c5-10e4e8030437 # Chitimacha
+  link:         https://data.digitallinguistics.io/languages/cc4978f6-13a9-4735-94c5-10e4e8030437/lexemes/1a28ce6c-6721-41a1-9209-7a50f77e5244
+  type:         Lexeme
+  citationForm:
+  lemma:
+    Modern:  panx
+    Swadesh: panš
+    IPA:     panʃ
+  projects:
+    - 683a5d27-53bf-451b-80d1-f6e731674c9e # Chitimacha Dictionary Project
+  senses:
+    - gloss: person
+  slot:
+    eng: stem
+
+- id:           5fa2fd0c-527c-47f1-b297-fbee78c29763
+  dateCreated:  2022-11-13T00:00:00.000Z
+  dateModified: 2022-11-13T00:00:00.000Z
+  language:     cc4978f6-13a9-4735-94c5-10e4e8030437 # Chitimacha
+  link:         https://data.digitallinguistics.io/languages/cc4978f6-13a9-4735-94c5-10e4e8030437/lexemes/5fa2fd0c-527c-47f1-b297-fbee78c29763
+  type:         Lexeme
+  citationForm:
+    Modern:  peqe
+    Swadesh: peʔe
+    IPA:     peʔe
+  crossReferences:
+    - label:        compare
+      relation:     Compare
+      relationType: open set
+      members:
+        - id:    d1cb976b-23b4-4758-aa9d-c7bfa3ed8ee4 # ci-
+          lemma:
+            Modern:  ci-
+            Swadesh: či-
+            IPA:     t͡ʃi-
+        - id:    6a7915d6-085f-46f8-98ba-6555d761a943 # hi-
+          lemma:
+            Modern:  hi-
+            Swadesh: hi-
+            IPA:     hi-
+        - id:    5fa2fd0c-527c-47f1-b297-fbee78c29763 # pe- <- this
+          lemma:
+            Modern:  pe-
+            Swadesh: pe-
+            IPA:     pe-
+  lemma:
+    Modern:  pe-
+    Swadesh: pe-
+    IPA:     pe-
+  morphType:
+    eng: stem
+  projects:
+    - 683a5d27-53bf-451b-80d1-f6e731674c9e # Chitimacha Dictionary Project
+  senses:
+    - gloss: COP(HORIZ)
+    - gloss: AUX(HORIZ)
+  slot:
+    eng: stem
+
+- id:           ba46b22a-6837-4797-ba99-77117f1e9272
+  dateCreated:  2022-11-13T00:00:00.000Z
+  dateModified: 2022-11-13T00:00:00.000Z
+  language:     cc4978f6-13a9-4735-94c5-10e4e8030437 # Chitimacha
+  link:         https://data.digitallinguistics.io/languages/cc4978f6-13a9-4735-94c5-10e4e8030437/lexemes/ba46b22a-6837-4797-ba99-77117f1e9272
+  type:         Lexeme
+  citationForm:
+    Modern:  qixi
+    Swadesh: ʔiši
+    IPA:     ʔiʃi
+  crossReferences:
+    - label:        see also
+      relation:     See Also
+      relationType: open set
+      members:
+        - id: 6a7915d6-085f-46f8-98ba-6555d761a943 # hi-
+          lemma:
+            Modern:  hi-
+            Swadesh: hi-
+            IPA:     hi-
+        - id: ba46b22a-6837-4797-ba99-77117f1e9272 # qix- <- this
+          lemma:
+            Modern:  qix-
+            Swadesh: ʔiš-
+            IPA:     ʔiʃ-
+  lemma:
+    Modern:  qix-
+    Swadesh: ʔiš-
+    IPA:     ʔiʃ-
+  morphType:
+    eng: stem
+  projects:
+    - 683a5d27-53bf-451b-80d1-f6e731674c9e # Chitimacha Dictionary Project
+  senses:
+    - gloss: COP(EMPH)
+    - gloss: AUX(EMPH)
+  slot:
+    eng: stem
+
+
 # Menominee
 
 - id:           8951aed1-0531-40d9-8d9d-496858c79978
@@ -107,6 +340,82 @@
     - c554474c-7f39-4ede-941b-c40b8f58b059 # Nisinoon
   senses:
     - gloss: blaze
+  slot:
+    eng: final
+
+- id:           99c7f697-2613-437a-b729-f612dd0045a0
+  dateCreated:  2022-11-12T00:00:00.000Z
+  dateModified: 2022-11-12T00:00:00.000Z
+  language:     5fc405aa-a1a3-41e5-a80d-adb9dfbaa293 # Menominee
+  link:         https://data.digitallinguistics.io/languages/5fc405aa-a1a3-41e5-a80d-adb9dfbaa293/lexemes/99c7f697-2613-437a-b729-f612dd0045a0
+  type:         Lexeme
+  bibliography:
+    - id:      Rhodes1980
+      locator: 196
+  crossReferences:
+    - relation:     Animacy/Transitivity Matches
+      relationType: enumerated set
+      members:
+        AI:
+        II:
+        TA:
+          id: 99c7f697-2613-437a-b729-f612dd0045a0 # peN <- this
+          lemma:
+            Nisinoon:   peN
+            'MN:WNALP': peN
+        TI:
+          id: bfddb47b-6a84-4a14-b267-131193c41bf9 # petō
+          lemma:
+            Nisinoon:   petoo
+            'MN:WNALP': petō
+  lemma:
+    Nisinoon:   peN
+    'MN:WNALP': peN
+  morphType:
+    eng: suffix
+  projects:
+    - c554474c-7f39-4ede-941b-c40b8f58b059 # Nisinoon
+  senses:
+    - gloss: tie
+      # category: TA
+  slot:
+    eng: final
+
+- id:           bfddb47b-6a84-4a14-b267-131193c41bf9
+  dateCreated:  2022-11-12T00:00:00.000Z
+  dateModified: 2022-11-12T00:00:00.000Z
+  language:     5fc405aa-a1a3-41e5-a80d-adb9dfbaa293 # Menominee
+  link:         https://data.digitallinguistics.io/languages/5fc405aa-a1a3-41e5-a80d-adb9dfbaa293/lexemes/bfddb47b-6a84-4a14-b267-131193c41bf9
+  type:         Lexeme
+  bibliography:
+    - id:      Rhodes1980
+      locator: 196
+  crossReferences:
+    - relation:     Animacy/Transitivity Matches
+      relationType: enumerated set
+      members:
+        AI:
+        II:
+        TA:
+          id: 99c7f697-2613-437a-b729-f612dd0045a0 # peN
+          lemma:
+            Nisinoon:   peN
+            'MN:WNALP': peN
+        TI:
+          id: bfddb47b-6a84-4a14-b267-131193c41bf9 # petō <- this
+          lemma:
+            Nisinoon:   petoo
+            'MN:WNALP': petō
+  lemma:
+    Nisinoon:   petoo
+    'MN:WNALP': petō
+  morphType:
+    eng: suffix
+  projects:
+    - c554474c-7f39-4ede-941b-c40b8f58b059 # Nisinoon
+  senses:
+    - gloss: tie
+      # category: TI
   slot:
     eng: final
 

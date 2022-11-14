@@ -3,6 +3,7 @@
 @import 'Cite/Cite.less';
 @import 'Code/Code.less';
 @import 'DefinitionList/DefinitionList.less';
+@import 'Headword/Headword.less';
 @import 'HelpText/HelpText.less';
 @import 'Label/Label.less';
 @import 'Numbered/Numbered.less';
@@ -50,6 +51,28 @@ body:target #form {
     padding: var(--text-padding-lg);
   }
 
+  #cross-references {
+    align-items: baseline;
+    padding    : 0em;
+  }
+
+  span#cross-references {
+    padding: var(--text-padding);
+  }
+
+  .cross-refs-set {
+    flex-direction: row;
+    flex-wrap     : wrap;
+  }
+
+  .cross-refs-set {
+    display: inline;
+  }
+
+  .cross-refs-set li {
+    display: inline;
+  }
+
   :is(#date-created, #date-modified) {
     font-family: var(--font-mono);
   }
@@ -66,6 +89,10 @@ body:target #form {
     flex-wrap      : wrap;
     justify-content: space-between;
 
+    .gloss {
+      padding: var(--text-padding-sm);
+    }
+
     .glosses {
       inline-size: 100%;
       padding    : var(--text-padding);
@@ -77,21 +104,25 @@ body:target #form {
 
   }
 
-  .help-text {
-    padding-block: var(--text-block-padding);
-  }
-
   .label {
     padding: var(--text-padding);
+  }
+
+  #language-autonym {
+    align-self: start;
+  }
+
+  #language-name {
+    align-self: start;
   }
 
   #lemma {
     padding: var(--text-padding-lg);
   }
 
-  .metadata-props {
-    margin-block-start: var(--space-xs);
-    padding           : var(--text-padding);
+  #metadata {
+    align-items: baseline;
+    padding    : var(--text-padding);
   }
 
   nav {
