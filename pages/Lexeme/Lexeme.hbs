@@ -167,9 +167,9 @@
       <label class=label for=sources>Sources:</label>
       {{#if lexeme.sources ~}}
         <ul class=tags-list id=sources>
-          {{#each lexeme.sources as |source| }}
+          {{~#each lexeme.sources as |source| ~}}
             <li class=tag><a href='/people/{{ source.id }}' title='{{ source.givenName }}{{#if (all source.givenName source.familyName) }} {{/if}}{{ source.familyName }}'>{{ source.abbreviation }}</a></li>
-          {{/each}}
+          {{~/each~}}
         </ul>
       {{~else~}}
         <span id=sources>—</span>
