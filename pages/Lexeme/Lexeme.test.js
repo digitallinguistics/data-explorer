@@ -3,6 +3,7 @@ import yamlParser       from 'js-yaml'
 
 describe(`Lexeme page`, function() {
 
+  const arapahoLanguageID    = `e2b3b685-fd01-40ea-96ae-cb22f2511cd1`
   const chitimachaLanguageID = `cc4978f6-13a9-4735-94c5-10e4e8030437`
   const menomineeLanguageID  = `5fc405aa-a1a3-41e5-a80d-adb9dfbaa293`
   const publicLanguageID     = `850f3bd9-2a57-4289-bc57-05640b5d8d7d`  // Plains Cree
@@ -41,12 +42,20 @@ describe(`Lexeme page`, function() {
     cy.get(`.error-message`).should(`have.text`, `You do not have permission to view this lexeme.`)
   })
 
+  it(`Lexeme Details: Arapaho: ‑(')enih`, function() {
+
+    const lexemeID = `67944dcf-f7d9-4e9c-88f7-cb2408b10b9b`
+
+    cy.visit(`/languages/${ arapahoLanguageID }/lexemes/${ lexemeID }#metadata`)
+    cy.get(`#sources`).should(`have.text`, `PM`)
+
+  })
+
   it(`Lexeme Details: Arapaho: wo'oteen‑`, function() {
 
-    const arapahoLanguageID = `e2b3b685-fd01-40ea-96ae-cb22f2511cd1`
-    const arapahoLexemeID   = `f19f279b-97a5-4e07-bae0-7bb67699e745`
+    const lexemeID = `f19f279b-97a5-4e07-bae0-7bb67699e745`
 
-    cy.visit(`/languages/${ arapahoLanguageID }/lexemes/${ arapahoLexemeID }#metadata`)
+    cy.visit(`/languages/${ arapahoLanguageID }/lexemes/${ lexemeID }#metadata`)
 
     // Language Autonym (without data)
     cy.get(`.language`).should(`have.text`, `Arapaho`)
