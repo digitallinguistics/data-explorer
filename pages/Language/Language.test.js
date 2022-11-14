@@ -94,9 +94,9 @@ describe(`Language Page`, function() {
       const [noteDataA, noteDataB] = data.notes
 
       expect(a).to.contain(noteDataA.text)
-      expect(a).to.contain(noteDataA.source)
+      expect(a).to.contain(noteDataA.source.abbreviation)
       expect(b).to.contain(noteDataB.text)
-      expect(b).to.contain(noteDataB.source)
+      expect(b).to.contain(noteDataB.source.abbreviation)
 
     })
 

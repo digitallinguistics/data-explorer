@@ -109,7 +109,7 @@ describe(`Lexeme page`, function() {
 
   })
 
-  it.only(`Lexeme Details: Menominee: ‑ænææ‑`, function() {
+  it(`Lexeme Details: Menominee: ‑ænææ‑`, function() {
 
     const lexemeID = `8951aed1-0531-40d9-8d9d-496858c79978`
 
