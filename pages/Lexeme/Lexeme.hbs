@@ -6,7 +6,7 @@
 
   <header class=header>
 
-    <h1 class=page-title lang='{{ language.iso }}'>{{mot lexeme.lemma language.defaultOrthography }}</h1>
+    <h1 class='headword page-title' lang='{{ language.iso }}'>{{mot lexeme.lemma language.defaultOrthography }}</h1>
 
     <span class=language>
       {{~#if language.name ~}}
@@ -20,7 +20,7 @@
 
     <ol class='glosses numbered'>
       {{#each lexeme.senses as |sense| }}
-        <li class=tln>{{mls sense.gloss }}</li>
+        <li class='gloss tln'>{{mls sense.gloss }}</li>
       {{/each}}
     </ol>
 
@@ -82,9 +82,7 @@
     <h1>Meaning</h1>
   </section>
 
-  <section class=panel role=tabpanel id=metadata aria-labelledby=metadata-link>
-
-    <fieldset class='def-list metadata-props'>
+  <section class='def-list panel' role=tabpanel id=metadata aria-labelledby=metadata-link>
 
       <label class=label for=cross-references>Cross References:</label>
       {{#if lexeme.crossReferences}}
@@ -95,10 +93,10 @@
 
                 <dt>{{ crossRef.label }}:</dt>
                 <dd>
-                  <ul class=tags-list>
+                  <ul class=cross-refs-set>
                     {{#each members as |item| }}
                       {{#unless (is item.id @root.lexeme.id) }}
-                        <li class='tag txn'><a href='/languages/{{ @root.language.id }}/lexemes/{{ item.id }}'>{{mot item.lemma @root.language.defaultOrthography }}</a></li>
+                        <li><a class=headword href='/languages/{{ @root.language.id }}/lexemes/{{ item.id }}'>{{mot item.lemma @root.language.defaultOrthography }}</a>{{#unless @last }},{{/unless}}</li>
                       {{/unless}}
                     {{/each}}
                   </ul>
@@ -110,7 +108,7 @@
                   {{#if item}}
                     {{#unless (is item.id @root.lexeme.id) }}
                       <dt>{{ @key }}:</dt>
-                      <dd><a class='tag txn' href='/languages/{{ @root.language.id }}/lexemes/{{ item.id }}'>{{mot item.lemma @root.language.defaultOrthography }}</a></dd>
+                      <dd><a class=headword href='/languages/{{ @root.language.id }}/lexemes/{{ item.id }}'>{{mot item.lemma @root.language.defaultOrthography }}</a></dd>
                     {{/unless}}
                   {{/if}}
                 {{/each}}
@@ -118,7 +116,7 @@
               {{else if (any (is crossRef.relationType 'unidirectional') (is crossRef.relationType 'bidirectional')) }}
 
                 <dt>{{ crossRef.label }}:</dt>
-                <dd><a class='tag txn' href='/languages/{{ @root.language.id }}/lexemes/{{ crossRef.id }}'>{{mot crossRef.lemma @root.language.defaultOrthography }}</a></dd>
+                <dd><a class=headword href='/languages/{{ @root.language.id }}/lexemes/{{ crossRef.id }}'>{{mot crossRef.lemma @root.language.defaultOrthography }}</a></dd>
 
               {{/if}}
 
@@ -185,8 +183,6 @@
 
       <label class=label for=url>URL:</label>
       <output class=box-input id=url>https://data.digitallinguistics.io/languages/{{ language.id }}/lexemes/{{ lexeme.id }}</output>
-
-    </fieldset>
 
   </section>
 

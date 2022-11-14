@@ -1,0 +1,30 @@
+.headword {
+
+  color      : var(--blue-6);
+  font-family: var(--font-unicode);
+  font-weight: bold;
+  padding    : var(--text-padding-sm);
+
+  @media (prefers-color-scheme: dark) {
+    color: var(--blue-3);
+  }
+
+}
+
+// a.headword:hover {
+//   text-decoration          : underline;
+//   text-decoration-skip-ink : auto;
+//   text-decoration-thickness: 0.125em;
+// }
+
+a.headword:hover {
+
+  background-color: var(--blue-1);
+  border-radius   : var(--border-radius);
+
+  @media (prefers-color-scheme: dark) {
+    background-color: var(--text-color-dark);
+    color           : var(--blue-6);
+  }
+
+}
