@@ -39,7 +39,7 @@ describe(`Lexeme page`, function() {
     cy.get(`.error-message`).should(`have.text`, `You do not have permission to view this lexeme.`)
   })
 
-  it.only(`Lexeme Details`, function() {
+  it(`Lexeme Details: Plains Cree: cīkahikan`, function() {
 
     const { data } = this
 
@@ -100,7 +100,7 @@ describe(`Lexeme page`, function() {
     })
 
     // Bibliography
-    cy.get(`.references`).children()
+    cy.get(`#references ul`).children()
     .should(`have.length`, data.bibliography.length)
     .then(([a, b, c, d]) => {
       expect(a).to.contain(`Bloomfield`)
@@ -111,29 +111,38 @@ describe(`Lexeme page`, function() {
 
   })
 
-  // This block tests individual items added specifically to test specific functionality or features.
-  describe(`Lexeme Details (continued)`, function() {
+  it(`Lexeme Details: Chitimacha: cuw‑`, function() {
 
-    it(`Citation Form (with data)`, function() {
+    const chitiLangID = `cc4978f6-13a9-4735-94c5-10e4e8030437`
+    const chitiVerbID = `abc56564-5754-4698-845c-2ea32a760bbd`
 
-      const chitiLangID = `cc4978f6-13a9-4735-94c5-10e4e8030437`
-      const chitiVerbID = `abc56564-5754-4698-845c-2ea32a760bbd`
+    cy.visit(`/`)
+    cy.setCookie(msAuthCookie, `owner@digitallinguistics.io`)
+    cy.visit(`/languages/${ chitiLangID }/lexemes/${ chitiVerbID }`)
 
-      cy.visit(`/`)
-      cy.setCookie(msAuthCookie, `owner@digitallinguistics.io`)
-      cy.visit(`/languages/${ chitiLangID }/lexemes/${ chitiVerbID }`)
+    cy.contains(`#lemma`, `cuw‑`)
+    cy.contains(`#lemma`, `čuw‑`)
+    cy.contains(`#lemma`, `t͡ʃuw‑`)
 
-      cy.contains(`#lemma`, `cuw‑`)
-      cy.contains(`#lemma`, `čuw‑`)
-      cy.contains(`#lemma`, `t͡ʃuw‑`)
+    // Citation Form (with data)
+    cy.contains(`#citation-form`, `cuyi`)
+    cy.contains(`#citation-form`, `čuyi`)
+    cy.contains(`#citation-form`, `t͡ʃuji`)
 
-      cy.contains(`#citation-form`, `cuyi`)
-      cy.contains(`#citation-form`, `čuyi`)
-      cy.contains(`#citation-form`, `t͡ʃuji`)
+  })
 
-    })
+  it.only(`Lexeme Details: Arapaho: wo'oteen‑`, function() {
 
-    it(`Language Autonym (without data)`)
+    const arapahoLanguageID = `e2b3b685-fd01-40ea-96ae-cb22f2511cd1`
+    const arapahoLexemeID   = `f19f279b-97a5-4e07-bae0-7bb67699e745`
+
+    cy.visit(`/languages/${ arapahoLanguageID }/lexemes/${ arapahoLexemeID }#metadata`)
+
+    // Language Autonym (without data)
+    cy.get(`.language`).should(`have.text`, `Arapaho`)
+    cy.get(`#language-autonym`).should(`have.text`, `—`)
+
+    // TODO: Cross-References: unidirectional relation
 
   })
 
