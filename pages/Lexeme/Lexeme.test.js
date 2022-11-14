@@ -42,7 +42,7 @@ describe(`Lexeme page`, function() {
     cy.get(`.error-message`).should(`have.text`, `You do not have permission to view this lexeme.`)
   })
 
-  it.only(`Lexeme Details: Arapaho: ‑(')enih`, function() {
+  it(`Lexeme Details: Arapaho: ‑(')enih`, function() {
 
     const lexemeID = `67944dcf-f7d9-4e9c-88f7-cb2408b10b9b`
 
