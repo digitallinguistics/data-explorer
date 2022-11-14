@@ -164,6 +164,17 @@
         <span id=references>—</span>
       {{/if}}
 
+      <label class=label for=sources>Sources:</label>
+      {{#if lexeme.sources ~}}
+        <ul class=tags-list id=sources>
+          {{#each lexeme.sources as |source| }}
+            <li class=tag><a href='/people/{{ source.id }}' title='{{ source.givenName }}{{#if (all source.givenName source.familyName) }} {{/if}}{{ source.familyName }}'>{{ source.abbreviation }}</a></li>
+          {{/each}}
+        </ul>
+      {{~else~}}
+        <span id=sources>—</span>
+      {{~/if}}
+
       <label class=label for=tags>Tags:</label>
       {{#if lexeme.tags}}
         <ul class=tags-list id=tags>
@@ -188,7 +199,7 @@
 
     </fieldset>
 
-    <details class=notes-section open>
+    <details class=notes-section {{#if lexeme.notes }}open{{/if}}>
 
       <summary>
         <h2 class=section-header>Notes <span class=note-count>({{#if lexeme.notes }}{{ lexeme.notes.length }}{{else}}0{{/if}})</span></h2>

@@ -1,5 +1,35 @@
 # Arapaho
 
+- id:           67944dcf-f7d9-4e9c-88f7-cb2408b10b9b
+  dateCreated:  2022-01-01T00:00:00Z
+  dateModified: 2022-01-01T00:00:00Z
+  language:     e2b3b685-fd01-40ea-96ae-cb22f2511cd1
+  link:         https://data.digitallinguistics.io/languages/e2b3b685-fd01-40ea-96ae-cb22f2511cd1/lexemes/67944dcf-f7d9-4e9c-88f7-cb2408b10b9b
+  type:         Lexeme
+  # base category: TA
+  bibliography:
+    - id:      CowellMoss2008
+      locator: 147, 151, 156
+  lemma:
+    'AR:1': -(')enih
+  morphType:
+    eng: suffix
+  projects:
+    - c554474c-7f39-4ede-941b-c40b8f58b059 # Nisinoon
+  senses:
+    - gloss: ''
+    # category: TA
+  slot:
+    eng: final
+  sources:
+    - id:           4ad9955f-f823-483b-bc62-b98cbf02b10a
+      abbreviation: PM
+      familyName:   Moss
+      givenName:    Paul
+  tags:
+    'relative root': null
+    secondary:       true
+
 - id:           9471ed59-5b56-4379-81dc-fa56555cdfd1
   dateCreated:  2022-01-01T00:00:00Z
   dateModified: 2022-01-01T00:00:00Z
