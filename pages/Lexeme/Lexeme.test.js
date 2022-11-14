@@ -3,11 +3,12 @@ import yamlParser       from 'js-yaml'
 
 describe(`Lexeme page`, function() {
 
-  const chitiLangID       = `cc4978f6-13a9-4735-94c5-10e4e8030437`
-  const publicLanguageID  = `850f3bd9-2a57-4289-bc57-05640b5d8d7d`  // Plains Cree
-  const publicLexemeID    = `79eb0aaf-944c-40b4-93f3-e1785ec0adde`  // Plains Cree 'axe'
-  const privateLexemeID   = `b05e479f-29c9-466d-932a-715431e905b5`  // kula (Swahili)
-  const privateLanguageID = `4580756f-ce39-4ea0-b96e-8f176371afcb`  // Swahili
+  const chitimachaLanguageID = `cc4978f6-13a9-4735-94c5-10e4e8030437`
+  const menomineeLanguageID  = `5fc405aa-a1a3-41e5-a80d-adb9dfbaa293`
+  const publicLanguageID     = `850f3bd9-2a57-4289-bc57-05640b5d8d7d`  // Plains Cree
+  const publicLexemeID       = `79eb0aaf-944c-40b4-93f3-e1785ec0adde`  // Plains Cree 'axe'
+  const privateLexemeID      = `b05e479f-29c9-466d-932a-715431e905b5`  // kula (Swahili)
+  const privateLanguageID    = `4580756f-ce39-4ea0-b96e-8f176371afcb`  // Swahili
 
   beforeEach(function() {
     cy.readFile(`data/lexemes.yml`)
@@ -43,7 +44,7 @@ describe(`Lexeme page`, function() {
   it(`Lexeme Details: Arapaho: wo'oteen‑`, function() {
 
     const arapahoLanguageID = `e2b3b685-fd01-40ea-96ae-cb22f2511cd1`
-    const arapahoLexemeID = `f19f279b-97a5-4e07-bae0-7bb67699e745`
+    const arapahoLexemeID   = `f19f279b-97a5-4e07-bae0-7bb67699e745`
 
     cy.visit(`/languages/${ arapahoLanguageID }/lexemes/${ arapahoLexemeID }#metadata`)
 
@@ -69,7 +70,7 @@ describe(`Lexeme page`, function() {
 
     cy.visit(`/`)
     cy.setCookie(msAuthCookie, `owner@digitallinguistics.io`)
-    cy.visit(`/languages/${ chitiLangID }/lexemes/${ chitiVerbID }`)
+    cy.visit(`/languages/${ chitimachaLanguageID }/lexemes/${ chitiVerbID }`)
 
     cy.contains(`#lemma`, `cuw‑`)
     cy.contains(`#lemma`, `čuw‑`)
@@ -88,7 +89,7 @@ describe(`Lexeme page`, function() {
 
     cy.visit(`/`)
     cy.setCookie(msAuthCookie, `owner@digitallinguistics.io`)
-    cy.visit(`/languages/${ chitiLangID }/lexemes/${ lexemeID }#metadata`)
+    cy.visit(`/languages/${ chitimachaLanguageID }/lexemes/${ lexemeID }#metadata`)
 
     // Cross-References
     cy.get(`#cross-references`).children()
@@ -108,12 +109,22 @@ describe(`Lexeme page`, function() {
 
   })
 
+  it(`Lexeme Details: Menominee: ‑ænææ‑`, function() {
+
+    const lexemeID = `8951aed1-0531-40d9-8d9d-496858c79978`
+
+    cy.visit(`/languages/${ menomineeLanguageID }/lexemes/${ lexemeID }#metadata`)
+    cy.get(`.note-count`).should(`have.text`, `(1)`)
+    cy.get(`.note__source`).should(`have.text`, `MAM`)
+    cy.get(`.note__text`).should(`include.text`, `Not explicit`)
+
+  })
+
   it(`Lexeme Details: Menominee: peN`, function() {
 
-    const menomineeLangID = `5fc405aa-a1a3-41e5-a80d-adb9dfbaa293`
-    const menomineeLexID = `99c7f697-2613-437a-b729-f612dd0045a0`
+    const lexemeID = `99c7f697-2613-437a-b729-f612dd0045a0`
 
-    cy.visit(`/languages/${ menomineeLangID }/lexemes/${ menomineeLexID }#metadata`)
+    cy.visit(`/languages/${ menomineeLanguageID }/lexemes/${ lexemeID }#metadata`)
 
     // Cross-References
     cy.get(`#cross-references`)

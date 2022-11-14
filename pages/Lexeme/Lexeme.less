@@ -6,6 +6,7 @@
 @import 'Headword/Headword.less';
 @import 'HelpText/HelpText.less';
 @import 'Label/Label.less';
+@import 'Note/Note.less';
 @import 'Numbered/Numbered.less';
 @import 'PageTitle/PageTitle.less';
 @import 'Translation/Translation.less';
@@ -121,18 +122,66 @@ body:target #form {
   }
 
   #metadata {
+    padding: var(--text-padding);
+  }
+
+  .metadata-props {
     align-items: baseline;
-    padding    : var(--text-padding);
   }
 
   nav {
     margin-block-start: var(--space);
   }
 
+  .note-count {
+    font-size: smaller;
+  }
+
+  .notes {
+
+    --note-spacing: var(--space);
+
+    background-color: var(--teal-1);
+    border          : var(--border);
+    border-radius   : var(--border-radius);
+    box-shadow      : inset var(--box-shadow);
+    gap             : var(--note-spacing);
+    margin-inline   : var(--text-inline-padding);
+    padding         : var(--note-spacing);
+
+    &:empty {
+      border : none;
+      display: none;
+    }
+
+  }
+
+  .notes-section {
+
+    h2 {
+      display            : inline;
+      margin-inline-start: -0.5em; // workaround, since I can't remove the right margin from the ::marker
+    }
+
+    summary {
+      margin-inline-start: var(--space-xxxs);
+      padding            : var(--text-padding);
+    }
+
+    summary::marker {
+      font-size: x-large;  // same font size as .section-header class
+    }
+
+  }
+
   .page-title {
     align-self : flex-start;
     font-family: var(--font-unicode);
     text-align : left;
+  }
+
+  .panel {
+    margin-block-end: var(--space);
   }
 
   .panel:not(.current, :target) {

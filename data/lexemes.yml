@@ -336,6 +336,14 @@
     'MN:1':   -ɛnɛ·-
   morphType:
     eng: suffix
+  notes:
+    - dateCreated:  2022-01-01T00:00:00Z
+      dateModified: 2022-01-01T00:00:00Z
+      noteType:     private
+      source:
+        id:           47efdd38-25ef-4195-a1c3-c0c90c688c95
+        abbreviation: MAM
+      text: Not explicit that it's an II final, but the PA source is.
   projects:
     - c554474c-7f39-4ede-941b-c40b8f58b059 # Nisinoon
   senses:
