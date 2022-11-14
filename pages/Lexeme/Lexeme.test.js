@@ -3,6 +3,7 @@ import yamlParser       from 'js-yaml'
 
 describe(`Lexeme page`, function() {
 
+  const chitiLangID       = `cc4978f6-13a9-4735-94c5-10e4e8030437`
   const publicLanguageID  = `850f3bd9-2a57-4289-bc57-05640b5d8d7d`  // Plains Cree
   const publicLexemeID    = `79eb0aaf-944c-40b4-93f3-e1785ec0adde`  // Plains Cree 'axe'
   const privateLexemeID   = `b05e479f-29c9-466d-932a-715431e905b5`  // kula (Swahili)
@@ -37,6 +38,91 @@ describe(`Lexeme page`, function() {
     cy.title().should(`eq`, `Oxalis | Unauthorized`)
     cy.get(`.page-title`).should(`have.text`, `403: Unauthorized`)
     cy.get(`.error-message`).should(`have.text`, `You do not have permission to view this lexeme.`)
+  })
+
+  it(`Lexeme Details: Arapaho: wo'oteen‑`, function() {
+
+    const arapahoLanguageID = `e2b3b685-fd01-40ea-96ae-cb22f2511cd1`
+    const arapahoLexemeID = `f19f279b-97a5-4e07-bae0-7bb67699e745`
+
+    cy.visit(`/languages/${ arapahoLanguageID }/lexemes/${ arapahoLexemeID }#metadata`)
+
+    // Language Autonym (without data)
+    cy.get(`.language`).should(`have.text`, `Arapaho`)
+    cy.get(`#language-autonym`).should(`have.text`, `—`)
+
+    // Cross-References: unidirectional relation
+    cy.get(`#cross-references dt`).should(`have.text`, `deverbal from:`)
+    cy.get(`#cross-references dd`).should(`have.text`, `wo'oteeneihi`)
+
+    // Tags
+    cy.get(`#tags`).children()
+    .should(`have.length`, 1)
+    .first()
+    .should(`have.text`, `deverbal`)
+
+  })
+
+  it(`Lexeme Details: Chitimacha: cuw‑`, function() {
+
+    const chitiVerbID = `abc56564-5754-4698-845c-2ea32a760bbd`
+
+    cy.visit(`/`)
+    cy.setCookie(msAuthCookie, `owner@digitallinguistics.io`)
+    cy.visit(`/languages/${ chitiLangID }/lexemes/${ chitiVerbID }`)
+
+    cy.contains(`#lemma`, `cuw‑`)
+    cy.contains(`#lemma`, `čuw‑`)
+    cy.contains(`#lemma`, `t͡ʃuw‑`)
+
+    // Citation Form (with data)
+    cy.contains(`#citation-form`, `cuyi`)
+    cy.contains(`#citation-form`, `čuyi`)
+    cy.contains(`#citation-form`, `t͡ʃuji`)
+
+  })
+
+  it(`Lexeme Details: Chitimacha: hi-`, function() {
+
+    const lexemeID = `6a7915d6-085f-46f8-98ba-6555d761a943`
+
+    cy.visit(`/`)
+    cy.setCookie(msAuthCookie, `owner@digitallinguistics.io`)
+    cy.visit(`/languages/${ chitiLangID }/lexemes/${ lexemeID }#metadata`)
+
+    // Cross-References
+    cy.get(`#cross-references`).children()
+    .filter(`dt`)
+    .should(`have.length`, 2)
+    .then(([a, b]) => {
+      expect(a).to.have.text(`compare:`)
+      expect(b).to.have.text(`see also:`)
+    })
+
+    cy.get(`#cross-references`).children()
+    .filter(`dd`)
+    .then(([a, b]) => {
+      expect(a).to.have.text(`ci‑, pe‑`)
+      expect(b).to.have.text(`qix‑`)
+    })
+
+  })
+
+  it(`Lexeme Details: Menominee: peN`, function() {
+
+    const menomineeLangID = `5fc405aa-a1a3-41e5-a80d-adb9dfbaa293`
+    const menomineeLexID = `99c7f697-2613-437a-b729-f612dd0045a0`
+
+    cy.visit(`/languages/${ menomineeLangID }/lexemes/${ menomineeLexID }#metadata`)
+
+    // Cross-References
+    cy.get(`#cross-references`)
+    .children()
+    .then(([a, b]) => {
+      expect(a).to.have.text(`TI:`)
+      expect(b).to.have.text(`petoo`)
+    })
+
   })
 
   it(`Lexeme Details: Plains Cree: cīkahikan`, function() {
@@ -108,41 +194,6 @@ describe(`Lexeme page`, function() {
       expect(c).to.contain(`Macaulay`)
       expect(d).to.contain(`Wolvengrey`)
     })
-
-  })
-
-  it(`Lexeme Details: Chitimacha: cuw‑`, function() {
-
-    const chitiLangID = `cc4978f6-13a9-4735-94c5-10e4e8030437`
-    const chitiVerbID = `abc56564-5754-4698-845c-2ea32a760bbd`
-
-    cy.visit(`/`)
-    cy.setCookie(msAuthCookie, `owner@digitallinguistics.io`)
-    cy.visit(`/languages/${ chitiLangID }/lexemes/${ chitiVerbID }`)
-
-    cy.contains(`#lemma`, `cuw‑`)
-    cy.contains(`#lemma`, `čuw‑`)
-    cy.contains(`#lemma`, `t͡ʃuw‑`)
-
-    // Citation Form (with data)
-    cy.contains(`#citation-form`, `cuyi`)
-    cy.contains(`#citation-form`, `čuyi`)
-    cy.contains(`#citation-form`, `t͡ʃuji`)
-
-  })
-
-  it.only(`Lexeme Details: Arapaho: wo'oteen‑`, function() {
-
-    const arapahoLanguageID = `e2b3b685-fd01-40ea-96ae-cb22f2511cd1`
-    const arapahoLexemeID   = `f19f279b-97a5-4e07-bae0-7bb67699e745`
-
-    cy.visit(`/languages/${ arapahoLanguageID }/lexemes/${ arapahoLexemeID }#metadata`)
-
-    // Language Autonym (without data)
-    cy.get(`.language`).should(`have.text`, `Arapaho`)
-    cy.get(`#language-autonym`).should(`have.text`, `—`)
-
-    // TODO: Cross-References: unidirectional relation
 
   })
 

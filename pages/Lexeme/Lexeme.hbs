@@ -92,15 +92,15 @@
               {{#if (is crossRef.relationType 'open set') }}
 
                 <dt>{{ crossRef.label }}:</dt>
-                <dd>
-                  <ul class=cross-refs-set>
-                    {{#each members as |item| }}
-                      {{#unless (is item.id @root.lexeme.id) }}
-                        <li><a class=headword href='/languages/{{ @root.language.id }}/lexemes/{{ item.id }}'>{{mot item.lemma @root.language.defaultOrthography }}</a>{{#unless @last }},{{/unless}}</li>
-                      {{/unless}}
-                    {{/each}}
-                  </ul>
-                </dd>
+                <dd><!--
+                  --><ul class=cross-refs-set>
+                    {{~#each members as |item| ~}}
+                      {{~#unless (is item.id @root.lexeme.id) ~}}
+                        <li><a class=headword href='/languages/{{ @root.language.id }}/lexemes/{{ item.id }}'>{{mot item.lemma @root.language.defaultOrthography }}</a>{{#unless @last }}, {{/unless}}</li>
+                      {{~/unless~}}
+                    {{~/each~}}
+                  </ul><!--
+                --></dd>
 
               {{else if (is crossRef.relationType 'enumerated set') }}
 

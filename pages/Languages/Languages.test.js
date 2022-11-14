@@ -120,7 +120,7 @@ describe(`Languages`, function() {
       cy.get(`.error-message`).should(`have.text`, `You do not have permission to view this project.`)
     })
 
-    it.only(`displays all (and only all) project languages`, function() {
+    it(`displays all (and only all) project languages`, function() {
 
       const publicProjectID = `c554474c-7f39-4ede-941b-c40b8f58b059` // Nisinoon
 
