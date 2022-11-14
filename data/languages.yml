@@ -48,11 +48,15 @@
   notes:
     - dateCreated:  2020-01-01T00:00:00.000Z
       dateModified: 2022-01-01T00:00:00.000Z
-      source:       DWH
+      source:
+        id:           1c0eb2b5-6e7b-4dcf-b590-a352fcfd8f68
+        abbreviation: DWH
       text:         It's unclear whether the Washa and Chawasha people also spoke Chitimacha.
     - dateCreated:  2020-01-01T00:00:00.000Z
       dateModified: 2020-01-01T00:00:00.000Z
-      source:       KW
+      source:
+        id:           5f3e1abb-fefd-4e2c-925c-bc08fee8552f
+        abbreviation: KW
       text:         The tribe prefers to use the term "sleeping" or "dormant" rather than "extinct".
   permissions:
     owners:  [owner@digitallinguistics.io]
@@ -132,11 +136,15 @@
   notes:
     - dateCreated:  2020-01-01T00:00:00.000Z
       dateModified: 2022-01-01T00:00:00.000Z
-      source:       DWH
+      source:
+        id:           1c0eb2b5-6e7b-4dcf-b590-a352fcfd8f68
+        abbreviation: DWH
       text:         This is a note for Plains Cree.
     - dateCreated:  2020-01-01T00:00:00.000Z
       dateModified: 2022-01-01T00:00:00.000Z
-      source:       DWH
+      source:
+        id:           1c0eb2b5-6e7b-4dcf-b590-a352fcfd8f68
+        abbreviation: DWH
       text:         This is a another note for Plains Cree.
   permissions:
     owners:  [owner@digitallinguistics.io]

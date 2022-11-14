@@ -82,7 +82,9 @@
     <h1>Meaning</h1>
   </section>
 
-  <section class='def-list panel' role=tabpanel id=metadata aria-labelledby=metadata-link>
+  <section class=panel role=tabpanel id=metadata aria-labelledby=metadata-link>
+
+    <fieldset class='def-list metadata-props'>
 
       <label class=label for=cross-references>Cross References:</label>
       {{#if lexeme.crossReferences}}
@@ -183,6 +185,22 @@
 
       <label class=label for=url>URL:</label>
       <output class=box-input id=url>https://data.digitallinguistics.io/languages/{{ language.id }}/lexemes/{{ lexeme.id }}</output>
+
+    </fieldset>
+
+    <details class=notes-section open>
+
+      <summary>
+        <h2 class=section-header>Notes <span class=note-count>({{#if lexeme.notes }}{{ lexeme.notes.length }}{{else}}0{{/if}})</span></h2>
+      </summary>
+
+      <ul class=notes>
+        {{#each lexeme.notes as |note| }}
+          <li>{{> Note/Note note }}</li>
+        {{/each}}
+      </ul>
+
+    </details>
 
   </section>
 
