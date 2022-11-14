@@ -86,24 +86,83 @@
 
     <fieldset class='def-list metadata-props'>
 
-      <label class=label for=language-name>Language Name</label>
-      {{> MultiLangString/MultiLangString data=language.name attributes='id=language-name' }}
+      <label class=label for=cross-references>Cross References:</label>
+      {{#if lexeme.crossReferences}}
+        <dl class=def-list id=cross-references>
+          {{#each lexeme.crossReferences as |crossRef| }}
 
-      <label class=label for=language-autonym>Language Autonym</label>
-      {{#if (obj language.autonym)}}
-        {{> MultiOrthoTranscription/MultiOrthoTranscription data=language.autonym attributes='id=language-autonym' }}
+              {{#if (is crossRef.relationType 'open set') }}
+
+                <dt>{{ crossRef.label }}:</dt>
+                <dd>
+                  <ul class=tags-list>
+                    {{#each members as |item| }}
+                      {{#unless (is item.id @root.lexeme.id) }}
+                        <li class='tag txn'><a href='/languages/{{ @root.language.id }}/lexemes/{{ item.id }}'>{{mot item.lemma @root.language.defaultOrthography }}</a></li>
+                      {{/unless}}
+                    {{/each}}
+                  </ul>
+                </dd>
+
+              {{else if (is crossRef.relationType 'enumerated set') }}
+
+                {{#each members as |item| }}
+                  {{#if item}}
+                    {{#unless (is item.id @root.lexeme.id) }}
+                      <dt>{{ @key }}:</dt>
+                      <dd><a class='tag txn' href='/languages/{{ @root.language.id }}/lexemes/{{ item.id }}'>{{mot item.lemma @root.language.defaultOrthography }}</a></dd>
+                    {{/unless}}
+                  {{/if}}
+                {{/each}}
+
+              {{else if (any (is crossRef.relationType 'unidirectional') (is crossRef.relationType 'bidirectional')) }}
+
+                <dt>{{ crossRef.label }}:</dt>
+                <dd><a class='tag txn' href='/languages/{{ @root.language.id }}/lexemes/{{ crossRef.id }}'>{{mot crossRef.lemma @root.language.defaultOrthography }}</a></dd>
+
+              {{/if}}
+
+          {{/each}}
+        </dl>
       {{else}}
-        <span id=language-autonym>—</span>
+        <span id=cross-references>—</span>
       {{/if}}
-
-      <label class=label for=url>URL:</label>
-      <output class=box-input id=url>https://data.digitallinguistics.io/languages/{{ language.id }}/lexemes/{{ lexeme.id }}</output>
 
       <label class=label for=date-created>Date Created:</label>
       <output id=date-created>{{date lexeme.dateCreated }}</output>
 
       <label class=label for=date-modified>Date Modified:</label>
       <output id=date-modified>{{date lexeme.dateModified }}</output>
+
+      <label class=label for=language-autonym>Language Autonym:</label>
+      {{#if (obj language.autonym)}}
+        {{> MultiOrthoTranscription/MultiOrthoTranscription data=language.autonym attributes='id=language-autonym' }}
+      {{else}}
+        <span id=language-autonym>—</span>
+      {{/if}}
+
+      <label class=label for=language-name>Language Name:</label>
+      {{> MultiLangString/MultiLangString data=language.name attributes='id=language-name' }}
+
+      <label class=label for=references>References:</label>
+      {{#if references}}
+        <div id=references>
+
+          <ul class=tags-list>
+            {{#each references as |reference| }}
+              {{!-- Keep the <li> and <a> on the same line to avoid extra whitespace in the rendered page. --}}
+              <li class='citation tag' title='{{ reference.custom.bibEntry.text }}'><a href='/references/{{ reference.id }}'>{{ reference.custom.citation }}</a></li>
+            {{/each}}
+          </ul>
+
+          <span class=bib-links>
+            <a class='link subtle' href='/languages/{{ language.id }}/lexemes/{{ lexeme.id }}/references?view=bibliography'>View as Bibliography</a> | <a class='link subtle' href='/languages/{{ language.id }}/lexemes/{{ lexeme.id }}/references?view=table'>View as Table</a>
+          </span>
+
+        </div>
+      {{else}}
+        <span id=references>—</span>
+      {{/if}}
 
       <label class=label for=tags>Tags:</label>
       {{#if lexeme.tags}}
@@ -121,30 +180,11 @@
           {{/each}}
         </ul>
       {{else}}
-        <span id=tags>None.</span>
+        <span id=tags>—</span>
       {{/if}}
 
-      <label class=label for=references>References:</label>
-      {{#if references}}
-        <div>
-
-          <span class=help-text>Hover over a citation to see its full bibliographic entry. Click to view the page for the entry.</span>
-
-          <ul class='references tags-list'>
-            {{#each references as |reference| }}
-              {{!-- Keep the <li> and <a> on the same line to avoid extra whitespace in the rendered page. --}}
-              <li class='citation tag' title='{{ reference.custom.bibEntry.text }}'><a href='/references/{{ reference.id }}'>{{ reference.custom.citation }}</a></li>
-            {{/each}}
-          </ul>
-
-          <span class=bib-links>
-            <a class='link subtle' href='/languages/{{ language.id }}/lexemes/{{ lexeme.id }}/references?view=bibliography'>View as Bibliography</a> | <a class='link subtle' href='/languages/{{ language.id }}/lexemes/{{ lexeme.id }}/references?view=table'>View as Table</a>
-          </span>
-
-        </div>
-      {{else}}
-        <span class=references>None.</span>
-      {{/if}}
+      <label class=label for=url>URL:</label>
+      <output class=box-input id=url>https://data.digitallinguistics.io/languages/{{ language.id }}/lexemes/{{ lexeme.id }}</output>
 
     </fieldset>
 

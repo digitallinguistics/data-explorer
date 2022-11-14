@@ -32,14 +32,18 @@
     - id:      CowellMoss2008
       locator: 179, 221
   crossReferences:
-    - label:          deverbal from
-      referencedItem: 3742294d-9887-47bb-b778-a23e78a9209a
+    - id:             3742294d-9887-47bb-b778-a23e78a9209a
+      label:          deverbal from
+      lemma:
+        'AR:1': wo'oteeneihi
       relation:       Deverbal
       relationType:   unidirectional
   lemma:
     'AR:1': wo'oteen-
+  projects:
+    - c554474c-7f39-4ede-941b-c40b8f58b059 # Nisinoon
   senses:
-    - black
+    - gloss: black
   slot:
     eng: initial
   tags:
@@ -56,6 +60,8 @@
       locator: 221
   lemma:
     'AR:1': wo'oteeneihi
+  projects:
+    - c554474c-7f39-4ede-941b-c40b8f58b059 # Nisinoon
   senses:
     - gloss: to be black
       # category: AI
@@ -79,9 +85,21 @@
       relation:     Compare
       relationType: open set
       members:
-        - d1cb976b-23b4-4758-aa9d-c7bfa3ed8ee4 # ci- <- this
-        - 6a7915d6-085f-46f8-98ba-6555d761a943 # hi-
-        - 5fa2fd0c-527c-47f1-b297-fbee78c29763 # pe-
+        - id:    d1cb976b-23b4-4758-aa9d-c7bfa3ed8ee4 # ci- <- this
+          lemma:
+            Modern:  ci-
+            Swadesh: či-
+            IPA:     t͡ʃi-
+        - id:    6a7915d6-085f-46f8-98ba-6555d761a943 # hi-
+          lemma:
+            Modern:  hi-
+            Swadesh: hi-
+            IPA:     hi-
+        - id:    5fa2fd0c-527c-47f1-b297-fbee78c29763 # pe-
+          lemma:
+            Modern:  pe-
+            Swadesh: pe-
+            IPA:     pe-
   lemma:
     Modern:  ci-
     Swadesh: či-
@@ -135,15 +153,35 @@
       relation:     Compare
       relationType: open set
       members:
-        - d1cb976b-23b4-4758-aa9d-c7bfa3ed8ee4 # ci-
-        - 6a7915d6-085f-46f8-98ba-6555d761a943 # hi- <- this
-        - 5fa2fd0c-527c-47f1-b297-fbee78c29763 # pe-
+        - id:    d1cb976b-23b4-4758-aa9d-c7bfa3ed8ee4 # ci-
+          lemma:
+            Modern:  ci-
+            Swadesh: či-
+            IPA:     t͡ʃi-
+        - id:    6a7915d6-085f-46f8-98ba-6555d761a943 # hi- <- this
+          lemma:
+            Modern:  hi-
+            Swadesh: hi-
+            IPA:     hi-
+        - id:    5fa2fd0c-527c-47f1-b297-fbee78c29763 # pe-
+          lemma:
+            Modern:  pe-
+            Swadesh: pe-
+            IPA:     pe-
     - label:        see also
       relation:     See Also
       relationType: open set
       members:
-        - 6a7915d6-085f-46f8-98ba-6555d761a943 # hi- <- this
-        - ba46b22a-6837-4797-ba99-77117f1e9272 # qix-
+        - id: 6a7915d6-085f-46f8-98ba-6555d761a943 # hi- <- this
+          lemma:
+            Modern:  hi-
+            Swadesh: hi-
+            IPA:     hi-
+        - id: ba46b22a-6837-4797-ba99-77117f1e9272 # qix-
+          lemma:
+            Modern:  qix-
+            Swadesh: ʔiš-
+            IPA:     ʔiʃ-
   lemma:
     Modern:  hi-
     Swadesh: hi-
@@ -155,7 +193,7 @@
   senses:
     - gloss: COP(NEUT)
     - gloss: AUX(NEUT)
-    - gloss: equal
+    - gloss: be equal
   slot:
     eng: stem
 
@@ -213,9 +251,21 @@
       relation:     Compare
       relationType: open set
       members:
-        - d1cb976b-23b4-4758-aa9d-c7bfa3ed8ee4 # ci-
-        - 6a7915d6-085f-46f8-98ba-6555d761a943 # hi-
-        - 5fa2fd0c-527c-47f1-b297-fbee78c29763 # pe- <- this
+        - id:    d1cb976b-23b4-4758-aa9d-c7bfa3ed8ee4 # ci-
+          lemma:
+            Modern:  ci-
+            Swadesh: či-
+            IPA:     t͡ʃi-
+        - id:    6a7915d6-085f-46f8-98ba-6555d761a943 # hi-
+          lemma:
+            Modern:  hi-
+            Swadesh: hi-
+            IPA:     hi-
+        - id:    5fa2fd0c-527c-47f1-b297-fbee78c29763 # pe- <- this
+          lemma:
+            Modern:  pe-
+            Swadesh: pe-
+            IPA:     pe-
   lemma:
     Modern:  pe-
     Swadesh: pe-
@@ -245,8 +295,16 @@
       relation:     See Also
       relationType: open set
       members:
-        - 6a7915d6-085f-46f8-98ba-6555d761a943 # hi-
-        - ba46b22a-6837-4797-ba99-77117f1e9272 # qix- <- this
+        - id: 6a7915d6-085f-46f8-98ba-6555d761a943 # hi-
+          lemma:
+            Modern:  hi-
+            Swadesh: hi-
+            IPA:     hi-
+        - id: ba46b22a-6837-4797-ba99-77117f1e9272 # qix- <- this
+          lemma:
+            Modern:  qix-
+            Swadesh: ʔiš-
+            IPA:     ʔiʃ-
   lemma:
     Modern:  qix-
     Swadesh: ʔiš-
@@ -300,8 +358,16 @@
       members:
         AI:
         II:
-        TA: 99c7f697-2613-437a-b729-f612dd0045a0 # peN <- this
-        TI: bfddb47b-6a84-4a14-b267-131193c41bf9 # petō
+        TA:
+          id: 99c7f697-2613-437a-b729-f612dd0045a0 # peN <- this
+          lemma:
+            Nisinoon:   peN
+            'MN:WNALP': peN
+        TI:
+          id: bfddb47b-6a84-4a14-b267-131193c41bf9 # petō
+          lemma:
+            Nisinoon:   petoo
+            'MN:WNALP': petō
   lemma:
     Nisinoon:   peN
     'MN:WNALP': peN
@@ -330,8 +396,16 @@
       members:
         AI:
         II:
-        TA: 99c7f697-2613-437a-b729-f612dd0045a0 # peN
-        TI: bfddb47b-6a84-4a14-b267-131193c41bf9 # petō <- this
+        TA:
+          id: 99c7f697-2613-437a-b729-f612dd0045a0 # peN
+          lemma:
+            Nisinoon:   peN
+            'MN:WNALP': peN
+        TI:
+          id: bfddb47b-6a84-4a14-b267-131193c41bf9 # petō <- this
+          lemma:
+            Nisinoon:   petoo
+            'MN:WNALP': petō
   lemma:
     Nisinoon:   petoo
     'MN:WNALP': petō

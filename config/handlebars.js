@@ -22,15 +22,25 @@ function date(d, type = `short`) {
  * Checks to see whether the object passed to the helper has any data in it (any keys), and whether the object exists at all.
  */
 function all(...args) {
-  return args.every(arg => {
-    if (!arg) return false
-    if (Array.isArray(arg) && !arg.length) return false
-    return Object.keys(arg).length > 0
-  })
+  return args.every(isTruthy)
+}
+
+function any(...args) {
+  return args.some(isTruthy)
+}
+
+function is(a, b) {
+  return a == b
 }
 
 function isFalse(value) {
   return value === false
+}
+
+function isTruthy(value) {
+  if (!value) return false
+  if (Array.isArray(value) && !value.length) return false
+  return Object.keys(value).length > 0
 }
 
 function isNull(value) {
@@ -47,6 +57,18 @@ function mls(data, lang) {
   return getDefaultLanguage(data, lang)
 }
 
+/**
+ * Renders the given orthography for a Transcription.
+ * @param   {Transcription} data  The Transcription object to render.
+ * @param   {String}        ortho The orthography to render the Transcription in.
+ * @returns {String}
+ */
+function mot(data, ortho) {
+  if (!data) return ``
+  if (typeof data === `string`) return prepareTranscription(data)
+  return prepareTranscription(getDefaultOrthography(data, ortho))
+}
+
 function number(num) {
   return Number(num).toLocaleString()
 }
@@ -61,24 +83,14 @@ function section(name, opts) {
   return null
 }
 
-/**
- * Renders the given orthography for a Transcription.
- * @param   {Transcription} data  The Transcription object to render.
- * @param   {String}        ortho The orthography to render the Transcription in.
- * @returns {String}
- */
-function mot(data, ortho) {
-  if (!data) return ``
-  if (typeof data === `string`) return prepareTranscription(data)
-  return prepareTranscription(getDefaultOrthography(data, ortho))
-}
-
 const hbs = new ExpressHandlebars({
   defaultLayout: `main/main.hbs`,
   extname:       `hbs`,
   helpers:       {
     all,
+    any,
     date,
+    is,
     isFalse,
     isNull,
     mls,
