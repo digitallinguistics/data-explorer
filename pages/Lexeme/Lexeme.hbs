@@ -2,6 +2,15 @@
   <link rel=stylesheet href=/styles/Lexeme.css>
 {{/section}}
 
+{{#*inline 'CitationsList' }}
+  <ul class=tags-list>
+    {{#each this as |reference| }}
+      {{!-- Keep the <li> and <a> on the same line to avoid extra whitespace in the rendered page. --}}
+      <li class='citation tag' title='{{ reference.custom.bibEntry.text }}'><a href='/references/{{ reference.id }}'>{{ reference.custom.citation }}</a></li>
+    {{/each}}
+  </ul>
+{{/inline}}
+
 <main id=main class=lexeme-page>
 
   <header class=header>
@@ -161,16 +170,12 @@
       <label class=label for=language-name>Language Name</label>
       {{> MultiLangString/MultiLangString data=language.name attributes='id=language-name' }}
 
+
       <label class=label for=references>References</label>
       {{#if references}}
         <div id=references>
 
-          <ul class=tags-list>
-            {{#each references as |reference| }}
-              {{!-- Keep the <li> and <a> on the same line to avoid extra whitespace in the rendered page. --}}
-              <li class='citation tag' title='{{ reference.custom.bibEntry.text }}'><a href='/references/{{ reference.id }}'>{{ reference.custom.citation }}</a></li>
-            {{/each}}
-          </ul>
+          {{> CitationsList references }}
 
           <span class=bib-links>
             <a class='link subtle' href='/languages/{{ language.id }}/lexemes/{{ lexeme.id }}/references?view=bibliography'>View as Bibliography</a> | <a class='link subtle' href='/languages/{{ language.id }}/lexemes/{{ lexeme.id }}/references?view=table'>View as Table</a>
