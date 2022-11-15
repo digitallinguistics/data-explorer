@@ -96,6 +96,7 @@ describe(`Lexeme page`, function() {
     .should(`have.length`, 2)
     .then(([a, b]) => {
       expect(a).to.include.text(`cuw‑`) // non-breaking hyphen
+      expect(b).to.include.text(`dut‑`) // non-breaking hyphen
     })
 
   })
