@@ -28,13 +28,13 @@
 
   <nav>
     <ul class=tabs role=tablist>
-      <li role=tab class=tab><a class=tab-link id=form-link href=#form aria-selected=true>Form</a></li>
+      <li role=tab class=tab><a class=tab-link id=forms-link href=#forms aria-selected=true>Forms</a></li>
       <li role=tab class=tab><a class=tab-link id=meaning-link href=#meaning>Meaning</a></li>
       <li role=tab class=tab><a class=tab-link id=metadata-link href=#metadata>Metadata</a></li>
     </ul>
   </nav>
 
-  <section class='current panel' role=tabpanel id=form aria-labelledby=form-link>
+  <section class='current panel' role=tabpanel id=forms aria-labelledby=forms-link>
 
     <dl class='def-list transcriptions'>
 
@@ -78,9 +78,9 @@
 
       <h2 class=section-header>Base Forms <span class=summary-count>({{ lexeme.forms.length }})</span></h2>
 
-      <ul class='bordered forms list'>
+      <ul class='bordered forms-list list'>
         {{#each lexeme.forms as |form| }}
-          <li class=lexeme-form>
+          <li class=form>
             <details open>
               <summary>This is a summary of the form.</summary>
               <p>These are some details about the form.</p>

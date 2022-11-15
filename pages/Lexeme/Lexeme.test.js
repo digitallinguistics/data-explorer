@@ -92,7 +92,7 @@ describe(`Lexeme page`, function() {
 
     // Base Forms
     cy.get(`.forms-section .section-header`).should(`have.text`, `Base Forms (2)`)
-    cy.get(`.forms`).children().should(`have.length`, 2)
+    cy.get(`.forms-list`).children().should(`have.length`, 2)
 
   })
 
@@ -165,7 +165,7 @@ describe(`Lexeme page`, function() {
 
     // FORM TAB (default)
     cy.hash().should(`eq`, ``)
-    cy.get(`#form`).should(`be.visible`)
+    cy.get(`#forms`).should(`be.visible`)
 
     // Lemma
     cy.contains(`#lemma`, data.lemma.SRO)
@@ -181,7 +181,7 @@ describe(`Lexeme page`, function() {
     cy.get(`#meaning-link`).click()
     cy.hash().should(`eq`, `#meaning`)
     cy.get(`#meaning`).should(`be.visible`)
-    cy.get(`#form`).should(`not.be.visible`)
+    cy.get(`#forms`).should(`not.be.visible`)
 
     // METADATA TAB
     cy.get(`#metadata-link`).click()

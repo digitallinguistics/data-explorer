@@ -18,7 +18,7 @@
 @import 'Transcription/Transcription.less';
 
 // Handle case where the URL has no hash.
-body:target #form {
+body:target #forms {
   display: flex;
 }
 
@@ -79,7 +79,22 @@ body:target #form {
     font-family: var(--font-mono);
   }
 
-  #form {
+  .form {
+
+    padding: var(--text-padding-lg);
+
+    details {
+      margin-inline-start: var(--text-inline-padding-lg);
+    }
+
+    summary {
+      cursor             : pointer;
+      list-style-position: outside;
+    }
+
+  }
+
+  #forms {
     flex-direction: row;
     flex-wrap     : wrap;
   }
@@ -129,21 +144,6 @@ body:target #form {
 
   #lemma {
     padding: var(--text-padding-lg);
-  }
-
-  .lexeme-form {
-
-    padding: var(--text-padding-lg);
-
-    details {
-      margin-inline-start: var(--text-inline-padding-lg);
-    }
-
-    summary {
-      cursor             : pointer;
-      list-style-position: outside;
-    }
-
   }
 
   .metadata-props {
