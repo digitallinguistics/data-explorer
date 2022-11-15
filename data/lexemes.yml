@@ -10,6 +10,9 @@
   bibliography:
     - id:      CowellMoss2008
       locator: 147, 151, 156
+  forms:
+    - transcription:
+        'AR:1': -(')enih
   lemma:
     'AR:1': -(')enih
   morphType:
@@ -39,6 +42,9 @@
   bibliography:
     - id:      CowellMoss2008
       locator: 180, 203, 293, 295
+  forms:
+    - transcription:
+        'AR:1': eeɜ-
   lemma:
     'AR:1': eeɜ-
   morphType:
@@ -68,6 +74,9 @@
         'AR:1': wo'oteeneihi
       relation:       Deverbal
       relationType:   unidirectional
+  forms:
+    - transcription:
+        'AR:1': wo'oteen-
   lemma:
     'AR:1': wo'oteen-
   projects:
@@ -88,6 +97,9 @@
   bibliography:
     - id:      CowellMoss2008
       locator: 221
+  forms:
+    - transcription:
+        'AR:1': wo'oteeneihi
   lemma:
     'AR:1': wo'oteeneihi
   projects:
@@ -130,6 +142,11 @@
             Modern:  pe-
             Swadesh: pe-
             IPA:     pe-
+  forms:
+    - transcription:
+        Modern:  ci-
+        Swadesh: či-
+        IPA:     t͡ʃi-
   lemma:
     Modern:  ci-
     Swadesh: či-
@@ -156,13 +173,13 @@
     IPA:     t͡ʃuji
   forms:
     - transcription:
-        Modern:  cuw
-        Swadesh: čuw
-        IPA:     t͡ʃuw
+        Modern:  cuw-
+        Swadesh: čuw-
+        IPA:     t͡ʃuw-
     - transcription:
-        Modern:  dut
-        Swadesh: dut
-        IPA:     tʼut
+        Modern:  dut-
+        Swadesh: dut-
+        IPA:     tʼut-
   lemma:
     Modern:  cuw-
     Swadesh: čuw-
@@ -221,6 +238,11 @@
             Modern:  qix-
             Swadesh: ʔiš-
             IPA:     ʔiʃ-
+  forms:
+    - transcription:
+        Modern:  hi-
+        Swadesh: hi-
+        IPA:     hi-
   lemma:
     Modern:  hi-
     Swadesh: hi-
@@ -246,6 +268,11 @@
     Modern:  huygi
     Swadesh: huygi
     IPA:     hujkʼi
+  forms:
+    - transcription:
+        Modern:  huygi
+        Swadesh: huygi
+        IPA:     hujkʼi
   lemma:
     Modern:  huygi
     Swadesh: huygi
@@ -264,6 +291,11 @@
   link:         https://data.digitallinguistics.io/languages/cc4978f6-13a9-4735-94c5-10e4e8030437/lexemes/1a28ce6c-6721-41a1-9209-7a50f77e5244
   type:         Lexeme
   citationForm:
+  forms:
+    - transcription:
+        Modern:  panx
+        Swadesh: panš
+        IPA:     panʃ
   lemma:
     Modern:  panx
     Swadesh: panš
@@ -305,6 +337,11 @@
             Modern:  pe-
             Swadesh: pe-
             IPA:     pe-
+  forms:
+    - transcription:
+        Modern:  pe-
+        Swadesh: pe-
+        IPA:     pe-
   lemma:
     Modern:  pe-
     Swadesh: pe-
@@ -344,6 +381,11 @@
             Modern:  qix-
             Swadesh: ʔiš-
             IPA:     ʔiʃ-
+  forms:
+    - transcription:
+        Modern:  qix-
+        Swadesh: ʔiš-
+        IPA:     ʔiʃ-
   lemma:
     Modern:  qix-
     Swadesh: ʔiš-
@@ -358,7 +400,6 @@
   slot:
     eng: stem
 
-
 # Menominee
 
 - id:           8951aed1-0531-40d9-8d9d-496858c79978
@@ -370,11 +411,15 @@
   bibliography:
     - id:      Goddard1980
       locator: 144
+  forms:
+    - transcription:
+        Nisinoon: -ænææ-
+        'MN:1':   -ɛnɛ·-
   lemma:
     Nisinoon: -ænææ-
     'MN:1':   -ɛnɛ·-
   morphType:
-    eng: suffix
+    eng: medial
   notes:
     - dateCreated:  2022-01-01T00:00:00Z
       dateModified: 2022-01-01T00:00:00Z
@@ -408,16 +453,20 @@
         TA:
           id: 99c7f697-2613-437a-b729-f612dd0045a0 # peN <- this
           lemma:
-            Nisinoon:   peN
-            'MN:WNALP': peN
+            Nisinoon:   -peN
+            'MN:WNALP': -peN
         TI:
           id: bfddb47b-6a84-4a14-b267-131193c41bf9 # petō
           lemma:
-            Nisinoon:   petoo
-            'MN:WNALP': petō
+            Nisinoon:   -petoo
+            'MN:WNALP': -petō
+  forms:
+    - transcription:
+        Nisinoon:   -peN
+        'MN:WNALP': -peN
   lemma:
-    Nisinoon:   peN
-    'MN:WNALP': peN
+    Nisinoon:   -peN
+    'MN:WNALP': -peN
   morphType:
     eng: suffix
   projects:
@@ -446,16 +495,20 @@
         TA:
           id: 99c7f697-2613-437a-b729-f612dd0045a0 # peN
           lemma:
-            Nisinoon:   peN
-            'MN:WNALP': peN
+            Nisinoon:   -peN
+            'MN:WNALP': -peN
         TI:
           id: bfddb47b-6a84-4a14-b267-131193c41bf9 # petō <- this
           lemma:
-            Nisinoon:   petoo
-            'MN:WNALP': petō
+            Nisinoon:   -petoo
+            'MN:WNALP': -petō
+  forms:
+    - transcription:
+        Nisinoon:   -petoo
+        'MN:WNALP': -petō
   lemma:
-    Nisinoon:   petoo
-    'MN:WNALP': petō
+    Nisinoon:   -petoo
+    'MN:WNALP': -petō
   morphType:
     eng: suffix
   projects:
@@ -472,6 +525,9 @@
   language:     5fc405aa-a1a3-41e5-a80d-adb9dfbaa293 # Menominee
   link:         https://data.digitallinguistics.io/languages/5fc405aa-a1a3-41e5-a80d-adb9dfbaa293/lexemes/53b003db-2927-4306-9230-aae501e44d6f
   type:         Lexeme
+  forms:
+    - transcription:
+        default: sūniyanikamek
   lemma:
     default: sūniyanikamek
   projects:
@@ -486,6 +542,9 @@
   language:     5fc405aa-a1a3-41e5-a80d-adb9dfbaa293 # Menominee
   link:         https://data.digitallinguistics.io/languages/5fc405aa-a1a3-41e5-a80d-adb9dfbaa293/lexemes/11879394-ddf9-431d-9948-c75129e76b36
   type:         Lexeme
+  forms:
+    - transcription:
+        default: sūniyanikamekmahka͞esen
   lemma:
     default: sūniyanikamekmahka͞esen
   projects:
@@ -500,6 +559,9 @@
   language:     5fc405aa-a1a3-41e5-a80d-adb9dfbaa293 # Menominee
   link:         https://data.digitallinguistics.io/languages/5fc405aa-a1a3-41e5-a80d-adb9dfbaa293/lexemes/2eb35661-8e27-461a-820c-20c0a0a56c67
   type:         Lexeme
+  forms:
+    - transcription:
+        default: wāqnenekan
   lemma:
     default: wāqnenekan
   projects:
@@ -517,6 +579,9 @@
   language:     a6c9b191-1ef8-4379-9e94-9f1347917558 # Ojibwe
   link:         https://data.digitallinguistics.io/languages/a6c9b191-1ef8-4379-9e94-9f1347917558/lexemes/6c18aca0-68fd-471e-a71a-3669fc6eac2e
   type:         Lexeme
+  forms:
+    - transcription:
+        Fiero: ikwe
   lemma:
     Fiero: ikwe
   projects:
@@ -530,6 +595,9 @@
   language:     a6c9b191-1ef8-4379-9e94-9f1347917558 # Ojibwe
   link:         https://data.digitallinguistics.io/languages/a6c9b191-1ef8-4379-9e94-9f1347917558/lexemes/f3e2df61-9ef7-42b2-96b0-ef989240292f
   type:         Lexeme
+  forms:
+    - transcription:
+        Fiero: inini
   lemma:
     Fiero: inini
   projects:
@@ -543,6 +611,9 @@
   language:     a6c9b191-1ef8-4379-9e94-9f1347917558 # Ojibwe
   link:         https://data.digitallinguistics.io/languages/a6c9b191-1ef8-4379-9e94-9f1347917558/lexemes/626996ce-9d90-4ad8-855b-5e72e5a5f684
   type:         Lexeme
+  forms:
+    - transcription:
+        Fiero: naboob
   lemma:
     Fiero: naboob
   projects:
@@ -569,14 +640,16 @@
       locator: 10
     - id:      Wolvengrey2001
       locator: I.31, II.275
-  # stem: cīkahikan-
-  # Leave citationForm blank for testing purposes
-  citationForm:
-  morphType:
-    eng: stem
+  citationForm: # Leave citationForm blank for testing purposes
+  forms:
+    - transcription:
+        SRO:       cīkahikan-
+        syllabics: ᒌᑲᐦᐃᑲᐣ-
   lemma:
     SRO:       cīkahikan
     syllabics: ᒌᑲᐦᐃᑲᐣ
+  morphType:
+    eng: stem
   projects:
     - c554474c-7f39-4ede-941b-c40b8f58b059 # Nisinoon
   senses:
@@ -594,6 +667,10 @@
   language:     850f3bd9-2a57-4289-bc57-05640b5d8d7d # Plains Cree
   link:         https://data.digitallinguistics.io/languages/850f3bd9-2a57-4289-bc57-05640b5d8d7d/lexemes/3a3df0ac-04be-4fe7-985d-cf5895b745ee
   type:         Lexeme
+  forms:
+    - transcription:
+        SRO:       maskwa
+        syllabics: ᒪᐢᑿ
   lemma:
     SRO:       maskwa
     syllabics: ᒪᐢᑿ
@@ -608,6 +685,10 @@
   language:     850f3bd9-2a57-4289-bc57-05640b5d8d7d # Plains Cree
   link:         https://data.digitallinguistics.io/languages/850f3bd9-2a57-4289-bc57-05640b5d8d7d/lexemes/8874c4a5-720a-42cb-83c7-f66cf1eaebde
   type:         Lexeme
+  forms:
+    - transcription:
+        SRO:       masinahikan
+        syllabics: ᒪᓯᓇᐦᐃᑲᐣ
   lemma:
     SRO:       masinahikan
     syllabics: ᒪᓯᓇᐦᐃᑲᐣ
@@ -625,10 +706,13 @@
   bibliography:
     - id:      Wolvengrey2001
       locator: 'I.79, II.lxxiv'
-  # Stem is kotiskāwēwatimw-
   citationForm:
     SRO:       kotiskāwēwatim
     syllabics: ᑯᑎᐢᑳᐍᐘᑎᒼ
+  forms:
+    - transcription:
+        SRO:       kotiskāwēwatimw-
+        syllabics: ᑯᑎᐢᑳᐍᐘᑎᒼᐤ
   lemma:
     SRO:       kotiskāwēwatim
     syllabics: ᑯᑎᐢᑳᐍᐘᑎᒼ
@@ -645,6 +729,9 @@
   language:     4c0a3e19-0281-4621-9ad6-76da5a32c125 # Potawatomi
   link:         https://data.digitallinguistics.io/languages/4c0a3e19-0281-4621-9ad6-76da5a32c125/lexemes/4ce57ae3-c620-4d80-8b5c-e9f3f13e73be
   type:         Lexeme
+  forms:
+    - transcription:
+        WNALP: débabjegen
   lemma:
     WNALP: débabjegen
   projects:
@@ -658,6 +745,9 @@
   language:     4c0a3e19-0281-4621-9ad6-76da5a32c125 # Potawatomi
   link:         https://data.digitallinguistics.io/languages/4c0a3e19-0281-4621-9ad6-76da5a32c125/lexemes/41a90c8e-3be0-4610-8096-c4ca9208036e
   type:         Lexeme
+  forms:
+    - transcription:
+        WNALP: mzen’egen
   lemma:
     WNALP: mzen’egen
   projects:
@@ -671,6 +761,9 @@
   language:     4c0a3e19-0281-4621-9ad6-76da5a32c125 # Potawatomi
   link:         https://data.digitallinguistics.io/languages/4c0a3e19-0281-4621-9ad6-76da5a32c125/lexemes/da22d1b9-f512-458d-8029-af660ce9c20a
   type:         Lexeme
+  forms:
+    - transcription:
+        WNALP: zhadi
   lemma:
     WNALP: zhadi
   projects:
@@ -687,9 +780,11 @@
   language:     4580756f-ce39-4ea0-b96e-8f176371afcb # Swahili
   link:         https://data.digitallinguistics.io/languages/4580756f-ce39-4ea0-b96e-8f176371afcb/lexemes/b05e479f-29c9-466d-932a-715431e905b5
   type:         Lexeme
-  # stem: -la
   citationForm:
     swa: kula
+  forms:
+    - transcription:
+        swa: -la
   lemma:
     swa: -la
   projects:
@@ -703,9 +798,11 @@
   language:     4580756f-ce39-4ea0-b96e-8f176371afcb # Swahili
   link:         https://data.digitallinguistics.io/languages/4580756f-ce39-4ea0-b96e-8f176371afcb/lexemes/dace030e-997a-40ec-82d9-5073c6d40faa
   type:         Lexeme
-  # stem: -tu
   citationForm:
     swa: mtu
+  forms:
+    - transcription:
+        swa: -tu
   lemma:
     swa: mtu
   projects:
@@ -721,6 +818,9 @@
   type:         Lexeme
   citationForm:
     swa: -zuri
+  forms:
+    - transcription:
+        swa: -zuri
   lemma:
     swa: -zuri
   projects:
