@@ -7,6 +7,11 @@ import { readFile }            from 'fs/promises'
 const __filename = fileURLToPath(import.meta.url)
 const __dirname  = path.dirname(__filename)
 
+// Things that need to be populated and stored in the actual database,
+// rather than generated on startup:
+// - citations in a Lexeme (at the lexeme, sense, and form levels)
+// - bibEntry data in references
+
 function addCitations(bibliography) {
   bibliography?.forEach(citation => {
     const reference = referencesIndex.get(citation.id)
