@@ -3,6 +3,7 @@
 @import 'Cite/Cite.less';
 @import 'Code/Code.less';
 @import 'DefinitionList/DefinitionList.less';
+@import 'Details/Details.less';
 @import 'Headword/Headword.less';
 @import 'HelpText/HelpText.less';
 @import 'Label/Label.less';
@@ -81,15 +82,12 @@ body:target #forms {
 
   .form {
 
-    padding: var(--text-padding-lg);
-
-    details {
-      margin-inline-start: var(--text-inline-padding-lg);
+    summary {
+      margin-inline-start: -3.5em; // lines up left edge of text
     }
 
-    summary {
-      cursor             : pointer;
-      list-style-position: outside;
+    summary::before {
+      margin-inline-end: 1.25em;
     }
 
   }
@@ -97,6 +95,12 @@ body:target #forms {
   #forms {
     flex-direction: row;
     flex-wrap     : wrap;
+  }
+
+  .forms-list {
+    @media (max-width: 60em) {
+      border-radius: 0;
+    }
   }
 
   .forms-section {
@@ -163,7 +167,6 @@ body:target #forms {
     border-radius   : var(--border-radius);
     box-shadow      : inset var(--box-shadow);
     gap             : var(--note-spacing);
-    margin-inline   : var(--text-inline-padding);
     padding         : var(--note-spacing);
 
     &:empty {
@@ -175,18 +178,12 @@ body:target #forms {
 
   .notes-section {
 
-    h2 {
-      display            : inline;
-      margin-inline-start: -0.5em; // workaround, since I can't remove the right margin from the ::marker
-    }
-
     summary {
-      margin-inline-start: var(--space-xxxs);
-      padding            : var(--text-padding);
+      margin-inline-start: -3.25em;
     }
 
-    summary::marker {
-      font-size: x-large;  // same font size as .section-header class
+    summary:hover::before {
+      --hover-color: var(--teal-1);
     }
 
   }
@@ -198,7 +195,7 @@ body:target #forms {
   }
 
   .panel {
-    padding         : var(--space-xs);
+    padding-block   : var(--space-xs);
     margin-block-end: var(--space);
   }
 

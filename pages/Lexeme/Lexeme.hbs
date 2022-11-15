@@ -81,8 +81,10 @@
       <ul class='bordered forms-list list'>
         {{#each lexeme.forms as |form| }}
           <li class=form>
-            <details open>
-              <summary>This is a summary of the form.</summary>
+            <details class=details open>
+              <summary>
+                {{> MultiOrthoTranscription/MultiOrthoTranscription data=form.transcription lang=@root.language.iso attributes='class="mot transcription"' }}
+              </summary>
               <p>These are some details about the form.</p>
             </details>
           </li>
@@ -214,7 +216,7 @@
 
     </fieldset>
 
-    <details class=notes-section {{#if lexeme.notes }}open{{/if}}>
+    <details class='details notes-section' {{#if lexeme.notes }}open{{/if}}>
 
       <summary>
         <h2 class=section-header>Notes <span class=summary-count>({{#if lexeme.notes }}{{ lexeme.notes.length }}{{else}}0{{/if}})</span></h2>
