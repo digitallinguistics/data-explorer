@@ -260,20 +260,9 @@ describe(`Database`, function() {
 
   describe(`getReferences`, function() {
 
-    const bibliography = [
+    const ids = [
       `Bloomfield1924`,
       `Goddard1990`,
-    ]
-
-    const citations = [
-      {
-        id:      `Bloomfield1924`,
-        locator: `1-3`,
-      },
-      {
-        id:      `Goddard1990`,
-        locator: 144,
-      },
     ]
 
     it(`returns copies of the data`, async function() {
@@ -290,13 +279,13 @@ describe(`Database`, function() {
       expect(data).to.have.length(this.references.length)
     })
 
-    it(`option: bibliography`, async function() {
+    it(`options: ids`, async function() {
 
       const db = new Database
-      const { data, status } = await db.getReferences({ bibliography })
+      const { data, status } = await db.getReferences({ ids })
+
       expect(status).to.equal(200)
       expect(data).to.have.lengthOf(2)
-      expect(data.every(ref => bibliography.includes(ref.id))).to.be.true
 
       const [a, b] = data
       expect(a.title).to.equal(`The Menomini language`)
@@ -304,29 +293,16 @@ describe(`Database`, function() {
 
     })
 
-    it(`option: citations`, async function() {
-
-      const db = new Database
-      const { data, status } = await db.getReferences({ citations })
-      expect(status).to.equal(200)
-      expect(data).to.have.lengthOf(2)
-
-      const [a, b] = data
-      expect(a.custom.citation).to.equal(`Bloomfield (1924: 1–3)`)
-      expect(b.custom.citation).to.equal(`Goddard (1990: 144)`)
-
-    })
-
     it(`option: summary`, async function() {
       const db = new Database
-      const { data, status } = await db.getReferences({ bibliography, summary: true })
+      const { data, status } = await db.getReferences({ ids, summary: true })
       expect(status).to.equal(200)
       expect(data.count).to.equal(2)
     })
 
     it(`returns an empty array if there are no references`, async function() {
       const db = new Database
-      const { data, status } = await db.getReferences({ bibliography: [] })
+      const { data, status } = await db.getReferences({ ids: [] })
       expect(status).to.equal(200)
       expect(data).to.have.lengthOf(0)
     })
