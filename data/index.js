@@ -1,12 +1,57 @@
-import Cite                    from '../config/cite.js'
+import Citer                   from '../config/cite.js'
+import compare                 from '../utilities/compare.js'
 import { load as convertYAML } from 'js-yaml'
 import { fileURLToPath }       from 'url'
 import path                    from 'path'
 import { readFile }            from 'fs/promises'
-import compare from '../utilities/compare.js'
 
 const __filename = fileURLToPath(import.meta.url)
 const __dirname  = path.dirname(__filename)
+
+// Things that need to be populated and stored in the actual database,
+// rather than generated on startup:
+// - citations in a Lexeme (at the lexeme, sense, and form levels)
+// - bibEntry data in references
+
+function addCitations(bibliography) {
+
+  if (bibliography) {
+
+    bibliography.forEach(citation => {
+      const reference = referencesIndex.get(citation.id)
+      citation.citation = cite(reference, citation.locator)
+      citation.bibEntry = reference.custom.bibEntry
+    })
+
+    bibliography.sort((a, b) => compare(a.citation, b.citation))
+
+  }
+
+}
+
+function cite(reference, locator) {
+
+  const citer    = new Citer(reference)
+  const template = `ling`
+
+  const entry = {
+    id: reference.id,
+    locator,
+  }
+
+  const firstPart = citer.format(`citation`, {
+    entry: Object.assign({ 'author-only': true }, entry),
+    template,
+  })
+
+  const secondPart = citer.format(`citation`, {
+    entry: Object.assign({ 'suppress-author': true }, entry),
+    template,
+  })
+
+  return `${ firstPart } ${ secondPart }`
+
+}
 
 async function loadData(type) {
   const yaml = await readFile(path.join(__dirname, `./${ type }.yml`))
@@ -19,16 +64,17 @@ const projects  = await loadData(`projects`)
 const users     = await loadData(`users`)
 const bibtex    = await readFile(path.join(__dirname, `references.bib`), `utf8`)
 
-const cite = new Cite(bibtex, {
+const citer = new Citer(bibtex, {
   forceType:     `@bibtex/text`,
   generateGraph: false,
 })
 
-cite.sort([`issued`, `author`, `editor`, `title`])
+citer.sort([`issued`, `author`, `editor`, `title`])
 
-const references = cite.get()
+const references      = citer.get()
+const referencesIndex = new Map
 
-const textBibEntries = cite.format(`bibliography`, {
+const textBibEntries = citer.format(`bibliography`, {
   asEntryArray: true,
   template:     `ling`,
 }).reduce((map, [id, entry]) => {
@@ -36,7 +82,7 @@ const textBibEntries = cite.format(`bibliography`, {
   return map
 }, new Map)
 
-const htmlBibEntries = cite.format(`bibliography`, {
+const htmlBibEntries = citer.format(`bibliography`, {
   asEntryArray: true,
   format:       `html`,
   template:     `ling`,
@@ -59,9 +105,16 @@ for (const reference of references) {
       html: htmlBibEntries.get(reference.id),
       text: textBibEntries.get(reference.id),
     },
-    sortKey: ``,
   }
 
+  referencesIndex.set(reference.id, reference)
+
+}
+
+for (const lexeme of lexemes) {
+  addCitations(lexeme.bibliography)
+  lexeme.forms.forEach(form => addCitations(form.bibliography))
+  lexeme.senses.forEach(sense => addCitations(sense.bibliography))
 }
 
 export default {

@@ -33,15 +33,11 @@ export default async function get(req, res) {
     })
   }
 
-  const { data: language }   = await db.getLanguage(lexeme.language)
-  const { data: references } = await db.getReferences({ citations: lexeme.bibliography })
-
-  references.sort((a, b) => compare(a.id, b.id))
+  const { data: language } = await db.getLanguage(lexeme.language)
 
   res.render(`Lexeme/Lexeme`, {
     language,
     lexeme,
-    references,
     [title]: true,
     title:   lexeme ? getDefaultOrthography(lexeme.lemma) : title,
   })

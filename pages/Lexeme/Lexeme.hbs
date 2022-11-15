@@ -2,6 +2,15 @@
   <link rel=stylesheet href=/styles/Lexeme.css>
 {{/section}}
 
+{{#*inline 'CitationsList' }}
+  <ul class=tags-list>
+    {{#each this }}
+      {{!-- Keep the <li> and <a> on the same line to avoid extra whitespace in the rendered page. --}}
+      <li class='citation tag' title='{{ bibEntry.text }}'><a href='/references/{{ id }}'>{{ citation }}</a></li>
+    {{/each}}
+  </ul>
+{{/inline}}
+
 <main id=main class=lexeme-page>
 
   <header class=header>
@@ -82,10 +91,29 @@
         {{#each lexeme.forms as |form| }}
           <li class=form>
             <details class=details open>
+
               <summary>
                 {{> MultiOrthoTranscription/MultiOrthoTranscription data=form.transcription lang=@root.language.iso attributes='class="mot transcription"' }}
               </summary>
-              <p>These are some details about the form.</p>
+
+              <fieldset class='def-list form-props'>
+
+                <label class=label for=form-references-{{ @index }}>References</label>
+
+                {{#if form.bibliography }}
+                  <div id=form-references-{{ @index }}>
+                    {{> CitationsList form.bibliography }}
+                    <span class=bib-links>
+                      <a class='link subtle' href='/languages/{{ @root.language.id }}/lexemes/{{ @root.lexeme.id }}/forms/{{ @index }}/references?view=bibliography'>View as Bibliography</a> | <a class='link subtle' href='/languages/{{ @root.language.id }}/lexemes/{{ @root.lexeme.id }}/forms/{{ @index }}/references?view=table'>View as Table</a>
+                    </span>
+                  </div>
+                {{else}}
+                  <span id=form-references-{{ @index }}>—</span>
+                {{/if}}
+
+              </fieldset>
+
+
             </details>
           </li>
         {{/each}}
@@ -161,24 +189,16 @@
       <label class=label for=language-name>Language Name</label>
       {{> MultiLangString/MultiLangString data=language.name attributes='id=language-name' }}
 
-      <label class=label for=references>References</label>
-      {{#if references}}
-        <div id=references>
-
-          <ul class=tags-list>
-            {{#each references as |reference| }}
-              {{!-- Keep the <li> and <a> on the same line to avoid extra whitespace in the rendered page. --}}
-              <li class='citation tag' title='{{ reference.custom.bibEntry.text }}'><a href='/references/{{ reference.id }}'>{{ reference.custom.citation }}</a></li>
-            {{/each}}
-          </ul>
-
+      <label class=label for=lexeme-references>References</label>
+      {{#if lexeme.bibliography }}
+        <div id=lexeme-references>
+          {{> CitationsList lexeme.bibliography }}
           <span class=bib-links>
-            <a class='link subtle' href='/languages/{{ language.id }}/lexemes/{{ lexeme.id }}/references?view=bibliography'>View as Bibliography</a> | <a class='link subtle' href='/languages/{{ language.id }}/lexemes/{{ lexeme.id }}/references?view=table'>View as Table</a>
+            <a class='link subtle' href='/languages/{{ @root.language.id }}/lexemes/{{ @root.lexeme.id }}/references?view=bibliography'>View as Bibliography</a> | <a class='link subtle' href='/languages/{{ @root.language.id }}/lexemes/{{ @root.lexeme.id }}/references?view=table'>View as Table</a>
           </span>
-
         </div>
       {{else}}
-        <span id=references>—</span>
+        <span id=lexeme-references>—</span>
       {{/if}}
 
       <label class=label for=sources>Sources</label>

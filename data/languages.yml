@@ -70,13 +70,13 @@
   dateCreated:             2022-01-01T00:00:00.000Z
   dateModified:            2022-01-02T00:00:00.000Z
   defaultAnalysisLanguage: eng
-  defaultOrthography:      Men
+  defaultOrthography:      default
   glottocode:              meno1252
   iso:                     mez
   link:                    https://data.digitallinguistics.io/languages/5fc405aa-a1a3-41e5-a80d-adb9dfbaa293
   type:                    Language
   autonym:
-    Men: omǣqnomenēweqnæsewen
+    default: omǣqnomenēweqnæsewen
   description:
     html:     This is the description for the Menominee language.
     markdown: This is the description for the Menominee language.
@@ -96,13 +96,13 @@
   dateCreated:             2022-01-01T00:00:00.000Z
   dateModified:            2022-01-02T00:00:00.000Z
   defaultAnalysisLanguage: eng
-  defaultOrthography:      Fiero
+  defaultOrthography:      default
   glottocode:              ojib1241
   iso:                     oji
   link:                    https://data.digitallinguistics.io/languages/a6c9b191-1ef8-4379-9e94-9f1347917558
   type:                    Language
   autonym:
-    Fiero: Anishinaabemowin
+    default: Anishinaabemowin
   description:
     html:     This is the description for the Ojibwe language.
     markdown: This is the description for the Ojibwe language.

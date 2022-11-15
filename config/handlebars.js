@@ -9,16 +9,6 @@ const __filename = fileURLToPath(import.meta.url)
 const __dirname  = path.dirname(__filename)
 
 /**
- * Renders a Date object as a short date (YYYY-MM-DD).
- * @param {Date} d A Date Object
- */
-function date(d, type = `short`) {
-  if (!d) return ``
-  if (type === `long`) return new Date(d).toLocaleDateString(undefined, { dateStyle: `long` })
-  return new Date(d).toLocaleDateString(`en-CA`)
-}
-
-/**
  * Checks to see whether the object passed to the helper has any data in it (any keys), and whether the object exists at all.
  */
 function all(...args) {
@@ -27,6 +17,16 @@ function all(...args) {
 
 function any(...args) {
   return args.some(isTruthy)
+}
+
+/**
+ * Renders a Date object as a short date (YYYY-MM-DD).
+ * @param {Date} d A Date Object
+ */
+function date(d, type = `short`) {
+  if (!d) return ``
+  if (type === `long`) return new Date(d).toLocaleDateString(undefined, { dateStyle: `long` })
+  return new Date(d).toLocaleDateString(`en-CA`)
 }
 
 function is(a, b) {

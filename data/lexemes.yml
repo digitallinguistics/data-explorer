@@ -11,7 +11,10 @@
     - id:      CowellMoss2008
       locator: 147, 151, 156
   forms:
-    - transcription:
+    - bibliography:
+        - id:      CowellMoss2008
+          locator: 147, 151, 156
+      transcription:
         'AR:1': -(')enih
   lemma:
     'AR:1': -(')enih
@@ -581,9 +584,9 @@
   type:         Lexeme
   forms:
     - transcription:
-        Fiero: ikwe
+        default: ikwe
   lemma:
-    Fiero: ikwe
+    default: ikwe
   projects:
     - c554474c-7f39-4ede-941b-c40b8f58b059 # Nisinoon
   senses:
@@ -597,9 +600,9 @@
   type:         Lexeme
   forms:
     - transcription:
-        Fiero: inini
+        default: inini
   lemma:
-    Fiero: inini
+    default: inini
   projects:
     - c554474c-7f39-4ede-941b-c40b8f58b059 # Nisinoon
   senses:
@@ -613,9 +616,9 @@
   type:         Lexeme
   forms:
     - transcription:
-        Fiero: naboob
+        default: naboob
   lemma:
-    Fiero: naboob
+    default: naboob
   projects:
     - c554474c-7f39-4ede-941b-c40b8f58b059 # Nisinoon
   senses:
@@ -642,7 +645,15 @@
       locator: I.31, II.275
   citationForm: # Leave citationForm blank for testing purposes
   forms:
-    - transcription:
+    - bibliography:
+        # All but Wolvengrey2001 are fake references for testing purposes.
+        - id:      Bloomfield1924
+          locator: 10
+        - id:      Goddard1990
+          locator: 144
+        - id:      Wolvengrey2001
+          locator: I.31, II.275
+      transcription:
         SRO:       cīkahikan-
         syllabics: ᒌᑲᐦᐃᑲᐣ-
   lemma:

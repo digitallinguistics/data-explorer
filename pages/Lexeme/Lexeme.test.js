@@ -182,6 +182,23 @@ describe(`Lexeme page`, function() {
     // Morph Type
     cy.contains(`#morph-type`, `stem`)
 
+    // Forms List
+    cy.get(`.forms-list`).children().should(`have.length`, 1)
+
+    // FORM
+    cy.get(`.forms-list`).first().within(() => {
+
+      cy.get(`.transcription`).should(`include.text`, data.forms[0].transcription.SRO.replace(`-`, `‑`))
+      cy.get(`#form-references-0 .tags-list`).children()
+      .should(`have.length`, 3)
+      .then(([a, b, c]) => {
+        expect(a).to.include.text(`Bloomfield`)
+        expect(b).to.include.text(`Goddard`)
+        expect(c).to.include.text(`Wolvengrey`)
+      })
+
+    })
+
     // MEANING TAB
     cy.get(`#meaning-link`).click()
     cy.hash().should(`eq`, `#meaning`)
@@ -215,7 +232,7 @@ describe(`Lexeme page`, function() {
     })
 
     // Bibliography
-    cy.get(`#references ul`).children()
+    cy.get(`#lexeme-references ul`).children()
     .should(`have.length`, data.bibliography.length)
     .then(([a, b, c, d]) => {
       expect(a).to.contain(`Bloomfield`)
