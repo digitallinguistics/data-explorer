@@ -6,6 +6,7 @@
 @import 'Headword/Headword.less';
 @import 'HelpText/HelpText.less';
 @import 'Label/Label.less';
+@import 'List/List.less';
 @import 'Note/Note.less';
 @import 'Numbered/Numbered.less';
 @import 'PageTitle/PageTitle.less';
@@ -17,7 +18,7 @@
 @import 'Transcription/Transcription.less';
 
 // Handle case where the URL has no hash.
-body:target #form {
+body:target #forms {
   display: flex;
 }
 
@@ -78,10 +79,34 @@ body:target #form {
     font-family: var(--font-mono);
   }
 
-  #form {
+  .form {
+
+    padding: var(--text-padding-lg);
+
+    details {
+      margin-inline-start: var(--text-inline-padding-lg);
+    }
+
+    summary {
+      cursor             : pointer;
+      list-style-position: outside;
+    }
+
+  }
+
+  #forms {
     flex-direction: row;
     flex-wrap     : wrap;
-    padding       : var(--space-sm);
+  }
+
+  .forms-section {
+
+    inline-size: 100%;
+
+    .section-header {
+      text-align: center;
+    }
+
   }
 
   .header {
@@ -121,20 +146,12 @@ body:target #form {
     padding: var(--text-padding-lg);
   }
 
-  #metadata {
-    padding: var(--text-padding);
-  }
-
   .metadata-props {
     align-items: baseline;
   }
 
   nav {
     margin-block-start: var(--space);
-  }
-
-  .note-count {
-    font-size: smaller;
   }
 
   .notes {
@@ -181,6 +198,7 @@ body:target #form {
   }
 
   .panel {
+    padding         : var(--space-xs);
     margin-block-end: var(--space);
   }
 
@@ -204,6 +222,10 @@ body:target #form {
 
   #sources .tag {
     --tag-color: var(--teal-1);
+  }
+
+  .summary-count {
+    font-size: smaller;
   }
 
   .tab:hover {

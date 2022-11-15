@@ -28,53 +28,68 @@
 
   <nav>
     <ul class=tabs role=tablist>
-      <li role=tab class=tab><a class=tab-link id=form-link href=#form aria-selected=true>Form</a></li>
+      <li role=tab class=tab><a class=tab-link id=forms-link href=#forms aria-selected=true>Forms</a></li>
       <li role=tab class=tab><a class=tab-link id=meaning-link href=#meaning>Meaning</a></li>
       <li role=tab class=tab><a class=tab-link id=metadata-link href=#metadata>Metadata</a></li>
     </ul>
   </nav>
 
-  <section class='current panel' role=tabpanel id=form aria-labelledby=form-link>
+  <section class='current panel' role=tabpanel id=forms aria-labelledby=forms-link>
 
-    <div class=transcriptions>
+    <dl class='def-list transcriptions'>
 
-      <label class=label for=lemma>Lemma</label>
-      {{> MultiOrthoTranscription/MultiOrthoTranscription data=lexeme.lemma lang=language.iso attributes='id=lemma' }}
+      <dt class=label for=lemma>Lemma</dt>
+      <dd>{{> MultiOrthoTranscription/MultiOrthoTranscription data=lexeme.lemma lang=language.iso attributes='id=lemma' }}</dd>
 
-      <label class=label for=citation-form>Citation Form</label>
-      {{#if lexeme.citationForm}}
-        {{> MultiOrthoTranscription/MultiOrthoTranscription data=lexeme.citationForm lang=language.iso attributes='id=citation-form' }}
-      {{else}}
-        <span id=citation-form>—</span>
-      {{/if}}
+      <dt class=label for=citation-form>Citation Form</dt>
+      <dd>
+        {{#if lexeme.citationForm}}
+          {{> MultiOrthoTranscription/MultiOrthoTranscription data=lexeme.citationForm lang=language.iso attributes='id=citation-form' }}
+        {{else}}
+          <span id=citation-form>—</span>
+        {{/if}}
+      </dd>
 
-    </div>
+    </dl>
 
-    <div class=properties>
+    <dl class='def-list properties'>
 
-      <dl class=def-list>
+      <dt class=label for=morph-type>Morph Type</dt>
+      <dd id=morph-type>
+        {{#if lexeme.morphType }}
+          {{> MultiLangString/MultiLangString data=lexeme.morphType }}
+        {{else~}}
+          —
+        {{~/if}}
+      </dd>
 
-        <dt class=label for=morph-type>Morph Type:</dt>
-        <dd id=morph-type>
-          {{#if lexeme.morphType }}
-            {{> MultiLangString/MultiLangString data=lexeme.morphType }}
-          {{else~}}
-            —
-          {{~/if}}
-        </dd>
+      <dt class=label for=slot>Slot</dt>
+      <dd id=slot>
+        {{#if lexeme.slot }}
+          {{> MultiLangString/MultiLangString data=lexeme.slot }}
+        {{else~}}
+          —
+        {{~/if}}
+      </dd>
 
-        <dt class=label for=slot>Slot:</dt>
-        <dd id=slot>
-          {{#if lexeme.slot }}
-            {{> MultiLangString/MultiLangString data=lexeme.slot }}
-          {{else~}}
-            —
-          {{~/if}}
-        </dd>
+    </dl>
 
-      </dl>
+    <section class=forms-section>
 
-    </div>
+      <h2 class=section-header>Base Forms <span class=summary-count>({{ lexeme.forms.length }})</span></h2>
+
+      <ul class='bordered forms-list list'>
+        {{#each lexeme.forms as |form| }}
+          <li class=form>
+            <details open>
+              <summary>This is a summary of the form.</summary>
+              <p>These are some details about the form.</p>
+            </details>
+          </li>
+        {{/each}}
+      </ul>
+
+    </section>
 
   </section>
 
@@ -86,7 +101,7 @@
 
     <fieldset class='def-list metadata-props'>
 
-      <label class=label for=cross-references>Cross References:</label>
+      <label class=label for=cross-references>Cross References</label>
       {{#if lexeme.crossReferences}}
         <dl class=def-list id=cross-references>
           {{#each lexeme.crossReferences as |crossRef| }}
@@ -128,23 +143,23 @@
         <span id=cross-references>—</span>
       {{/if}}
 
-      <label class=label for=date-created>Date Created:</label>
+      <label class=label for=date-created>Date Created</label>
       <output id=date-created>{{date lexeme.dateCreated }}</output>
 
-      <label class=label for=date-modified>Date Modified:</label>
+      <label class=label for=date-modified>Date Modified</label>
       <output id=date-modified>{{date lexeme.dateModified }}</output>
 
-      <label class=label for=language-autonym>Language Autonym:</label>
+      <label class=label for=language-autonym>Language Autonym</label>
       {{#if (obj language.autonym)}}
         {{> MultiOrthoTranscription/MultiOrthoTranscription data=language.autonym attributes='id=language-autonym' }}
       {{else}}
         <span id=language-autonym>—</span>
       {{/if}}
 
-      <label class=label for=language-name>Language Name:</label>
+      <label class=label for=language-name>Language Name</label>
       {{> MultiLangString/MultiLangString data=language.name attributes='id=language-name' }}
 
-      <label class=label for=references>References:</label>
+      <label class=label for=references>References</label>
       {{#if references}}
         <div id=references>
 
@@ -164,7 +179,7 @@
         <span id=references>—</span>
       {{/if}}
 
-      <label class=label for=sources>Sources:</label>
+      <label class=label for=sources>Sources</label>
       {{#if lexeme.sources ~}}
         <ul class=tags-list id=sources>
           {{~#each lexeme.sources as |source| ~}}
@@ -175,7 +190,7 @@
         <span id=sources>—</span>
       {{~/if}}
 
-      <label class=label for=tags>Tags:</label>
+      <label class=label for=tags>Tags</label>
       {{#if lexeme.tags}}
         <ul class=tags-list id=tags>
           {{#each lexeme.tags as |tag| }}
@@ -194,7 +209,7 @@
         <span id=tags>—</span>
       {{/if}}
 
-      <label class=label for=url>URL:</label>
+      <label class=label for=url>URL</label>
       <output class=box-input id=url>https://data.digitallinguistics.io/languages/{{ language.id }}/lexemes/{{ lexeme.id }}</output>
 
     </fieldset>
@@ -202,7 +217,7 @@
     <details class=notes-section {{#if lexeme.notes }}open{{/if}}>
 
       <summary>
-        <h2 class=section-header>Notes <span class=note-count>({{#if lexeme.notes }}{{ lexeme.notes.length }}{{else}}0{{/if}})</span></h2>
+        <h2 class=section-header>Notes <span class=summary-count>({{#if lexeme.notes }}{{ lexeme.notes.length }}{{else}}0{{/if}})</span></h2>
       </summary>
 
       <ul class=notes>

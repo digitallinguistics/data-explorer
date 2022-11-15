@@ -154,6 +154,15 @@
     Modern:  cuyi
     Swadesh: čuyi
     IPA:     t͡ʃuji
+  forms:
+    - transcription:
+        Modern:  cuw
+        Swadesh: čuw
+        IPA:     t͡ʃuw
+    - transcription:
+        Modern:  dut
+        Swadesh: dut
+        IPA:     tʼut
   lemma:
     Modern:  cuw-
     Swadesh: čuw-

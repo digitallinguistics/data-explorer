@@ -90,6 +90,10 @@ describe(`Lexeme page`, function() {
     cy.contains(`#citation-form`, `čuyi`)
     cy.contains(`#citation-form`, `t͡ʃuji`)
 
+    // Base Forms
+    cy.get(`.forms-section .section-header`).should(`have.text`, `Base Forms (2)`)
+    cy.get(`.forms-list`).children().should(`have.length`, 2)
+
   })
 
   it(`Lexeme Details: Chitimacha: hi-`, function() {
@@ -123,7 +127,7 @@ describe(`Lexeme page`, function() {
     const lexemeID = `8951aed1-0531-40d9-8d9d-496858c79978`
 
     cy.visit(`/languages/${ menomineeLanguageID }/lexemes/${ lexemeID }#metadata`)
-    cy.get(`.note-count`).should(`have.text`, `(1)`)
+    cy.get(`.notes-section .summary-count`).should(`have.text`, `(1)`)
     cy.get(`.note__source`).should(`have.text`, `MAM`)
     cy.get(`.note__text`).should(`include.text`, `Not explicit`)
 
@@ -161,7 +165,7 @@ describe(`Lexeme page`, function() {
 
     // FORM TAB (default)
     cy.hash().should(`eq`, ``)
-    cy.get(`#form`).should(`be.visible`)
+    cy.get(`#forms`).should(`be.visible`)
 
     // Lemma
     cy.contains(`#lemma`, data.lemma.SRO)
@@ -177,7 +181,7 @@ describe(`Lexeme page`, function() {
     cy.get(`#meaning-link`).click()
     cy.hash().should(`eq`, `#meaning`)
     cy.get(`#meaning`).should(`be.visible`)
-    cy.get(`#form`).should(`not.be.visible`)
+    cy.get(`#forms`).should(`not.be.visible`)
 
     // METADATA TAB
     cy.get(`#metadata-link`).click()
