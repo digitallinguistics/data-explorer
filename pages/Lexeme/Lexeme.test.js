@@ -154,7 +154,7 @@ describe(`Lexeme page`, function() {
 
   })
 
-  it.only(`Lexeme Details: Plains Cree: cīkahikan`, function() {
+  it(`Lexeme Details: Plains Cree: cīkahikan`, function() {
 
     const { data } = this
 
