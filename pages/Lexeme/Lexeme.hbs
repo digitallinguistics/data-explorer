@@ -98,17 +98,17 @@
 
               <fieldset class='def-list form-props'>
 
-                <label class=label for=form-references>References</label>
+                <label class=label for=form-references-{{ @index }}>References</label>
 
                 {{#if form.bibliography }}
-                  <div id=form-references>
+                  <div id=form-references-{{ @index }}>
                     {{> CitationsList form.bibliography }}
                     <span class=bib-links>
                       <a class='link subtle' href='/languages/{{ @root.language.id }}/lexemes/{{ @root.lexeme.id }}/forms/{{ @index }}/references?view=bibliography'>View as Bibliography</a> | <a class='link subtle' href='/languages/{{ @root.language.id }}/lexemes/{{ @root.lexeme.id }}/forms/{{ @index }}/references?view=table'>View as Table</a>
                     </span>
                   </div>
                 {{else}}
-                  <span id=form-references>—</span>
+                  <span id=form-references-{{ @index }}>—</span>
                 {{/if}}
 
               </fieldset>
