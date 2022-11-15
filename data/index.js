@@ -1,4 +1,5 @@
-import Citer                    from '../config/cite.js'
+import Citer                   from '../config/cite.js'
+import compare                 from '../utilities/compare.js'
 import { load as convertYAML } from 'js-yaml'
 import { fileURLToPath }       from 'url'
 import path                    from 'path'
@@ -13,11 +14,19 @@ const __dirname  = path.dirname(__filename)
 // - bibEntry data in references
 
 function addCitations(bibliography) {
-  bibliography?.forEach(citation => {
-    const reference = referencesIndex.get(citation.id)
-    citation.citation = cite(reference, citation.locator)
-    citation.bibEntry = reference.custom.bibEntry
-  })
+
+  if (bibliography) {
+
+    bibliography.forEach(citation => {
+      const reference = referencesIndex.get(citation.id)
+      citation.citation = cite(reference, citation.locator)
+      citation.bibEntry = reference.custom.bibEntry
+    })
+
+    bibliography.sort((a, b) => compare(a.citation, b.citation))
+
+  }
+
 }
 
 function cite(reference, locator) {
