@@ -82,7 +82,9 @@
         {{#each lexeme.forms as |form| }}
           <li class=form>
             <details open>
-              <summary>This is a summary of the form.</summary>
+              <summary>
+                {{> MultiOrthoTranscription/MultiOrthoTranscription data=form.transcription lang=@root.language.iso }}
+              </summary>
               <p>These are some details about the form.</p>
             </details>
           </li>
