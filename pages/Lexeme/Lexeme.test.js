@@ -92,7 +92,11 @@ describe(`Lexeme page`, function() {
 
     // Base Forms
     cy.get(`.forms-section .section-header`).should(`have.text`, `Base Forms (2)`)
-    cy.get(`.forms-list`).children().should(`have.length`, 2)
+    cy.get(`.forms-list`).children()
+    .should(`have.length`, 2)
+    .then(([a, b]) => {
+      expect(a).to.include.text(`cuw‑`) // non-breaking hyphen
+    })
 
   })
 
@@ -144,7 +148,7 @@ describe(`Lexeme page`, function() {
     .children()
     .then(([a, b]) => {
       expect(a).to.have.text(`TI:`)
-      expect(b).to.have.text(`petoo`)
+      expect(b).to.have.text(`‑petoo`) // non-breaking hyphen
     })
 
   })

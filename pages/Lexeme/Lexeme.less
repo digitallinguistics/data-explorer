@@ -97,6 +97,12 @@ body:target #forms {
     flex-wrap     : wrap;
   }
 
+  .forms-list {
+    @media (max-width: 60em) {
+      border-radius: 0;
+    }
+  }
+
   .forms-section {
 
     inline-size: 100%;
@@ -189,7 +195,7 @@ body:target #forms {
   }
 
   .panel {
-    padding         : var(--space-xs);
+    padding-block   : var(--space-xs);
     margin-block-end: var(--space);
   }
 
