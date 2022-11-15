@@ -215,7 +215,7 @@ describe(`Lexeme page`, function() {
     })
 
     // Bibliography
-    cy.get(`#references ul`).children()
+    cy.get(`#lexeme-references ul`).children()
     .should(`have.length`, data.bibliography.length)
     .then(([a, b, c, d]) => {
       expect(a).to.contain(`Bloomfield`)

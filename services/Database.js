@@ -1,6 +1,5 @@
 import copy             from '../utilities/copy.js'
 import data             from '../data/index.js'
-import Lexeme           from '../models/Lexeme.js'
 import { STATUS_CODES } from 'http'
 
 // NOTES
@@ -113,7 +112,7 @@ export default class Database {
   getLexeme(id) {
     const data = this.lexemes.index.get(id)
     if (!data) return new DatabaseResponse(404)
-    return new DatabaseResponse(200, new Lexeme(data))
+    return new DatabaseResponse(200, copy(data))
   }
 
   /**
@@ -132,7 +131,7 @@ export default class Database {
       summary,
     } = options
 
-    let results = this.lexemes.map(data => new Lexeme(data))
+    let results = this.lexemes.map(data => copy(data))
 
     if (languageID) results = results.filter(lexeme => lexeme.language === languageID)
     if (projectID) results = results.filter(lexeme => lexeme.projects.includes(projectID))

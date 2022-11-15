@@ -4,11 +4,9 @@
 
 {{#*inline 'CitationsList' }}
   <ul class=tags-list>
-    {{#each this as |citation| }}
-      {{#with (lookup @root.references citation.id) as |reference| }}
-        {{!-- Keep the <li> and <a> on the same line to avoid extra whitespace in the rendered page. --}}
-        <li class='citation tag' title='{{ reference.custom.bibEntry.text }}'><a href='/references/{{ reference.id }}'>{{cite reference ../locator }}</a></li>
-      {{/with}}
+    {{#each this }}
+      {{!-- Keep the <li> and <a> on the same line to avoid extra whitespace in the rendered page. --}}
+      <li class='citation tag' title='{{ bibEntry.text }}'><a href='/references/{{ id }}'>{{ citation }}</a></li>
     {{/each}}
   </ul>
 {{/inline}}
@@ -93,10 +91,29 @@
         {{#each lexeme.forms as |form| }}
           <li class=form>
             <details class=details open>
+
               <summary>
                 {{> MultiOrthoTranscription/MultiOrthoTranscription data=form.transcription lang=@root.language.iso attributes='class="mot transcription"' }}
               </summary>
-              <p>These are some details about the form.</p>
+
+              <fieldset class='def-list form-props'>
+
+                <label class=label for=form-references>References</label>
+
+                {{#if form.bibliography }}
+                  <div id=form-references>
+                    {{> CitationsList form.bibliography }}
+                    <span class=bib-links>
+                      <a class='link subtle' href='/languages/{{ @root.language.id }}/lexemes/{{ @root.lexeme.id }}/forms/{{ @index }}/references?view=bibliography'>View as Bibliography</a> | <a class='link subtle' href='/languages/{{ @root.language.id }}/lexemes/{{ @root.lexeme.id }}/forms/{{ @index }}/references?view=table'>View as Table</a>
+                    </span>
+                  </div>
+                {{else}}
+                  <span id=form-references>—</span>
+                {{/if}}
+
+              </fieldset>
+
+
             </details>
           </li>
         {{/each}}
@@ -172,20 +189,16 @@
       <label class=label for=language-name>Language Name</label>
       {{> MultiLangString/MultiLangString data=language.name attributes='id=language-name' }}
 
-
-      <label class=label for=references>References</label>
+      <label class=label for=lexeme-references>References</label>
       {{#if lexeme.bibliography }}
-        <div id=references>
-
+        <div id=lexeme-references>
           {{> CitationsList lexeme.bibliography }}
-
           <span class=bib-links>
-            <a class='link subtle' href='/languages/{{ language.id }}/lexemes/{{ lexeme.id }}/references?view=bibliography'>View as Bibliography</a> | <a class='link subtle' href='/languages/{{ language.id }}/lexemes/{{ lexeme.id }}/references?view=table'>View as Table</a>
+            <a class='link subtle' href='/languages/{{ @root.language.id }}/lexemes/{{ @root.lexeme.id }}/references?view=bibliography'>View as Bibliography</a> | <a class='link subtle' href='/languages/{{ @root.language.id }}/lexemes/{{ @root.lexeme.id }}/references?view=table'>View as Table</a>
           </span>
-
         </div>
       {{else}}
-        <span id=references>—</span>
+        <span id=lexeme-references>—</span>
       {{/if}}
 
       <label class=label for=sources>Sources</label>

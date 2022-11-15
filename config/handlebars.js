@@ -1,4 +1,3 @@
-import Cite                  from '../config/cite.js'
 import { ExpressHandlebars } from 'express-handlebars'
 import { fileURLToPath }     from 'url'
 import getDefaultLanguage    from '../utilities/getDefaultLanguage.js'
@@ -18,30 +17,6 @@ function all(...args) {
 
 function any(...args) {
   return args.some(isTruthy)
-}
-
-function cite(reference, locator) {
-
-  const citer    = new Cite(reference)
-  const template = `ling`
-
-  const entry = {
-    id: reference.id,
-    locator,
-  }
-
-  const firstPart = citer.format(`citation`, {
-    entry: Object.assign({ 'author-only': true }, entry),
-    template,
-  })
-
-  const secondPart = citer.format(`citation`, {
-    entry: Object.assign({ 'suppress-author': true }, entry),
-    template,
-  })
-
-  return `${ firstPart } ${ secondPart }`
-
 }
 
 /**
@@ -114,7 +89,6 @@ const hbs = new ExpressHandlebars({
   helpers:       {
     all,
     any,
-    cite,
     date,
     is,
     isFalse,
