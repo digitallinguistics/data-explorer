@@ -2,6 +2,7 @@ import Cite       from 'citation-js'
 import Database   from './Database.js'
 import { expect } from 'chai'
 import fs         from 'fs-extra'
+import Lexeme     from '../models/Lexeme.js'
 import yamlParser from 'js-yaml'
 
 const { readFile } = fs
@@ -96,11 +97,13 @@ describe(`Database`, function() {
 
   describe(`getLexeme`, function() {
 
-    it(`returns a copy of the data`, async function() {
+    it(`returns a Lexeme object with copied data`, async function() {
       const db = new Database
       const { data: a } = await db.getLexeme(lexemeID)
       const { data: b } = await db.getLexeme(lexemeID)
+      expect(a).to.be.an.instanceof(Lexeme)
       expect(a).to.not.equal(b)
+      expect(a.senses).to.not.equal(b.senses)
     })
 
     it(`200 OK`, async function() {
@@ -121,11 +124,14 @@ describe(`Database`, function() {
 
   describe(`getLexemes`, function() {
 
-    it(`returns copies of the data`, async function() {
+    it(`returns Lexeme objects with copied data`, async function() {
       const db = new Database
       const { data: [a] } = await db.getLexemes()
       const { data: [b] } = await db.getLexemes()
+      expect(a).to.be.an.instanceof(Lexeme)
+      expect(b).to.be.an.instanceof(Lexeme)
       expect(a).to.not.equal(b)
+      expect(a.senses).to.not.equal(b.senses)
     })
 
     it(`returns all lexemes by default`, async function() {

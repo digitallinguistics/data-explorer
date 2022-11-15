@@ -34,9 +34,12 @@ export default async function get(req, res) {
   }
 
   const { data: language }   = await db.getLanguage(lexeme.language)
-  const { data: references } = await db.getReferences({ citations: lexeme.bibliography })
+  let   { data: references } = await db.getReferences({ ids: Array.from(lexeme.references) })
 
-  references.sort((a, b) => compare(a.id, b.id))
+  references = references.reduce((hash, ref) => {
+    hash[ref.id] = ref
+    return hash
+  }, {})
 
   res.render(`Lexeme/Lexeme`, {
     language,

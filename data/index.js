@@ -3,7 +3,6 @@ import { load as convertYAML } from 'js-yaml'
 import { fileURLToPath }       from 'url'
 import path                    from 'path'
 import { readFile }            from 'fs/promises'
-import compare from '../utilities/compare.js'
 
 const __filename = fileURLToPath(import.meta.url)
 const __dirname  = path.dirname(__filename)
@@ -59,7 +58,6 @@ for (const reference of references) {
       html: htmlBibEntries.get(reference.id),
       text: textBibEntries.get(reference.id),
     },
-    sortKey: ``,
   }
 
 }

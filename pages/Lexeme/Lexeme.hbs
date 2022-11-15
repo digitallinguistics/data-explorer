@@ -4,9 +4,11 @@
 
 {{#*inline 'CitationsList' }}
   <ul class=tags-list>
-    {{#each this as |reference| }}
-      {{!-- Keep the <li> and <a> on the same line to avoid extra whitespace in the rendered page. --}}
-      <li class='citation tag' title='{{ reference.custom.bibEntry.text }}'><a href='/references/{{ reference.id }}'>{{ reference.custom.citation }}</a></li>
+    {{#each this as |citation| }}
+      {{#with (lookup @root.references citation.id) as |reference| }}
+        {{!-- Keep the <li> and <a> on the same line to avoid extra whitespace in the rendered page. --}}
+        <li class='citation tag' title='{{ reference.custom.bibEntry.text }}'><a href='/references/{{ reference.id }}'>{{cite reference ../locator }}</a></li>
+      {{/with}}
     {{/each}}
   </ul>
 {{/inline}}
@@ -172,10 +174,10 @@
 
 
       <label class=label for=references>References</label>
-      {{#if references}}
+      {{#if lexeme.bibliography }}
         <div id=references>
 
-          {{> CitationsList references }}
+          {{> CitationsList lexeme.bibliography }}
 
           <span class=bib-links>
             <a class='link subtle' href='/languages/{{ language.id }}/lexemes/{{ lexeme.id }}/references?view=bibliography'>View as Bibliography</a> | <a class='link subtle' href='/languages/{{ language.id }}/lexemes/{{ lexeme.id }}/references?view=table'>View as Table</a>

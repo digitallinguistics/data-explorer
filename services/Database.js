@@ -1,5 +1,6 @@
-import Cite             from '../config/cite.js'
+import copy             from '../utilities/copy.js'
 import data             from '../data/index.js'
+import Lexeme           from '../models/Lexeme.js'
 import { STATUS_CODES } from 'http'
 
 // NOTES
@@ -8,39 +9,6 @@ import { STATUS_CODES } from 'http'
 // - Cannot use `structuredClone()` yet
 //   because it's only supported in Node v17.
 // - Do not sort results before returning.
-
-function cite(reference, locator) {
-
-  const citer    = new Cite(reference)
-  const template = `ling`
-
-  const entry = {
-    id: reference.id,
-    locator,
-  }
-
-  const firstPart = citer.format(`citation`, {
-    entry:  Object.assign({ 'author-only': true }, entry),
-    template,
-  })
-
-  const secondPart = citer.format(`citation`, {
-    entry:  Object.assign({ 'suppress-author': true }, entry),
-    template,
-  })
-
-  return `${ firstPart } ${ secondPart }`
-
-}
-
-/**
- * Creates a deep copy of an object.
- * @param {Object} obj The Object to copy.
- * @returns Object
- */
-function copy(obj) {
-  return JSON.parse(JSON.stringify(obj))
-}
 
 /**
  * Create an index using the `id` property from an array of object.
@@ -143,9 +111,9 @@ export default class Database {
    * @returns DatabaseResponse
    */
   getLexeme(id) {
-    const lexeme = this.lexemes.index.get(id)
-    if (!lexeme) return new DatabaseResponse(404)
-    return new DatabaseResponse(200, copy(lexeme))
+    const data = this.lexemes.index.get(id)
+    if (!data) return new DatabaseResponse(404)
+    return new DatabaseResponse(200, new Lexeme(data))
   }
 
   /**
@@ -164,7 +132,7 @@ export default class Database {
       summary,
     } = options
 
-    let results = copy(this.lexemes)
+    let results = this.lexemes.map(data => new Lexeme(data))
 
     if (languageID) results = results.filter(lexeme => lexeme.language === languageID)
     if (projectID) results = results.filter(lexeme => lexeme.projects.includes(projectID))
