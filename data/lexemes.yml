@@ -45,6 +45,43 @@
     'relative root': null
     secondary:       true
 
+- id:           f00de78a-3e58-44ae-a132-69a5fc6e951c
+  dateCreated:  2022-01-01T00:00:00Z
+  dateModified: 2022-01-01T00:00:00Z
+  language:     e2b3b685-fd01-40ea-96ae-cb22f2511cd1
+  link:         https://data.digitallinguistics.io/languages/e2b3b685-fd01-40ea-96ae-cb22f2511cd1/lexemes/f00de78a-3e58-44ae-a132-69a5fc6e951c
+  type:         Lexeme
+  bibliography:
+    - id:      CowellMoss2008
+      locator: 79, 145, 146, 157
+  forms:
+    - id: 4aa45b62-05eb-412d-a789-510f99530ed8
+      componentOf: []
+      etymology:
+        - language:   05cae688-9294-4b54-9e35-1d803df8d561
+          lexeme:     a526d043-7430-4f54-9dc9-a2ee114650e2
+          form:       e5667b27-ce8a-41a1-9d4c-59a50742f822
+          unattested: true
+          transcription:
+            'AR:1':   -ahw
+            Nisinoon: -ahw
+      transcription:
+        'AR:1':   -oh
+        Nisinoon: -oh
+  lemma:
+    'AR:1':   -oh
+    Nisinoon: -oh
+  morphType:
+    eng: suffix
+  projects:
+    - c554474c-7f39-4ede-941b-c40b8f58b059 # Nisinoon
+  senses:
+    - gloss: 'action by tool'
+      # category:      TA
+      # semanticClass: abstract
+  slot:
+    eng: final
+
 - id:           365e8f6f-775a-4e07-ac33-914e65dfad5f
   dateCreated:  2022-01-01T00:00:00Z
   dateModified: 2022-01-01T00:00:00Z
@@ -60,7 +97,8 @@
       abstract: true
   lemma:
     'AR:1': -tii
-  morphType: suffix
+  morphType:
+    eng: suffix
   projects:
     - c554474c-7f39-4ede-941b-c40b8f58b059 # Nisinoon
   senses:
@@ -448,9 +486,10 @@
     - id:      Goddard1967
       locator: 74
   forms:
-    - componentOf:
-        - id:    1fbfe299-2aa6-467c-b562-a0e22876a552
-          index: 0
+    - id: 1abb5ad4-cc63-4d52-b079-816841d0e60f
+      componentOf:
+        - lexeme: 1fbfe299-2aa6-467c-b562-a0e22876a552
+          form:   957c76d3-90fb-4325-99f6-2e9e28ee248c
           transcription:
             'MN:1': wa·nɛhka·n-
       transcription:
@@ -636,9 +675,10 @@
     - id:      Goddard1967
       locator: 74
   forms:
-    - components:
-        - id:    99d2e994-8d18-424e-9d84-31de57256204
-          index: 0
+    - id: 957c76d3-90fb-4325-99f6-2e9e28ee248c
+      components:
+        - lexeme: 99d2e994-8d18-424e-9d84-31de57256204
+          form:   1abb5ad4-cc63-4d52-b079-816841d0e60f
           transcription:
             'MN:1': -a·n
       transcription:
@@ -881,6 +921,39 @@
   senses:
     - gloss: arrowhead
     - gloss: bullet
+
+# Proto-Algonquian
+
+- id:           a526d043-7430-4f54-9dc9-a2ee114650e2
+  dateCreated:  2022-01-01T00:00:00.000Z
+  dateModified: 2022-01-02T00:00:00.000Z
+  language:     05cae688-9294-4b54-9e35-1d803df8d561 # Proto-Algonquian
+  link:         https://data.digitallinguistics.io/languages/05cae688-9294-4b54-9e35-1d803df8d561/lexemes/a526d043-7430-4f54-9dc9-a2ee114650e2
+  type:         Lexeme
+  bibliography:
+    - id:      CowellMoss2008
+      locator: 79
+  forms:
+    - id:         e5667b27-ce8a-41a1-9d4c-59a50742f822
+      unattested: true
+      transcription:
+        'AR:1':   -ahw
+        Nisinoon: -ahw
+  lemma:
+    'AR:1':   -ahw
+    Nisinoon: -ahw
+  morphType:
+    eng: suffix
+  projects:
+    - c554474c-7f39-4ede-941b-c40b8f58b059 # Nisinoon
+  senses:
+    - gloss: 'action by tool'
+      # category:      TA
+      # semanticClass: abstract
+  slot:
+    eng: final
+  tags:
+    abstract: true
 
 # Swahili
 
