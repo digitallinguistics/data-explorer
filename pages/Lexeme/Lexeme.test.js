@@ -49,12 +49,26 @@ describe(`Lexeme page`, function() {
     cy.visit(`/languages/${ arapahoLanguageID }/lexemes/${ lexemeID }#metadata`)
     cy.get(`#lexeme-sources`).should(`have.text`, `PM`)
 
+    // Abstract Form
+    cy.get(`#abstract-0`).should(`not.be.checked`)
+
+    // Form Sources
     cy.get(`#form-sources-0`).children()
     .should(`have.length`, 2)
     .then(([a, b]) => {
       expect(a).to.have.text(`PM`)
       expect(b).to.have.text(`KW`)
     })
+
+  })
+
+  it(`Lexeme Details: Arapaho: -tii`, function() {
+
+    const lexemeID = `365e8f6f-775a-4e07-ac33-914e65dfad5f`
+
+    // Abstract Form
+    cy.visit(`/languages/${ arapahoLanguageID }/lexemes/${ lexemeID }`)
+    cy.get(`#abstract-0`).should(`be.checked`)
 
   })
 

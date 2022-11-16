@@ -1,0 +1,18 @@
+// Styles based on tutorial here:
+// https://moderncss.dev/pure-css-custom-checkbox-style/
+
+.checkbox {
+
+  --checkbox-size: 1.15em;
+
+  all         : revert;
+  accent-color: var(--blue);
+  block-size  : var(--checkbox-size);
+  inline-size : var(--checkbox-size);
+  transform   : translateY(-0.075em);
+
+  @media (prefers-color-scheme: dark) {
+    accent-color: var(--blue-3);
+  }
+
+}

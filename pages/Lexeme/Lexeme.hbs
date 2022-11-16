@@ -103,10 +103,19 @@
             <details class=details open>
 
               <summary>
-                {{> MultiOrthoTranscription/MultiOrthoTranscription data=form.transcription lang=@root.language.iso attributes='class="mot transcription"' }}
+                {{> MultiOrthoTranscription/MultiOrthoTranscription data=form.transcription lang=@root.language.iso attributes='class="color-block mot transcription"' }}
               </summary>
 
               <fieldset class='def-list form-props'>
+
+                <label class=label for=abstract-{{ @index }}>Abstract Form</label>
+
+                {{!-- TODO: add disabled attribute to both --}}
+                {{#if form.abstract }}
+                  <input id=abstract-{{ @index }} class=checkbox type=checkbox checked inert>
+                {{else}}
+                  <input id=abstract-{{ @index }} class=checkbox type=checkbox disabled inert>
+                {{/if}}
 
                 <label class=label for=form-references-{{ @index }}>References</label>
 

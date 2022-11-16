@@ -1,5 +1,6 @@
 @import 'Bulleted/Bulleted.less';
 @import 'BoxInput/BoxInput.less';
+@import 'Checkbox/Checkbox.less';
 @import 'Cite/Cite.less';
 @import 'Code/Code.less';
 @import 'DefinitionList/DefinitionList.less';
@@ -63,6 +64,11 @@ body:target #forms {
     padding: var(--text-padding);
   }
 
+  .checkbox {
+    align-self   : center;
+    margin-inline: var(--space-xs);
+  }
+
   .cross-refs-set {
     flex-direction: row;
     flex-wrap     : wrap;
@@ -91,6 +97,10 @@ body:target #forms {
       margin-inline-end: 1.25em;
     }
 
+  }
+
+  .form-props {
+    padding-block-start: var(--space-xs);
   }
 
   #forms {
@@ -183,10 +193,6 @@ body:target #forms {
       margin-inline-start: -3.25em;
     }
 
-    summary:hover::before {
-      --hover-color: var(--teal-1);
-    }
-
   }
 
   .page-title {
@@ -208,6 +214,10 @@ body:target #forms {
     flex-direction: row;
     flex-wrap     : wrap;
     gap           : var(--space-xs);
+  }
+
+  .transcription {
+    padding: var(--text-padding);
   }
 
   .transcriptions {
