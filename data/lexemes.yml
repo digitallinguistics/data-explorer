@@ -11,7 +11,8 @@
     - id:      CowellMoss2008
       locator: 147, 151, 156
   forms:
-    - bibliography:
+    - id: 8497d64d-1427-41ee-a165-ffb3b987f731
+      bibliography:
         - id:      CowellMoss2008
           locator: 147, 151, 156
       sources:
@@ -92,9 +93,10 @@
     - id:      CowellMoss2008
       locator: 16, 27, 124, 146
   forms:
-    - transcription:
-        'AR:1': -tii
+    - id:       7db2aa28-536c-42a6-970f-d98258f31cb6
       abstract: true
+      transcription:
+        'AR:1': -tii
   lemma:
     'AR:1': -tii
   morphType:
@@ -117,7 +119,8 @@
     - id:      CowellMoss2008
       locator: 180, 203, 293, 295
   forms:
-    - transcription:
+    - id: a2474e9f-a4c4-4842-bca6-1926581ec769
+      transcription:
         'AR:1': eeɜ-
   lemma:
     'AR:1': eeɜ-
@@ -149,7 +152,8 @@
       relation:       Deverbal
       relationType:   unidirectional
   forms:
-    - transcription:
+    - id: 15139880-6d70-44dd-8610-5b56d4d7eb9c
+      transcription:
         'AR:1': wo'oteen-
   lemma:
     'AR:1': wo'oteen-
@@ -172,7 +176,8 @@
     - id:      CowellMoss2008
       locator: 221
   forms:
-    - transcription:
+    - id: ba03eab4-2951-41c5-89ab-0c7f7597d4e9
+      transcription:
         'AR:1': wo'oteeneihi
   lemma:
     'AR:1': wo'oteeneihi
@@ -217,7 +222,8 @@
             Swadesh: pe-
             IPA:     pe-
   forms:
-    - transcription:
+    - id: 72b22b1c-d3d3-4aff-93fa-ace11d4a0a1f
+      transcription:
         Modern:  ci-
         Swadesh: či-
         IPA:     t͡ʃi-
@@ -246,11 +252,13 @@
     Swadesh: čuyi
     IPA:     t͡ʃuji
   forms:
-    - transcription:
+    - id: c7bb4f69-e7a3-4ace-91fb-6e1e26918f8b
+      transcription:
         Modern:  cuw-
         Swadesh: čuw-
         IPA:     t͡ʃuw-
-    - transcription:
+    - id: 2e877bb7-176c-464e-9402-9d6c359c5a79
+      transcription:
         Modern:  dut-
         Swadesh: dut-
         IPA:     tʼut-
@@ -313,7 +321,8 @@
             Swadesh: ʔiš-
             IPA:     ʔiʃ-
   forms:
-    - transcription:
+    - id: 06abe025-309c-43df-a12d-a89550fc8792
+      transcription:
         Modern:  hi-
         Swadesh: hi-
         IPA:     hi-
@@ -343,7 +352,8 @@
     Swadesh: huygi
     IPA:     hujkʼi
   forms:
-    - transcription:
+    - id: c62860b2-0d6d-4449-ae93-a8f8ee12720e
+      transcription:
         Modern:  huygi
         Swadesh: huygi
         IPA:     hujkʼi
@@ -366,7 +376,8 @@
   type:         Lexeme
   citationForm:
   forms:
-    - transcription:
+    - id: 09e5d293-f052-4a79-beb9-696f93d78ad0
+      transcription:
         Modern:  panx
         Swadesh: panš
         IPA:     panʃ
@@ -412,7 +423,8 @@
             Swadesh: pe-
             IPA:     pe-
   forms:
-    - transcription:
+    - id: 07e4bb99-26e4-4874-974a-43faecf8a7d4
+      transcription:
         Modern:  pe-
         Swadesh: pe-
         IPA:     pe-
@@ -456,7 +468,8 @@
             Swadesh: ʔiš-
             IPA:     ʔiʃ-
   forms:
-    - transcription:
+    - id: 5c8fe775-5e71-4bc2-87d0-6c4a67100899
+      transcription:
         Modern:  qix-
         Swadesh: ʔiš-
         IPA:     ʔiʃ-
@@ -524,7 +537,8 @@
     - id:      Goddard1980
       locator: 144
   forms:
-    - transcription:
+    - id: 94e3fb05-0d8a-4876-83cc-56ae5c53cdd2
+      transcription:
         Nisinoon: -ænææ-
         'MN:1':   -ɛnɛ·-
   lemma:
@@ -573,7 +587,8 @@
             Nisinoon:   -petoo
             'MN:WNALP': -petō
   forms:
-    - transcription:
+    - id: 4ec0b7b3-add8-436b-91fc-382487eb68a6
+      transcription:
         Nisinoon:   -peN
         'MN:WNALP': -peN
   lemma:
@@ -615,7 +630,8 @@
             Nisinoon:   -petoo
             'MN:WNALP': -petō
   forms:
-    - transcription:
+    - id: cd9455a1-7f31-423f-89e4-48ab7d397c6c
+      transcription:
         Nisinoon:   -petoo
         'MN:WNALP': -petō
   lemma:
@@ -638,7 +654,8 @@
   link:         https://data.digitallinguistics.io/languages/5fc405aa-a1a3-41e5-a80d-adb9dfbaa293/lexemes/53b003db-2927-4306-9230-aae501e44d6f
   type:         Lexeme
   forms:
-    - transcription:
+    - id: 11d6b608-913e-4cff-abd7-ca18b147c823
+      transcription:
         default: sūniyanikamek
   lemma:
     default: sūniyanikamek
@@ -655,7 +672,8 @@
   link:         https://data.digitallinguistics.io/languages/5fc405aa-a1a3-41e5-a80d-adb9dfbaa293/lexemes/11879394-ddf9-431d-9948-c75129e76b36
   type:         Lexeme
   forms:
-    - transcription:
+    - id: 9cc99213-c998-426a-aa99-e5b61c6d912d
+      transcription:
         default: sūniyanikamekmahka͞esen
   lemma:
     default: sūniyanikamekmahka͞esen
@@ -702,7 +720,8 @@
   link:         https://data.digitallinguistics.io/languages/5fc405aa-a1a3-41e5-a80d-adb9dfbaa293/lexemes/2eb35661-8e27-461a-820c-20c0a0a56c67
   type:         Lexeme
   forms:
-    - transcription:
+    - id: 40c39dae-ec31-4c66-a982-8129f76ae4b9
+      transcription:
         default: wāqnenekan
   lemma:
     default: wāqnenekan
@@ -722,7 +741,8 @@
   link:         https://data.digitallinguistics.io/languages/a6c9b191-1ef8-4379-9e94-9f1347917558/lexemes/6c18aca0-68fd-471e-a71a-3669fc6eac2e
   type:         Lexeme
   forms:
-    - transcription:
+    - id: d02f60a8-f586-4974-90d9-7f8a294d3e39
+      transcription:
         default: ikwe
   lemma:
     default: ikwe
@@ -738,7 +758,8 @@
   link:         https://data.digitallinguistics.io/languages/a6c9b191-1ef8-4379-9e94-9f1347917558/lexemes/f3e2df61-9ef7-42b2-96b0-ef989240292f
   type:         Lexeme
   forms:
-    - transcription:
+    - id: 9c9f7731-ca50-4331-883e-577d3dd95e19
+      transcription:
         default: inini
   lemma:
     default: inini
@@ -754,7 +775,8 @@
   link:         https://data.digitallinguistics.io/languages/a6c9b191-1ef8-4379-9e94-9f1347917558/lexemes/626996ce-9d90-4ad8-855b-5e72e5a5f684
   type:         Lexeme
   forms:
-    - transcription:
+    - id: f4464071-b88a-4790-a379-e05e7225061b
+      transcription:
         default: naboob
   lemma:
     default: naboob
@@ -784,7 +806,8 @@
       locator: I.31, II.275
   citationForm: # Leave citationForm blank for testing purposes
   forms:
-    - bibliography:
+    - id: 01033d33-54f6-47bf-b8a3-39997f99e850
+      bibliography:
         # All but Wolvengrey2001 are fake references for testing purposes.
         - id:      Bloomfield1924
           locator: 10
@@ -818,7 +841,8 @@
   link:         https://data.digitallinguistics.io/languages/850f3bd9-2a57-4289-bc57-05640b5d8d7d/lexemes/3a3df0ac-04be-4fe7-985d-cf5895b745ee
   type:         Lexeme
   forms:
-    - transcription:
+    - id: 78d86fa4-f968-4fb6-9b22-1c697fc47c9f
+      transcription:
         SRO:       maskwa
         syllabics: ᒪᐢᑿ
   lemma:
@@ -836,7 +860,8 @@
   link:         https://data.digitallinguistics.io/languages/850f3bd9-2a57-4289-bc57-05640b5d8d7d/lexemes/8874c4a5-720a-42cb-83c7-f66cf1eaebde
   type:         Lexeme
   forms:
-    - transcription:
+    - id: 95d62466-6b45-4799-93db-f75f3efe085d
+      transcription:
         SRO:       masinahikan
         syllabics: ᒪᓯᓇᐦᐃᑲᐣ
   lemma:
@@ -860,7 +885,8 @@
     SRO:       kotiskāwēwatim
     syllabics: ᑯᑎᐢᑳᐍᐘᑎᒼ
   forms:
-    - transcription:
+    - id: 75b0984b-ab2d-4845-a72e-c2c3466cffcf
+      transcription:
         SRO:       kotiskāwēwatimw-
         syllabics: ᑯᑎᐢᑳᐍᐘᑎᒼᐤ
   lemma:
@@ -880,7 +906,8 @@
   link:         https://data.digitallinguistics.io/languages/4c0a3e19-0281-4621-9ad6-76da5a32c125/lexemes/4ce57ae3-c620-4d80-8b5c-e9f3f13e73be
   type:         Lexeme
   forms:
-    - transcription:
+    - id: 07e56e0e-83a7-4f6a-9294-15049ad65ec9
+      transcription:
         WNALP: débabjegen
   lemma:
     WNALP: débabjegen
@@ -896,7 +923,8 @@
   link:         https://data.digitallinguistics.io/languages/4c0a3e19-0281-4621-9ad6-76da5a32c125/lexemes/41a90c8e-3be0-4610-8096-c4ca9208036e
   type:         Lexeme
   forms:
-    - transcription:
+    - id: c17fccf8-87d5-4229-9eaf-aa9058239a7e
+      transcription:
         WNALP: mzen’egen
   lemma:
     WNALP: mzen’egen
@@ -912,7 +940,8 @@
   link:         https://data.digitallinguistics.io/languages/4c0a3e19-0281-4621-9ad6-76da5a32c125/lexemes/da22d1b9-f512-458d-8029-af660ce9c20a
   type:         Lexeme
   forms:
-    - transcription:
+    - id: b51db28c-7525-42c3-ba2f-cb5e2c4d88bb
+      transcription:
         WNALP: zhadi
   lemma:
     WNALP: zhadi
@@ -966,7 +995,8 @@
   citationForm:
     swa: kula
   forms:
-    - transcription:
+    - id: 223177be-2293-44c0-931c-9d3ec2a36e3e
+      transcription:
         swa: -la
   lemma:
     swa: -la
@@ -984,7 +1014,8 @@
   citationForm:
     swa: mtu
   forms:
-    - transcription:
+    - id: 2af59c3d-5ded-466d-a337-b0da6bd65669
+      transcription:
         swa: -tu
   lemma:
     swa: mtu
@@ -1002,7 +1033,8 @@
   citationForm:
     swa: -zuri
   forms:
-    - transcription:
+    - id: 4ff33799-19f3-49a0-bb60-ce785eed5800
+      transcription:
         swa: -zuri
   lemma:
     swa: -zuri
