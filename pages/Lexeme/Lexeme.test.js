@@ -50,10 +50,10 @@ describe(`Lexeme page`, function() {
     cy.get(`#lexeme-sources`).should(`have.text`, `PM`)
 
     // Abstract Form
-    cy.get(`#abstract-0`).should(`not.be.checked`)
+    cy.get(`#form-0__abstract`).should(`not.be.checked`)
 
     // Form Sources
-    cy.get(`#form-sources-0`).children()
+    cy.get(`#form-0__sources`).children()
     .should(`have.length`, 2)
     .then(([a, b]) => {
       expect(a).to.have.text(`PM`)
@@ -68,7 +68,7 @@ describe(`Lexeme page`, function() {
 
     // Abstract Form
     cy.visit(`/languages/${ arapahoLanguageID }/lexemes/${ lexemeID }`)
-    cy.get(`#abstract-0`).should(`be.checked`)
+    cy.get(`#form-0__abstract`).should(`be.checked`)
 
   })
 
@@ -148,11 +148,24 @@ describe(`Lexeme page`, function() {
 
   })
 
+  it(`Lexeme Details: Menominee: ‑a·n`, function() {
+
+    const lexemeID = `99d2e994-8d18-424e-9d84-31de57256204`
+
+    cy.visit(`/languages/${ menomineeLanguageID }/lexemes/${ lexemeID }`)
+
+    // Component Of
+    cy.get(`#form-0__component-of`).first().should(`have.text`, `wa·nɛhka·n‑`) // non-breaking hyphen
+
+  })
+
   it(`Lexeme Details: Menominee: ‑ænææ‑`, function() {
 
     const lexemeID = `8951aed1-0531-40d9-8d9d-496858c79978`
 
     cy.visit(`/languages/${ menomineeLanguageID }/lexemes/${ lexemeID }#metadata`)
+
+    // Lexeme Notes
     cy.get(`.notes-section .summary-count`).should(`have.text`, `(1)`)
     cy.get(`.note__source`).should(`have.text`, `MAM`)
     cy.get(`.note__text`).should(`include.text`, `Not explicit`)
@@ -210,7 +223,7 @@ describe(`Lexeme page`, function() {
     cy.get(`.forms-list`).first().within(() => {
 
       cy.get(`.transcription`).should(`include.text`, data.forms[0].transcription.SRO.replace(`-`, `‑`))
-      cy.get(`#form-references-0 .tags-list`).children()
+      cy.get(`#form-0__references .tags-list`).children()
       .should(`have.length`, 3)
       .then(([a, b, c]) => {
         expect(a).to.include.text(`Bloomfield`)
