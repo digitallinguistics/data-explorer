@@ -448,12 +448,12 @@
     - id:      Goddard1967
       locator: 74
   forms:
-    componentOf:
-      - id: 1fbfe299-2aa6-467c-b562-a0e22876a552 # TODO
-        lemma:
-          'MN:1': wa·nɛhka·n-
-    transcription:
-      'MN:1': -a·n
+    - componentOf:
+        - id: 1fbfe299-2aa6-467c-b562-a0e22876a552 # TODO
+          lemma:
+            'MN:1': wa·nɛhka·n-
+      transcription:
+        'MN:1': -a·n
   lemma:
     'MN:1': -a·n
   morphType:
@@ -635,8 +635,8 @@
     - id:      Goddard1967
       locator: 74
   forms:
-    transcription:
-      'MN:1': wa·nɛhka·n-
+    - transcription:
+        'MN:1': wa·nɛhka·n-
   lemma:
     'MN:1': wa·nɛhka·n-
   morphType:
