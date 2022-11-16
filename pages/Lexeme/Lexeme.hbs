@@ -19,7 +19,7 @@
       --><ul class=cross-refs-set>
         {{~#each members as |item| ~}}
           {{~#unless (is item.id @root.lexeme.id) ~}}
-            <li><a class=headword href='/languages/{{ @root.language.id }}/lexemes/{{ item.id }}'>{{mot item.lemma @root.language.defaultOrthography }}</a>{{#unless @last }}, {{/unless}}</li>
+            <li>{{> Headword item }}{{#unless @last }}, {{/unless}}</li>
           {{~/unless~}}
         {{~/each~}}
       </ul><!--
@@ -31,7 +31,7 @@
       {{#if item}}
         {{#unless (is item.id @root.lexeme.id) }}
           <dt>{{ @key }}:</dt>
-          <dd><a class=headword href='/languages/{{ @root.language.id }}/lexemes/{{ item.id }}'>{{mot item.lemma @root.language.defaultOrthography }}</a></dd>
+          <dd>{{> Headword item }}</dd>
         {{/unless}}
       {{/if}}
     {{/each}}
@@ -39,7 +39,7 @@
   {{else if (any (is relationType 'unidirectional') (is relationType 'bidirectional')) }}
 
     <dt>{{ label }}:</dt>
-    <dd><a class=headword href='/languages/{{ @root.language.id }}/lexemes/{{ id }}'>{{mot lemma @root.language.defaultOrthography }}</a></dd>
+    <dd>{{> Headword }}</dd>
 
   {{/if}}
 {{/inline}}
