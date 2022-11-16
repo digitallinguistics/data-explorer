@@ -11,6 +11,10 @@
   </ul>
 {{/inline}}
 
+{{#*inline 'Source' }}
+  <li class=tag><a href='/people/{{ id }}' title='{{ givenName }}{{#if (all givenName familyName) }} {{/if}}{{ familyName }}'>{{ abbreviation }}</a></li>
+{{/inline}}
+
 <main id=main class=lexeme-page>
 
   <header class=header>
@@ -28,8 +32,14 @@
     </span>
 
     <ol class='glosses numbered'>
-      {{#each lexeme.senses as |sense| }}
-        <li class='gloss tln'>{{mls sense.gloss }}</li>
+      {{#each lexeme.senses }}
+        {{#if gloss }}
+          <li class='gloss tln'>{{mls gloss }}</li>
+        {{else if definition }}
+          <li class='gloss tln'>{{mls definition }}</li>
+        {{else}}
+          <li class=gloss>—</li>
+        {{/if}}
       {{/each}}
     </ol>
 
@@ -110,6 +120,18 @@
                 {{else}}
                   <span id=form-references-{{ @index }}>—</span>
                 {{/if}}
+
+                <label class=label for=sources>Sources</label>
+
+                {{#if form.sources ~}}
+                  <ul class=tags-list id=form-sources-{{ @index }}>
+                    {{~#each form.sources ~}}
+                      {{> Source }}
+                    {{~/each~}}
+                  </ul>
+                {{~else~}}
+                  <span id=sources>—</span>
+                {{~/if}}
 
               </fieldset>
 
@@ -201,15 +223,15 @@
         <span id=lexeme-references>—</span>
       {{/if}}
 
-      <label class=label for=sources>Sources</label>
+      <label class=label for=lexeme-sources>Sources</label>
       {{#if lexeme.sources ~}}
-        <ul class=tags-list id=sources>
-          {{~#each lexeme.sources as |source| ~}}
-            <li class=tag><a href='/people/{{ source.id }}' title='{{ source.givenName }}{{#if (all source.givenName source.familyName) }} {{/if}}{{ source.familyName }}'>{{ source.abbreviation }}</a></li>
+        <ul class=tags-list id=lexeme-sources>
+          {{~#each lexeme.sources ~}}
+            {{> Source }}
           {{~/each~}}
         </ul>
       {{~else~}}
-        <span id=sources>—</span>
+        <span id=lexeme-sources>—</span>
       {{~/if}}
 
       <label class=label for=tags>Tags</label>
