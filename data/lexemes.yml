@@ -438,6 +438,42 @@
 
 # Menominee
 
+- id:           99d2e994-8d18-424e-9d84-31de57256204
+  dateCreated:  2022-11-10T22:32:41.027Z
+  dateModified: 2022-11-10T22:32:41.027Z
+  language:     5fc405aa-a1a3-41e5-a80d-adb9dfbaa293 # Menominee
+  link:         https://data.digitallinguistics.io/languages/5fc405aa-a1a3-41e5-a80d-adb9dfbaa293/lexemes/99d2e994-8d18-424e-9d84-31de57256204
+  type:         Lexeme
+  bibliography:
+    - id:      Goddard1967
+      locator: 74
+  forms:
+    - componentOf:
+        - id: 1fbfe299-2aa6-467c-b562-a0e22876a552
+          lemma:
+            'MN:1': wa·nɛhka·n-
+      transcription:
+        'MN:1': -a·n
+  lemma:
+    'MN:1': -a·n
+  morphType:
+    eng: suffix
+  notes:
+    - dateCreated:  2022-01-01T00:00:00Z
+      dateModified: 2022-01-01T00:00:00Z
+      noteType:     grammar
+      text:         '"AI verbs with final -ɛ·- form nouns in -a·n" (with replacement of ɛ· by a·).'
+      source:
+        id:           6ab148c8-65fc-45c7-b154-daf07b067ef6
+        abbreviation: IG
+  projects:
+    - c554474c-7f39-4ede-941b-c40b8f58b059 # Nisinoon
+  senses:
+    - gloss: ''
+      # category: nominal (N)
+  slot:
+    eng: final
+
 - id:           8951aed1-0531-40d9-8d9d-496858c79978
   dateCreated:  2022-11-10T22:32:41.027Z
   dateModified: 2022-11-10T22:32:41.027Z
@@ -588,6 +624,30 @@
   senses:
     - gloss: shoe
     - gloss: moccasin
+
+- id:           1fbfe299-2aa6-467c-b562-a0e22876a552
+  dateCreated:  2022-11-10T22:32:41.027Z
+  dateModified: 2022-11-10T22:32:41.027Z
+  language:     5fc405aa-a1a3-41e5-a80d-adb9dfbaa293 # Menominee
+  link:         https://data.digitallinguistics.io/languages/5fc405aa-a1a3-41e5-a80d-adb9dfbaa293/lexemes/1fbfe299-2aa6-467c-b562-a0e22876a552
+  type:         Lexeme
+  bibliography:
+    - id:      Goddard1967
+      locator: 74
+  forms:
+    - transcription:
+        'MN:1': wa·nɛhka·n-
+  lemma:
+    'MN:1': wa·nɛhka·n-
+  morphType:
+    eng: stem
+  projects:
+    - c554474c-7f39-4ede-941b-c40b8f58b059 # Nisinoon
+  senses:
+    - gloss: pit
+      # category: noun
+  slot:
+    eng: stem
 
 - id:           2eb35661-8e27-461a-820c-20c0a0a56c67
   dateCreated:  2022-01-01T00:00:00.000Z

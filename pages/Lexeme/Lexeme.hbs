@@ -11,6 +11,43 @@
   </ul>
 {{/inline}}
 
+{{#*inline 'CrossReference' }}
+  {{#if (is relationType 'open set') }}
+
+    <dt>{{ label }}:</dt>
+    <dd>{{!--
+      --}}<ul class=cross-refs-set>
+        {{~#each members as |item| ~}}
+          {{~#unless (is item.id @root.lexeme.id) ~}}
+            <li>{{> Headword item }}{{#unless @last }}, {{/unless}}</li>
+          {{~/unless~}}
+        {{~/each~}}
+      </ul>{{!--
+    --}}</dd>
+
+  {{else if (is relationType 'enumerated set') }}
+
+    {{#each members as |item| }}
+      {{#if item}}
+        {{#unless (is item.id @root.lexeme.id) }}
+          <dt>{{ @key }}:</dt>
+          <dd>{{> Headword item }}</dd>
+        {{/unless}}
+      {{/if}}
+    {{/each}}
+
+  {{else if (any (is relationType 'unidirectional') (is relationType 'bidirectional')) }}
+
+    <dt>{{ label }}:</dt>
+    <dd>{{> Headword }}</dd>
+
+  {{/if}}
+{{/inline}}
+
+{{#*inline 'Headword' ~}}
+  <a class=headword href='/languages/{{ @root.language.id }}/lexemes/{{ id }}'>{{ mot lemma @root.language.defaultOrthography }}</a>
+{{~/inline}}
+
 {{#*inline 'Source' ~}}
   <li class=tag><a href='/people/{{ id }}' title='{{ givenName }}{{#if (all givenName familyName) }} {{/if}}{{ familyName }}'>{{ abbreviation }}</a></li>
 {{~/inline}}
@@ -108,32 +145,44 @@
 
               <fieldset class='def-list form-props'>
 
-                <label class=label for=abstract-{{ @index }}>Abstract Form</label>
+                <label class=label for=form-{{ @index }}__abstract>Abstract Form</label>
 
                 {{!-- TODO: add disabled attribute to both --}}
                 {{#if form.abstract }}
-                  <input id=abstract-{{ @index }} class=checkbox type=checkbox checked inert>
+                  <input id=form-{{ @index }}__abstract class=checkbox type=checkbox checked inert>
                 {{else}}
-                  <input id=abstract-{{ @index }} class=checkbox type=checkbox disabled inert>
+                  <input id=form-{{ @index }}__abstract class=checkbox type=checkbox disabled inert>
                 {{/if}}
 
-                <label class=label for=form-references-{{ @index }}>References</label>
+                <label class=label for=form-{{ @index }}__component-of>Component Of</label>
+
+                {{#if form.componentOf }}
+                  <ul class='component-of cross-refs-set' id=form-{{ @index }}__component-of>
+                    {{~#each form.componentOf ~}}
+                      <li>{{> Headword }}{{#unless @last }}, {{/unless}}</li>
+                    {{~/each~}}
+                  </ul>
+                {{else}}
+                  <span id=form-{{ @index }}__component-of>—</span>
+                {{/if}}
+
+                <label class=label for=form-{{ @index }}__references>References</label>
 
                 {{#if form.bibliography }}
-                  <div id=form-references-{{ @index }}>
+                  <div id=form-{{ @index }}__references>
                     {{> CitationsList form.bibliography }}
                     <span class=bib-links>
                       <a class='link subtle' href='/languages/{{ @root.language.id }}/lexemes/{{ @root.lexeme.id }}/forms/{{ @index }}/references?view=bibliography'>View as Bibliography</a> | <a class='link subtle' href='/languages/{{ @root.language.id }}/lexemes/{{ @root.lexeme.id }}/forms/{{ @index }}/references?view=table'>View as Table</a>
                     </span>
                   </div>
                 {{else}}
-                  <span id=form-references-{{ @index }}>—</span>
+                  <span id=form-{{ @index }}__references>—</span>
                 {{/if}}
 
-                <label class=label for=form-sources-{{ @index }}>Sources</label>
+                <label class=label for=form-{{ @index }}__sources>Sources</label>
 
                 {{#if form.sources ~}}
-                  <ul class=tags-list id=form-sources-{{ @index }}>
+                  <ul class=tags-list id=form-{{ @index }}__sources>
                     {{~#each form.sources ~}}
                       {{~> Source }}
                     {{~/each~}}
@@ -166,38 +215,7 @@
       {{#if lexeme.crossReferences}}
         <dl class=def-list id=cross-references>
           {{#each lexeme.crossReferences as |crossRef| }}
-
-              {{#if (is crossRef.relationType 'open set') }}
-
-                <dt>{{ crossRef.label }}:</dt>
-                <dd><!--
-                  --><ul class=cross-refs-set>
-                    {{~#each members as |item| ~}}
-                      {{~#unless (is item.id @root.lexeme.id) ~}}
-                        <li><a class=headword href='/languages/{{ @root.language.id }}/lexemes/{{ item.id }}'>{{mot item.lemma @root.language.defaultOrthography }}</a>{{#unless @last }}, {{/unless}}</li>
-                      {{~/unless~}}
-                    {{~/each~}}
-                  </ul><!--
-                --></dd>
-
-              {{else if (is crossRef.relationType 'enumerated set') }}
-
-                {{#each members as |item| }}
-                  {{#if item}}
-                    {{#unless (is item.id @root.lexeme.id) }}
-                      <dt>{{ @key }}:</dt>
-                      <dd><a class=headword href='/languages/{{ @root.language.id }}/lexemes/{{ item.id }}'>{{mot item.lemma @root.language.defaultOrthography }}</a></dd>
-                    {{/unless}}
-                  {{/if}}
-                {{/each}}
-
-              {{else if (any (is crossRef.relationType 'unidirectional') (is crossRef.relationType 'bidirectional')) }}
-
-                <dt>{{ crossRef.label }}:</dt>
-                <dd><a class=headword href='/languages/{{ @root.language.id }}/lexemes/{{ crossRef.id }}'>{{mot crossRef.lemma @root.language.defaultOrthography }}</a></dd>
-
-              {{/if}}
-
+            {{> CrossReference crossRef }}
           {{/each}}
         </dl>
       {{else}}
