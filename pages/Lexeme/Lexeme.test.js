@@ -47,7 +47,14 @@ describe(`Lexeme page`, function() {
     const lexemeID = `67944dcf-f7d9-4e9c-88f7-cb2408b10b9b`
 
     cy.visit(`/languages/${ arapahoLanguageID }/lexemes/${ lexemeID }#metadata`)
-    cy.get(`#sources`).should(`have.text`, `PM`)
+    cy.get(`#lexeme-sources`).should(`have.text`, `PM`)
+
+    cy.get(`#form-sources-0`).children()
+    .should(`have.length`, 2)
+    .then(([a, b]) => {
+      expect(a).to.have.text(`PM`)
+      expect(b).to.have.text(`KW`)
+    })
 
   })
 

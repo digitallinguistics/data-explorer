@@ -14,6 +14,15 @@
     - bibliography:
         - id:      CowellMoss2008
           locator: 147, 151, 156
+      sources:
+        - id:           4ad9955f-f823-483b-bc62-b98cbf02b10a
+          abbreviation: PM
+          familyName:   Moss
+          givenName:    Paul
+        - id:           5f3e1abb-fefd-4e2c-925c-bc08fee8552f
+          abbreviation: KW
+          familyName:   Walden
+          givenName:    Kim
       transcription:
         'AR:1': -(')enih
   lemma:
