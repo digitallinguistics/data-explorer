@@ -188,6 +188,17 @@ describe(`Lexeme page`, function() {
 
   })
 
+  it(`Lexeme Details: Menominee: wa·nɛhka·n‑`, function() {
+
+    const lexemeID = `1fbfe299-2aa6-467c-b562-a0e22876a552`
+
+    cy.visit(`/languages/${ menomineeLanguageID }/lexemes/${ lexemeID }`)
+
+    // Form Components
+    cy.get(`#form-0__components`).should(`have.text`, `‑a·n`) // non-breaking hyphen
+
+  })
+
   it(`Lexeme Details: Plains Cree: cīkahikan`, function() {
 
     const { data } = this
