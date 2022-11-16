@@ -11,9 +11,9 @@
   </ul>
 {{/inline}}
 
-{{#*inline 'Source' }}
+{{#*inline 'Source' ~}}
   <li class=tag><a href='/people/{{ id }}' title='{{ givenName }}{{#if (all givenName familyName) }} {{/if}}{{ familyName }}'>{{ abbreviation }}</a></li>
-{{/inline}}
+{{~/inline}}
 
 <main id=main class=lexeme-page>
 
@@ -121,12 +121,12 @@
                   <span id=form-references-{{ @index }}>—</span>
                 {{/if}}
 
-                <label class=label for=sources>Sources</label>
+                <label class=label for=form-sources-{{ @index }}>Sources</label>
 
                 {{#if form.sources ~}}
                   <ul class=tags-list id=form-sources-{{ @index }}>
                     {{~#each form.sources ~}}
-                      {{> Source }}
+                      {{~> Source }}
                     {{~/each~}}
                   </ul>
                 {{~else~}}
@@ -227,7 +227,7 @@
       {{#if lexeme.sources ~}}
         <ul class=tags-list id=lexeme-sources>
           {{~#each lexeme.sources ~}}
-            {{> Source }}
+            {{~> Source }}
           {{~/each~}}
         </ul>
       {{~else~}}
