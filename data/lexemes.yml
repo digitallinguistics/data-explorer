@@ -45,6 +45,30 @@
     'relative root': null
     secondary:       true
 
+- id:           365e8f6f-775a-4e07-ac33-914e65dfad5f
+  dateCreated:  2022-01-01T00:00:00Z
+  dateModified: 2022-01-01T00:00:00Z
+  language:     e2b3b685-fd01-40ea-96ae-cb22f2511cd1
+  link:         https://data.digitallinguistics.io/languages/e2b3b685-fd01-40ea-96ae-cb22f2511cd1/lexemes/365e8f6f-775a-4e07-ac33-914e65dfad5f
+  type:         Lexeme
+  bibliography:
+    - id:      CowellMoss2008
+      locator: 16, 27, 124, 146
+  forms:
+    - transcription:
+        'AR:1': -tii
+      abstract: true
+  lemma:
+    'AR:1': -tii
+  morphType: suffix
+  projects:
+    - c554474c-7f39-4ede-941b-c40b8f58b059 # Nisinoon
+  senses:
+    - gloss: to do s.t.
+      # category: AI
+  slot:
+    eng: final
+
 - id:           9471ed59-5b56-4379-81dc-fa56555cdfd1
   dateCreated:  2022-01-01T00:00:00Z
   dateModified: 2022-01-01T00:00:00Z

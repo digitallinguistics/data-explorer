@@ -31,15 +31,16 @@
 
   summary:hover::before {
 
-    --hover-color: var(--blue-1);
+    --hover-color: white;
 
     background-color: var(--hover-color);
     border-radius   : var(--border-radius);
     box-shadow      : 0 0 3px black;
 
     @media (prefers-color-scheme: dark) {
-      box-shadow: 0 0 3px var(--text-color-dark);
-      content   : url('@{chevron}');
+      --hover-color: var(--text-color-dark);
+      box-shadow   : 0 0 3px var(--text-color-dark);
+      content      : url('@{chevron}');
     }
 
   }
