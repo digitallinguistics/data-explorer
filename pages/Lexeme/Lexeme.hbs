@@ -45,7 +45,13 @@
 {{/inline}}
 
 {{#*inline 'Headword' ~}}
-  <a class=headword href='/languages/{{ @root.language.id }}/lexemes/{{ id }}'>{{ mot lemma @root.language.defaultOrthography }}</a>
+  <a class=headword href='/languages/{{ @root.language.id }}/lexemes/{{ id }}'>
+    {{~#if lemma ~}}
+      {{ mot lemma @root.language.defaultOrthography }}
+    {{~else~}}
+      {{ mot transcription @root.language.defaultOrthography }}
+    {{~/if~}}
+  </a>
 {{~/inline}}
 
 {{#*inline 'Source' ~}}
@@ -154,10 +160,22 @@
                   <input id=form-{{ @index }}__abstract class=checkbox type=checkbox disabled inert>
                 {{/if}}
 
+                <label class=label for=form-{{ @index }}__components>Components</label>
+
+                {{#if form.components }}
+                  <ul class=cross-refs-set id=form-{{ @index }}__components>
+                    {{~#each form.components ~}}
+                      <li>{{> Headword }}{{#unless @last }}, {{/unless}}</li>
+                    {{~/each~}}
+                  </ul>
+                {{else}}
+                  <span id=form-{{ @index }}__components>—</span>
+                {{/if}}
+
                 <label class=label for=form-{{ @index }}__component-of>Component Of</label>
 
                 {{#if form.componentOf }}
-                  <ul class='component-of cross-refs-set' id=form-{{ @index }}__component-of>
+                  <ul class=cross-refs-set id=form-{{ @index }}__component-of>
                     {{~#each form.componentOf ~}}
                       <li>{{> Headword }}{{#unless @last }}, {{/unless}}</li>
                     {{~/each~}}

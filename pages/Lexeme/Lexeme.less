@@ -55,10 +55,6 @@ body:target #forms {
     padding: var(--text-padding-lg);
   }
 
-  .component-of {
-    margin-inline-start: calc(-1 * var(--text-inline-padding-sm));
-  }
-
   #cross-references {
     align-items: baseline;
     padding    : 0em;
@@ -74,9 +70,10 @@ body:target #forms {
   }
 
   .cross-refs-set {
-    flex-direction: row;
-    flex-wrap     : wrap;
-    gap           : var(--space-xxxs);
+    flex-direction     : row;
+    flex-wrap          : wrap;
+    gap                : var(--space-xxxs);
+    margin-inline-start: calc(-1 * var(--text-inline-padding-sm));
   }
 
   .cross-refs-set li {
