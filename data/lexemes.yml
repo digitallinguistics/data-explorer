@@ -449,8 +449,9 @@
       locator: 74
   forms:
     - componentOf:
-        - id: 1fbfe299-2aa6-467c-b562-a0e22876a552
-          lemma:
+        - id:    1fbfe299-2aa6-467c-b562-a0e22876a552
+          index: 0
+          transcription:
             'MN:1': wa·nɛhka·n-
       transcription:
         'MN:1': -a·n
@@ -635,7 +636,12 @@
     - id:      Goddard1967
       locator: 74
   forms:
-    - transcription:
+    - components:
+        - id:    99d2e994-8d18-424e-9d84-31de57256204
+          index: 0
+          transcription:
+            'MN:1': -a·n
+      transcription:
         'MN:1': wa·nɛhka·n-
   lemma:
     'MN:1': wa·nɛhka·n-
