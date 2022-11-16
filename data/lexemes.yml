@@ -54,10 +54,26 @@
   type:         Lexeme
   bibliography:
     - id:      CowellMoss2008
-      locator: 79, 145, 146, 157
+      locator: 79, 145–146, 157
   forms:
     - id: 4aa45b62-05eb-412d-a789-510f99530ed8
-      componentOf: []
+      componentOf:
+        - lexeme: ce28c630-ec35-4c1a-9708-4034f0d6af28
+          form:   5cb061f9-56aa-492e-8e46-710a3a3f148b
+          transcription:
+            'AR:1': cíhi'-oh-
+        - lexeme: 2faf08ea-5b19-4a10-b821-ccfd7db2beac
+          form:   7c73494b-8445-4657-895b-d1ad2682ceaf
+          transcription:
+            'AR:1': ɜéí'eiik-oh-
+        - lexeme: 4b9e3850-6584-4c22-a7be-c75137e8dded
+          form:   5cb061f9-56aa-492e-8e46-710a3a3f148b
+          transcription:
+            'AR:1': sebéy-oh-
+        - lexeme: 5558f108-9a25-458d-9dfd-62d5975a0f2e
+          form:   7c73494b-8445-4657-895b-d1ad2682ceaf
+          transcription:
+            'AR:1': towoh-
       etymology:
         - language:   05cae688-9294-4b54-9e35-1d803df8d561
           lexeme:     a526d043-7430-4f54-9dc9-a2ee114650e2
@@ -109,6 +125,38 @@
   slot:
     eng: final
 
+- id:           ce28c630-ec35-4c1a-9708-4034f0d6af28
+  dateCreated:  2022-01-01T00:00:00Z
+  dateModified: 2022-01-01T00:00:00Z
+  language:     e2b3b685-fd01-40ea-96ae-cb22f2511cd1
+  link:         https://data.digitallinguistics.io/languages/e2b3b685-fd01-40ea-96ae-cb22f2511cd1/lexemes/ce28c630-ec35-4c1a-9708-4034f0d6af28
+  type:         Lexeme
+  bibliography:
+    - id:      CowellMoss2008
+      locator: 145
+  components:
+    - lexeme:     f00de78a-3e58-44ae-a132-69a5fc6e951c
+      form:       4aa45b62-05eb-412d-a789-510f99530ed8
+      unattested: false
+      transcription:
+        'AR:1':   -oh
+        Nisinoon: -oh
+  forms:
+    - id:       5cb061f9-56aa-492e-8e46-710a3a3f148b
+      abstract: true
+      # inflectionClass: TA
+      transcription:
+        'AR:1': cíhi'-oh-
+  lemma:
+    'AR:1': cíhi'-oh-
+  projects:
+    - c554474c-7f39-4ede-941b-c40b8f58b059 # Nisinoon
+  senses:
+    - gloss: to chop s.t. (AN)
+      # category: V
+  slot:
+    eng: stem
+
 - id:           9471ed59-5b56-4379-81dc-fa56555cdfd1
   dateCreated:  2022-01-01T00:00:00Z
   dateModified: 2022-01-01T00:00:00Z
@@ -134,6 +182,102 @@
     eng: initial
   tags:
     'relative root': null
+
+- id:           2faf08ea-5b19-4a10-b821-ccfd7db2beac
+  dateCreated:  2022-01-01T00:00:00Z
+  dateModified: 2022-01-01T00:00:00Z
+  language:     e2b3b685-fd01-40ea-96ae-cb22f2511cd1
+  link:         https://data.digitallinguistics.io/languages/e2b3b685-fd01-40ea-96ae-cb22f2511cd1/lexemes/2faf08ea-5b19-4a10-b821-ccfd7db2beac
+  type:         Lexeme
+  bibliography:
+    - id:      CowellMoss2008
+      locator: 146
+  components:
+    - lexeme:     f00de78a-3e58-44ae-a132-69a5fc6e951c
+      form:       4aa45b62-05eb-412d-a789-510f99530ed8
+      unattested: false
+      transcription:
+        'AR:1':   -oh
+        Nisinoon: -oh
+  forms:
+    - id:       7c73494b-8445-4657-895b-d1ad2682ceaf
+      abstract: true
+      # inflectionClass: TA
+      transcription:
+        'AR:1': ɜéí'eiik-oh-
+  lemma:
+    'AR:1': ɜéí'eiik-oh-
+  projects:
+    - c554474c-7f39-4ede-941b-c40b8f58b059 # Nisinoon
+  senses:
+    - gloss: to carry s.o. on the back
+      # category: V
+  slot:
+    eng: stem
+
+- id:           4b9e3850-6584-4c22-a7be-c75137e8dded
+  dateCreated:  2022-01-01T00:00:00Z
+  dateModified: 2022-01-01T00:00:00Z
+  language:     e2b3b685-fd01-40ea-96ae-cb22f2511cd1
+  link:         https://data.digitallinguistics.io/languages/e2b3b685-fd01-40ea-96ae-cb22f2511cd1/lexemes/4b9e3850-6584-4c22-a7be-c75137e8dded
+  type:         Lexeme
+  bibliography:
+    - id:      CowellMoss2008
+      locator: 145
+  components:
+    - lexeme:     f00de78a-3e58-44ae-a132-69a5fc6e951c
+      form:       4aa45b62-05eb-412d-a789-510f99530ed8
+      unattested: false
+      transcription:
+        'AR:1':   -oh
+        Nisinoon: -oh
+  forms:
+    - id:       5cb061f9-56aa-492e-8e46-710a3a3f148b
+      abstract: true
+      # inflectionClass: TA
+      transcription:
+        'AR:1': sebéy-oh-
+  lemma:
+    'AR:1': sebéy-oh-
+  projects:
+    - c554474c-7f39-4ede-941b-c40b8f58b059 # Nisinoon
+  senses:
+    - gloss: to aim at s.t. (AN)
+      # category: V
+  slot:
+    eng: stem
+
+- id:           5558f108-9a25-458d-9dfd-62d5975a0f2e
+  dateCreated:  2022-01-01T00:00:00Z
+  dateModified: 2022-01-01T00:00:00Z
+  language:     e2b3b685-fd01-40ea-96ae-cb22f2511cd1
+  link:         https://data.digitallinguistics.io/languages/e2b3b685-fd01-40ea-96ae-cb22f2511cd1/lexemes/5558f108-9a25-458d-9dfd-62d5975a0f2e
+  type:         Lexeme
+  bibliography:
+    - id:      CowellMoss2008
+      locator: 157
+  components:
+    - lexeme:     f00de78a-3e58-44ae-a132-69a5fc6e951c
+      form:       4aa45b62-05eb-412d-a789-510f99530ed8
+      unattested: false
+      transcription:
+        'AR:1':   -oh
+        Nisinoon: -oh
+  forms:
+    - id:       7c73494b-8445-4657-895b-d1ad2682ceaf
+      abstract: true
+      # inflectionClass: TA
+      transcription:
+        'AR:1': towoh-
+  lemma:
+    'AR:1': towoh-
+  projects:
+    - c554474c-7f39-4ede-941b-c40b8f58b059 # Nisinoon
+  senses:
+    - gloss: to cut off, remove
+      # category: V
+  slot:
+    eng: stem
 
 - id:           f19f279b-97a5-4e07-bae0-7bb67699e745
   dateCreated:  2022-01-01T00:00:00Z
@@ -695,8 +839,9 @@
   forms:
     - id: 957c76d3-90fb-4325-99f6-2e9e28ee248c
       components:
-        - lexeme: 99d2e994-8d18-424e-9d84-31de57256204
-          form:   1abb5ad4-cc63-4d52-b079-816841d0e60f
+        - lexeme:     99d2e994-8d18-424e-9d84-31de57256204
+          form:       1abb5ad4-cc63-4d52-b079-816841d0e60f
+          unattested: false
           transcription:
             'MN:1': -a·n
       transcription:
