@@ -112,9 +112,9 @@
 
                 {{!-- TODO: add disabled attribute to both --}}
                 {{#if form.abstract }}
-                  <input class=checkbox type=checkbox checked inert>
+                  <input id=abstract-{{ @index }} class=checkbox type=checkbox checked inert>
                 {{else}}
-                  <input class=checkbox type=checkbox disabled inert>
+                  <input id=abstract-{{ @index }} class=checkbox type=checkbox disabled inert>
                 {{/if}}
 
                 <label class=label for=form-references-{{ @index }}>References</label>
