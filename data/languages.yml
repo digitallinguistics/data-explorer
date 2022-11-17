@@ -153,6 +153,26 @@
     public:  true
   projects: [c554474c-7f39-4ede-941b-c40b8f58b059] # Nisinoon (Public Project)
 
+- id:                      2f8c9c1d-b08b-4b51-a016-b65a90eb8af8
+  abbreviation:            PAlg
+  dateCreated:             2022-01-01T00:00:00.000Z
+  dateModified:            2022-01-02T00:00:00.000Z
+  defaultAnalysisLanguage: eng
+  defaultOrthography:      Nisinoon
+  link:                    https://data.digitallinguistics.io/languages/2f8c9c1d-b08b-4b51-a016-b65a90eb8af8
+  type:                    Language
+  description:
+    html: This is the description for the Proto-Algic language.
+    text: This is the description for the Proto-Algic language.
+  name:
+    eng: Proto-Algic
+  permissions:
+    owners:  [owner@digitallinguistics.io]
+    editors: []
+    viewers: []
+    public:  true
+  projects: [c554474c-7f39-4ede-941b-c40b8f58b059] # Nisinoon (Public Project)
+
 - id:                      05cae688-9294-4b54-9e35-1d803df8d561
   abbreviation:            PA
   dateCreated:             2022-01-01T00:00:00.000Z
