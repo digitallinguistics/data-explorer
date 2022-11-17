@@ -49,7 +49,7 @@
 - id:           f00de78a-3e58-44ae-a132-69a5fc6e951c
   dateCreated:  2022-01-01T00:00:00Z
   dateModified: 2022-01-01T00:00:00Z
-  language:     e2b3b685-fd01-40ea-96ae-cb22f2511cd1
+  language:     e2b3b685-fd01-40ea-96ae-cb22f2511cd1 # Arapaho
   link:         https://data.digitallinguistics.io/languages/e2b3b685-fd01-40ea-96ae-cb22f2511cd1/lexemes/f00de78a-3e58-44ae-a132-69a5fc6e951c
   type:         Lexeme
   bibliography:
@@ -75,20 +75,17 @@
           transcription:
             'AR:1': towoh-
       etymology:
-        # I didn't feel like making a separate language for Proto-Algic
-        # so I just used Proto-Algonquian twice
         - language:
-            id:                      05cae688-9294-4b54-9e35-1d803df8d561
-            abbreviation:            Algic
+            id:                      2f8c9c1d-b08b-4b51-a016-b65a90eb8af8
+            abbreviation:            PAlg
             defaultAnalysisLanguage: eng
             defaultOrthography:      Nisinoon
             name:
               eng: Proto-Algic
-          lexeme:     a526d043-7430-4f54-9dc9-a2ee114650e2
-          form:       e5667b27-ce8a-41a1-9d4c-59a50742f822
+          form: d9da9f62-803e-490a-927e-efaa1eef9f0f
+          lexeme: b9a0edc6-59d1-44bd-a3e7-e226d0a33e5d
           unattested: true
           transcription:
-            'AR:1':   -ahw
             Nisinoon: -ahw
         - language:
             id:                      05cae688-9294-4b54-9e35-1d803df8d561
@@ -1117,6 +1114,62 @@
     - gloss: arrowhead
     - gloss: bullet
 
+# Proto-Algic
+
+- id:           b9a0edc6-59d1-44bd-a3e7-e226d0a33e5d
+  dateCreated:  2022-01-01T00:00:00.000Z
+  dateModified: 2022-01-02T00:00:00.000Z
+  language:     2f8c9c1d-b08b-4b51-a016-b65a90eb8af8 # Proto-Algic
+  link:         https://data.digitallinguistics.io/languages/2f8c9c1d-b08b-4b51-a016-b65a90eb8af8/lexemes/b9a0edc6-59d1-44bd-a3e7-e226d0a33e5d
+  type:         Lexeme
+  bibliography:
+    - id:      CowellMoss2008
+      locator: 79
+  forms:
+    - id:         d9da9f62-803e-490a-927e-efaa1eef9f0f
+      unattested: true
+      transcription:
+        Nisinoon: -ahw
+      reflexes:
+        - lexeme:   a526d043-7430-4f54-9dc9-a2ee114650e2 # -ahw
+          form:     e5667b27-ce8a-41a1-9d4c-59a50742f822 # -ahw
+          language:
+                id:                      05cae688-9294-4b54-9e35-1d803df8d561
+                abbreviation:            PA
+                defaultAnalysisLanguage: eng
+                defaultOrthography:      Nisinoon
+                name:
+                  eng: Proto-Algonquian
+          transcription:
+            'AR:1':   -ahw
+            Nisinoon: -ahw
+        - lexeme:   f00de78a-3e58-44ae-a132-69a5fc6e951c # -oh
+          form:     4aa45b62-05eb-412d-a789-510f99530ed8 # -oh
+          language:
+                id:                      e2b3b685-fd01-40ea-96ae-cb22f2511cd1
+                abbreviation:            arp
+                defaultAnalysisLanguage: eng
+                defaultOrthography:      Nisinoon
+                name:
+                  eng: Arapaho
+          transcription:
+            'AR:1':   -oh
+            Nisinoon: -oh
+  lemma:
+    Nisinoon: -ahw
+  morphType:
+    eng: suffix
+  projects:
+    - c554474c-7f39-4ede-941b-c40b8f58b059 # Nisinoon
+  senses:
+    - gloss: 'action by tool'
+      # category:      TA
+      # semanticClass: abstract
+  slot:
+    eng: final
+  tags:
+    abstract: true
+
 # Proto-Algonquian
 
 - id:           a526d043-7430-4f54-9dc9-a2ee114650e2
@@ -1141,6 +1194,19 @@
     eng: suffix
   projects:
     - c554474c-7f39-4ede-941b-c40b8f58b059 # Nisinoon
+  reflexes:
+    - lexeme:   f00de78a-3e58-44ae-a132-69a5fc6e951c # -ahw
+      form:     4aa45b62-05eb-412d-a789-510f99530ed8 # -ahw
+      language:
+            id:                      05cae688-9294-4b54-9e35-1d803df8d561
+            abbreviation:            PA
+            defaultAnalysisLanguage: eng
+            defaultOrthography:      Nisinoon
+            name:
+              eng: Proto-Algonquian
+      transcription:
+        'AR:1':   -oh
+        Nisinoon: -oh
   senses:
     - gloss: 'action by tool'
       # category:      TA

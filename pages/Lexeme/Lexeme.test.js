@@ -62,14 +62,14 @@ describe(`Lexeme page`, function() {
 
   })
 
-  it.only(`Lexeme Details: Arapaho: -oh`, function() {
+  it(`Lexeme Details: Arapaho: -oh`, function() {
 
     const lexemeID = `f00de78a-3e58-44ae-a132-69a5fc6e951c`
 
     cy.visit(`/languages/${ arapahoLanguageID }/lexemes/${ lexemeID }`)
 
     // Etymology
-    cy.get(`#form-0__etymology`).should(`have.text`, `Algic: ‑ahw → PA: ‑ahw`)
+    cy.get(`#form-0__etymology`).should(`have.text`, `PAlg: ‑ahw → PA: ‑ahw`)
 
   })
 
@@ -295,6 +295,23 @@ describe(`Lexeme page`, function() {
       expect(b).to.contain(`Goddard`)
       expect(c).to.contain(`Macaulay`)
       expect(d).to.contain(`Wolvengrey`)
+    })
+
+  })
+
+  it(`Lexeme Details: Proto-Algic: -ahw`, function() {
+
+    const lexemeID             = `b9a0edc6-59d1-44bd-a3e7-e226d0a33e5d`
+    const protoAlgicLanguageID = `2f8c9c1d-b08b-4b51-a016-b65a90eb8af8`
+
+    cy.visit(`/languages/${ protoAlgicLanguageID }/lexemes/${ lexemeID }`)
+
+    // Reflexes
+    cy.get(`#form-0__reflexes`).children()
+    .should(`have.length`, 2)
+    .then(([a, b]) => {
+      expect(a).to.have.text(`PA: ‑ahw, `) // non-breaking hyphen
+      expect(b).to.have.text(`arp: ‑oh`) // non-breaking hyphen
     })
 
   })
