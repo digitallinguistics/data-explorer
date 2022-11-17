@@ -27,7 +27,7 @@
       --}}<ul class=cross-refs-set>
         {{~#each members as |item| ~}}
           {{~#unless (is item.id @root.lexeme.id) ~}}
-            <li>{{> Headword item }}{{#unless @last }}, {{/unless}}</li>
+            <li>{{> Headword lemma }}{{#unless @last }}, {{/unless}}</li>
           {{~/unless~}}
         {{~/each~}}
       </ul>{{!--
@@ -39,7 +39,7 @@
       {{#if item}}
         {{#unless (is item.id @root.lexeme.id) }}
           <dt>{{ @key }}:</dt>
-          <dd>{{> Headword item }}</dd>
+          <dd>{{> Headword item.lemma }}</dd>
         {{/unless}}
       {{/if}}
     {{/each}}
@@ -47,7 +47,7 @@
   {{else if (any (is relationType 'unidirectional') (is relationType 'bidirectional')) }}
 
     <dt>{{ label }}:</dt>
-    <dd>{{> Headword }}</dd>
+    <dd>{{> Headword lemma }}</dd>
 
   {{/if}}
 {{/inline}}

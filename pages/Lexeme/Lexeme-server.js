@@ -1,4 +1,3 @@
-import compare               from '../../utilities/compare.js'
 import db                    from '../../config/database.js'
 import getDefaultOrthography from '../../utilities/getDefaultOrthography.js'
 import { hasAccess }         from '../../utilities/permissions.js'
@@ -33,13 +32,13 @@ export default async function get(req, res) {
     })
   }
 
-  const { data: language } = await db.getLanguage(lexeme.language)
+  const { data: language } = await db.getLanguage(lexeme.language.id)
 
   res.render(`Lexeme/Lexeme`, {
     language,
     lexeme,
     [title]: true,
-    title:   lexeme ? getDefaultOrthography(lexeme.lemma) : title,
+    title:   lexeme ? getDefaultOrthography(lexeme.lemma.transcription) : title,
   })
 
 }

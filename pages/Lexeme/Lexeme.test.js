@@ -217,10 +217,10 @@ describe(`Lexeme page`, function() {
     cy.visit(`/languages/${ publicLanguageID }/lexemes/${ data.id }`)
 
     // page title
-    cy.title().should(`eq`, `Oxalis | ${ data.lemma.SRO }`)
+    cy.title().should(`eq`, `Oxalis | ${ data.lemma.transcription.SRO }`)
 
     // SUMMARY
-    cy.contains(`.page-title`, data.lemma.SRO)
+    cy.contains(`.page-title`, data.lemma.transcription.SRO)
     cy.contains(`.header`, data.senses[0].gloss)
     cy.get(`.header .language`).should(`have.text`, `Plains Cree | nêhiyawêwin`)
 
@@ -229,8 +229,8 @@ describe(`Lexeme page`, function() {
     cy.get(`#forms`).should(`be.visible`)
 
     // Lemma
-    cy.contains(`#lemma`, data.lemma.SRO)
-    cy.contains(`#lemma`, data.lemma.syllabics)
+    cy.contains(`#lemma`, data.lemma.transcription.SRO)
+    cy.contains(`#lemma`, data.lemma.transcription.syllabics)
 
     // Citation Form (without data; see below for test with data)
     cy.contains(`#citation-form`, `—`)
