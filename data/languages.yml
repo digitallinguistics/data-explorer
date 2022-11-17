@@ -153,6 +153,26 @@
     public:  true
   projects: [c554474c-7f39-4ede-941b-c40b8f58b059] # Nisinoon (Public Project)
 
+- id:                      05cae688-9294-4b54-9e35-1d803df8d561
+  abbreviation:            PA
+  dateCreated:             2022-01-01T00:00:00.000Z
+  dateModified:            2022-01-02T00:00:00.000Z
+  defaultAnalysisLanguage: eng
+  defaultOrthography:      Nisinoon
+  link:                    https://data.digitallinguistics.io/languages/05cae688-9294-4b54-9e35-1d803df8d561
+  type:                    Language
+  description:
+    html: This is the description for the Proto-Algonquian language.
+    text: This is the description for the Proto-Algonquian language.
+  name:
+    eng: Proto-Algonquian
+  permissions:
+    owners:  [owner@digitallinguistics.io]
+    editors: []
+    viewers: []
+    public:  true
+  projects: [c554474c-7f39-4ede-941b-c40b8f58b059] # Nisinoon (Public Project)
+
 - id:                      4c0a3e19-0281-4621-9ad6-76da5a32c125
   abbreviation:            pot
   dateCreated:             2022-01-01T00:00:00.000Z

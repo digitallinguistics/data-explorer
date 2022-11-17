@@ -77,11 +77,21 @@ body:target #forms {
   }
 
   .cross-refs-set li {
-    display: inline;
+    display    : inline;
+    white-space: nowrap;
   }
 
   :is(#date-created, #date-modified) {
     font-family: var(--font-mono);
+  }
+
+  .etymology {
+    gap: var(--space-xs);
+  }
+
+  .etymon__label {
+    font-size  : smaller;
+    white-space: nowrap;
   }
 
   .form {

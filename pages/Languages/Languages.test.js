@@ -123,10 +123,11 @@ describe(`Languages`, function() {
     it(`displays all (and only all) project languages`, function() {
 
       const publicProjectID = `c554474c-7f39-4ede-941b-c40b8f58b059` // Nisinoon
+      const projectLanguages = this.languages.filter(lang => lang.projects.includes(publicProjectID))
 
       cy.visit(`/projects/${ publicProjectID }/languages`)
       cy.title().should(`eq`, `Oxalis | Nisinoon | Languages`)
-      cy.get(`tbody`).children().should(`have.length`, 5)
+      cy.get(`tbody`).children().should(`have.length`, projectLanguages.length)
 
     })
 

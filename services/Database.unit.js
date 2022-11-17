@@ -85,11 +85,15 @@ describe(`Database`, function() {
     })
 
     it(`option: project`, async function() {
+
+      const projectLanguages = this.languages.filter(lang => lang.projects.includes(this.project.id))
       const db = new Database
       const { data, status } = await db.getLanguages({ project: projectID })
+
       expect(status).to.equal(200)
-      expect(data).to.have.lengthOf(5)
+      expect(data).to.have.lengthOf(projectLanguages.length)
       expect(data.every(language => language.projects.includes(projectID))).to.be.true
+
     })
 
   })
