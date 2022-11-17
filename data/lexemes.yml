@@ -75,7 +75,26 @@
           transcription:
             'AR:1': towoh-
       etymology:
-        - language:   05cae688-9294-4b54-9e35-1d803df8d561
+        - language:
+            id:                      05cae688-9294-4b54-9e35-1d803df8d561
+            abbreviation:            PA
+            defaultAnalysisLanguage: eng
+            defaultOrthography:      Nisinoon
+            name:
+              eng: Proto-Algonquian
+          lexeme:     a526d043-7430-4f54-9dc9-a2ee114650e2
+          form:       e5667b27-ce8a-41a1-9d4c-59a50742f822
+          unattested: true
+          transcription:
+            'AR:1':   -ahw
+            Nisinoon: -ahw
+        - language:
+            id:                      05cae688-9294-4b54-9e35-1d803df8d561
+            abbreviation:            PA
+            defaultAnalysisLanguage: eng
+            defaultOrthography:      Nisinoon
+            name:
+              eng: Proto-Algonquian
           lexeme:     a526d043-7430-4f54-9dc9-a2ee114650e2
           form:       e5667b27-ce8a-41a1-9d4c-59a50742f822
           unattested: true
@@ -134,16 +153,16 @@
   bibliography:
     - id:      CowellMoss2008
       locator: 145
-  components:
-    - lexeme:     f00de78a-3e58-44ae-a132-69a5fc6e951c
-      form:       4aa45b62-05eb-412d-a789-510f99530ed8
-      unattested: false
-      transcription:
-        'AR:1':   -oh
-        Nisinoon: -oh
   forms:
     - id:       5cb061f9-56aa-492e-8e46-710a3a3f148b
       abstract: true
+      components:
+        - lexeme:     f00de78a-3e58-44ae-a132-69a5fc6e951c
+          form:       4aa45b62-05eb-412d-a789-510f99530ed8
+          unattested: false
+          transcription:
+            'AR:1':   -oh
+            Nisinoon: -oh
       # inflectionClass: TA
       transcription:
         'AR:1': cíhi'-oh-
@@ -192,16 +211,16 @@
   bibliography:
     - id:      CowellMoss2008
       locator: 146
-  components:
-    - lexeme:     f00de78a-3e58-44ae-a132-69a5fc6e951c
-      form:       4aa45b62-05eb-412d-a789-510f99530ed8
-      unattested: false
-      transcription:
-        'AR:1':   -oh
-        Nisinoon: -oh
   forms:
     - id:       7c73494b-8445-4657-895b-d1ad2682ceaf
       abstract: true
+      components:
+        - lexeme:     f00de78a-3e58-44ae-a132-69a5fc6e951c
+          form:       4aa45b62-05eb-412d-a789-510f99530ed8
+          unattested: false
+          transcription:
+            'AR:1':   -oh
+            Nisinoon: -oh
       # inflectionClass: TA
       transcription:
         'AR:1': ɜéí'eiik-oh-
@@ -224,16 +243,16 @@
   bibliography:
     - id:      CowellMoss2008
       locator: 145
-  components:
-    - lexeme:     f00de78a-3e58-44ae-a132-69a5fc6e951c
-      form:       4aa45b62-05eb-412d-a789-510f99530ed8
-      unattested: false
-      transcription:
-        'AR:1':   -oh
-        Nisinoon: -oh
   forms:
     - id:       5cb061f9-56aa-492e-8e46-710a3a3f148b
       abstract: true
+      components:
+        - lexeme:     f00de78a-3e58-44ae-a132-69a5fc6e951c
+          form:       4aa45b62-05eb-412d-a789-510f99530ed8
+          unattested: false
+          transcription:
+            'AR:1':   -oh
+            Nisinoon: -oh
       # inflectionClass: TA
       transcription:
         'AR:1': sebéy-oh-
@@ -256,16 +275,16 @@
   bibliography:
     - id:      CowellMoss2008
       locator: 157
-  components:
-    - lexeme:     f00de78a-3e58-44ae-a132-69a5fc6e951c
-      form:       4aa45b62-05eb-412d-a789-510f99530ed8
-      unattested: false
-      transcription:
-        'AR:1':   -oh
-        Nisinoon: -oh
   forms:
     - id:       7c73494b-8445-4657-895b-d1ad2682ceaf
       abstract: true
+      components:
+        - lexeme:     f00de78a-3e58-44ae-a132-69a5fc6e951c
+          form:       4aa45b62-05eb-412d-a789-510f99530ed8
+          unattested: false
+          transcription:
+            'AR:1':   -oh
+            Nisinoon: -oh
       # inflectionClass: TA
       transcription:
         'AR:1': towoh-

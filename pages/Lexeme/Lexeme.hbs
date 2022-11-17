@@ -45,7 +45,7 @@
 {{/inline}}
 
 {{#*inline 'Headword' ~}}
-  <a class=headword href='/languages/{{ @root.language.id }}/lexemes/{{ id }}'>
+  <a class=headword href='/languages/{{ @root.language.id }}/lexemes/{{ lexeme }}'>
     {{~#if lemma ~}}
       {{ mot lemma @root.language.defaultOrthography }}
     {{~else~}}
@@ -184,13 +184,33 @@
                   <span id=form-{{ @index }}__component-of>—</span>
                 {{/if}}
 
+                <label class=label for=form-{{ @index }}__etymology>Etymology</label>
+
+                {{#if form.etymology }}
+                  <ul class=etymology id=form-{{ @index }}__etymology>
+                    {{~#each form.etymology ~}}
+                      <li class=etymon>
+                        <span title='{{mls language.name language.defaultAnalysisLanguage }}'>
+                          {{~#if language.abbreviation }}{{ language.abbreviation }}{{else}}{{mls language.name language.defaultAnalysisLanguage }}{{/if~}}
+                        </span>:
+                        <a class=headword href='/languages/{{ language.id }}/lexemes/{{ lexeme }}'>
+                          {{mot transcription language.defaultOrthography }}
+                        </a>
+                        {{#unless @last }} > {{/unless}}
+                      </li>
+                    {{~/each~}}
+                  </ul>
+                {{else}}
+                  <span id=form-{{ @index }}__etymology>—</span>
+                {{/if}}
+
                 <label class=label for=form-{{ @index }}__references>References</label>
 
                 {{#if form.bibliography }}
                   <div id=form-{{ @index }}__references>
                     {{> CitationsList form.bibliography }}
                     <span class=bib-links>
-                      <a class='link subtle' href='/languages/{{ @root.language.id }}/lexemes/{{ @root.lexeme.id }}/forms/{{ id }}/references?view=bibliography'>View as Bibliography</a> | <a class='link subtle' href='/languages/{{ @root.language.id }}/lexemes/{{ @root.lexeme.id }}/forms/{{ id }}/references?view=table'>View as Table</a>
+                      <a class='link subtle' href='/languages/{{ @root.language.id }}/lexemes/{{ @root.lexeme.id }}/forms/{{ form }}/references?view=bibliography'>View as Bibliography</a> | <a class='link subtle' href='/languages/{{ @root.language.id }}/lexemes/{{ @root.lexeme.id }}/forms/{{ form }}/references?view=table'>View as Table</a>
                     </span>
                   </div>
                 {{else}}
