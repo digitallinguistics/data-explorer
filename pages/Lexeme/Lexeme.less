@@ -69,16 +69,20 @@ body:target #forms {
     margin-inline: var(--space-xs);
   }
 
-  .cross-refs-set {
+  :is(.cross-refs-set, .cross-lang-refs-set) {
     flex-direction     : row;
     flex-wrap          : wrap;
     gap                : var(--space-xxxs);
     margin-inline-start: calc(-1 * var(--text-inline-padding-sm));
   }
 
-  .cross-refs-set li {
+  :is(.cross-refs-set, .cross-lang-refs-set) li {
     display    : inline;
     white-space: nowrap;
+  }
+
+  .cross-lang-refs-set {
+    margin-inline-start: 0;
   }
 
   :is(#date-created, #date-modified) {
@@ -87,11 +91,6 @@ body:target #forms {
 
   .etymology {
     gap: var(--space-xs);
-  }
-
-  .etymon__label {
-    font-size  : smaller;
-    white-space: nowrap;
   }
 
   .form {
@@ -156,6 +155,11 @@ body:target #forms {
 
   .label {
     padding: var(--text-padding);
+  }
+
+  .lang-label {
+    font-size  : smaller;
+    white-space: nowrap;
   }
 
   #language-autonym {

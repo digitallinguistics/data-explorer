@@ -1130,37 +1130,37 @@
       unattested: true
       transcription:
         Nisinoon: -ahw
+      reflexes:
+        - lexeme:   a526d043-7430-4f54-9dc9-a2ee114650e2 # -ahw
+          form:     e5667b27-ce8a-41a1-9d4c-59a50742f822 # -ahw
+          language:
+                id:                      05cae688-9294-4b54-9e35-1d803df8d561
+                abbreviation:            PA
+                defaultAnalysisLanguage: eng
+                defaultOrthography:      Nisinoon
+                name:
+                  eng: Proto-Algonquian
+          transcription:
+            'AR:1':   -ahw
+            Nisinoon: -ahw
+        - lexeme:   f00de78a-3e58-44ae-a132-69a5fc6e951c # -oh
+          form:     4aa45b62-05eb-412d-a789-510f99530ed8 # -oh
+          language:
+                id:                      e2b3b685-fd01-40ea-96ae-cb22f2511cd1
+                abbreviation:            arp
+                defaultAnalysisLanguage: eng
+                defaultOrthography:      Nisinoon
+                name:
+                  eng: Arapaho
+          transcription:
+            'AR:1':   -oh
+            Nisinoon: -oh
   lemma:
     Nisinoon: -ahw
   morphType:
     eng: suffix
   projects:
     - c554474c-7f39-4ede-941b-c40b8f58b059 # Nisinoon
-  reflexes:
-    - lexeme:   a526d043-7430-4f54-9dc9-a2ee114650e2 # -ahw
-      form:     e5667b27-ce8a-41a1-9d4c-59a50742f822 # -ahw
-      language:
-            id:                      05cae688-9294-4b54-9e35-1d803df8d561
-            abbreviation:            PA
-            defaultAnalysisLanguage: eng
-            defaultOrthography:      Nisinoon
-            name:
-              eng: Proto-Algonquian
-      transcription:
-        'AR:1':   -ahw
-        Nisinoon: -ahw
-    - lexeme:   f00de78a-3e58-44ae-a132-69a5fc6e951c # -oh
-      form:     4aa45b62-05eb-412d-a789-510f99530ed8 # -oh
-      language:
-            id:                      e2b3b685-fd01-40ea-96ae-cb22f2511cd1
-            abbreviation:            arp
-            defaultAnalysisLanguage: eng
-            defaultOrthography:      Nisinoon
-            name:
-              eng: Arapaho
-      transcription:
-        'AR:1':   -oh
-        Nisinoon: -oh
   senses:
     - gloss: 'action by tool'
       # category:      TA

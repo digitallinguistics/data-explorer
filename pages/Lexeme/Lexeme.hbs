@@ -11,6 +11,14 @@
   </ul>
 {{/inline}}
 
+{{#*inline 'CrossLanguageHeadword' ~}}
+  <span class=lang-label title='{{mls language.name language.defaultAnalysisLanguage }}'>
+    {{~#if language.abbreviation }}{{ language.abbreviation }}{{else}}{{mls language.name language.defaultAnalysisLanguage }}{{/if~}}
+  </span>{{!--
+  --}}: {{!-- Note: The space here is intentional.
+  --}}<a class=headword href='/languages/{{ language.id }}/lexemes/{{ lexeme }}'>{{mot transcription language.defaultOrthography }}</a>
+{{~/inline}}
+
 {{#*inline 'CrossReference' }}
   {{#if (is relationType 'open set') }}
 
@@ -187,22 +195,29 @@
                 <label class=label for=form-{{ @index }}__etymology>Etymology</label>
 
                 {{#if form.etymology }}
-                  <ul class='cross-refs-set etymology' id=form-{{ @index }}__etymology>
+                  <ul class='cross-lang-refs-set etymology' id=form-{{ @index }}__etymology>
                     {{~#each form.etymology ~}}
-                      <li class=etymon>{{!--
-                        --}}<span class=etymon__label title='{{mls language.name language.defaultAnalysisLanguage }}'>
-                          {{~#if language.abbreviation }}{{ language.abbreviation }}{{else}}{{mls language.name language.defaultAnalysisLanguage }}{{/if~}}
-                        </span>{{!--
-                        --}}: {{!-- Note: The space here is intentional.
-                        --}}<a class=headword href='/languages/{{ language.id }}/lexemes/{{ lexeme }}'>{{mot transcription language.defaultOrthography }}</a>
-                        {{~#unless @last ~}}
-                          <span> → </span>{{!-- Note: The spaces here are intentional. --}}
-                        {{~/unless~}}
+                      <li class=etymon>{{> CrossLanguageHeadword }}</li>
+                      {{~#unless @last ~}}
+                        <span> → </span>{{!-- Note: The spaces here are intentional. --}}
+                      {{~/unless~}}
                       </li>
                     {{~/each~}}
                   </ul>
                 {{else}}
                   <span id=form-{{ @index }}__etymology>—</span>
+                {{/if}}
+
+                <label class=label for="form-{{ @index }}__reflexes">Reflexes</label>
+
+                {{#if form.reflexes }}
+                  <ul class=cross-lang-refs-set id=form-{{ @index }}__reflexes>
+                    {{~#each form.reflexes ~}}
+                      <li>{{> CrossLanguageHeadword }}{{#unless @last}}, {{/unless}}</li>
+                    {{~/each~}}
+                  </ul>
+                {{else}}
+                  <span id=form-{{ @index }}__reflexes>—</span>
                 {{/if}}
 
                 <label class=label for=form-{{ @index }}__references>References</label>
