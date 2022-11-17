@@ -62,6 +62,17 @@ describe(`Lexeme page`, function() {
 
   })
 
+  it.only(`Lexeme Details: Arapaho: -oh`, function() {
+
+    const lexemeID = `f00de78a-3e58-44ae-a132-69a5fc6e951c`
+
+    cy.visit(`/languages/${ arapahoLanguageID }/lexemes/${ lexemeID }`)
+
+    // Etymology
+    cy.get(`#form-0__etymology`).should(`have.text`, `Algic: ‑ahw → PA: ‑ahw`)
+
+  })
+
   it(`Lexeme Details: Arapaho: -tii`, function() {
 
     const lexemeID = `365e8f6f-775a-4e07-ac33-914e65dfad5f`
