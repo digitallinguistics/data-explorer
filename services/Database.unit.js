@@ -112,7 +112,7 @@ describe(`Database`, function() {
       const db = new Database
       const { data, status } = await db.getLexeme(lexemeID)
       expect(status).to.equal(200)
-      expect(data.lemma.SRO).to.equal(this.lexeme.lemma.SRO)
+      expect(data.lemma.transcription.SRO).to.equal(this.lexeme.lemma.transcription.SRO)
     })
 
     it(`404 Not Found`, async function() {

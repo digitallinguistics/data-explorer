@@ -27,7 +27,8 @@
       transcription:
         'AR:1': -(')enih
   lemma:
-    'AR:1': -(')enih
+    transcription:
+      'AR:1': -(')enih
   morphType:
     eng: suffix
   projects:
@@ -75,28 +76,28 @@
           transcription:
             'AR:1': towoh-
       etymology:
-        - language:
+        - form:       d9da9f62-803e-490a-927e-efaa1eef9f0f
+          lexeme:     b9a0edc6-59d1-44bd-a3e7-e226d0a33e5d
+          unattested: true
+          language:
             id:                      2f8c9c1d-b08b-4b51-a016-b65a90eb8af8
             abbreviation:            PAlg
             defaultAnalysisLanguage: eng
             defaultOrthography:      Nisinoon
             name:
               eng: Proto-Algic
-          form: d9da9f62-803e-490a-927e-efaa1eef9f0f
-          lexeme: b9a0edc6-59d1-44bd-a3e7-e226d0a33e5d
-          unattested: true
           transcription:
             Nisinoon: -ahw
-        - language:
+        - form:       e5667b27-ce8a-41a1-9d4c-59a50742f822
+          lexeme:     a526d043-7430-4f54-9dc9-a2ee114650e2
+          unattested: true
+          language:
             id:                      05cae688-9294-4b54-9e35-1d803df8d561
             abbreviation:            PA
             defaultAnalysisLanguage: eng
             defaultOrthography:      Nisinoon
             name:
               eng: Proto-Algonquian
-          lexeme:     a526d043-7430-4f54-9dc9-a2ee114650e2
-          form:       e5667b27-ce8a-41a1-9d4c-59a50742f822
-          unattested: true
           transcription:
             'AR:1':   -ahw
             Nisinoon: -ahw
@@ -104,8 +105,9 @@
         'AR:1':   -oh
         Nisinoon: -oh
   lemma:
-    'AR:1':   -oh
-    Nisinoon: -oh
+    transcription:
+      'AR:1':   -oh
+      Nisinoon: -oh
   morphType:
     eng: suffix
   projects:
@@ -132,7 +134,8 @@
       transcription:
         'AR:1': -tii
   lemma:
-    'AR:1': -tii
+    transcription:
+      'AR:1': -tii
   morphType:
     eng: suffix
   projects:
@@ -166,7 +169,8 @@
       transcription:
         'AR:1': cíhi'-oh-
   lemma:
-    'AR:1': cíhi'-oh-
+    transcription:
+      'AR:1': cíhi'-oh-
   projects:
     - c554474c-7f39-4ede-941b-c40b8f58b059 # Nisinoon
   senses:
@@ -189,7 +193,8 @@
       transcription:
         'AR:1': eeɜ-
   lemma:
-    'AR:1': eeɜ-
+    transcription:
+      'AR:1': eeɜ-
   morphType:
     eng: root
   projects:
@@ -224,7 +229,8 @@
       transcription:
         'AR:1': ɜéí'eiik-oh-
   lemma:
-    'AR:1': ɜéí'eiik-oh-
+    transcription:
+      'AR:1': ɜéí'eiik-oh-
   projects:
     - c554474c-7f39-4ede-941b-c40b8f58b059 # Nisinoon
   senses:
@@ -256,7 +262,8 @@
       transcription:
         'AR:1': sebéy-oh-
   lemma:
-    'AR:1': sebéy-oh-
+    transcription:
+     'AR:1': sebéy-oh-
   projects:
     - c554474c-7f39-4ede-941b-c40b8f58b059 # Nisinoon
   senses:
@@ -288,7 +295,8 @@
       transcription:
         'AR:1': towoh-
   lemma:
-    'AR:1': towoh-
+    transcription:
+     'AR:1': towoh-
   projects:
     - c554474c-7f39-4ede-941b-c40b8f58b059 # Nisinoon
   senses:
@@ -310,6 +318,7 @@
     - id:             3742294d-9887-47bb-b778-a23e78a9209a
       label:          deverbal from
       lemma:
+        transcription:
         'AR:1': wo'oteeneihi
       relation:       Deverbal
       relationType:   unidirectional
@@ -318,7 +327,8 @@
       transcription:
         'AR:1': wo'oteen-
   lemma:
-    'AR:1': wo'oteen-
+    transcription:
+      'AR:1': wo'oteen-
   projects:
     - c554474c-7f39-4ede-941b-c40b8f58b059 # Nisinoon
   senses:
@@ -342,7 +352,8 @@
       transcription:
         'AR:1': wo'oteeneihi
   lemma:
-    'AR:1': wo'oteeneihi
+    transcription:
+      'AR:1': wo'oteeneihi
   projects:
     - c554474c-7f39-4ede-941b-c40b8f58b059 # Nisinoon
   senses:
@@ -370,19 +381,22 @@
       members:
         - id:    d1cb976b-23b4-4758-aa9d-c7bfa3ed8ee4 # ci- <- this
           lemma:
-            Modern:  ci-
-            Swadesh: či-
-            IPA:     t͡ʃi-
+            transcription:
+              Modern:  ci-
+              Swadesh: či-
+              IPA:     t͡ʃi-
         - id:    6a7915d6-085f-46f8-98ba-6555d761a943 # hi-
           lemma:
-            Modern:  hi-
-            Swadesh: hi-
-            IPA:     hi-
+            transcription:
+              Modern:  hi-
+              Swadesh: hi-
+              IPA:     hi-
         - id:    5fa2fd0c-527c-47f1-b297-fbee78c29763 # pe-
           lemma:
-            Modern:  pe-
-            Swadesh: pe-
-            IPA:     pe-
+            transcription:
+              Modern:  pe-
+              Swadesh: pe-
+              IPA:     pe-
   forms:
     - id: 72b22b1c-d3d3-4aff-93fa-ace11d4a0a1f
       transcription:
@@ -390,9 +404,10 @@
         Swadesh: či-
         IPA:     t͡ʃi-
   lemma:
-    Modern:  ci-
-    Swadesh: či-
-    IPA:     t͡ʃi-
+    transcription:
+      Modern:  ci-
+      Swadesh: či-
+      IPA:     t͡ʃi-
   morphType:
     eng: stem
   projects:
@@ -425,9 +440,10 @@
         Swadesh: dut-
         IPA:     tʼut-
   lemma:
-    Modern:  cuw-
-    Swadesh: čuw-
-    IPA:     t͡ʃuw-
+    transcription:
+      Modern:  cuw-
+      Swadesh: čuw-
+      IPA:     t͡ʃuw-
   morphType:
     eng: stem
   projects:
@@ -455,33 +471,38 @@
       members:
         - id:    d1cb976b-23b4-4758-aa9d-c7bfa3ed8ee4 # ci-
           lemma:
-            Modern:  ci-
-            Swadesh: či-
-            IPA:     t͡ʃi-
+            transcription:
+              Modern:  ci-
+              Swadesh: či-
+              IPA:     t͡ʃi-
         - id:    6a7915d6-085f-46f8-98ba-6555d761a943 # hi- <- this
           lemma:
-            Modern:  hi-
-            Swadesh: hi-
-            IPA:     hi-
+            transcription:
+              Modern:  hi-
+              Swadesh: hi-
+              IPA:     hi-
         - id:    5fa2fd0c-527c-47f1-b297-fbee78c29763 # pe-
           lemma:
-            Modern:  pe-
-            Swadesh: pe-
-            IPA:     pe-
+            transcription:
+              Modern:  pe-
+              Swadesh: pe-
+              IPA:     pe-
     - label:        see also
       relation:     See Also
       relationType: open set
       members:
         - id: 6a7915d6-085f-46f8-98ba-6555d761a943 # hi- <- this
           lemma:
-            Modern:  hi-
-            Swadesh: hi-
-            IPA:     hi-
+            transcription:
+              Modern:  hi-
+              Swadesh: hi-
+              IPA:     hi-
         - id: ba46b22a-6837-4797-ba99-77117f1e9272 # qix-
           lemma:
-            Modern:  qix-
-            Swadesh: ʔiš-
-            IPA:     ʔiʃ-
+            transcription:
+              Modern:  qix-
+              Swadesh: ʔiš-
+              IPA:     ʔiʃ-
   forms:
     - id: 06abe025-309c-43df-a12d-a89550fc8792
       transcription:
@@ -489,9 +510,10 @@
         Swadesh: hi-
         IPA:     hi-
   lemma:
-    Modern:  hi-
-    Swadesh: hi-
-    IPA:     hi-
+    transcription:
+      Modern:  hi-
+      Swadesh: hi-
+      IPA:     hi-
   morphType:
     eng: stem
   projects:
@@ -520,9 +542,10 @@
         Swadesh: huygi
         IPA:     hujkʼi
   lemma:
-    Modern:  huygi
-    Swadesh: huygi
-    IPA:     hujkʼi
+    transcription:
+      Modern:  huygi
+      Swadesh: huygi
+      IPA:     hujkʼi
   projects:
     - 683a5d27-53bf-451b-80d1-f6e731674c9e # Chitimacha Dictionary Project
   senses:
@@ -544,9 +567,10 @@
         Swadesh: panš
         IPA:     panʃ
   lemma:
-    Modern:  panx
-    Swadesh: panš
-    IPA:     panʃ
+    transcription:
+      Modern:  panx
+      Swadesh: panš
+      IPA:     panʃ
   projects:
     - 683a5d27-53bf-451b-80d1-f6e731674c9e # Chitimacha Dictionary Project
   senses:
@@ -571,19 +595,22 @@
       members:
         - id:    d1cb976b-23b4-4758-aa9d-c7bfa3ed8ee4 # ci-
           lemma:
-            Modern:  ci-
-            Swadesh: či-
-            IPA:     t͡ʃi-
+            transcription:
+              Modern:  ci-
+              Swadesh: či-
+              IPA:     t͡ʃi-
         - id:    6a7915d6-085f-46f8-98ba-6555d761a943 # hi-
           lemma:
-            Modern:  hi-
-            Swadesh: hi-
-            IPA:     hi-
+            transcription:
+              Modern:  hi-
+              Swadesh: hi-
+              IPA:     hi-
         - id:    5fa2fd0c-527c-47f1-b297-fbee78c29763 # pe- <- this
           lemma:
-            Modern:  pe-
-            Swadesh: pe-
-            IPA:     pe-
+            transcription:
+              Modern:  pe-
+              Swadesh: pe-
+              IPA:     pe-
   forms:
     - id: 07e4bb99-26e4-4874-974a-43faecf8a7d4
       transcription:
@@ -591,9 +618,10 @@
         Swadesh: pe-
         IPA:     pe-
   lemma:
-    Modern:  pe-
-    Swadesh: pe-
-    IPA:     pe-
+    transcription:
+      Modern:  pe-
+      Swadesh: pe-
+      IPA:     pe-
   morphType:
     eng: stem
   projects:
@@ -621,14 +649,16 @@
       members:
         - id: 6a7915d6-085f-46f8-98ba-6555d761a943 # hi-
           lemma:
-            Modern:  hi-
-            Swadesh: hi-
-            IPA:     hi-
+            transcription:
+              Modern:  hi-
+              Swadesh: hi-
+              IPA:     hi-
         - id: ba46b22a-6837-4797-ba99-77117f1e9272 # qix- <- this
           lemma:
-            Modern:  qix-
-            Swadesh: ʔiš-
-            IPA:     ʔiʃ-
+            transcription:
+              Modern:  qix-
+              Swadesh: ʔiš-
+              IPA:     ʔiʃ-
   forms:
     - id: 5c8fe775-5e71-4bc2-87d0-6c4a67100899
       transcription:
@@ -636,9 +666,10 @@
         Swadesh: ʔiš-
         IPA:     ʔiʃ-
   lemma:
-    Modern:  qix-
-    Swadesh: ʔiš-
-    IPA:     ʔiʃ-
+    transcription:
+      Modern:  qix-
+      Swadesh: ʔiš-
+      IPA:     ʔiʃ-
   morphType:
     eng: stem
   projects:
@@ -662,15 +693,16 @@
       locator: 74
   forms:
     - id: 1abb5ad4-cc63-4d52-b079-816841d0e60f
+      transcription:
+        'MN:1': -a·n
       componentOf:
         - lexeme: 1fbfe299-2aa6-467c-b562-a0e22876a552
           form:   957c76d3-90fb-4325-99f6-2e9e28ee248c
           transcription:
             'MN:1': wa·nɛhka·n-
-      transcription:
-        'MN:1': -a·n
   lemma:
-    'MN:1': -a·n
+    transcription:
+      'MN:1': -a·n
   morphType:
     eng: suffix
   notes:
@@ -704,8 +736,9 @@
         Nisinoon: -ænææ-
         'MN:1':   -ɛnɛ·-
   lemma:
-    Nisinoon: -ænææ-
-    'MN:1':   -ɛnɛ·-
+    transcription:
+      Nisinoon: -ænææ-
+      'MN:1':   -ɛnɛ·-
   morphType:
     eng: medial
   notes:
@@ -741,21 +774,24 @@
         TA:
           id: 99c7f697-2613-437a-b729-f612dd0045a0 # peN <- this
           lemma:
-            Nisinoon:   -peN
-            'MN:WNALP': -peN
+            transcription:
+              Nisinoon:   -peN
+              'MN:WNALP': -peN
         TI:
           id: bfddb47b-6a84-4a14-b267-131193c41bf9 # petō
           lemma:
-            Nisinoon:   -petoo
-            'MN:WNALP': -petō
+            transcription:
+              Nisinoon:   -petoo
+              'MN:WNALP': -petō
   forms:
     - id: 4ec0b7b3-add8-436b-91fc-382487eb68a6
       transcription:
         Nisinoon:   -peN
         'MN:WNALP': -peN
   lemma:
-    Nisinoon:   -peN
-    'MN:WNALP': -peN
+    transcription:
+      Nisinoon:   -peN
+      'MN:WNALP': -peN
   morphType:
     eng: suffix
   projects:
@@ -784,21 +820,24 @@
         TA:
           id: 99c7f697-2613-437a-b729-f612dd0045a0 # peN
           lemma:
-            Nisinoon:   -peN
-            'MN:WNALP': -peN
+            transcription:
+              Nisinoon:   -peN
+              'MN:WNALP': -peN
         TI:
           id: bfddb47b-6a84-4a14-b267-131193c41bf9 # petō <- this
           lemma:
-            Nisinoon:   -petoo
-            'MN:WNALP': -petō
+            transcription:
+              Nisinoon:   -petoo
+              'MN:WNALP': -petō
   forms:
     - id: cd9455a1-7f31-423f-89e4-48ab7d397c6c
       transcription:
         Nisinoon:   -petoo
         'MN:WNALP': -petō
   lemma:
-    Nisinoon:   -petoo
-    'MN:WNALP': -petō
+    transcription:
+      Nisinoon:   -petoo
+      'MN:WNALP': -petō
   morphType:
     eng: suffix
   projects:
@@ -820,7 +859,8 @@
       transcription:
         default: sūniyanikamek
   lemma:
-    default: sūniyanikamek
+    transcription:
+      default: sūniyanikamek
   projects:
     - c554474c-7f39-4ede-941b-c40b8f58b059 # Nisinoon
     - 26d40299-98fb-48c8-b51f-e62397269817 # Menominee Dictionary Project
@@ -838,7 +878,8 @@
       transcription:
         default: sūniyanikamekmahka͞esen
   lemma:
-    default: sūniyanikamekmahka͞esen
+    transcription:
+      default: sūniyanikamekmahka͞esen
   projects:
     - 26d40299-98fb-48c8-b51f-e62397269817 # Menominee Dictionary Project (NOT included in Nisinoon)
   senses:
@@ -856,16 +897,17 @@
       locator: 74
   forms:
     - id: 957c76d3-90fb-4325-99f6-2e9e28ee248c
+      transcription:
+        'MN:1': wa·nɛhka·n-
       components:
         - lexeme:     99d2e994-8d18-424e-9d84-31de57256204
           form:       1abb5ad4-cc63-4d52-b079-816841d0e60f
           unattested: false
           transcription:
             'MN:1': -a·n
-      transcription:
-        'MN:1': wa·nɛhka·n-
   lemma:
-    'MN:1': wa·nɛhka·n-
+    transcription:
+      'MN:1': wa·nɛhka·n-
   morphType:
     eng: stem
   projects:
@@ -887,7 +929,8 @@
       transcription:
         default: wāqnenekan
   lemma:
-    default: wāqnenekan
+    transcription:
+      default: wāqnenekan
   projects:
     - c554474c-7f39-4ede-941b-c40b8f58b059 # Nisinoon
     - 26d40299-98fb-48c8-b51f-e62397269817 # Menominee Dictionary Project
@@ -908,7 +951,8 @@
       transcription:
         default: ikwe
   lemma:
-    default: ikwe
+    transcription:
+      default: ikwe
   projects:
     - c554474c-7f39-4ede-941b-c40b8f58b059 # Nisinoon
   senses:
@@ -925,7 +969,8 @@
       transcription:
         default: inini
   lemma:
-    default: inini
+    transcription:
+      default: inini
   projects:
     - c554474c-7f39-4ede-941b-c40b8f58b059 # Nisinoon
   senses:
@@ -942,7 +987,8 @@
       transcription:
         default: naboob
   lemma:
-    default: naboob
+    transcription:
+      default: naboob
   projects:
     - c554474c-7f39-4ede-941b-c40b8f58b059 # Nisinoon
   senses:
@@ -982,8 +1028,9 @@
         SRO:       cīkahikan-
         syllabics: ᒌᑲᐦᐃᑲᐣ-
   lemma:
-    SRO:       cīkahikan
-    syllabics: ᒌᑲᐦᐃᑲᐣ
+    transcription:
+      SRO:       cīkahikan
+      syllabics: ᒌᑲᐦᐃᑲᐣ
   morphType:
     eng: stem
   projects:
@@ -1009,8 +1056,9 @@
         SRO:       maskwa
         syllabics: ᒪᐢᑿ
   lemma:
-    SRO:       maskwa
-    syllabics: ᒪᐢᑿ
+    transcription:
+      SRO:       maskwa
+      syllabics: ᒪᐢᑿ
   projects:
     - c554474c-7f39-4ede-941b-c40b8f58b059 # Nisinoon
   senses:
@@ -1028,8 +1076,9 @@
         SRO:       masinahikan
         syllabics: ᒪᓯᓇᐦᐃᑲᐣ
   lemma:
-    SRO:       masinahikan
-    syllabics: ᒪᓯᓇᐦᐃᑲᐣ
+    transcription:
+      SRO:       masinahikan
+      syllabics: ᒪᓯᓇᐦᐃᑲᐣ
   projects:
     - c554474c-7f39-4ede-941b-c40b8f58b059 # Nisinoon
   senses:
@@ -1053,8 +1102,9 @@
         SRO:       kotiskāwēwatimw-
         syllabics: ᑯᑎᐢᑳᐍᐘᑎᒼᐤ
   lemma:
-    SRO:       kotiskāwēwatim
-    syllabics: ᑯᑎᐢᑳᐍᐘᑎᒼ
+    transcription:
+      SRO:       kotiskāwēwatim
+      syllabics: ᑯᑎᐢᑳᐍᐘᑎᒼ
   projects:
     - c554474c-7f39-4ede-941b-c40b8f58b059 # Nisinoon
   senses:
@@ -1073,7 +1123,8 @@
       transcription:
         WNALP: débabjegen
   lemma:
-    WNALP: débabjegen
+    transcription:
+      WNALP: débabjegen
   projects:
     - c554474c-7f39-4ede-941b-c40b8f58b059 # Nisinoon
   senses:
@@ -1090,7 +1141,8 @@
       transcription:
         WNALP: mzen’egen
   lemma:
-    WNALP: mzen’egen
+    transcription:
+      WNALP: mzen’egen
   projects:
     - c554474c-7f39-4ede-941b-c40b8f58b059 # Nisinoon
   senses:
@@ -1107,7 +1159,8 @@
       transcription:
         WNALP: zhadi
   lemma:
-    WNALP: zhadi
+    transcription:
+      WNALP: zhadi
   projects:
     - c554474c-7f39-4ede-941b-c40b8f58b059 # Nisinoon
   senses:
@@ -1156,7 +1209,8 @@
             'AR:1':   -oh
             Nisinoon: -oh
   lemma:
-    Nisinoon: -ahw
+    transcription:
+      Nisinoon: -ahw
   morphType:
     eng: suffix
   projects:
@@ -1184,12 +1238,26 @@
   forms:
     - id:         e5667b27-ce8a-41a1-9d4c-59a50742f822
       unattested: true
+      etymology:
+        - form:       d9da9f62-803e-490a-927e-efaa1eef9f0f
+          lexeme:     b9a0edc6-59d1-44bd-a3e7-e226d0a33e5d
+          unattested: true
+          language:
+            id:                      2f8c9c1d-b08b-4b51-a016-b65a90eb8af8
+            abbreviation:            PAlg
+            defaultAnalysisLanguage: eng
+            defaultOrthography:      Nisinoon
+            name:
+              eng: Proto-Algic
+          transcription:
+            Nisinoon: -ahw
       transcription:
         'AR:1':   -ahw
         Nisinoon: -ahw
   lemma:
-    'AR:1':   -ahw
-    Nisinoon: -ahw
+    transcription:
+      'AR:1':   -ahw
+      Nisinoon: -ahw
   morphType:
     eng: suffix
   projects:
@@ -1231,7 +1299,8 @@
       transcription:
         swa: -la
   lemma:
-    swa: -la
+    transcription:
+      swa: -la
   projects:
     - a24157c1-000f-4771-aa47-485fb91bf24f # Swahili Project
   senses:
@@ -1250,7 +1319,8 @@
       transcription:
         swa: -tu
   lemma:
-    swa: mtu
+    transcription:
+      swa: mtu
   projects:
     - a24157c1-000f-4771-aa47-485fb91bf24f # Swahili Project
   senses:
@@ -1269,7 +1339,8 @@
       transcription:
         swa: -zuri
   lemma:
-    swa: -zuri
+    transcription:
+      swa: -zuri
   projects:
     - a24157c1-000f-4771-aa47-485fb91bf24f # Swahili Project
   senses:

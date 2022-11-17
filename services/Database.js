@@ -133,22 +133,10 @@ export default class Database {
 
     let results = this.lexemes.map(data => copy(data))
 
-    if (languageID) results = results.filter(lexeme => lexeme.language === languageID)
+    if (languageID) results = results.filter(lexeme => lexeme.language.id === languageID)
     if (projectID) results = results.filter(lexeme => lexeme.projects.includes(projectID))
 
     if (summary) return new DatabaseResponse(200, { count: results.length })
-
-    // add basic language info to lexeme
-    for (const lexeme of results) {
-
-      const language = this.languages.index.get(lexeme.language)
-
-      lexeme.language = {
-        id:   language.id,
-        name: language.name,
-      }
-
-    }
 
     return new DatabaseResponse(200, results) // NB: The results have already been duplicated.
 
