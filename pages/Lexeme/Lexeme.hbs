@@ -54,7 +54,7 @@
 
 {{#*inline 'Headword' ~}}
   <a class=headword href='/languages/{{ @root.language.id }}/lexemes/{{ lexeme }}'>
-    {{~ mot transcription @root.language.defaultOrthography ~}}
+    {{~#if unattested }}*{{/if~}}{{~ mot transcription @root.language.defaultOrthography ~}}
   </a>
 {{~/inline}}
 
