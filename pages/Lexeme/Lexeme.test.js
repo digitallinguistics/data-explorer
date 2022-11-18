@@ -184,6 +184,23 @@ describe(`Lexeme page`, function() {
 
   })
 
+  it(`Lexeme Details: Menominee: -ehk`, function() {
+
+    const lexemeID = `ba728ea4-c0d3-4b74-816d-eedf086e32fd`
+
+    cy.visit(`/languages/${ menomineeLanguageID }/lexemes/${ lexemeID }`)
+
+    // Allomorphs
+    cy.contains(`.allomorph dd`, `‑eck‑`) // non-breaking hyphens
+
+    cy.get(`.environment`)
+    .then(([a, b]) => {
+      expect(a).to.have.text(`_V`)
+      expect(b).to.have.text(`_N`)
+    })
+
+  })
+
   it(`Lexeme Details: Menominee: peN`, function() {
 
     const lexemeID = `99c7f697-2613-437a-b729-f612dd0045a0`
@@ -245,7 +262,7 @@ describe(`Lexeme page`, function() {
     // FORM
     cy.get(`.forms-list`).first().within(() => {
 
-      cy.get(`.transcription`).should(`include.text`, data.forms[0].transcription.SRO.replace(`-`, `‑`))
+      cy.get(`.form__transcription`).should(`include.text`, data.forms[0].transcription.SRO.replace(`-`, `‑`))
       cy.get(`#form-0__references .tags-list`).children()
       .should(`have.length`, 3)
       .then(([a, b, c]) => {

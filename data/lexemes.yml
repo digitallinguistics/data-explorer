@@ -726,6 +726,49 @@
   slot:
     eng: final
 
+- id:           ba728ea4-c0d3-4b74-816d-eedf086e32fd
+  dateCreated:  2022-11-10T22:32:41.027Z
+  dateModified: 2022-11-10T22:32:41.027Z
+  language:     5fc405aa-a1a3-41e5-a80d-adb9dfbaa293 # Menominee
+  link:         https://data.digitallinguistics.io/languages/5fc405aa-a1a3-41e5-a80d-adb9dfbaa293/lexemes/ba728ea4-c0d3-4b74-816d-eedf086e32fd
+  type:         Lexeme
+  bibliography:
+    - id:      Bloomfield1924
+      locator: 341
+  forms:
+    - id: ad14948a-0d61-4fef-b11b-b1f699a5ee54
+      transcription:
+        'MN:6':   -ehk-
+        Nisinoon: -ehk-
+      allomorphs:
+        - transcription:
+            'MN:6':   -eck-
+            Nisinoon: -eck-
+          environments:
+            - _V
+            - _N
+  lemma:
+    transcription:
+      'MN:6':   -ehk-
+      Nisinoon: -ehk-
+  morphType:
+    eng: suffix
+  notes:
+    - dateCreated:  2022-01-01T00:00:00Z
+      dateModified: 2022-01-01T00:00:00Z
+      noteType:     private
+      source:
+        id:           47efdd38-25ef-4195-a1c3-c0c90c688c95
+        abbreviation: MAM
+      text: 'does not say what type of final (from other sources: TI)'
+  senses:
+    - gloss: by foot or body-movement
+  slot:
+    eng: final
+  projects:
+    - c554474c-7f39-4ede-941b-c40b8f58b059 # Nisinoon
+
+
 - id:           8951aed1-0531-40d9-8d9d-496858c79978
   dateCreated:  2022-11-10T22:32:41.027Z
   dateModified: 2022-11-10T22:32:41.027Z

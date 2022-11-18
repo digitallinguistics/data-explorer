@@ -1,3 +1,5 @@
+@open-bracket: 'data:image/svg+xml;utf8,<svg viewBox="0 0 32 32" height="512" width="512" xmlns="http://www.w3.org/2000/svg"><path d="m19 27a1 1 0 0 0 0-2 2 2 0 0 1 -2-2v-4a3.839 3.839 0 0 0 -1.716-3 3.839 3.839 0 0 0 1.716-3v-4a2 2 0 0 1 2-2 1 1 0 0 0 0-2 4 4 0 0 0 -4 4v4c0 1-1.459 1.862-2.209 2.022a1 1 0 0 0 0 1.956c.75.16 2.209 1.022 2.209 2.022v4a4 4 0 0 0 4 4z" /></svg>';
+
 @import 'Bulleted/Bulleted.less';
 @import 'BoxInput/BoxInput.less';
 @import 'Checkbox/Checkbox.less';
@@ -32,6 +34,15 @@ body:target #forms {
   align-self     : center;
   inline-size    : 100%;
   max-inline-size: var(--measure);
+
+  .allomorph {
+    align-items   : center;
+    flex-direction: row;
+  }
+
+  .allomorphs__label {
+    align-self: start;
+  }
 
   .bib-entry {
     margin-inline-start: 1.5em;
@@ -90,6 +101,13 @@ body:target #forms {
     font-family: var(--font-mono);
   }
 
+  // These styles mimick those of the MultiOrthoTranscription
+  // in order to vertically align the content.
+  .environment {
+    padding-inline  : var(--text-inline-padding);
+    margin-block-end: var(--text-block-padding);
+  }
+
   .etymology {
     gap: var(--space-xs);
   }
@@ -105,6 +123,10 @@ body:target #forms {
       margin-inline-end: 1.25em;
     }
 
+  }
+
+  .form__transcription {
+    padding: var(--text-padding);
   }
 
   .form-props {
@@ -230,11 +252,7 @@ body:target #forms {
     gap           : var(--space-xs);
   }
 
-  .transcription {
-    padding: var(--text-padding);
-  }
-
-  .transcriptions {
+  .lexeme__transcriptions {
     min-inline-size: 50%;
   }
 
