@@ -16,7 +16,7 @@
     {{~#if language.abbreviation }}{{ language.abbreviation }}{{else}}{{mls language.name language.defaultAnalysisLanguage }}{{/if~}}
   </span>{{!--
   --}}: {{!-- Note: The space here is intentional.
-  --}}<a class=headword href='/languages/{{ language.id }}/lexemes/{{ lexeme }}'>{{mot transcription language.defaultOrthography }}</a>
+  --}}<a class=headword href='/languages/{{ language.id }}/lexemes/{{ lexeme }}'>{{#if unattested }}*{{/if}}{{mot transcription language.defaultOrthography }}</a>
 {{~/inline}}
 
 {{#*inline 'CrossReference' }}
@@ -27,7 +27,7 @@
       --}}<ul class=cross-refs-set>
         {{~#each members as |item| ~}}
           {{~#unless (is item.id @root.lexeme.id) ~}}
-            <li>{{> Headword item }}{{#unless @last }}, {{/unless}}</li>
+            <li>{{> Headword lemma }}{{#unless @last }}, {{/unless}}</li>
           {{~/unless~}}
         {{~/each~}}
       </ul>{{!--
@@ -39,7 +39,7 @@
       {{#if item}}
         {{#unless (is item.id @root.lexeme.id) }}
           <dt>{{ @key }}:</dt>
-          <dd>{{> Headword item }}</dd>
+          <dd>{{> Headword item.lemma }}</dd>
         {{/unless}}
       {{/if}}
     {{/each}}
@@ -47,18 +47,14 @@
   {{else if (any (is relationType 'unidirectional') (is relationType 'bidirectional')) }}
 
     <dt>{{ label }}:</dt>
-    <dd>{{> Headword }}</dd>
+    <dd>{{> Headword lemma }}</dd>
 
   {{/if}}
 {{/inline}}
 
 {{#*inline 'Headword' ~}}
   <a class=headword href='/languages/{{ @root.language.id }}/lexemes/{{ lexeme }}'>
-    {{~#if lemma ~}}
-      {{ mot lemma @root.language.defaultOrthography }}
-    {{~else~}}
-      {{ mot transcription @root.language.defaultOrthography }}
-    {{~/if~}}
+    {{~#if unattested }}*{{/if~}}{{~ mot transcription @root.language.defaultOrthography ~}}
   </a>
 {{~/inline}}
 
@@ -70,7 +66,7 @@
 
   <header class=header>
 
-    <h1 class='headword page-title' lang='{{ language.iso }}'>{{mot lexeme.lemma language.defaultOrthography }}</h1>
+    <h1 class='headword page-title' lang='{{ language.iso }}'>{{#if lexeme.lemma.unattested }}*{{/if}}{{mot lexeme.lemma.transcription language.defaultOrthography }}</h1>
 
     <span class=language>
       {{~#if language.name ~}}
@@ -109,7 +105,7 @@
     <dl class='def-list transcriptions'>
 
       <dt class=label for=lemma>Lemma</dt>
-      <dd>{{> MultiOrthoTranscription/MultiOrthoTranscription data=lexeme.lemma lang=language.iso attributes='id=lemma' }}</dd>
+      <dd>{{> MultiOrthoTranscription/MultiOrthoTranscription data=lexeme.lemma.transcription lang=language.iso attributes='id=lemma' }}</dd>
 
       <dt class=label for=citation-form>Citation Form</dt>
       <dd>
@@ -161,11 +157,18 @@
 
                 <label class=label for=form-{{ @index }}__abstract>Abstract Form</label>
 
-                {{!-- TODO: add disabled attribute to both --}}
                 {{#if form.abstract }}
                   <input id=form-{{ @index }}__abstract class=checkbox type=checkbox checked inert>
                 {{else}}
                   <input id=form-{{ @index }}__abstract class=checkbox type=checkbox disabled inert>
+                {{/if}}
+
+                <label class=label for=form-{{ @index }}__unattested>Unattested</label>
+
+                {{#if form.unattested }}
+                  <input id=form-{{ @index }}__unattested class=checkbox type=checkbox checked inert>
+                {{else}}
+                  <input id=form-{{ @index }}__unattested class=checkbox type=checkbox disabled inert>
                 {{/if}}
 
                 <label class=label for=form-{{ @index }}__components>Components</label>

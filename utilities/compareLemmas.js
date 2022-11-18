@@ -5,7 +5,7 @@ const tokensRegExp = /(?:^[-=*(]+)|(?:[-=*)]+&)/gu
 
 export default function compareLemmas(a, b) {
   return localeSort(
-    getDefaultOrthography(a.lemma, a.language.defaultOrthography).replaceAll(tokensRegExp, ``),
-    getDefaultOrthography(b.lemma, a.language.defaultOrthography).replaceAll(tokensRegExp, ``),
+    getDefaultOrthography(a.lemma.transcription, a.language.defaultOrthography).replaceAll(tokensRegExp, ``),
+    getDefaultOrthography(b.lemma.transcription, a.language.defaultOrthography).replaceAll(tokensRegExp, ``),
   )
 }

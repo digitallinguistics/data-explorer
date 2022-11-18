@@ -11,6 +11,7 @@ const __dirname  = path.dirname(__filename)
 // Things that need to be populated and stored in the actual database,
 // rather than generated on startup:
 // - citations in a Lexeme (at the lexeme, sense, and form levels)
+// - language info in Lexeme
 // - bibEntry data in references
 
 function addCitations(bibliography) {
@@ -111,10 +112,28 @@ for (const reference of references) {
 
 }
 
+const languagesIndex = languages.reduce((map, lang) => {
+  map.set(lang.id, lang)
+  return map
+}, new Map)
+
 for (const lexeme of lexemes) {
+
+  // add language info
+  const language = languagesIndex.get(lexeme.language)
+
+  lexeme.language = Object.assign({}, {
+    defaultAnalysisLanguage: language.defaultAnalysisLanguage,
+    defaultOrthography:      language.defaultOrthography,
+    id:                      language.id,
+    name:                    language.name,
+  })
+
+  // add citations
   addCitations(lexeme.bibliography)
   lexeme.forms.forEach(form => addCitations(form.bibliography))
   lexeme.senses.forEach(sense => addCitations(sense.bibliography))
+
 }
 
 export default {

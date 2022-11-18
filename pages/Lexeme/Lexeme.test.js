@@ -69,7 +69,7 @@ describe(`Lexeme page`, function() {
     cy.visit(`/languages/${ arapahoLanguageID }/lexemes/${ lexemeID }`)
 
     // Etymology
-    cy.get(`#form-0__etymology`).should(`have.text`, `PAlg: ‑ahw → PA: ‑ahw`)
+    cy.get(`#form-0__etymology`).should(`have.text`, `PAlg: *‑ahw → PA: *‑ahw`)
 
   })
 
@@ -217,10 +217,10 @@ describe(`Lexeme page`, function() {
     cy.visit(`/languages/${ publicLanguageID }/lexemes/${ data.id }`)
 
     // page title
-    cy.title().should(`eq`, `Oxalis | ${ data.lemma.SRO }`)
+    cy.title().should(`eq`, `Oxalis | ${ data.lemma.transcription.SRO }`)
 
     // SUMMARY
-    cy.contains(`.page-title`, data.lemma.SRO)
+    cy.contains(`.page-title`, data.lemma.transcription.SRO)
     cy.contains(`.header`, data.senses[0].gloss)
     cy.get(`.header .language`).should(`have.text`, `Plains Cree | nêhiyawêwin`)
 
@@ -229,8 +229,8 @@ describe(`Lexeme page`, function() {
     cy.get(`#forms`).should(`be.visible`)
 
     // Lemma
-    cy.contains(`#lemma`, data.lemma.SRO)
-    cy.contains(`#lemma`, data.lemma.syllabics)
+    cy.contains(`#lemma`, data.lemma.transcription.SRO)
+    cy.contains(`#lemma`, data.lemma.transcription.syllabics)
 
     // Citation Form (without data; see below for test with data)
     cy.contains(`#citation-form`, `—`)
@@ -305,6 +305,12 @@ describe(`Lexeme page`, function() {
     const protoAlgicLanguageID = `2f8c9c1d-b08b-4b51-a016-b65a90eb8af8`
 
     cy.visit(`/languages/${ protoAlgicLanguageID }/lexemes/${ lexemeID }`)
+
+    // Header Lemma (Unattested)
+    cy.get(`.page-title`).should(`have.text`, `*‑ahw`)
+
+    // Unattested
+    cy.get(`#form-0__unattested`).should(`be.checked`)
 
     // Reflexes
     cy.get(`#form-0__reflexes`).children()
