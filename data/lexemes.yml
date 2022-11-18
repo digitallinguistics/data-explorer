@@ -134,6 +134,7 @@
       transcription:
         'AR:1': -tii
   lemma:
+    abstract: true
     transcription:
       'AR:1': -tii
   morphType:
@@ -169,6 +170,7 @@
       transcription:
         'AR:1': cíhi'-oh-
   lemma:
+    abstract: true
     transcription:
       'AR:1': cíhi'-oh-
   projects:
@@ -229,6 +231,7 @@
       transcription:
         'AR:1': ɜéí'eiik-oh-
   lemma:
+    abstract: true
     transcription:
       'AR:1': ɜéí'eiik-oh-
   projects:
@@ -262,6 +265,7 @@
       transcription:
         'AR:1': sebéy-oh-
   lemma:
+    abstract: true
     transcription:
      'AR:1': sebéy-oh-
   projects:
@@ -295,6 +299,7 @@
       transcription:
         'AR:1': towoh-
   lemma:
+    abstract: true
     transcription:
      'AR:1': towoh-
   projects:

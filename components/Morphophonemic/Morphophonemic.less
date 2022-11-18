@@ -1,0 +1,25 @@
+@import (reference) 'Transcription/Transcription.less';
+
+// Orthographic Transcription
+//
+// Used for orthographic transcriptions of some data, such as when discussing a writing system. Wrapped in angle brackets by default. Adjust the space between the orthographic transcription and the surrounding brackets using the `--txn-padding` variable.
+//
+// Markup: orthographic.html
+//
+// Styleguide components.orthographic
+.mp,
+.morphophonemic {
+
+  .txn;
+
+  &::before {
+    content: '|';
+    padding-right: var(--txn-padding);
+  }
+
+  &::after {
+    content: '|';
+    padding-left: var(--txn-padding);
+  }
+
+}

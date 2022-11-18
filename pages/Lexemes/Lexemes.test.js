@@ -46,13 +46,9 @@ describe(`Lexemes Page`, function() {
     })
 
     it(`displays unattested forms with an asterisk`, function() {
-
       const protoAlgicLanguageID = `2f8c9c1d-b08b-4b51-a016-b65a90eb8af8`
-
       cy.visit(`/languages/${ protoAlgicLanguageID }/lexemes`)
-
       cy.contains(`.lemma`, `*‑ahw`)
-
     })
 
   })

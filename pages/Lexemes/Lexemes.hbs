@@ -22,13 +22,13 @@
       </thead>
 
       <tbody>
-        {{#each lexemes as |lexeme|}}
+        {{#each lexemes as |lexeme| }}
           <tr>
 
             {{!-- lemma --}}
             <td class=lemma>
-              <a class=link href='/languages/{{ language.id }}/lexemes/{{ id }}'>
-                {{#if lemma.unattested }}*{{/if}}{{mot lemma.transcription language.defaultOrthography }}
+              <a class='link {{#if lemma.abstract }}mp{{/if}}' href='/languages/{{ language.id }}/lexemes/{{ id }}'>
+                {{~#if lemma.unattested ~}}*{{~/if~}}{{~mot lemma.transcription language.defaultOrthography ~}}
               </a>
             </td>
 
