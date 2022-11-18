@@ -306,6 +306,12 @@ describe(`Lexeme page`, function() {
 
     cy.visit(`/languages/${ protoAlgicLanguageID }/lexemes/${ lexemeID }`)
 
+    // Header Lemma (Unattested)
+    cy.get(`.page-title`).should(`have.text`, `*‑ahw`)
+
+    // Unattested
+    cy.get(`#form-0__unattested`).should(`be.checked`)
+
     // Reflexes
     cy.get(`#form-0__reflexes`).children()
     .should(`have.length`, 2)

@@ -66,7 +66,7 @@
 
   <header class=header>
 
-    <h1 class='headword page-title' lang='{{ language.iso }}'>{{mot lexeme.lemma.transcription language.defaultOrthography }}</h1>
+    <h1 class='headword page-title' lang='{{ language.iso }}'>{{#if lexeme.lemma.unattested }}*{{/if}}{{mot lexeme.lemma.transcription language.defaultOrthography }}</h1>
 
     <span class=language>
       {{~#if language.name ~}}
@@ -157,11 +157,18 @@
 
                 <label class=label for=form-{{ @index }}__abstract>Abstract Form</label>
 
-                {{!-- TODO: add disabled attribute to both --}}
                 {{#if form.abstract }}
                   <input id=form-{{ @index }}__abstract class=checkbox type=checkbox checked inert>
                 {{else}}
                   <input id=form-{{ @index }}__abstract class=checkbox type=checkbox disabled inert>
+                {{/if}}
+
+                <label class=label for=form-{{ @index }}__unattested>Unattested</label>
+
+                {{#if form.unattested }}
+                  <input id=form-{{ @index }}__unattested class=checkbox type=checkbox checked inert>
+                {{else}}
+                  <input id=form-{{ @index }}__unattested class=checkbox type=checkbox disabled inert>
                 {{/if}}
 
                 <label class=label for=form-{{ @index }}__components>Components</label>

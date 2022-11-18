@@ -1209,6 +1209,7 @@
             'AR:1':   -oh
             Nisinoon: -oh
   lemma:
+    unattested: true
     transcription:
       Nisinoon: -ahw
   morphType:
@@ -1255,6 +1256,7 @@
         'AR:1':   -ahw
         Nisinoon: -ahw
   lemma:
+    unattested: true
     transcription:
       'AR:1':   -ahw
       Nisinoon: -ahw
