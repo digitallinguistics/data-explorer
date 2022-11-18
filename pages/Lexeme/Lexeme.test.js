@@ -77,8 +77,9 @@ describe(`Lexeme page`, function() {
 
     const lexemeID = `365e8f6f-775a-4e07-ac33-914e65dfad5f`
 
-    // Abstract Form
     cy.visit(`/languages/${ arapahoLanguageID }/lexemes/${ lexemeID }`)
+
+    // Abstract Form
     cy.get(`#form-0__abstract`).should(`be.checked`)
 
   })
