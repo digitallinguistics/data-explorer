@@ -16,7 +16,7 @@
     {{~#if language.abbreviation }}{{ language.abbreviation }}{{else}}{{mls language.name language.defaultAnalysisLanguage }}{{/if~}}
   </span>{{!--
   --}}: {{!-- Note: The space here is intentional.
-  --}}<a class=headword href='/languages/{{ language.id }}/lexemes/{{ lexeme }}'>{{mot transcription language.defaultOrthography }}</a>
+  --}}<a class=headword href='/languages/{{ language.id }}/lexemes/{{ lexeme }}'>{{#if unattested }}*{{/if}}{{mot transcription language.defaultOrthography }}</a>
 {{~/inline}}
 
 {{#*inline 'CrossReference' }}

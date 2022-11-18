@@ -69,7 +69,7 @@ describe(`Lexeme page`, function() {
     cy.visit(`/languages/${ arapahoLanguageID }/lexemes/${ lexemeID }`)
 
     // Etymology
-    cy.get(`#form-0__etymology`).should(`have.text`, `PAlg: ‑ahw → PA: ‑ahw`)
+    cy.get(`#form-0__etymology`).should(`have.text`, `PAlg: *‑ahw → PA: *‑ahw`)
 
   })
 
