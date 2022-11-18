@@ -102,7 +102,7 @@
 
   <section class='current panel' role=tabpanel id=forms aria-labelledby=forms-link>
 
-    <dl class='def-list transcriptions'>
+    <dl class='def-list lexeme__transcriptions'>
 
       <dt class=label for=lemma>Lemma</dt>
       <dd>{{> MultiOrthoTranscription/MultiOrthoTranscription data=lexeme.lemma.transcription lang=language.iso attributes='id=lemma' }}</dd>
@@ -150,7 +150,7 @@
             <details class=details open>
 
               <summary>
-                {{> MultiOrthoTranscription/MultiOrthoTranscription data=form.transcription lang=@root.language.iso attributes='class="color-block mot transcription"' }}
+                {{> MultiOrthoTranscription/MultiOrthoTranscription data=form.transcription lang=@root.language.iso attributes='class="color-block mot form__transcription"' }}
               </summary>
 
               <fieldset class='def-list form-props'>
@@ -171,7 +171,29 @@
                   <input id=form-{{ @index }}__unattested class=checkbox type=checkbox disabled inert>
                 {{/if}}
 
-                <label class=label for=form-{{ @index }}__components>Components</label>
+                <label class=label for=form-{{ @index }}__allomorphs>Allomorphs</label>
+
+                {{#if form.allomorphs }}
+                  <ul id=form-{{ @index }}__allomorphs>
+                    {{#each form.allomorphs }}
+                      <li class=allomorph>
+                        {{> MultiOrthoTranscription/MultiOrthoTranscription data=transcription lang=@root.language.iso }}
+                        {{#if environments }}
+                          <span>⧸</span>{{!-- U+29F8 "Big Solidus" (regular solidus is the normal slash, U+002F) --}}
+                          <ul>
+                            {{#each environments }}
+                              <li class='environment txn'>{{ this }}</li>
+                            {{/each}}
+                          </ul>
+                        {{/if}}
+                      </li>
+                    {{/each}}
+                  </ul>
+                {{else}}
+                  <span id=form-{{ @index }}__allomorphs>—</span>
+                {{/if}}
+
+                <label class='allomorphs__label label' for=form-{{ @index }}__components>Components</label>
 
                 {{#if form.components }}
                   <ul class=cross-refs-set id=form-{{ @index }}__components>
