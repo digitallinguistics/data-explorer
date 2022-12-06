@@ -285,8 +285,18 @@
     <ul class='bordered list senses-list'>
       {{#each lexeme.senses as |sense| }}
         <li class='def-list sense' id={{ id }}>
+
           <label class=label for=sense-{{ id }}__gloss>Gloss</label>
           {{> MultiLangString/MultiLangString data=sense.gloss attributes=(concat 'id=sense-' id '__gloss') }}
+
+          <label class=label for=sense-{{ id }}__category>Category</label>
+          <dl class='category mls' id=sense-{{ id }}__category>
+            {{#each sense.category.abbreviation as |abbr| }}
+              <dt class=label-sm>{{ @key }}</dt>
+              <dd lang='{{ @key }}'><abbr title='{{lookup ../category/name @key }}'>{{ abbr }}</abbr></dd>
+            {{/each}}
+          </dl>
+
         </li>
       {{/each}}
     </ul>

@@ -143,11 +143,14 @@ describe(`Lexeme page`, function() {
   it(`Lexeme Details: Chitimacha: hi-`, function() {
 
     const lexemeID = `6a7915d6-085f-46f8-98ba-6555d761a943`
+    const senseID  = `f6c0f4a9-191a-49b1-a910-7189090cf0f3`
     const data     = this.lexemes.find(lex => lex.id === lexemeID)
 
     cy.visit(`/`)
     cy.setCookie(msAuthCookie, `owner@digitallinguistics.io`)
     cy.visit(`/languages/${ chitimachaLanguageID }/lexemes/${ lexemeID }#meaning`)
+
+    // SENSES
 
     // Senses List
 
@@ -158,6 +161,15 @@ describe(`Lexeme page`, function() {
       expect(b).to.include.text(`AUX(NEUT)`)
       expect(c).to.include.text(`be equal`)
     })
+
+    const [sense] = data.senses
+
+    cy.get(`#${ senseID }`).within(() => {
+      cy.get(`#sense-${ senseID }__gloss`).should(`include.text`, sense.gloss.eng)
+      cy.get(`#sense-${ senseID }__category`).should(`include.text`, sense.category.abbreviation.eng)
+    })
+
+    // METADATA
 
     cy.get(`#metadata-link`).click()
 
