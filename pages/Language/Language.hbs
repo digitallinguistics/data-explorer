@@ -20,7 +20,11 @@
 
         <div class=name>
           <label class=label>Autonym</label>
-          {{> MultiOrthoTranscription/MultiOrthoTranscription data=autonym lang=iso }}
+          {{#if autonym }}
+            {{> MultiOrthoTranscription/MultiOrthoTranscription data=autonym lang=iso }}
+          {{else}}
+            <span class=mot>—</span>
+          {{/if}}
         </div>
 
       </fieldset>
@@ -94,10 +98,10 @@
         <output class=box-input id=url>https://data.digitallinguistics.io/languages/{{ id }}</output>
 
         <label class=label for=date-created>Date Created:</label>
-        <output id=date-created>{{date dateCreated }}</output>
+        <output id=date-created>{{#if dateCreated }}{{date dateCreated }}{{else}}—{{/if}}</output>
 
         <label class=label for=date-modified>Date Modified:</label>
-        <output id=date-modified>{{date dateModified }}</output>
+        <output id=date-modified>{{#if dateModified }}{{date dateModified }}{{else}}—{{/if}}</output>
 
       </fieldset>
 

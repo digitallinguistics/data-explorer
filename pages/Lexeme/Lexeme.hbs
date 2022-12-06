@@ -78,17 +78,19 @@
       {{~/if~}}
     </span>
 
-    <ol class='glosses numbered'>
-      {{#each lexeme.senses }}
-        {{#if gloss }}
-          <li class='gloss tln'>{{mls gloss }}</li>
-        {{else if definition }}
-          <li class='gloss tln'>{{mls definition }}</li>
-        {{else}}
-          <li class=gloss>—</li>
-        {{/if}}
-      {{/each}}
-    </ol>
+    {{#if lexeme.senses }}
+      <ol class='glosses numbered'>
+        {{#each lexeme.senses }}
+          {{#if gloss }}
+            <li class='gloss tln'>{{mls gloss }}</li>
+          {{else if definition }}
+            <li class='gloss tln'>{{mls definition }}</li>
+          {{else}}
+            <li class=gloss>—</li>
+          {{/if}}
+        {{/each}}
+      </ol>
+    {{/if}}
 
   </header>
 
@@ -108,12 +110,12 @@
       <dd>{{> MultiOrthoTranscription/MultiOrthoTranscription data=lexeme.lemma.transcription lang=language.iso attributes='id=lemma' }}</dd>
 
       <dt class=label for=citation-form>Citation Form</dt>
-      <dd>
-        {{#if lexeme.citationForm}}
-          {{> MultiOrthoTranscription/MultiOrthoTranscription data=lexeme.citationForm lang=language.iso attributes='id=citation-form' }}
-        {{else}}
-          <span id=citation-form>—</span>
-        {{/if}}
+      <dd id=citation-form>
+        {{#if lexeme.citationForm ~}}
+          {{> MultiOrthoTranscription/MultiOrthoTranscription data=lexeme.citationForm lang=language.iso }}
+        {{~else~}}
+          <span>—</span>
+        {{~/if}}
       </dd>
 
     </dl>
@@ -122,18 +124,18 @@
 
       <dt class=label for=morph-type>Morph Type</dt>
       <dd id=morph-type>
-        {{#if lexeme.morphType }}
+        {{#if lexeme.morphType ~}}
           {{> MultiLangString/MultiLangString data=lexeme.morphType }}
-        {{else~}}
+        {{~else~}}
           —
         {{~/if}}
       </dd>
 
       <dt class=label for=slot>Slot</dt>
       <dd id=slot>
-        {{#if lexeme.slot }}
+        {{#if lexeme.slot ~}}
           {{> MultiLangString/MultiLangString data=lexeme.slot }}
-        {{else~}}
+        {{~else~}}
           —
         {{~/if}}
       </dd>
@@ -144,162 +146,176 @@
 
       <h2 class=section-header>Base Forms <span class=summary-count>({{ lexeme.forms.length }})</span></h2>
 
-      <ul class='bordered forms-list list'>
-        {{#each lexeme.forms as |form| }}
-          <li class=form id={{ id }}>
-            <details class=details open>
+      {{#unless lexeme.forms }}
+        <span class=empty-list>No forms listed.</span>
+      {{else}}
+        <ul class='bordered forms-list list'>
+          {{#each lexeme.forms as |form| }}
+            <li class=form id={{ id }}>
+              <details class=details open>
 
-              <summary>
-                {{> MultiOrthoTranscription/MultiOrthoTranscription data=form.transcription lang=@root.language.iso attributes='class="color-block mot form__transcription"' }}
-              </summary>
+                <summary>
+                  {{> MultiOrthoTranscription/MultiOrthoTranscription data=form.transcription lang=@root.language.iso attributes='class="color-block mot form__transcription"' }}
+                </summary>
 
-              <fieldset class='def-list form-props'>
+                <fieldset class='def-list form-props'>
 
-                <label class=label for=form-{{ @index }}__abstract>Abstract Form</label>
+                  <label class=label for=form-{{ @index }}__abstract>Abstract Form</label>
+                  {{#if form.abstract }}
+                    <input id=form-{{ @index }}__abstract class=checkbox type=checkbox checked inert>
+                  {{else}}
+                    <input id=form-{{ @index }}__abstract class=checkbox type=checkbox disabled inert>
+                  {{/if}}
 
-                {{#if form.abstract }}
-                  <input id=form-{{ @index }}__abstract class=checkbox type=checkbox checked inert>
-                {{else}}
-                  <input id=form-{{ @index }}__abstract class=checkbox type=checkbox disabled inert>
-                {{/if}}
+                  <label class=label for=form-{{ @index }}__unattested>Unattested</label>
+                  {{#if form.unattested }}
+                    <input id=form-{{ @index }}__unattested class=checkbox type=checkbox checked inert>
+                  {{else}}
+                    <input id=form-{{ @index }}__unattested class=checkbox type=checkbox disabled inert>
+                  {{/if}}
 
-                <label class=label for=form-{{ @index }}__unattested>Unattested</label>
+                  <label class=label for=form-{{ @index }}__allomorphs>Allomorphs</label>
+                  {{#unless form.allomorphs }}
+                    <span id=form-{{ @index }}__allomorphs>—</span>
+                  {{else}}
+                    <ul id=form-{{ @index }}__allomorphs>
+                      {{#each form.allomorphs }}
+                        <li class=allomorph>
+                          {{> MultiOrthoTranscription/MultiOrthoTranscription data=transcription lang=@root.language.iso }}
+                          {{#if environments }}
+                            <span>⧸</span>{{!-- U+29F8 "Big Solidus" (regular solidus is the normal slash, U+002F) --}}
+                            <ul>
+                              {{#each environments }}
+                                <li class='environment txn'>{{ this }}</li>
+                              {{/each}}
+                            </ul>
+                          {{/if}}
+                        </li>
+                      {{/each}}
+                    </ul>
+                  {{/unless}}
 
-                {{#if form.unattested }}
-                  <input id=form-{{ @index }}__unattested class=checkbox type=checkbox checked inert>
-                {{else}}
-                  <input id=form-{{ @index }}__unattested class=checkbox type=checkbox disabled inert>
-                {{/if}}
+                  <label class='allomorphs__label label' for=form-{{ @index }}__components>Components</label>
+                  {{#unless form.components }}
+                    <span id=form-{{ @index }}__components>—</span>
+                  {{else}}
+                    <ul class=cross-refs-set id=form-{{ @index }}__components>
+                      {{~#each form.components ~}}
+                        <li>{{> Headword }}{{#unless @last }}, {{/unless}}</li>
+                      {{~/each~}}
+                    </ul>
+                  {{/unless}}
 
-                <label class=label for=form-{{ @index }}__allomorphs>Allomorphs</label>
+                  <label class=label for=form-{{ @index }}__component-of>Component Of</label>
+                  {{#unless form.componentOf }}
+                    <span id=form-{{ @index }}__component-of>—</span>
+                  {{else}}
+                    <ul class=cross-refs-set id=form-{{ @index }}__component-of>
+                      {{~#each form.componentOf ~}}
+                        <li>{{> Headword }}{{#unless @last }}, {{/unless}}</li>
+                      {{~/each~}}
+                    </ul>
+                  {{/unless}}
 
-                {{#if form.allomorphs }}
-                  <ul id=form-{{ @index }}__allomorphs>
-                    {{#each form.allomorphs }}
-                      <li class=allomorph>
-                        {{> MultiOrthoTranscription/MultiOrthoTranscription data=transcription lang=@root.language.iso }}
-                        {{#if environments }}
-                          <span>⧸</span>{{!-- U+29F8 "Big Solidus" (regular solidus is the normal slash, U+002F) --}}
-                          <ul>
-                            {{#each environments }}
-                              <li class='environment txn'>{{ this }}</li>
-                            {{/each}}
-                          </ul>
-                        {{/if}}
-                      </li>
-                    {{/each}}
-                  </ul>
-                {{else}}
-                  <span id=form-{{ @index }}__allomorphs>—</span>
-                {{/if}}
+                  <label class=label for=form-{{ @index }}__etymology>Etymology</label>
+                  {{#unless form.etymology }}
+                    <span id=form-{{ @index }}__etymology>—</span>
+                  {{else}}
+                    <ul class='cross-lang-refs-set etymology' id=form-{{ @index }}__etymology>
+                      {{~#each form.etymology ~}}
+                        <li class=etymon>{{> CrossLanguageHeadword }}</li>
+                        {{~#unless @last ~}}
+                          <span> → </span>{{!-- Note: The spaces here are intentional. --}}
+                        {{~/unless~}}
+                        </li>
+                      {{~/each~}}
+                    </ul>
+                  {{/unless}}
 
-                <label class='allomorphs__label label' for=form-{{ @index }}__components>Components</label>
+                  <label class=label for="form-{{ @index }}__reflexes">Reflexes</label>
+                  {{#unless form.reflexes }}
+                    <span id=form-{{ @index }}__reflexes>—</span>
+                  {{else}}
+                    <ul class=cross-lang-refs-set id=form-{{ @index }}__reflexes>
+                      {{~#each form.reflexes ~}}
+                        <li>{{> CrossLanguageHeadword }}{{#unless @last}}, {{/unless}}</li>
+                      {{~/each~}}
+                    </ul>
+                  {{/unless}}
 
-                {{#if form.components }}
-                  <ul class=cross-refs-set id=form-{{ @index }}__components>
-                    {{~#each form.components ~}}
-                      <li>{{> Headword }}{{#unless @last }}, {{/unless}}</li>
-                    {{~/each~}}
-                  </ul>
-                {{else}}
-                  <span id=form-{{ @index }}__components>—</span>
-                {{/if}}
+                  <label class=label for=form-{{ @index }}__references>References</label>
+                  {{#unless form.bibliography }}
+                    <span id=form-{{ @index }}__references>—</span>
+                  {{else}}
+                    <div id=form-{{ @index }}__references>
+                      {{> CitationsList form.bibliography }}
+                      <span class=bib-links>
+                        <a class='link subtle' href='/languages/{{ @root.language.id }}/lexemes/{{ @root.lexeme.id }}/forms/{{ form }}/references?view=bibliography'>View as Bibliography</a> | <a class='link subtle' href='/languages/{{ @root.language.id }}/lexemes/{{ @root.lexeme.id }}/forms/{{ form }}/references?view=table'>View as Table</a>
+                      </span>
+                    </div>
+                  {{/unless}}
 
-                <label class=label for=form-{{ @index }}__component-of>Component Of</label>
+                  <label class=label for=form-{{ @index }}__sources>Sources</label>
+                  {{#unless form.sources ~}}
+                    <span id=form-{{ @index }}__sources>—</span>
+                  {{else}}
+                    <ul class=tags-list id=form-{{ @index }}__sources>
+                      {{~#each form.sources ~}}
+                        {{~> Source }}
+                      {{~/each~}}
+                    </ul>
+                  {{/unless}}
 
-                {{#if form.componentOf }}
-                  <ul class=cross-refs-set id=form-{{ @index }}__component-of>
-                    {{~#each form.componentOf ~}}
-                      <li>{{> Headword }}{{#unless @last }}, {{/unless}}</li>
-                    {{~/each~}}
-                  </ul>
-                {{else}}
-                  <span id=form-{{ @index }}__component-of>—</span>
-                {{/if}}
+                </fieldset>
 
-                <label class=label for=form-{{ @index }}__etymology>Etymology</label>
-
-                {{#if form.etymology }}
-                  <ul class='cross-lang-refs-set etymology' id=form-{{ @index }}__etymology>
-                    {{~#each form.etymology ~}}
-                      <li class=etymon>{{> CrossLanguageHeadword }}</li>
-                      {{~#unless @last ~}}
-                        <span> → </span>{{!-- Note: The spaces here are intentional. --}}
-                      {{~/unless~}}
-                      </li>
-                    {{~/each~}}
-                  </ul>
-                {{else}}
-                  <span id=form-{{ @index }}__etymology>—</span>
-                {{/if}}
-
-                <label class=label for="form-{{ @index }}__reflexes">Reflexes</label>
-
-                {{#if form.reflexes }}
-                  <ul class=cross-lang-refs-set id=form-{{ @index }}__reflexes>
-                    {{~#each form.reflexes ~}}
-                      <li>{{> CrossLanguageHeadword }}{{#unless @last}}, {{/unless}}</li>
-                    {{~/each~}}
-                  </ul>
-                {{else}}
-                  <span id=form-{{ @index }}__reflexes>—</span>
-                {{/if}}
-
-                <label class=label for=form-{{ @index }}__references>References</label>
-
-                {{#if form.bibliography }}
-                  <div id=form-{{ @index }}__references>
-                    {{> CitationsList form.bibliography }}
-                    <span class=bib-links>
-                      <a class='link subtle' href='/languages/{{ @root.language.id }}/lexemes/{{ @root.lexeme.id }}/forms/{{ form }}/references?view=bibliography'>View as Bibliography</a> | <a class='link subtle' href='/languages/{{ @root.language.id }}/lexemes/{{ @root.lexeme.id }}/forms/{{ form }}/references?view=table'>View as Table</a>
-                    </span>
-                  </div>
-                {{else}}
-                  <span id=form-{{ @index }}__references>—</span>
-                {{/if}}
-
-                <label class=label for=form-{{ @index }}__sources>Sources</label>
-
-                {{#if form.sources ~}}
-                  <ul class=tags-list id=form-{{ @index }}__sources>
-                    {{~#each form.sources ~}}
-                      {{~> Source }}
-                    {{~/each~}}
-                  </ul>
-                {{~else~}}
-                  <span id=sources>—</span>
-                {{~/if}}
-
-              </fieldset>
-
-            </details>
-          </li>
-        {{/each}}
-      </ul>
+              </details>
+            </li>
+          {{/each}}
+        </ul>
+      {{/unless}}
 
     </section>
 
   </section>
 
   <section class=panel role=tabpanel id=meaning aria-labelledby=meaning-link>
-    <ul class='bordered list senses-list'>
-      {{#each lexeme.senses as |sense| }}
-        <li class='def-list sense' id={{ id }}>
+    {{#unless lexeme.senses }}
+      <span class=empty-list>No senses listed.</span>
+    {{else}}
+      <ul class='bordered list senses-list'>
+        {{#each lexeme.senses as |sense| }}
+          <li class='def-list sense' id={{ id }}>
 
-          <label class=label for=sense-{{ id }}__gloss>Gloss</label>
-          {{> MultiLangString/MultiLangString data=sense.gloss attributes=(concat 'id=sense-' id '__gloss') }}
+            <label class=label for=sense-{{ id }}__gloss>Gloss</label>
+            {{#if gloss }}
+              {{> MultiLangString/MultiLangString data=sense.gloss attributes=(concat 'id=sense-' id '__gloss') }}
+            {{else}}
+              <span id='sense-{{ id }}__gloss'>—</span>
+            {{/if}}
 
-          <label class=label for=sense-{{ id }}__category>Category</label>
-          <dl class='category mls' id=sense-{{ id }}__category>
-            {{#each sense.category.abbreviation as |abbr| }}
-              <dt class=label-sm>{{ @key }}</dt>
-              <dd lang='{{ @key }}'><abbr title='{{lookup ../category/name @key }}'>{{ abbr }}</abbr></dd>
-            {{/each}}
-          </dl>
+            <label class=label for=sense-{{ id }}__category>Category</label>
+            {{#unless sense.category }}
+              <span id=sense-{{ id }}__category>—</span>
+            {{else}}
+              {{#if sense.category.abbreviation }}
+                <dl class='category mls' id=sense-{{ id }}__category>
+                  {{#each sense.category.abbreviation as |abbr| }}
+                    <dt class=label-sm>{{ @key }}</dt>
+                    <dd lang='{{ @key }}'><abbr title='{{lookup ../category/name @key }}'>{{ abbr }}</abbr></dd>
+                  {{/each}}
+                </dl>
+              {{else if sense.category.name }}
+                {{> MultiLangString/MultiLangString data=sense.category.name attributes=(concat 'id=sense-' id '__category') }}
+              {{else}}
+                <span id=sense-{{ id }}__category>—</span>
+              {{/if}}
+            {{/unless}}
 
-        </li>
-      {{/each}}
-    </ul>
+          </li>
+        {{/each}}
+      </ul>
+    {{/unless}}
+
   </section>
 
   <section class=panel role=tabpanel id=metadata aria-labelledby=metadata-link>
@@ -307,21 +323,21 @@
     <fieldset class='def-list metadata-props'>
 
       <label class=label for=cross-references>Cross References</label>
-      {{#if lexeme.crossReferences}}
+      {{#unless lexeme.crossReferences}}
+        <span id=cross-references>—</span>
+      {{else}}
         <dl class=def-list id=cross-references>
           {{#each lexeme.crossReferences as |crossRef| }}
             {{> CrossReference crossRef }}
           {{/each}}
         </dl>
-      {{else}}
-        <span id=cross-references>—</span>
-      {{/if}}
+      {{/unless}}
 
       <label class=label for=date-created>Date Created</label>
-      <output id=date-created>{{date lexeme.dateCreated }}</output>
+      <output id=date-created>{{#if lexeme.dateCreated }}{{date lexeme.dateCreated }}{{else}}—{{/if}}</output>
 
       <label class=label for=date-modified>Date Modified</label>
-      <output id=date-modified>{{date lexeme.dateModified }}</output>
+      <output id=date-modified>{{#if lexeme.dateModified }}{{date lexeme.dateModified }}{{else}}—{{/if}}</output>
 
       <label class=label for=language-autonym>Language Autonym</label>
       {{#if (obj language.autonym)}}
@@ -334,30 +350,32 @@
       {{> MultiLangString/MultiLangString data=language.name attributes='id=language-name' }}
 
       <label class=label for=lexeme-references>References</label>
-      {{#if lexeme.bibliography }}
+      {{#unless lexeme.bibliography }}
+        <span id=lexeme-references>—</span>
+      {{else}}
         <div id=lexeme-references>
           {{> CitationsList lexeme.bibliography }}
           <span class=bib-links>
             <a class='link subtle' href='/languages/{{ @root.language.id }}/lexemes/{{ @root.lexeme.id }}/references?view=bibliography'>View as Bibliography</a> | <a class='link subtle' href='/languages/{{ @root.language.id }}/lexemes/{{ @root.lexeme.id }}/references?view=table'>View as Table</a>
           </span>
         </div>
-      {{else}}
-        <span id=lexeme-references>—</span>
-      {{/if}}
+      {{/unless}}
 
       <label class=label for=lexeme-sources>Sources</label>
-      {{#if lexeme.sources ~}}
+      {{#unless lexeme.sources ~}}
+        <span id=lexeme-sources>—</span>
+      {{~else~}}
         <ul class=tags-list id=lexeme-sources>
           {{~#each lexeme.sources ~}}
             {{~> Source ~}}
           {{~/each~}}
         </ul>
-      {{~else~}}
-        <span id=lexeme-sources>—</span>
-      {{~/if}}
+      {{~/unless}}
 
       <label class=label for=tags>Tags</label>
-      {{#if lexeme.tags}}
+      {{#unless lexeme.tags}}
+        <span id=tags>—</span>
+      {{else}}
         <ul class=tags-list id=tags>
           {{#each lexeme.tags as |tag| }}
             <li class=tag>
@@ -371,9 +389,7 @@
             </li>
           {{/each}}
         </ul>
-      {{else}}
-        <span id=tags>—</span>
-      {{/if}}
+      {{/unless}}
 
       <label class=label for=url>URL</label>
       <output class=box-input id=url>https://data.digitallinguistics.io/languages/{{ language.id }}/lexemes/{{ lexeme.id }}</output>
