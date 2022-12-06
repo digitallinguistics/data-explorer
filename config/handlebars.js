@@ -19,6 +19,11 @@ function any(...args) {
   return args.some(isTruthy)
 }
 
+function concat(...args) {
+  args.pop()
+  return args.join(``)
+}
+
 /**
  * Renders a Date object as a short date (YYYY-MM-DD).
  * @param {Date} d A Date Object
@@ -89,6 +94,7 @@ const hbs = new ExpressHandlebars({
   helpers:       {
     all,
     any,
+    concat,
     date,
     is,
     isFalse,

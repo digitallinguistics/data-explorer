@@ -153,6 +153,11 @@ describe(`Lexeme page`, function() {
 
     cy.get(`.senses-list`).children()
     .should(`have.length`, data.senses.length)
+    .then(([a, b, c]) => {
+      expect(a).to.include.text(`COP(NEUT)`)
+      expect(b).to.include.text(`AUX(NEUT)`)
+      expect(c).to.include.text(`be equal`)
+    })
 
     cy.get(`#metadata-link`).click()
 
