@@ -146,7 +146,7 @@
 
       <ul class='bordered forms-list list'>
         {{#each lexeme.forms as |form| }}
-          <li class=form>
+          <li class=form id={{ id }}>
             <details class=details open>
 
               <summary>
@@ -272,7 +272,6 @@
 
               </fieldset>
 
-
             </details>
           </li>
         {{/each}}
@@ -285,7 +284,10 @@
   <section class=panel role=tabpanel id=meaning aria-labelledby=meaning-link>
     <ul class='bordered list senses-list'>
       {{#each lexeme.senses as |sense| }}
-        <li class=sense>Sense {{@index}}</li>
+        <li class='def-list sense' id={{ id }}>
+          <label class=label for=sense-{{ id }}__gloss>Gloss</label>
+          {{> MultiLangString/MultiLangString data=sense.gloss attributes=(concat 'id=sense-' id '__gloss') }}
+        </li>
       {{/each}}
     </ul>
   </section>

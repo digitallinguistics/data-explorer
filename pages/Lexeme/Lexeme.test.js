@@ -140,7 +140,7 @@ describe(`Lexeme page`, function() {
 
   })
 
-  it.only(`Lexeme Details: Chitimacha: hi-`, function() {
+  it(`Lexeme Details: Chitimacha: hi-`, function() {
 
     const lexemeID = `6a7915d6-085f-46f8-98ba-6555d761a943`
     const data     = this.lexemes.find(lex => lex.id === lexemeID)
@@ -153,6 +153,11 @@ describe(`Lexeme page`, function() {
 
     cy.get(`.senses-list`).children()
     .should(`have.length`, data.senses.length)
+    .then(([a, b, c]) => {
+      expect(a).to.include.text(`COP(NEUT)`)
+      expect(b).to.include.text(`AUX(NEUT)`)
+      expect(c).to.include.text(`be equal`)
+    })
 
     cy.get(`#metadata-link`).click()
 
@@ -253,7 +258,7 @@ describe(`Lexeme page`, function() {
 
     // SUMMARY
     cy.contains(`.page-title`, data.lemma.transcription.SRO)
-    cy.contains(`.header`, data.senses[0].gloss)
+    cy.contains(`.header`, data.senses[0].gloss.eng)
     cy.get(`.header .language`).should(`have.text`, `Plains Cree | nêhiyawêwin`)
 
     // FORM TAB (default)
