@@ -63,10 +63,10 @@
       <output class=box-input id=url>https://data.digitallinguistics.io/projects/{{ project.id }}</output>
 
       <label class=label for=date-created>Date Created:</label>
-      <output id=date-created>{{date project.dateCreated }}</output>
+      <output id=date-created>{{#if project.dateCreated }}{{date project.dateCreated }}{{else}}—{{/if}}</output>
 
       <label class=label for=date-modified>Date Modified:</label>
-      <output id=date-modified>{{date project.dateModified }}</output>
+      <output id=date-modified>{{#if project.dateModified }}{{date project.dateModified }}{{else}}—{{/if}}</output>
 
     </fieldset>
 
