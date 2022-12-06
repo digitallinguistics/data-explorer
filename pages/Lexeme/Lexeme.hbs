@@ -283,7 +283,11 @@
   </section>
 
   <section class=panel role=tabpanel id=meaning aria-labelledby=meaning-link>
-    <h1>Meaning</h1>
+    <ul>
+      {{#each lexeme.senses as |sense| }}
+        <li>Sense {{@index}}</li>
+      {{/each}}
+    </ul>
   </section>
 
   <section class=panel role=tabpanel id=metadata aria-labelledby=metadata-link>
