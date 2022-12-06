@@ -43,6 +43,10 @@
       abbreviation: PM
       familyName:   Moss
       givenName:    Paul
+    - id:           5f3e1abb-fefd-4e2c-925c-bc08fee8552f
+      abbreviation: KW
+      familyName:   Walden
+      givenName:    Kim
   tags:
     'relative root': null
     secondary:       true
@@ -743,7 +747,7 @@
       allomorphs:
         - transcription:
             'MN:6':   -eck-
-            Nisinoon: -eck-
+            Nisinoon: -esk-
           environments:
             - _V
             - _N
