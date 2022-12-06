@@ -140,13 +140,21 @@ describe(`Lexeme page`, function() {
 
   })
 
-  it(`Lexeme Details: Chitimacha: hi-`, function() {
+  it.only(`Lexeme Details: Chitimacha: hi-`, function() {
 
     const lexemeID = `6a7915d6-085f-46f8-98ba-6555d761a943`
+    const data     = this.lexemes.find(lex => lex.id === lexemeID)
 
     cy.visit(`/`)
     cy.setCookie(msAuthCookie, `owner@digitallinguistics.io`)
-    cy.visit(`/languages/${ chitimachaLanguageID }/lexemes/${ lexemeID }#metadata`)
+    cy.visit(`/languages/${ chitimachaLanguageID }/lexemes/${ lexemeID }#meaning`)
+
+    // Senses List
+
+    cy.get(`.senses-list`).children()
+    .should(`have.length`, data.senses.length)
+
+    cy.get(`#metadata-link`).click()
 
     // Cross-References
     cy.get(`#cross-references`).children()
