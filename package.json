@@ -39,7 +39,7 @@
     "cypress-run": "cypress run --config-file=test/cypress.config.js",
     "prepare-release": "node build/updateCitation.js",
     "start": "node index.js",
-    "stop-only": "stop-only -f test",
+    "stop-only": "stop-only --folder layouts,pages,services,test",
     "test": "npm run unit-tests && server-test 3001 cypress-run",
     "unit-tests": "mocha"
   },

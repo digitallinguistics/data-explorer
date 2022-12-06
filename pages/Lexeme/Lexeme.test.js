@@ -140,7 +140,7 @@ describe(`Lexeme page`, function() {
 
   })
 
-  it.only(`Lexeme Details: Chitimacha: hi-`, function() {
+  it(`Lexeme Details: Chitimacha: hi-`, function() {
 
     const lexemeID = `6a7915d6-085f-46f8-98ba-6555d761a943`
     const senseID  = `f6c0f4a9-191a-49b1-a910-7189090cf0f3`
