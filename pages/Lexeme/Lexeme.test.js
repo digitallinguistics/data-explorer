@@ -45,6 +45,7 @@ describe(`Lexeme page`, function() {
   it(`Lexeme Details: Arapaho: ‑(')enih`, function() {
 
     const lexemeID = `67944dcf-f7d9-4e9c-88f7-cb2408b10b9b`
+    const formID   = `8497d64d-1427-41ee-a165-ffb3b987f731`
 
     cy.visit(`/languages/${ arapahoLanguageID }/lexemes/${ lexemeID }#metadata`)
 
@@ -56,10 +57,10 @@ describe(`Lexeme page`, function() {
     })
 
     // Abstract Form
-    cy.get(`#form-0__abstract`).should(`not.be.checked`)
+    cy.get(`#form-${ formID }__abstract`).should(`not.be.checked`)
 
     // Form Sources
-    cy.get(`#form-0__sources`).children()
+    cy.get(`#form-${ formID }__sources`).children()
     .should(`have.length`, 2)
     .then(([a, b]) => {
       expect(a).to.have.text(`PM`)
@@ -71,22 +72,24 @@ describe(`Lexeme page`, function() {
   it(`Lexeme Details: Arapaho: -oh`, function() {
 
     const lexemeID = `f00de78a-3e58-44ae-a132-69a5fc6e951c`
+    const formID   = `4aa45b62-05eb-412d-a789-510f99530ed8`
 
     cy.visit(`/languages/${ arapahoLanguageID }/lexemes/${ lexemeID }`)
 
     // Etymology
-    cy.get(`#form-0__etymology`).should(`have.text`, `PAlg: *‑ahw → PA: *‑ahw`)
+    cy.get(`#form-${ formID }__etymology`).should(`have.text`, `PAlg: *‑ahw → PA: *‑ahw`)
 
   })
 
   it(`Lexeme Details: Arapaho: -tii`, function() {
 
     const lexemeID = `365e8f6f-775a-4e07-ac33-914e65dfad5f`
+    const formID   = `7db2aa28-536c-42a6-970f-d98258f31cb6`
 
     cy.visit(`/languages/${ arapahoLanguageID }/lexemes/${ lexemeID }`)
 
     // Abstract Form
-    cy.get(`#form-0__abstract`).should(`be.checked`)
+    cy.get(`#form-${ formID }__abstract`).should(`be.checked`)
 
   })
 
@@ -194,11 +197,12 @@ describe(`Lexeme page`, function() {
   it(`Lexeme Details: Menominee: ‑a·n`, function() {
 
     const lexemeID = `99d2e994-8d18-424e-9d84-31de57256204`
+    const formID   = `1abb5ad4-cc63-4d52-b079-816841d0e60f`
 
     cy.visit(`/languages/${ menomineeLanguageID }/lexemes/${ lexemeID }`)
 
     // Component Of
-    cy.get(`#form-0__component-of`).first().should(`have.text`, `wa·nɛhka·n‑`) // non-breaking hyphen
+    cy.get(`#form-${ formID }__component-of`).first().should(`have.text`, `wa·nɛhka·n‑`) // non-breaking hyphen
 
   })
 
@@ -251,11 +255,12 @@ describe(`Lexeme page`, function() {
   it(`Lexeme Details: Menominee: wa·nɛhka·n‑`, function() {
 
     const lexemeID = `1fbfe299-2aa6-467c-b562-a0e22876a552`
+    const formID   = `957c76d3-90fb-4325-99f6-2e9e28ee248c`
 
     cy.visit(`/languages/${ menomineeLanguageID }/lexemes/${ lexemeID }`)
 
     // Form Components
-    cy.get(`#form-0__components`).should(`have.text`, `‑a·n`) // non-breaking hyphen
+    cy.get(`#form-${ formID }__components`).should(`have.text`, `‑a·n`) // non-breaking hyphen
 
   })
 
@@ -291,10 +296,13 @@ describe(`Lexeme page`, function() {
     cy.get(`.forms-list`).children().should(`have.length`, 1)
 
     // FORM
+
+    const [form] = data.forms
+
     cy.get(`.forms-list`).first().within(() => {
 
-      cy.get(`.form__transcription`).should(`include.text`, data.forms[0].transcription.SRO.replace(`-`, `‑`))
-      cy.get(`#form-0__references .tags-list`).children()
+      cy.get(`.form__transcription`).should(`include.text`, form.transcription.SRO.replace(`-`, `‑`))
+      cy.get(`#form-${ form.id }__references .tags-list`).children()
       .should(`have.length`, 3)
       .then(([a, b, c]) => {
         expect(a).to.include.text(`Bloomfield`)
@@ -352,6 +360,7 @@ describe(`Lexeme page`, function() {
 
     const lexemeID             = `b9a0edc6-59d1-44bd-a3e7-e226d0a33e5d`
     const protoAlgicLanguageID = `2f8c9c1d-b08b-4b51-a016-b65a90eb8af8`
+    const formID               = `d9da9f62-803e-490a-927e-efaa1eef9f0f`
 
     cy.visit(`/languages/${ protoAlgicLanguageID }/lexemes/${ lexemeID }`)
 
@@ -359,10 +368,10 @@ describe(`Lexeme page`, function() {
     cy.get(`.page-title`).should(`have.text`, `*‑ahw`)
 
     // Unattested
-    cy.get(`#form-0__unattested`).should(`be.checked`)
+    cy.get(`#form-${ formID }__unattested`).should(`be.checked`)
 
     // Reflexes
-    cy.get(`#form-0__reflexes`).children()
+    cy.get(`#form-${ formID }__reflexes`).children()
     .should(`have.length`, 2)
     .then(([a, b]) => {
       expect(a).to.have.text(`PA: ‑ahw, `) // non-breaking hyphen

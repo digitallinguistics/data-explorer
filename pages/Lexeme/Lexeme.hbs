@@ -160,25 +160,25 @@
 
                 <fieldset class='def-list form-props'>
 
-                  <label class=label for=form-{{ @index }}__abstract>Abstract Form</label>
+                  <label class=label for=form-{{ id }}__abstract>Abstract Form</label>
                   {{#if form.abstract }}
-                    <input id=form-{{ @index }}__abstract class=checkbox type=checkbox checked inert>
+                    <input id=form-{{ id }}__abstract class=checkbox type=checkbox checked inert>
                   {{else}}
-                    <input id=form-{{ @index }}__abstract class=checkbox type=checkbox disabled inert>
+                    <input id=form-{{ id }}__abstract class=checkbox type=checkbox disabled inert>
                   {{/if}}
 
-                  <label class=label for=form-{{ @index }}__unattested>Unattested</label>
+                  <label class=label for=form-{{ id }}__unattested>Unattested</label>
                   {{#if form.unattested }}
-                    <input id=form-{{ @index }}__unattested class=checkbox type=checkbox checked inert>
+                    <input id=form-{{ id }}__unattested class=checkbox type=checkbox checked inert>
                   {{else}}
-                    <input id=form-{{ @index }}__unattested class=checkbox type=checkbox disabled inert>
+                    <input id=form-{{ id }}__unattested class=checkbox type=checkbox disabled inert>
                   {{/if}}
 
-                  <label class=label for=form-{{ @index }}__allomorphs>Allomorphs</label>
+                  <label class=label for=form-{{ id }}__allomorphs>Allomorphs</label>
                   {{#unless form.allomorphs }}
-                    <span id=form-{{ @index }}__allomorphs>—</span>
+                    <span id=form-{{ id }}__allomorphs>—</span>
                   {{else}}
-                    <ul id=form-{{ @index }}__allomorphs>
+                    <ul id=form-{{ id }}__allomorphs>
                       {{#each form.allomorphs }}
                         <li class=allomorph>
                           {{> MultiOrthoTranscription/MultiOrthoTranscription data=transcription lang=@root.language.iso }}
@@ -195,33 +195,33 @@
                     </ul>
                   {{/unless}}
 
-                  <label class='allomorphs__label label' for=form-{{ @index }}__components>Components</label>
+                  <label class='allomorphs__label label' for=form-{{ id }}__components>Components</label>
                   {{#unless form.components }}
-                    <span id=form-{{ @index }}__components>—</span>
+                    <span id=form-{{ id }}__components>—</span>
                   {{else}}
-                    <ul class=cross-refs-set id=form-{{ @index }}__components>
+                    <ul class=cross-refs-set id=form-{{ id }}__components>
                       {{~#each form.components ~}}
                         <li>{{> Headword }}{{#unless @last }}, {{/unless}}</li>
                       {{~/each~}}
                     </ul>
                   {{/unless}}
 
-                  <label class=label for=form-{{ @index }}__component-of>Component Of</label>
+                  <label class=label for=form-{{ id }}__component-of>Component Of</label>
                   {{#unless form.componentOf }}
-                    <span id=form-{{ @index }}__component-of>—</span>
+                    <span id=form-{{ id }}__component-of>—</span>
                   {{else}}
-                    <ul class=cross-refs-set id=form-{{ @index }}__component-of>
+                    <ul class=cross-refs-set id=form-{{ id }}__component-of>
                       {{~#each form.componentOf ~}}
                         <li>{{> Headword }}{{#unless @last }}, {{/unless}}</li>
                       {{~/each~}}
                     </ul>
                   {{/unless}}
 
-                  <label class=label for=form-{{ @index }}__etymology>Etymology</label>
+                  <label class=label for=form-{{ id }}__etymology>Etymology</label>
                   {{#unless form.etymology }}
-                    <span id=form-{{ @index }}__etymology>—</span>
+                    <span id=form-{{ id }}__etymology>—</span>
                   {{else}}
-                    <ul class='cross-lang-refs-set etymology' id=form-{{ @index }}__etymology>
+                    <ul class='cross-lang-refs-set etymology' id=form-{{ id }}__etymology>
                       {{~#each form.etymology ~}}
                         <li class=etymon>{{> CrossLanguageHeadword }}</li>
                         {{~#unless @last ~}}
@@ -232,22 +232,22 @@
                     </ul>
                   {{/unless}}
 
-                  <label class=label for="form-{{ @index }}__reflexes">Reflexes</label>
+                  <label class=label for=form-{{ id }}__reflexes>Reflexes</label>
                   {{#unless form.reflexes }}
-                    <span id=form-{{ @index }}__reflexes>—</span>
+                    <span id=form-{{ id }}__reflexes>—</span>
                   {{else}}
-                    <ul class=cross-lang-refs-set id=form-{{ @index }}__reflexes>
+                    <ul class=cross-lang-refs-set id=form-{{ id }}__reflexes>
                       {{~#each form.reflexes ~}}
                         <li>{{> CrossLanguageHeadword }}{{#unless @last}}, {{/unless}}</li>
                       {{~/each~}}
                     </ul>
                   {{/unless}}
 
-                  <label class=label for=form-{{ @index }}__references>References</label>
+                  <label class=label for=form-{{ id }}__references>References</label>
                   {{#unless form.bibliography }}
-                    <span id=form-{{ @index }}__references>—</span>
+                    <span id=form-{{ id }}__references>—</span>
                   {{else}}
-                    <div id=form-{{ @index }}__references>
+                    <div id=form-{{ id }}__references>
                       {{> CitationsList form.bibliography }}
                       <span class=bib-links>
                         <a class='link subtle' href='/languages/{{ @root.language.id }}/lexemes/{{ @root.lexeme.id }}/forms/{{ form }}/references?view=bibliography'>View as Bibliography</a> | <a class='link subtle' href='/languages/{{ @root.language.id }}/lexemes/{{ @root.lexeme.id }}/forms/{{ form }}/references?view=table'>View as Table</a>
@@ -255,11 +255,11 @@
                     </div>
                   {{/unless}}
 
-                  <label class=label for=form-{{ @index }}__sources>Sources</label>
+                  <label class=label for=form-{{ id }}__sources>Sources</label>
                   {{#unless form.sources ~}}
-                    <span id=form-{{ @index }}__sources>—</span>
+                    <span id=form-{{ id }}__sources>—</span>
                   {{else}}
-                    <ul class=tags-list id=form-{{ @index }}__sources>
+                    <ul class=tags-list id=form-{{ id }}__sources>
                       {{~#each form.sources ~}}
                         {{~> Source }}
                       {{~/each~}}
