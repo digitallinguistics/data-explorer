@@ -59,10 +59,6 @@ body:target #forms {
     padding: var(--text-padding-lg);
   }
 
-  .category abbr {
-    cursor: help;
-  }
-
   .citation {
     --tag-color: var(--indigo-1);
   }
@@ -273,7 +269,13 @@ body:target #forms {
   }
 
   .sense {
+
     padding: var(--space-sm);
+
+    &__category, &__base-category {
+      cursor: help;
+    }
+
   }
 
   .senses-list {

@@ -36,8 +36,7 @@
   senses:
     - id: 856a5a4a-b3b0-4cb1-8894-33bf924256f6
       category:
-        abbreviation:
-          eng: TA
+        abbreviation: TA
         name:
           eng: transitive animate
   slot:
@@ -123,8 +122,7 @@
   senses:
     - id: a23cdfb8-0ef9-4e5b-bee4-2261a27bae05
       category:
-        abbreviation:
-          eng: TA
+        abbreviation: TA
         name:
           eng: transitive animate
       gloss:
@@ -158,8 +156,7 @@
   senses:
     - id: c14e8caa-f069-4492-b33a-6b01b00f0bf9
       category:
-        abbreviation:
-          eng: AI
+        abbreviation: AI
         name:
           eng: animate intransitive
       gloss:
@@ -198,8 +195,7 @@
   senses:
     - id: f8ab41e2-1c2e-4bdd-9e68-b6b83ec7d6f4
       category:
-        abbreviation:
-          eng: V
+        abbreviation: V
         name:
           eng: verb
       gloss:
@@ -267,8 +263,7 @@
   senses:
     - id: 8a97ca23-2ee7-46d6-81b5-27339d14cc00
       category:
-        abbreviation:
-          eng: V
+        abbreviation: V
         name:
           eng: verb
       gloss:
@@ -307,8 +302,7 @@
   senses:
     - id: 6efcbf6f-aeab-4464-9045-80f86ea8fa21
       category:
-        abbreviation:
-          eng: V
+        abbreviation: V
         name:
           eng: verb
       gloss:
@@ -347,8 +341,7 @@
   senses:
     - id: 449f33e6-ce2b-4bcd-9bc8-d3130aded16a
       category:
-        abbreviation:
-          eng: V
+        abbreviation: V
         name:
           eng: verb
       gloss:
@@ -412,8 +405,7 @@
   senses:
     - id: c2d5d4ad-dc5b-49e9-8ff2-3209e6d28fd4
       category:
-        abbreviation:
-          eng: AI
+        abbreviation: AI
         name:
           eng: animate intransitive
       gloss:
@@ -588,24 +580,21 @@
   senses:
     - id: f6c0f4a9-191a-49b1-a910-7189090cf0f3
       category:
-        abbreviation:
-          eng: COP V
+        abbreviation: COP V
         name:
           eng: copula verb
       gloss:
         eng: COP(NEUT)
     - id: e796f5a5-d55f-4929-acbd-2fbcf9874763
       category:
-        abbreviation:
-          eng: AUX V
+        abbreviation: AUX V
         name:
           eng: auxiliary verb
       gloss:
         eng: AUX(NEUT)
     - id: d33f09e3-2d30-40f4-adc2-77c53971c3c1
       category:
-        abbreviation:
-          eng: COP V
+        abbreviation: COP V
         name:
           eng: copula verb
       gloss:
@@ -818,8 +807,7 @@
   senses:
     - id: c2ad2c41-7744-4e9b-a752-231fe4e87985
       category:
-        abbreviation:
-          eng: N
+        abbreviation: N
         name:
           eng: noun
       gloss:
@@ -952,8 +940,7 @@
   senses:
     - id: 7c847139-6fff-4e8d-9995-efa570b487b9
       category:
-        abbreviation:
-          eng: TA
+        abbreviation: TA
         name:
           eng: transitive animate
       gloss:
@@ -1004,8 +991,7 @@
   senses:
     - id: dc9a0875-cb6e-49d6-ab0d-7f9ece709f99
       category:
-        abbreviation:
-          eng: TI
+        abbreviation: TI
         name:
           eng: transitive inanimate
       gloss:
@@ -1086,8 +1072,7 @@
   senses:
     - id: 435c2970-68c1-4d89-b713-0216546e618a
       category:
-        abbreviation:
-          eng: N
+        abbreviation: N
         name:
           eng: noun
       gloss:
@@ -1182,6 +1167,42 @@
         eng: soup
 
 # Plains Cree
+
+- id:           567c753d-2937-4bf6-875a-ae4b95532d8b
+  dateCreated:  2022-01-01T00:00:00.000Z
+  dateModified: 2022-01-02T00:00:00.000Z
+  language:     850f3bd9-2a57-4289-bc57-05640b5d8d7d # Plains Cree
+  link:         https://data.digitallinguistics.io/languages/850f3bd9-2a57-4289-bc57-05640b5d8d7d/lexemes/567c753d-2937-4bf6-875a-ae4b95532d8b
+  type:         Lexeme
+  bibliography:
+    - id:      CookMuehlbauer2004
+      locator: 7
+  forms:
+    - id: 2fecd6d0-b954-4941-8c70-666ce6c71319
+      transcription:
+        SRO:       -ihkân
+        syllabics: -ᐃᐦᑳᐣ
+  lemma:
+    transcription:
+      SRO:       -ihkân
+      syllabics: -ᐃᐦᑳᐣ
+  morphType:
+  projects:
+    - c554474c-7f39-4ede-941b-c40b8f58b059 # Nisinoon
+  senses:
+    - id: 7164445a-0a2a-4fcf-b19b-1acba8a155d0
+      baseCategory:
+        abbreviation: N
+        name:
+          eng: noun
+      category:
+        abbreviation: N
+        name:
+          eng: noun
+      gloss:
+        eng: fabricated form of X
+  slot:
+    eng: secondary final
 
 - id:           79eb0aaf-944c-40b4-93f3-e1785ec0adde
   dateCreated:  2022-01-01T00:00:00.000Z
@@ -1422,8 +1443,7 @@
   senses:
     - id: 27e1917c-4fb2-412e-89f8-9669d886a721
       category:
-        abbreviation:
-          eng: TA
+        abbreviation: TA
         name:
           eng: transitive animate
       gloss:
@@ -1489,8 +1509,7 @@
   senses:
     - id: 03b9c503-1b6e-4e73-8260-d1c0a14a8e2e
       category:
-        abbreviation:
-          eng: TA
+        abbreviation: TA
         name:
           eng: transitive animate
       gloss:

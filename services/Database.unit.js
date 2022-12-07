@@ -142,10 +142,11 @@ describe(`Database`, function() {
     })
 
     it(`option: language`, async function() {
-      const db = new Database
+      const db               = new Database
+      const languageLexemes  = this.lexemes.filter(lex => lex.language === languageID)
       const { data, status } = await db.getLexemes({ language: languageID })
       expect(status).to.equal(200)
-      expect(data).to.have.lengthOf(4)
+      expect(data).to.have.lengthOf(languageLexemes.length)
       expect(data.every(lexeme => lexeme.language.id === languageID)).to.be.true
     })
 
