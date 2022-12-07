@@ -42,25 +42,39 @@ describe(`Lexeme page`, function() {
     cy.get(`.error-message`).should(`have.text`, `You do not have permission to view this lexeme.`)
   })
 
-  it(`Lexeme Details: Arapaho: ‑(')enih`, function() {
+  it.only(`Lexeme Details: Arapaho: ‑(')enih`, function() {
 
     const lexemeID = `67944dcf-f7d9-4e9c-88f7-cb2408b10b9b`
     const formID   = `8497d64d-1427-41ee-a165-ffb3b987f731`
 
-    cy.visit(`/languages/${ arapahoLanguageID }/lexemes/${ lexemeID }#metadata`)
+    cy.visit(`/languages/${ arapahoLanguageID }/lexemes/${ lexemeID }`)
 
-    cy.get(`#lexeme-sources`).children()
-    .should(`have.length`, 2)
-    .then(([a, b]) => {
-      expect(a).to.have.text(`PM`)
-      expect(b).to.have.text(`KW`)
-    })
+    // FORMS
 
     // Abstract Form
     cy.get(`#form-${ formID }__abstract`).should(`not.be.checked`)
 
     // Form Sources
     cy.get(`#form-${ formID }__sources`).children()
+    .should(`have.length`, 2)
+    .then(([a, b]) => {
+      expect(a).to.have.text(`PM`)
+      expect(b).to.have.text(`KW`)
+    })
+
+    // SENSES
+
+    cy.get(`#meaning-link`).click()
+
+    cy.get(`.sense__inflection-class`)
+    .should(`have.text`, `TA`)
+
+    // METADATA
+
+    cy.get(`#metadata-link`).click()
+
+    // Lexeme Sources
+    cy.get(`#lexeme-sources`).children()
     .should(`have.length`, 2)
     .then(([a, b]) => {
       expect(a).to.have.text(`PM`)

@@ -306,6 +306,19 @@
               {{/if}}
             {{/unless}}
 
+            <label class=label for=sense-{{ id }}__inflection-class>Inflection Class</label>
+            {{#unless sense.inflectionClass }}
+              <span class=sense-{{ id }}__inflection-class>—</span>
+            {{else}}
+              {{#if sense.inflectionClass.abbreviation }}
+                <abbr class=sense__inflection-class id=sense-{{ id }}__inflection-class title='{{mls sense.inflectionClass.name @root.language.defaultAnalysisLanguage }}'>{{ sense.inflectionClass.abbreviation }}</abbr>
+              {{else if sense.inflectionClass.name }}
+                {{> MultiLangString/MultiLangString data=sense.inflectionClass.name attributes=(concat 'id=sense-' id '__inflection-class class=sense__inflection-class') }}
+              {{else}}
+                <span class=sense__inflection-class id=sense-{{ id }}__inflection-class>—</span>
+              {{/if}}
+            {{/unless}}
+
             <label class=label for=sense-{{ id }}__base-category>Base Category</label>
             {{#unless sense.baseCategory }}
               <span class=sense__base-category id=sense-{{ id }}__base-category>—</span>
