@@ -34,15 +34,25 @@ describe(`Lexemes Page`, function() {
     })
 
     it(`displays lexemes for a language`, function() {
-      cy.visit(`/languages/${ publicLanguageID }/lexemes`)
-      cy.title().should(`eq`, `Oxalis | Plains Cree | Lexemes`)
-      cy.get(`.page-title`).should(`have.text`, `Lexemes | Plains Cree`)
-      cy.get(`.lexemes-table caption`).should(`have.text`, `Lexemes | Plains Cree`)
-      cy.get(`tbody`).children().should(`have.length`, 4)
-      cy.contains(`.lemma`, `cīkahikan`)
-      cy.contains(`.lemma`, `masinahikan`)
-      cy.contains(`.lemma`, `maskwa`)
-      cy.contains(`.lemma`, `kotiskāwēwatim`)
+
+      cy.readFile(`data/lexemes.yml`)
+      .then(yaml => yamlParser.load(yaml))
+      .then(data => {
+
+        const lexemes = data.filter(lexeme => lexeme.language === publicLanguageID)
+
+        cy.visit(`/languages/${ publicLanguageID }/lexemes`)
+        cy.title().should(`eq`, `Oxalis | Plains Cree | Lexemes`)
+        cy.get(`.page-title`).should(`have.text`, `Lexemes | Plains Cree`)
+        cy.get(`.lexemes-table caption`).should(`have.text`, `Lexemes | Plains Cree`)
+        cy.get(`tbody`).children().should(`have.length`, lexemes.length)
+        cy.contains(`.lemma`, `cīkahikan`)
+        cy.contains(`.lemma`, `masinahikan`)
+        cy.contains(`.lemma`, `maskwa`)
+        cy.contains(`.lemma`, `kotiskāwēwatim`)
+
+      })
+
     })
 
     it(`displays unattested forms with an asterisk`, function() {
