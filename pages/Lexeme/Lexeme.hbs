@@ -295,19 +295,27 @@
 
             <label class=label for=sense-{{ id }}__category>Category</label>
             {{#unless sense.category }}
-              <span id=sense-{{ id }}__category>—</span>
+              <span class=sense__category id=sense-{{ id }}__category>—</span>
             {{else}}
               {{#if sense.category.abbreviation }}
-                <dl class='category mls' id=sense-{{ id }}__category>
-                  {{#each sense.category.abbreviation as |abbr| }}
-                    <dt class=label-sm>{{ @key }}</dt>
-                    <dd lang='{{ @key }}'><abbr title='{{lookup ../category/name @key }}'>{{ abbr }}</abbr></dd>
-                  {{/each}}
-                </dl>
+                <abbr class=sense__category id=sense-{{ id }}__category title='{{mls sense.category.name @root.language.defaultAnalysisLanguage }}'>{{ sense.category.abbreviation }}</abbr>
               {{else if sense.category.name }}
-                {{> MultiLangString/MultiLangString data=sense.category.name attributes=(concat 'id=sense-' id '__category') }}
+                {{> MultiLangString/MultiLangString data=sense.category.name attributes=(concat 'id=sense-' id '__category class=sense__category') }}
               {{else}}
-                <span id=sense-{{ id }}__category>—</span>
+                <span class=sense__category id=sense-{{ id }}__category>—</span>
+              {{/if}}
+            {{/unless}}
+
+            <label class=label for=sense-{{ id }}__base-category>Base Category</label>
+            {{#unless sense.baseCategory }}
+              <span class=sense__base-category id=sense-{{ id }}__base-category>—</span>
+            {{else}}
+              {{#if sense.baseCategory.abbreviation }}
+                <abbr class=sense__base-category id=sense-{{ id }}__base-category title='{{mls sense.baseCategory.name @root.language.defaultAnalysisLanguage }}'>{{ sense.baseCategory.abbreviation }}</abbr>
+              {{else if sense.category.name }}
+                {{> MultiLangString/MultiLangString data=sense.baseCategory.name attributes=(concat 'id=sense-' id '__base-category class=sense__base-category') }}
+              {{else}}
+                <span class=sense__base-category id=sense-{{ id }}__base-category>—</span>
               {{/if}}
             {{/unless}}
 

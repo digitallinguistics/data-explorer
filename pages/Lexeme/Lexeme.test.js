@@ -169,7 +169,8 @@ describe(`Lexeme page`, function() {
 
     cy.get(`#${ senseID }`).within(() => {
       cy.get(`#sense-${ senseID }__gloss`).should(`include.text`, sense.gloss.eng)
-      cy.get(`#sense-${ senseID }__category`).should(`include.text`, sense.category.abbreviation.eng)
+      cy.get(`#sense-${ senseID }__category`).should(`include.text`, sense.category.abbreviation)
+      cy.get(`#sense-${ senseID }__base-category`).should(`include.text`, `—`)
     })
 
     // METADATA
