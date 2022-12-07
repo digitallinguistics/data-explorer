@@ -1183,6 +1183,44 @@
 
 # Plains Cree
 
+- id:           567c753d-2937-4bf6-875a-ae4b95532d8b
+  dateCreated:  2022-01-01T00:00:00.000Z
+  dateModified: 2022-01-02T00:00:00.000Z
+  language:     850f3bd9-2a57-4289-bc57-05640b5d8d7d # Plains Cree
+  link:         https://data.digitallinguistics.io/languages/850f3bd9-2a57-4289-bc57-05640b5d8d7d/lexemes/567c753d-2937-4bf6-875a-ae4b95532d8b
+  type:         Lexeme
+  bibliography:
+    - id:      CookMuehlbauer2004
+      locator: 7
+  forms:
+    - id: 2fecd6d0-b954-4941-8c70-666ce6c71319
+      transcription:
+        SRO:       -ihkân
+        syllabics: -ᐃᐦᑳᐣ
+  lemma:
+    transcription:
+      SRO:       -ihkân
+      syllabics: -ᐃᐦᑳᐣ
+  morphType:
+  projects:
+    - c554474c-7f39-4ede-941b-c40b8f58b059 # Nisinoon
+  senses:
+    - id: 7164445a-0a2a-4fcf-b19b-1acba8a155d0
+      baseCategory:
+        abbreviation:
+          eng: N
+        name:
+          eng: noun
+      category:
+        abbreviation:
+          eng: N
+        name:
+          eng: noun
+      gloss:
+        eng: fabricated form of X
+  slot:
+    eng: secondary final
+
 - id:           79eb0aaf-944c-40b4-93f3-e1785ec0adde
   dateCreated:  2022-01-01T00:00:00.000Z
   dateModified: 2022-01-02T00:00:00.000Z
