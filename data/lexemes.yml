@@ -135,7 +135,9 @@
         abbreviation: TA
         name:
           eng: transitive animate
-      # semanticClass: abstract
+      semanticClass:
+        name:
+          eng: abstract
   slot:
     eng: final
 
@@ -1208,6 +1210,53 @@
 
 # Plains Cree
 
+- id:           f97938d3-255e-459b-8ea4-bcb858b95b92
+  dateCreated:  2022-01-01T00:00:00.000Z
+  dateModified: 2022-01-02T00:00:00.000Z
+  language:     850f3bd9-2a57-4289-bc57-05640b5d8d7d # Plains Cree
+  link:         https://data.digitallinguistics.io/languages/850f3bd9-2a57-4289-bc57-05640b5d8d7d/lexemes/f97938d3-255e-459b-8ea4-bcb858b95b92
+  type:         Lexeme
+  bibliography:
+    - id:      Arppeetal2019
+      locator: 4
+  forms:
+    - id: 5df14f6d-fbce-463e-a3f3-bf94e90d80fd
+      componentOf:
+        - lexeme: 4777d72f-47f5-43d1-ae40-22b643117970
+          form:   84d75f62-5f70-4fad-a7d2-9a3c9a80bb0b
+          transcription:
+            SRO:       pîwâpiskw-
+            'C-P:1':   pîwâpiskw-
+            syllabics: ᐲᐚᐱᐢᐠᐤ
+      transcription:
+        SRO:       -âpisk(w)-
+        'C-P:1':   -âpisk(w)-
+        syllabics: -ᐋᐱᐢᐠ(ᐤ)-
+  lemma:
+    transcription:
+      SRO:       -âpisk(w)-
+      'C-P:1':   -âpisk(w)-
+      syllabics: -ᐋᐱᐢᐠ(ᐤ)-
+  projects:
+    - c554474c-7f39-4ede-941b-c40b8f58b059 # Nisinoon
+  senses:
+    - id: 7a9296a9-3725-4f85-8ff6-f0b09dd22c09
+      gloss:
+        eng: stone
+      semanticClass:
+        abbreviation: CLASS
+        name:
+          eng: classifier
+    - id: ad5a5f15-d6df-46e3-9997-cd7baec281d5
+      gloss:
+        eng: metal
+      semanticClass:
+        abbreviation: CLASS
+        name:
+          eng: classifier
+  slot:
+    eng: medial
+
 - id:           567c753d-2937-4bf6-875a-ae4b95532d8b
   dateCreated:  2022-01-01T00:00:00.000Z
   dateModified: 2022-01-02T00:00:00.000Z
@@ -1227,6 +1276,7 @@
       SRO:       -ihkân
       syllabics: -ᐃᐦᑳᐣ
   morphType:
+    eng: stem
   projects:
     - c554474c-7f39-4ede-941b-c40b8f58b059 # Nisinoon
   senses:
@@ -1294,6 +1344,34 @@
     preverbs:        0
     syllables:       4
 
+- id:           78aee6e0-64a4-4fac-affe-de1a79ca6e66
+  dateCreated:  2022-11-10T00:00:00.000Z
+  dateModified: 2022-11-10T00:00:00.000Z
+  language:     850f3bd9-2a57-4289-bc57-05640b5d8d7d # Plains Cree
+  link:         https://data.digitallinguistics.io/languages/850f3bd9-2a57-4289-bc57-05640b5d8d7d/lexemes/78aee6e0-64a4-4fac-affe-de1a79ca6e66
+  type:         Lexeme
+  bibliography:
+    - id:      Wolvengrey2001
+      locator: 'I.79, II.lxxiv'
+  citationForm:
+    SRO:       kotiskāwēwatim
+    syllabics: ᑯᑎᐢᑳᐍᐘᑎᒼ
+  forms:
+    - id: 75b0984b-ab2d-4845-a72e-c2c3466cffcf
+      transcription:
+        SRO:       kotiskāwēwatimw-
+        syllabics: ᑯᑎᐢᑳᐍᐘᑎᒼᐤ
+  lemma:
+    transcription:
+      SRO:       kotiskāwēwatim
+      syllabics: ᑯᑎᐢᑳᐍᐘᑎᒼ
+  projects:
+    - c554474c-7f39-4ede-941b-c40b8f58b059 # Nisinoon
+  senses:
+    - id: 46ab136f-ef50-4c2f-a297-ce959ae878a8
+      gloss:
+        eng: racehorse
+
 - id:           3a3df0ac-04be-4fe7-985d-cf5895b745ee
   dateCreated:  2022-01-01T00:00:00.000Z
   dateModified: 2022-01-02T00:00:00.000Z
@@ -1338,33 +1416,40 @@
       gloss:
         eng: book
 
-- id:           78aee6e0-64a4-4fac-affe-de1a79ca6e66
-  dateCreated:  2022-11-10T00:00:00.000Z
-  dateModified: 2022-11-10T00:00:00.000Z
+- id:           4777d72f-47f5-43d1-ae40-22b643117970
+  dateCreated:  2022-01-01T00:00:00.000Z
+  dateModified: 2022-01-02T00:00:00.000Z
   language:     850f3bd9-2a57-4289-bc57-05640b5d8d7d # Plains Cree
-  link:         https://data.digitallinguistics.io/languages/850f3bd9-2a57-4289-bc57-05640b5d8d7d/lexemes/78aee6e0-64a4-4fac-affe-de1a79ca6e66
+  link:         https://data.digitallinguistics.io/languages/850f3bd9-2a57-4289-bc57-05640b5d8d7d/lexemes/4777d72f-47f5-43d1-ae40-22b643117970
   type:         Lexeme
-  bibliography:
-    - id:      Wolvengrey2001
-      locator: 'I.79, II.lxxiv'
-  citationForm:
-    SRO:       kotiskāwēwatim
-    syllabics: ᑯᑎᐢᑳᐍᐘᑎᒼ
   forms:
-    - id: 75b0984b-ab2d-4845-a72e-c2c3466cffcf
+    - id: 84d75f62-5f70-4fad-a7d2-9a3c9a80bb0b
+      components:
+        - lexeme: f97938d3-255e-459b-8ea4-bcb858b95b92
+          form:   5df14f6d-fbce-463e-a3f3-bf94e90d80fd
+          transcription:
+            SRO:       -âpisk(w)-
+            'C-P:1':   -âpisk(w)-
+            syllabics: -ᐋᐱᐢᐠ(ᐤ)-
       transcription:
-        SRO:       kotiskāwēwatimw-
-        syllabics: ᑯᑎᐢᑳᐍᐘᑎᒼᐤ
+        SRO:       pîwâpiskw-
+        'C-P:1':   pîwâpiskw-
+        syllabics: ᐲᐚᐱᐢᐠᐤ
   lemma:
     transcription:
-      SRO:       kotiskāwēwatim
-      syllabics: ᑯᑎᐢᑳᐍᐘᑎᒼ
+      SRO:       pîwâpiskw-
+      'C-P:1':   pîwâpiskw-
+      syllabics: ᐲᐚᐱᐢᐠᐤ
   projects:
     - c554474c-7f39-4ede-941b-c40b8f58b059 # Nisinoon
   senses:
-    - id: 46ab136f-ef50-4c2f-a297-ce959ae878a8
+    - id: c5df41cc-a6d8-4e30-98a1-679b67474ff0
+      category:
+        abbreviation: N
+        name:
+          eng: noun
       gloss:
-        eng: racehorse
+        eng: piece of metal
 
 # Potawatomi
 
@@ -1492,7 +1577,9 @@
         abbreviation: TA
         name:
           eng: transitive animate
-      # semanticClass: abstract
+      semanticClass:
+        name:
+          eng: abstract
   slot:
     eng: final
   tags:
@@ -1562,7 +1649,9 @@
         abbreviation: TA
         name:
           eng: transitive animate
-      # semanticClass: abstract
+      semanticClass:
+        name:
+          eng: abstract
   slot:
     eng: final
   tags:
