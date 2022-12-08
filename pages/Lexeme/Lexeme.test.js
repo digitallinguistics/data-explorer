@@ -87,11 +87,21 @@ describe(`Lexeme page`, function() {
 
     const lexemeID = `f00de78a-3e58-44ae-a132-69a5fc6e951c`
     const formID   = `4aa45b62-05eb-412d-a789-510f99530ed8`
+    const senseID  = `a23cdfb8-0ef9-4e5b-bee4-2261a27bae05`
 
     cy.visit(`/languages/${ arapahoLanguageID }/lexemes/${ lexemeID }`)
 
+    // FORMS
+
     // Etymology
     cy.get(`#form-${ formID }__etymology`).should(`have.text`, `PAlg: *‑ahw → PA: *‑ahw`)
+
+    // MEANING
+
+    cy.get(`#meaning-link`).click()
+
+    // Semantic Class
+    cy.get(`#sense-${ senseID }__semantic-class dd`).should(`have.text`, `abstract`)
 
   })
 

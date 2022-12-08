@@ -9,7 +9,7 @@
   {{#if category.abbreviation }}
     <abbr class='{{ class }}' id='{{ id }}' title='{{mls category.name @root.language.defaultAnalysisLanguage }}'>{{ category.abbreviation }}</abbr>
   {{else if category.name }}
-    {{> MultiLangString/MultiLangString data=category.name attributes=(concat 'id=' id ' class=' class) }}
+    {{> MultiLangString/MultiLangString data=category.name attributes=(concat 'id=' id ' class="' class ' mls"') }}
   {{else}}
     <span class='{{ class }}' id='{{ id }}'>—</span>
   {{/if}}
