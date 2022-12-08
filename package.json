@@ -26,7 +26,7 @@
     "type": "git",
     "url": "https://github.com/digitallinguistics/data-explorer.git"
   },
-  "main": "app.js",
+  "main": "index.js",
   "private": true,
   "type": "module",
   "engines": {
