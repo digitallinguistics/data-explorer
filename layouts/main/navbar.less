@@ -6,10 +6,23 @@
 
 .navbar {
 
-  align-items     : center;
   background-color: var(--blue);
   color           : white;
   flex-direction  : row;
+
+  // small screens
+  // vertically aligns content with user login
+  @media (max-width: @nav-breakpoint) {
+
+    .help-nav {
+      padding-block: 0.075em;
+    }
+
+    .main-nav {
+      padding-block: 0.125em;
+    }
+
+  }
 
   .site-logo {
 
@@ -21,6 +34,7 @@
       margin     : 0.5em;
     }
 
+    // small screens
     @media (max-width: @nav-breakpoint) {
       left     : 50%;
       position : absolute;
