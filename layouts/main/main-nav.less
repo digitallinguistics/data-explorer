@@ -8,6 +8,14 @@
     padding: var(--text-padding-lg);
   }
 
+  a:hover {
+    background-color: var(--blue-4);
+  }
+
+  [aria-current] {
+    text-decoration: underline;
+  }
+
   button {
     align-self: start;
     cursor    : pointer;
@@ -43,66 +51,11 @@
       flex-direction: row;
     }
 
-  }
-
-}
-
-.main-nav-old {
-
-  flex-grow: 1;
-
-  a {
-    padding: var(--text-padding-lg);
-  }
-
-  a:hover {
-    background-color: var(--blue-4);
-  }
-
-  [aria-current] {
-    text-decoration: underline;
-  }
-
-  label {
-
-    align-items      : center;
-    cursor           : pointer;
-    flex-direction   : row;
-    margin-inline-end: auto;
-
-    // large screens
-    @media (min-width: @nav-breakpoint) {
-      display: none;
-    }
-
-  }
-
-  ul {
-
-    background-color: var(--blue);
-    flex-direction  : row;
-
-    // small screens
-    @media (max-width: @nav-breakpoint) {
-      flex-direction: column;
-      inline-size   : 100%;
-      z-index       : 1; // keeps menu above oxalis icon
-    }
-
-  }
-
-  svg {
-    block-size : 1.5em;
-    inline-size: 1.5em;
-    margin     : var(--space-xxs);
-  }
-
-
-  @media (prefers-color-scheme: dark) {
-    ul {
+    @media (prefers-color-scheme: dark) {
       background-color: var(--blue-6);
       color           : var(--text-color-dark);
     }
+
   }
 
 }
