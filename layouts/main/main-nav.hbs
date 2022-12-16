@@ -1,11 +1,12 @@
 <nav class=main-nav>
 
+  <h2 class=visually-hidden id=nav-heading>Main</h2>
+
   <button aria-hidden=true class=js-main-nav__button>
     <svg><use href=#menu></svg>
-    <span class=visually-hidden>Main Menu</span>
   </button>
 
-  <ul class=js-main-nav__ul>
+  <ul aria-labeledby=nav-heading class=js-main-nav__ul role=list>
 
     <li>
       <a class=nav-link href='/' {{#if Home }} aria-current=page {{/if}}>Home</a>
