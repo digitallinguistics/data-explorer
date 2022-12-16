@@ -1,13 +1,11 @@
 <nav class=main-nav>
 
-  <label for=main-nav__toggle>
-    <svg aria-hidden=true><use href=#menu></svg>
-    <h2>Menu</h2>
-  </label>
+  <button aria-hidden=true class=js-main-nav__button>
+    <svg><use href=#menu></svg>
+    <span class=visually-hidden>Main Menu</span>
+  </button>
 
-  <input id=main-nav__toggle type=checkbox>
-
-  <ul>
+  <ul class='hidden js-main-nav__ul'>
 
     <li {{#if Home }}class=current{{/if}}>
       <a class=nav-link href='/' {{#if Home }} aria-current=page {{/if}}>Home</a>

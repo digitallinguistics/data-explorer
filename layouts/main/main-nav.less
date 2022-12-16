@@ -8,27 +8,59 @@
     padding: var(--text-padding-lg);
   }
 
+  button {
+    align-self: start;
+    cursor    : pointer;
+    display   : flex;
+  }
+
+  svg {
+
+    --icon-size: 1.5em;
+    block-size : var(--icon-size);
+    inline-size: var(--icon-size);
+    margin     : 0.5em;
+
+    // large screens
+    @media (min-width: @nav-breakpoint) {
+      display: none;
+      margin : 0.625em; // vertically aligns icon with navbar text
+    }
+
+  }
+
+  ul {
+
+    &.hidden {
+      // small screens
+      @media (max-width: @nav-breakpoint) {
+        .visually-hidden;
+      }
+    }
+
+    // large screens
+    @media (min-width: @nav-breakpoint) {
+      flex-direction: row;
+    }
+
+  }
+
+}
+
+.main-nav-old {
+
+  flex-grow: 1;
+
+  a {
+    padding: var(--text-padding-lg);
+  }
+
   a:hover {
     background-color: var(--blue-4);
   }
 
   [aria-current] {
     text-decoration: underline;
-  }
-
-  h2 {
-    .visually-hidden;
-  }
-
-  input {
-    display: none;
-  }
-
-  // small screens
-  @media (max-width: @nav-breakpoint) {
-    input:not(:checked) ~ ul {
-      display: none;
-    }
   }
 
   label {
