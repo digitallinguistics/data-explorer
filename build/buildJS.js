@@ -8,6 +8,7 @@ import recurse                       from 'readdirp'
 
 const __filename = fileURLToPath(import.meta.url)
 const __dirname  = path.dirname(__filename)
+const mainDir    = path.join(__dirname, `../layouts/main`)
 const pagesDir   = path.join(__dirname, `../pages`)
 const scriptsDir = path.join(__dirname, `../public/scripts`)
 
@@ -24,8 +25,8 @@ const recurseOptions = {
   fileFilter: `*-client.js`,
 }
 
-export default async function buildJS() {
-  for await (const entry of recurse(pagesDir, recurseOptions)) {
+async function buildJSFiles(dir) {
+  for await (const entry of recurse(dir, recurseOptions)) {
 
     const scriptName = entry.basename.replace(`-client`, ``)
 
@@ -37,4 +38,9 @@ export default async function buildJS() {
     await build(config)
 
   }
+}
+
+export default async function buildJS() {
+  await buildJSFiles(mainDir)
+  await buildJSFiles(pagesDir)
 }

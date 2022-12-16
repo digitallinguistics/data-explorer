@@ -2,6 +2,8 @@
 
 .main-nav {
 
+  flex-grow: 1;
+
   a {
     padding: var(--text-padding-lg);
   }
@@ -14,60 +16,46 @@
     text-decoration: underline;
   }
 
-  h2 {
-    .visually-hidden;
-  }
-
-  input {
-    display: none;
-  }
-
-  label {
-    align-items      : center;
-    cursor           : pointer;
-    flex-direction   : row;
-    margin-inline-end: auto;
-  }
-
-  ul {
-    background-color: var(--blue);
-    flex-direction  : row;
+  button {
+    align-self: start;
+    cursor    : pointer;
+    display   : flex;
   }
 
   svg {
-    block-size : 1.5em;
-    inline-size: 1.5em;
-    margin     : var(--space-xxs);
-  }
 
-  // small screens
-  @media (max-width: @nav-breakpoint) {
+    --icon-size: 1.5em;
+    block-size : var(--icon-size);
+    inline-size: var(--icon-size);
+    margin     : 0.5em;
 
-    ul {
-      flex-direction   : column;
-      position         : absolute;
-      inset-block-start: 2.5em;
-      inline-size      : 100%;
-    }
-
-    input:not(:checked) ~ ul {
+    // large screens
+    @media (min-width: @nav-breakpoint) {
       display: none;
+      margin : 0.625em; // vertically aligns icon with navbar text
     }
 
   }
 
-  // large screens
-  @media (min-width: @nav-breakpoint) {
-    label {
-      display: none;
-    }
-  }
+  ul {
 
-  @media (prefers-color-scheme: dark) {
-    ul {
+    &.hidden {
+      // small screens
+      @media (max-width: @nav-breakpoint) {
+        .visually-hidden;
+      }
+    }
+
+    // large screens
+    @media (min-width: @nav-breakpoint) {
+      flex-direction: row;
+    }
+
+    @media (prefers-color-scheme: dark) {
       background-color: var(--blue-6);
       color           : var(--text-color-dark);
     }
+
   }
 
 }
