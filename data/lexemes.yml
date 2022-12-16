@@ -6,7 +6,6 @@
   language:     e2b3b685-fd01-40ea-96ae-cb22f2511cd1
   link:         https://data.digitallinguistics.io/languages/e2b3b685-fd01-40ea-96ae-cb22f2511cd1/lexemes/67944dcf-f7d9-4e9c-88f7-cb2408b10b9b
   type:         Lexeme
-  # base category: TA
   bibliography:
     - id:      CowellMoss2008
       locator: 147, 151, 156
@@ -35,6 +34,10 @@
     - c554474c-7f39-4ede-941b-c40b8f58b059 # Nisinoon
   senses:
     - id: 856a5a4a-b3b0-4cb1-8894-33bf924256f6
+      baseCategory:
+        abbreviation: TA
+        name:
+          eng: transitive animate
       category:
         abbreviation: V
         name:
