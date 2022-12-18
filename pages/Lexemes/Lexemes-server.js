@@ -93,9 +93,10 @@ export default async function get(req, res) {
   lexemes.sort(compareLemmas)
 
   res.render(`Lexemes/Lexemes`, {
-    caption: `Lexemes | ${ summaryName }`,
+    language,
     lexemes,
     Lexemes: true,
+    project,
     title:   `${ summaryName } | Lexemes`,
   })
 

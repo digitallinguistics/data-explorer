@@ -179,7 +179,19 @@ body:target #forms {
     }
 
     .language {
+
       padding: var(--text-padding-lg);
+
+      &:visited span {
+
+        color: var(--purple);
+
+        @media (prefers-color-scheme: dark) {
+          color: var(--purple-4);
+        }
+
+      }
+
     }
 
   }
@@ -221,10 +233,6 @@ body:target #forms {
     align-items: baseline;
   }
 
-  nav {
-    margin-block-start: var(--space);
-  }
-
   .notes {
 
     --note-spacing: var(--space);
@@ -249,6 +257,10 @@ body:target #forms {
       margin-inline-start: -3.25em;
     }
 
+  }
+
+  .page-nav ul {
+    margin-block-end: calc(-0.5 * var(--border-width)); // needed b/c of collapsing border with next element (I think)
   }
 
   .page-title {

@@ -82,15 +82,15 @@
 
     <h1 class='headword {{#if lexeme.lemma.abstract }}mp{{/if}} page-title' lang='{{ language.iso }}'>{{#if lexeme.lemma.unattested }}*{{/if}}{{mot lexeme.lemma.transcription language.defaultOrthography }}</h1>
 
-    <span class=language>
+    <a class='language link' href='/languages/{{ language.id }}'>
       {{~#if language.name ~}}
-        <a class='link' href='/languages/{{ language.id }}'>{{mls language.name language.defaultAnalysisLanguage }}</a>
+        {{mls language.name language.defaultAnalysisLanguage }}
       {{~/if~}}
-      {{~#if (all language.name language.autonym) }} | {{/if~}}
+      {{~#if (and language.name language.autonym) }} | {{/if~}}
       {{~#if language.autonym ~}}
-        <a class='link txn' href='/languages/{{ language.id }}'>{{mot language.autonym language.defaultOrthography }}</a>
+        <span class=txn>{{mot language.autonym language.defaultOrthography }}</span>
       {{~/if~}}
-    </span>
+    </a>
 
     {{#if lexeme.senses }}
       <ol class='glosses numbered'>

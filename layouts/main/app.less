@@ -16,6 +16,14 @@ main {
   flex-grow: 1;
 }
 
+.main-wrapper {
+  align-self     : center;
+  gap            : var(--space);
+  inline-size    : var(--measure);
+  max-inline-size: var(--measure);
+  padding-inline : var(--space-lg);
+}
+
 @media (prefers-color-scheme: dark) {
   body {
     background-color: var(--background-color-dark);

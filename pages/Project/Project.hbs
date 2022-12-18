@@ -3,83 +3,103 @@
 {{/section}}
 
 <main id=main class=project-page>
+  {{#with project }}
 
-  <h1 class=page-title>{{ project.name }}</h1>
+  <h1 class=page-title>{{ name }}</h1>
 
-  <section class=statistics-section>
+  <div class=main-wrapper>
 
-    <h2 class=section-header>Statistics</h2>
+    <nav class=page-nav>
+      <ul>
+        <li aria-selected=true>
+          <a href='/projects/{{ id }}'><svg aria-hidden=true><use href=#box></svg> Project</a>
+        </li>
+        <li>
+          <a href='/projects/{{ id }}/languages'><svg aria-hidden=true><use href=#language></svg> Languages</a>
+        </li>
+        <li>
+          <a href='/projects/{{ id }}/lexemes'><svg aria-hidden=true><use href=#cards></svg> Lexicon</a>
+        </li>
+      </ul>
+    </nav>
 
-    <dl class='color-block def-list statistics'>
+    <section class=statistics-section>
 
-      <dt class=label># of languages</dt>
-      <dd>{{number numLanguages }}</dd>
+      <h2 class=section-header>Statistics</h2>
 
-      <dt class=label># of lexemes</dt>
-      <dd>{{number numLexemes }}</dd>
+      <dl class='color-block def-list statistics'>
 
-      <dt class=label># of collaborators</dt>
-      <dd>{{number numCollaborators }}</dd>
+        <dt class=label># of languages</dt>
+        <dd><output>{{number @root.numLanguages }}</output></dd>
 
-    </dl>
+        <dt class=label># of lexemes</dt>
+        <dd><output>{{number @root.numLexemes }}</output></dd>
 
-  </section>
+        <dt class=label># of collaborators</dt>
+        <dd><output>{{number @root.numCollaborators }}</output></dd>
 
-  <section class=readme-section>
+      </dl>
 
-    <h2 class=section-header>Readme</h2>
+    </section>
 
-    <div class='color-block md readme'>
-      {{#if project.readme.html }}
-        {{{ project.readme.html }}}
-      {{else}}
-        [No readme provided.]
-      {{/if}}
-    </div>
+    <section class=readme-section>
 
-  </section>
+      <h2 class=section-header>Readme</h2>
 
-  <section class=access-section>
+      <div class='color-block md readme'>
+        {{#if readme.html }}
+          {{{ readme.html }}}
+        {{else}}
+          [No readme provided.]
+        {{/if}}
+      </div>
 
-    <h2 class=section-header>Access Conditions</h2>
+    </section>
 
-    <article class='access color-block md'>
-      {{#if project.access.note.html }}
-        {{{ project.access.note.html }}}
-      {{else}}
-        [No access conditions provided.]
-      {{/if}}
-    </article>
+    <section class=access-section>
 
-  </section>
+      <h2 class=section-header>Access Conditions</h2>
 
-  <section class=metadata-section>
+      <article class='access color-block md'>
+        {{#if access.note.html }}
+          {{{ access.note.html }}}
+        {{else}}
+          [No access conditions provided.]
+        {{/if}}
+      </article>
 
-    <h2 class=section-header>Metadata</h2>
+    </section>
 
-    <fieldset class='color-block def-list metadata'>
+    <section class=metadata-section>
 
-      <label class=label for=url>URL:</label>
-      <output class=box-input id=url>https://data.digitallinguistics.io/projects/{{ project.id }}</output>
+      <h2 class=section-header>Metadata</h2>
 
-      <label class=label for=date-created>Date Created:</label>
-      <output id=date-created>{{#if project.dateCreated }}{{date project.dateCreated }}{{else}}—{{/if}}</output>
+      <fieldset class='color-block def-list metadata'>
 
-      <label class=label for=date-modified>Date Modified:</label>
-      <output id=date-modified>{{#if project.dateModified }}{{date project.dateModified }}{{else}}—{{/if}}</output>
+        <label class=label for=url>URL:</label>
+        <output class=box-input id=url>https://data.digitallinguistics.io/projects/{{ id }}</output>
 
-    </fieldset>
+        <label class=label for=date-created>Date Created:</label>
+        <output id=date-created>{{#if dateCreated }}{{date dateCreated }}{{else}}—{{/if}}</output>
 
-  </section>
+        <label class=label for=date-modified>Date Modified:</label>
+        <output id=date-modified>{{#if dateModified }}{{date dateModified }}{{else}}—{{/if}}</output>
+
+      </fieldset>
+
+    </section>
+
+  </div>
 
   <section class=languages-section>
 
     <h2 class='languages-section__header section-header'>Languages</h2>
 
     <div class=table-wrapper>
-      {{> LanguagesTable/LanguagesTable }}
+      {{> LanguagesTable/LanguagesTable @root }}
     </div>
 
   </section>
 
+  {{/with}}
 </main>
