@@ -7,6 +7,20 @@
 
     <h1 class=page-title>{{mls name }}</h1>
 
+    <nav class=page-nav>
+      <ul>
+        <li aria-selected=true>
+          <a href='/languages/{{ id }}'><svg aria-hidden=true><use href=#language></svg> Language</a>
+        </li>
+        <li>
+          <a href='/languages/{{ id }}/lexemes'><svg aria-hidden=true><use href=#cards></svg> Lexicon</a>
+        </li>
+        <li>
+          <a href='/languages/{{ id }}/projects'><svg aria-hidden=true><use href=#box></svg> Projects</a>
+        </li>
+      </ul>
+    </nav>
+
     <section>
 
       <h2 class=section-header>Names</h2>
@@ -125,12 +139,8 @@
       <input id=notes-toggle-checkbox type=checkbox hidden checked>
 
       <label class=notes-toggle for=notes-toggle-checkbox>
-        <svg class=chevron-right>
-          <use href=#chevron-right>
-        </svg>
-        <svg class=chevron-down>
-          <use href=#chevron-down>
-        </svg>
+        <svg class=chevron-right><use href=#chevron-right></svg>
+        <svg class=chevron-down><use href=#chevron-down></svg>
         <span class=label-text>Show / Hide Notes</span>
       </label>
 

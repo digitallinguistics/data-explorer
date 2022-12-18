@@ -1,14 +1,14 @@
 function setCurrentTab(hash) {
 
-  const links = document.querySelectorAll(`.tabs a`)
+  const tabs = document.querySelectorAll(`.page-nav li`)
 
-  for (const link of links) {
-    link.removeAttribute(`aria-selected`)
+  for (const tab of tabs) {
+    tab.removeAttribute(`aria-selected`)
   }
 
   const link = document.querySelector(`[href="${ hash }"]`)
 
-  link.setAttribute(`aria-selected`, true)
+  link.parentNode.setAttribute(`aria-selected`, true)
 
   const panels = document.querySelectorAll(`.panel`)
 
@@ -22,11 +22,14 @@ function setCurrentTab(hash) {
 
 }
 
-const tablist = document.querySelector(`.tabs`)
+const tablist = document.querySelector(`.page-nav ul`)
 
 tablist.addEventListener(`click`, ev => {
 
   const li = ev.target.closest(`li`)
+
+  if (!li) return
+
   const a = li.firstChild
 
   setCurrentTab(a.hash)

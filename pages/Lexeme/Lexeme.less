@@ -14,6 +14,7 @@
 @import 'Morphophonemic/Morphophonemic.less';
 @import 'Note/Note.less';
 @import 'Numbered/Numbered.less';
+@import 'PageNav/PageNav.less';
 @import 'PageTitle/PageTitle.less';
 @import 'Translation/Translation.less';
 @import 'MultiLangString/MultiLangString.less';
@@ -288,31 +289,6 @@ body:target #forms {
     font-size: smaller;
   }
 
-  .tab:hover {
-
-    background-color: var(--cyan-1);
-    box-shadow      : inset 0em calc(var(--border-width) * -1) var(--border-color);
-
-    @media (prefers-color-scheme: dark) {
-      color: var(--background-color-dark);
-    }
-
-    &:target {
-      box-shadow: none;
-    }
-
-  }
-
-  .tab-link {
-    padding: var(--text-padding-lg);
-  }
-
-  .tabs {
-    box-shadow : inset 0em calc(var(--border-width) * -1) var(--border-color);
-    font-size  : large;
-    inline-size: 100%;
-  }
-
   #tags .tag {
     --tag-color: var(--cyan-1);
   }
@@ -334,46 +310,6 @@ body:target #forms {
 
     @media (prefers-color-scheme: dark) {
       color: var(--background-color-dark);
-    }
-
-  }
-
-  // small screens
-  @media (max-width: @breakpoint) {
-
-    [aria-selected] {
-      position: relative;
-    }
-
-    [aria-selected]::before {
-      background-color  : var(--cyan);
-      inset-block-end   : 0;
-      content           : '';
-      inset-inline-start: 0;
-      position          : absolute;
-      inset-block-start : 0;
-      inline-size       : 0.25em;
-    }
-
-    .tab:first-child {
-      border-block-start: var(--border);
-    }
-
-    .tab:not(:last-child) {
-      border-block-end: var(--border);
-    }
-
-  }
-
-  // large screens
-  @media (min-width: @breakpoint) {
-
-    [aria-selected] {
-      box-shadow: inset 0em -0.25em var(--cyan);
-    }
-
-    .tabs {
-      flex-direction: row;
     }
 
   }

@@ -1,0 +1,72 @@
+@breakpoint: 45em;
+
+.page-nav {
+
+  border-block-end: var(--border);
+  font-size       : large;
+  inline-size     : 100%;
+
+  a {
+    align-items: center;
+    display    : flex;
+    gap        : var(--space-xs);
+    padding    : var(--text-padding-lg);
+  }
+
+  li:hover {
+
+    background-color: var(--cyan-1);
+
+    @media (prefers-color-scheme: dark) {
+      color: var(--background-color-dark);
+    }
+
+  }
+
+  svg {
+    --icon-size: 1em;
+    block-size : var(--icon-size);
+    inline-size: var(--icon-size);
+  }
+
+  // small screens: display nav vertically
+  @media (max-width: @breakpoint) {
+
+    [aria-selected] {
+      position: relative;
+    }
+
+    [aria-selected]::before {
+      background-color  : var(--cyan);
+      inset-block-end   : calc(-1 * var(--border-width));
+      content           : '';
+      inset-inline-start: 0;
+      position          : absolute;
+      inset-block-start : 0;
+      inline-size       : 0.25em;
+    }
+
+    li:first-child {
+      border-block-start: var(--border);
+    }
+
+    li:not(:last-child) {
+      border-block-end: var(--border);
+    }
+
+  }
+
+  // large screens: display nav horizontally
+  @media (min-width: @breakpoint) {
+
+    [aria-selected] {
+      box-shadow: inset 0em -0.15em var(--cyan);
+    }
+
+    ul {
+      flex-direction: row;
+    }
+
+  }
+
+}

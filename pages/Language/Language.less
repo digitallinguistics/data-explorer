@@ -7,15 +7,22 @@
 @import 'Note/Note.less';
 @import 'Notes/Notes.less';
 @import 'Label/Label.less';
+@import 'PageNav/PageNav.less';
 @import 'PageTitle/PageTitle.less';
 @import 'SectionHeader/SectionHeader.less';
 
+@breakpoint: 45em;
+
 .language-page {
 
-  align-items: center;
-  gap        : var(--space);
-  inline-size: 100%;
-  padding    : var(--space-lg);
+  align-items    : stretch;
+  align-self     : center;
+  gap            : var(--space);
+  max-inline-size: var(--measure);
+
+  @media (min-width: @breakpoint) {
+    padding: var(--space-lg);
+  }
 
   // override Definition List layout
   .codes {
@@ -99,13 +106,8 @@
 
   }
 
-  > section {
-    inline-size    : var(--measure);
-    max-inline-size: 100%;
-  }
-
   .section-header {
-    padding-block: var(--text-block-padding);
+    padding: var(--text-padding);
   }
 
   #url {
