@@ -32,9 +32,15 @@ body:target #forms {
 
   @breakpoint: 45em;
 
+  align-items    : stretch;
   align-self     : center;
+  gap            : var(--space);
   inline-size    : 100%;
   max-inline-size: var(--measure);
+
+  @media (min-width: @breakpoint) {
+    padding: var(--space-lg);
+  }
 
   .allomorph {
     align-items   : center;
