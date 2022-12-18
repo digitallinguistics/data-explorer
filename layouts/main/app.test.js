@@ -24,6 +24,17 @@ describe(`app shell`, function() {
 
   })
 
+  describe(`Help Menu`, function() {
+
+    it(`opens/closes`, function() {
+      cy.visit(`/`)
+      cy.get(`.help-nav`).click()
+      cy.log(`Visibility of the Help Menu cannot be tested programmatically with Cypress. Use manual testing instead.`)
+      // Note: The nav list *always* passes the `is.visible` assertion, even when it isn't actually visible.
+    })
+
+  })
+
   describe(`Login / Logout`, function() {
 
     it(`logs in / logs out`, function() {
