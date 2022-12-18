@@ -102,7 +102,7 @@ describe(`Language Page`, function() {
 
   })
 
-  it.only(`Metadata: Project Links`, function() {
+  it(`Metadata: Project Links`, function() {
 
     const menomineeLanguageID = `5fc405aa-a1a3-41e5-a80d-adb9dfbaa293`
     const language            = this.languages.find(language => language.id === menomineeLanguageID)
