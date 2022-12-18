@@ -18,8 +18,7 @@ describe(`Languages`, function() {
 
       cy.visit(`/languages`)
       cy.title().should(`eq`, `Oxalis | Languages`)
-      cy.get(`.page-title`).should(`have.text`, `Languages | All`)
-      cy.get(`.languages-table caption`).should(`have.text`, `Languages | All`)
+      cy.get(`.page-title`).should(`have.text`, `Languages`)
       cy.get(`.languages-table tbody`).children().should(`have.length`, publicLanguages.length)
       cy.contains(`td`, `Chitimacha`).should(`not.exist`)
       cy.contains(`td`, `Swahili`).should(`not.exist`)
@@ -126,7 +125,7 @@ describe(`Languages`, function() {
       const projectLanguages = this.languages.filter(lang => lang.projects.includes(publicProjectID))
 
       cy.visit(`/projects/${ publicProjectID }/languages`)
-      cy.title().should(`eq`, `Oxalis | Nisinoon | Languages`)
+      cy.title().should(`eq`, `Oxalis | Languages`)
       cy.get(`tbody`).children().should(`have.length`, projectLanguages.length)
 
     })

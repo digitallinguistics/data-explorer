@@ -19,7 +19,7 @@ describe(`app shell`, function() {
       cy.visit(`/`)
       cy.contains(`.navbar a`, `Languages`).click()
       cy.url().should(`include`, `/languages`)
-      cy.get(`.page-title`).should(`have.text`, `Languages | All`)
+      cy.get(`.page-title`).should(`have.text`, `Languages`)
     })
 
   })
@@ -30,7 +30,7 @@ describe(`app shell`, function() {
       cy.visit(`/`)
       cy.get(`.help-nav`).click()
       cy.log(`Visibility of the Help Menu cannot be tested programmatically with Cypress. Use manual testing instead.`)
-      // Note: The nav list *always* passes the `is.visible` assertion, even when it isn't actually visible.
+      // Note: The nav list always passes the `is.visible` assertion, even when it isn't actually visible.
     })
 
   })
