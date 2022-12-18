@@ -1,11 +1,19 @@
 @import 'Markdown/Markdown.less';
 @import 'NavList/NavList.less';
+@import 'PageNav/PageNav.less';
 @import 'PageTitle/PageTitle.less';
 
 .projects-page {
 
-  gap    : var(--space);
-  padding: var(--space-lg);
+  align-self     : center;
+  align-items    : stretch;
+  gap            : var(--space);
+  inline-size    : var(--measure);
+  max-inline-size: var(--measure);
+
+  @media (min-width: @breakpoint) {
+    padding: var(--space-lg);
+  }
 
   .date-created {
     margin-inline-start: auto;
