@@ -102,4 +102,18 @@ describe(`Language Page`, function() {
 
   })
 
+  it.only(`Metadata: Project Links`, function() {
+
+    const menomineeLanguageID = `5fc405aa-a1a3-41e5-a80d-adb9dfbaa293`
+    const language            = this.languages.find(language => language.id === menomineeLanguageID)
+
+    cy.visit(`/`)
+    cy.setCookie(msAuthCookie, `owner@digitallinguistics.io`)
+    cy.visit(`/languages/${ menomineeLanguageID }`)
+    cy.get(`#projects`).children().should(`have.length`, language.projects.length)
+    cy.contains(`Log out`).click()
+    cy.get(`#projects`).children().should(`have.length`, 1)
+
+  })
+
 })

@@ -103,6 +103,17 @@
         <label class=label for=date-modified>Date Modified:</label>
         <output id=date-modified>{{#if dateModified }}{{date dateModified }}{{else}}—{{/if}}</output>
 
+        <label class=label for=projects>Projects:</label>
+        {{#if @root.projects }}
+          <ul id=projects>
+            {{#each @root.projects as |project| }}
+              <li><a class=link href=/projects/{{ project.id }}>{{ project.name }}</a></li>
+            {{/each}}
+          </ul>
+        {{else}}
+          <span id=projects>—</span>
+        {{/if}}
+
       </fieldset>
 
     </section>
