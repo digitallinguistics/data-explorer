@@ -109,6 +109,11 @@ Oxalis loosely follows [semantic versioning principles][semver].
 
 ## Releases
 
+Before making a release, make sure any relevant project details/documentation are updated in the following places:
+
+- [ ] the Home page
+- [ ] the About page
+
 Steps to make a release:
 
 1. Update project version: `npm version {major|minor|patch}`
@@ -131,7 +136,6 @@ Steps to make a release:
 [Feather]:         https://feathericons.com/
 [feature-request]: https://github.com/digitallinguistics/data-explorer/issues/new?labels=🎁%20feature&template=feature_request.md
 [Flaticon]:        https://www.flaticon.com/
-[GitHub-Desktop]:  https://desktop.github.com/
 [Handlebars]:      https://handlebarsjs.com/
 [LESS]:            https://lesscss.org/
 [Mocha]:           https://mochajs.org/
@@ -139,6 +143,5 @@ Steps to make a release:
 [nodemon]:         https://nodemon.io/
 [nvm]:             https://github.com/nvm-sh/nvm
 [nvm-windows]:     https://github.com/coreybutler/nvm-windows
-[open-source]:     https://opensource.guide/how-to-contribute/
 [semver]:          https://semver.org/
 [Tromso]:          https://www.rd-alliance.org/group/linguistics-data-ig/outcomes/troms%C3%B8-recommendations-citation-research-data-linguistics
