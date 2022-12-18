@@ -25,9 +25,13 @@ export default async function get(req, res) {
     })
   }
 
+  const { data: projects } = await db.getProjects()
+  const languageProjects   = projects.filter(project => language.projects.includes(project.id) && hasAccess(res.locals.user, project))
+
   res.render(`Language/Language`, {
     language,
     Language: true,
+    projects: languageProjects,
     title:    getDefaultOrthography(language.name) ?? `Language`,
   })
 
