@@ -52,7 +52,7 @@
       <dl class='codes color-block def-list'>
 
         <div>
-          <dt class=label>Glottocode:</dt>
+          <dt class=label>Glottocode</dt>
           <dd>
             {{#if glottocode }}
               <a class=link href='https://glottolog.org/resource/languoid/id/{{ glottocode }}'>{{ glottocode }}</a>
@@ -63,7 +63,7 @@
         </div>
 
         <div>
-          <dt class=label>ISO 639-3 Code:</dt>
+          <dt class=label>ISO 639-3 Code</dt>
           <dd>
             {{#if iso}}
               <a class=link href='https://www.ethnologue.com/language/{{ iso }}'>{{ iso }}</a>
@@ -74,7 +74,7 @@
         </div>
 
         <div>
-          <dt class=label>Abbreviation:</dt>
+          <dt class=label>Abbreviation</dt>
           <dd>
             {{#if abbreviation }}
               {{ abbreviation }}
@@ -108,16 +108,19 @@
 
       <fieldset class='color-block def-list metadata'>
 
-        <label class=label for=url>URL:</label>
+        <label class=label for=url>URL</label>
         <output class=box-input id=url>https://data.digitallinguistics.io/languages/{{ id }}</output>
 
-        <label class=label for=date-created>Date Created:</label>
+        <label class=label for=date-created>Date Created</label>
         <output id=date-created>{{#if dateCreated }}{{date dateCreated }}{{else}}—{{/if}}</output>
 
-        <label class=label for=date-modified>Date Modified:</label>
+        <label class=label for=date-modified>Date Modified</label>
         <output id=date-modified>{{#if dateModified }}{{date dateModified }}{{else}}—{{/if}}</output>
 
-        <label class=label for=projects>Projects:</label>
+        <label class=label for=num-lexical-entries>Lexical Entries</label>
+        <output id=num-lexical-entries>{{ @root.numEntries }}</output>
+
+        <label class=label for=projects>Projects</label>
         {{#if @root.projects }}
           <ul id=projects>
             {{#each @root.projects as |project| }}
