@@ -4,15 +4,16 @@
 
 <main id=main class=lexemes-page>
 
-  <h1 class=page-title>
-    {{#if project }}
-      {{ project.name }}
-    {{ else }}
-      {{mls language.name language.defaultAnalysisLanguage }}
-    {{/if}}
-  </h1>
+  <div class=main>
 
-  <div class=main-wrapper>
+    <h1 class=page-title>
+      {{#if project }}
+        {{ project.name }}
+      {{ else }}
+        {{mls language.name language.defaultAnalysisLanguage }}
+      {{/if}}
+    </h1>
+
     <nav class=page-nav>
       <ul>
         {{#if project}}
@@ -38,6 +39,7 @@
         {{/if}}
       </ul>
     </nav>
+
   </div>
 
   <div class=table-wrapper>

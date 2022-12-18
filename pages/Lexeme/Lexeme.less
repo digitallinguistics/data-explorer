@@ -30,17 +30,7 @@ body:target #forms {
 
 .lexeme-page {
 
-  @breakpoint: 45em;
-
-  align-items    : stretch;
-  align-self     : center;
-  gap            : var(--space);
-  inline-size    : 100%;
-  max-inline-size: var(--measure);
-
-  @media (min-width: @breakpoint) {
-    padding: var(--space-lg);
-  }
+  gap: 0;
 
   .allomorph {
     align-items   : center;
@@ -266,7 +256,8 @@ body:target #forms {
   }
 
   .page-nav ul {
-    margin-block-end: calc(-0.5 * var(--border-width)); // needed b/c of collapsing border with next element (I think)
+    margin-block-end  : calc(-0.5 * var(--border-width));  // needed b/c of collapsing border with next element (I think)
+    margin-block-start: var(--space);
   }
 
   .page-title {

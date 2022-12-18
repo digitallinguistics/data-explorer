@@ -1,3 +1,5 @@
+@breakpoint: 45em;
+
 // This can be removed once flexbox-reset is updated.
 a:link {
   text-decoration-thickness: revert;
@@ -21,12 +23,18 @@ main {
   flex-grow: 1;
 }
 
-.main-wrapper {
+.main {
+
+  align-items    : stretch;
   align-self     : center;
   gap            : var(--space);
   inline-size    : var(--measure);
   max-inline-size: var(--measure);
-  padding-inline : var(--space-lg);
+
+  @media (min-width: @breakpoint) {
+    padding: var(--space-lg);
+  }
+
 }
 
 @media (prefers-color-scheme: dark) {
