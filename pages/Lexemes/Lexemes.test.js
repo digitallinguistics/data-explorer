@@ -42,14 +42,27 @@ describe(`Lexemes Page`, function() {
         const lexemes = data.filter(lexeme => lexeme.language === publicLanguageID)
 
         cy.visit(`/languages/${ publicLanguageID }/lexemes`)
-        cy.title().should(`eq`, `Oxalis | Plains Cree | Lexemes`)
-        cy.get(`.page-title`).should(`have.text`, `Lexemes | Plains Cree`)
-        cy.get(`.lexemes-table caption`).should(`have.text`, `Lexemes | Plains Cree`)
+        cy.title().should(`eq`, `Oxalis | Lexemes`)
+        cy.get(`.page-title`).should(`have.text`, `Plains Cree`)
         cy.get(`tbody`).children().should(`have.length`, lexemes.length)
+
+        // check for the existence of a few expected lexemes
         cy.contains(`.lemma`, `cīkahikan`)
         cy.contains(`.lemma`, `masinahikan`)
         cy.contains(`.lemma`, `maskwa`)
         cy.contains(`.lemma`, `kotiskāwēwatim`)
+
+        // check all the data for one lexeme
+        const lexemeID = `f97938d3-255e-459b-8ea4-bcb858b95b92`
+        cy.get(`[data-id="${ lexemeID }"]`).within(() => {
+
+          cy.contains(`.lemma`, `‑âpisk(w)‑`)
+          cy.contains(`.language`, `Plains Cree`)
+          cy.get(`.glosses`).should(`contain.text`, `stone`).should(`contain.text`, `metal`)
+          cy.contains(`.date-created`, new Date(`2022-01-01`).toLocaleDateString(`en-CA`))
+          cy.contains(`.date-modified`, new Date(`2022-01-02`).toLocaleDateString(`en-CA`))
+
+        })
 
       })
 
@@ -97,84 +110,9 @@ describe(`Lexemes Page`, function() {
         const lexemes = data.filter(lexeme => lexeme.projects.includes(publicProjectID))
 
         cy.visit(`/projects/${ publicProjectID }/lexemes`)
-        cy.title().should(`eq`, `Oxalis | Nisinoon | Lexemes`)
+        cy.title().should(`eq`, `Oxalis | Lexemes`)
         cy.get(`tbody`).children().should(`have.length`, lexemes.length)
         cy.contains(`.lemma`, `cīkahikan`)
-        cy.contains(`.lemma`, `sūniyanikamekmahka͞esen`).should(`not.exist`)
-
-      })
-
-    })
-
-  })
-
-  describe(`/projects/:projectID/languages/:languageID/lexemes`, function() {
-
-    const MenomineeProjectID  = `26d40299-98fb-48c8-b51f-e62397269817`  // Menominee Dictionary
-    const MenomineeLanguageID = `5fc405aa-a1a3-41e5-a80d-adb9dfbaa293`  // Menominee
-
-    it(`Not Found: Project`, function() {
-      cy.visit(`/projects/1234/languages/${ publicLanguageID }/lexemes`, { failOnStatusCode: false })
-      cy.title().should(`eq`, `Oxalis | Item Not Found`)
-      cy.get(`.page-title`).should(`have.text`, `404: Item Not Found`)
-      cy.get(`.error-message`).should(`have.text`, `No project exists with ID 1234.`)
-    })
-
-    it(`Not Found: Language`, function() {
-      cy.visit(`/projects/${ publicProjectID }/languages/1234/lexemes`, { failOnStatusCode: false })
-      cy.title().should(`eq`, `Oxalis | Item Not Found`)
-      cy.get(`.page-title`).should(`have.text`, `404: Item Not Found`)
-      cy.get(`.error-message`).should(`have.text`, `No language exists with ID 1234.`)
-    })
-
-    it(`Unauthenticated: Project`, function() {
-
-      // Use the Menominee Dictionary project for this test,
-      // because the project is private, but the language is public
-
-      cy.visit(`/projects/${ MenomineeProjectID }/languages/${ MenomineeLanguageID }/lexemes`, { failOnStatusCode: false })
-      cy.title().should(`eq`, `Oxalis | Unauthenticated`)
-      cy.get(`.page-title`).should(`have.text`, `401: Unauthenticated`)
-      cy.get(`.error-message`).should(`have.text`, `You must be logged in to view this project.`)
-
-    })
-
-    it(`Unauthenticated: Language`, function() {
-      cy.log(`Impossible case. If user has access to project, they have access to the language.`)
-    })
-
-    it(`Unauthorized: Project`, function() {
-      cy.visit(`/`)
-      cy.setCookie(msAuthCookie, `bademail@digitallinguistics.io`)
-      cy.visit(`/projects/${ privateProjectID }/languages/${ privateLanguageID }/lexemes`, { failOnStatusCode: false })
-      cy.title().should(`eq`, `Oxalis | Unauthorized`)
-      cy.get(`.page-title`).should(`have.text`, `403: Unauthorized`)
-      cy.get(`.error-message`).should(`have.text`, `You do not have permission to view this project.`)
-    })
-
-    it(`Unauthorized: Language`, function() {
-      cy.log(`Impossible case. If user has access to project, they have access to the language.`)
-    })
-
-    it(`Lexemes: Project + Language`, function() {
-
-      // Use Nisinoon + Menominee for this test,
-      // because only some Menominee lexemes are associated with the Nisinoon project,
-      // and this will test that only the appropriate lexemes are shown.
-
-      cy.readFile(`data/lexemes.yml`)
-      .then(yaml => yamlParser.load(yaml))
-      .then(data => {
-
-        // Reassigning the data/lexemes parameter doesn't seem to work here.
-        // Need to save to a new variable instead.
-        const lexemes = data.filter(lexeme => lexeme.projects.includes(publicProjectID) && lexeme.language === MenomineeLanguageID)
-
-        cy.visit(`/projects/${ publicProjectID }/languages/${ MenomineeLanguageID }/lexemes`)
-        cy.title().should(`eq`, `Oxalis | Nisinoon | Menominee | Lexemes`)
-        cy.get(`tbody`).children().should(`have.length`, lexemes.length)
-        cy.contains(`.lemma`, `sūniyanikamek`)
-        cy.contains(`.lemma`, `wāqnenekan`)
         cy.contains(`.lemma`, `sūniyanikamekmahka͞esen`).should(`not.exist`)
 
       })
