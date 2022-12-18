@@ -5,9 +5,7 @@
 <main id=main class=lexemes-page>
 
   <h1 class=page-title>
-    {{#if (and project language) }}
-      {{ project.name }}: {{mls language.name }}
-    {{else if project }}
+    {{#if project }}
       {{ project.name }}
     {{ else }}
       {{mls language.name }}

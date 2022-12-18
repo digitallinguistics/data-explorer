@@ -11,10 +11,14 @@
 
 .project-page {
 
-  align-items: center;
-  gap        : var(--space);
-  inline-size: 100%;
-  padding    : var(--space-lg);
+  align-items    : stretch;
+  align-self     : center;
+  gap            : var(--space);
+  max-inline-size: var(--measure);
+
+  @media (min-width: @breakpoint) {
+    padding: var(--space-lg);
+  }
 
   .access {
     --block-color: var(--yellow-1);
@@ -28,23 +32,6 @@
 
   dd {
     font-family: var(--font-mono);
-  }
-
-  .languages-section {
-
-    max-inline-size: 100%;
-
-    &__header {
-      align-self     : center;
-      max-inline-size: 100%;
-      inline-size    : 60rem;
-      text-align     : center;
-    }
-
-  }
-
-  .languages-table caption {
-    .visually-hidden;
   }
 
   .metadata {
@@ -62,7 +49,7 @@
     --block-color: var(--cyan-1);
   }
 
-  > section:not(.languages-section) {
+  > section {
     inline-size    : var(--measure);
     max-inline-size: 100%;
   }
@@ -73,11 +60,6 @@
 
   .statistics {
     --block-color: var(--green-1);
-  }
-
-  .table-wrapper {
-    max-inline-size: 100%;
-    overflow-x     : auto;
   }
 
   #url {

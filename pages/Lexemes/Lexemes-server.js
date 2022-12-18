@@ -1,7 +1,6 @@
-import compareLemmas      from '../../utilities/compareLemmas.js'
-import db                 from '../../config/database.js'
-import getDefaultLanguage from '../../utilities/getDefaultLanguage.js'
-import { hasAccess }      from '../../utilities/permissions.js'
+import compareLemmas from '../../utilities/compareLemmas.js'
+import db            from '../../config/database.js'
+import { hasAccess } from '../../utilities/permissions.js'
 
 export default async function get(req, res) {
 
@@ -59,20 +58,9 @@ export default async function get(req, res) {
 
   }
 
-  let lexemes     = []
-  let summaryName = ``
+  let lexemes = []
 
-  if (languageID && !projectID) {
-
-    summaryName = getDefaultLanguage(language.name, language.defaultAnalysisLanguage);
-
-    ({ data: lexemes } = await db.getLexemes({
-      language: languageID,
-    }))
-
-  } else if (projectID && !languageID) {
-
-    summaryName = project.name;
+  if (projectID) {
 
     ({ data: lexemes } = await db.getLexemes({
       project: projectID,
@@ -80,13 +68,9 @@ export default async function get(req, res) {
 
   } else {
 
-    summaryName = `${ project.name } | ${ getDefaultLanguage(language.name, language.defaultAnalysisLanguage) }`;
-
     ({ data: lexemes } = await db.getLexemes({
-      project: projectID,
+      language: languageID,
     }))
-
-    lexemes = lexemes.filter(lex => lex.language.id === languageID)
 
   }
 
@@ -97,7 +81,7 @@ export default async function get(req, res) {
     lexemes,
     Lexemes: true,
     project,
-    title:   `${ summaryName } | Lexemes`,
+    title:   `Lexemes`,
   })
 
 }
