@@ -126,6 +126,7 @@ describe(`Languages`, function() {
 
       cy.visit(`/projects/${ publicProjectID }/languages`)
       cy.title().should(`eq`, `Oxalis | Languages`)
+      cy.get(`.page-nav`)
       cy.get(`tbody`).children().should(`have.length`, projectLanguages.length)
 
     })
