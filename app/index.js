@@ -1,7 +1,3 @@
-import * as dotenv from 'dotenv'
-
-dotenv.config()
-
 import addLocals               from './locals.js'
 import addRoutes               from './routes.js'
 import auth                    from '../middleware/auth.js'
