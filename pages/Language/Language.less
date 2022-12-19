@@ -7,15 +7,11 @@
 @import 'Note/Note.less';
 @import 'Notes/Notes.less';
 @import 'Label/Label.less';
+@import 'PageNav/PageNav.less';
 @import 'PageTitle/PageTitle.less';
 @import 'SectionHeader/SectionHeader.less';
 
 .language-page {
-
-  align-items: center;
-  gap        : var(--space);
-  inline-size: 100%;
-  padding    : var(--space-lg);
 
   // override Definition List layout
   .codes {
@@ -99,13 +95,8 @@
 
   }
 
-  > section {
-    inline-size    : var(--measure);
-    max-inline-size: 100%;
-  }
-
   .section-header {
-    padding-block: var(--text-block-padding);
+    padding: var(--text-padding);
   }
 
   #url {

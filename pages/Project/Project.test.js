@@ -63,7 +63,6 @@ describe(`Project Page`, function() {
     cy.get(`#url`).should(`have.value`, data.link)
     cy.contains(`Date Created`).next().should(`have.text`, new Date(data.dateCreated).toLocaleDateString(`en-CA`))
     cy.contains(`Date Modified`).next().should(`have.text`, new Date(data.dateModified).toLocaleDateString(`en-CA`))
-    cy.get(`tbody`).children().should(`have.length`, languages.length)
 
   })
 

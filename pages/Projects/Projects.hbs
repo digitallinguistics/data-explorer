@@ -2,11 +2,31 @@
   <link rel=stylesheet href=/styles/Projects.css>
 {{/section}}
 
-<main id=main class=projects-page>
+<main id=main class='main projects-page'>
 
-  <h1 class=page-title>Projects</h1>
+  <h1 class=page-title>
+    {{~#if language ~}}
+      {{~mls language.name language.defaultAnalysisLanguage ~}}
+    {{~ else ~}}
+      Projects
+    {{~/if~}}
+  </h1>
 
-  <p class=page-description>This page displays all the projects that you have permissions to view.</p>
+  {{#if language }}
+    <nav class=page-nav>
+      <ul>
+        <li>
+          <a href='/languages/{{ language.id }}'><svg aria-hidden=true><use href=#language></svg> Language</a>
+        </li>
+        <li>
+          <a href='/languages/{{ language.id }}/lexemes'><svg aria-hidden=true><use href=#cards></svg> Lexicon</a>
+        </li>
+        <li aria-selected=true>
+          <a href='/languages/{{ language.id }}/projects'><svg aria-hidden=true><use href=#box></svg> Projects</a>
+        </li>
+      </ul>
+    </nav>
+  {{/if}}
 
   <ul class='bordered nav-list projects-list'>
     {{#each projects as |project|}}

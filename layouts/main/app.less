@@ -1,3 +1,10 @@
+@breakpoint: 45em;
+
+// This can be removed once flexbox-reset is updated.
+a:link {
+  text-decoration-thickness: revert;
+}
+
 body {
 
   font-family   : var(--font);
@@ -14,6 +21,20 @@ body {
 
 main {
   flex-grow: 1;
+}
+
+.main {
+
+  align-items    : stretch;
+  align-self     : center;
+  gap            : var(--space);
+  inline-size    : var(--measure);
+  max-inline-size: var(--measure);
+
+  @media (min-width: @breakpoint) {
+    padding: var(--space-lg);
+  }
+
 }
 
 @media (prefers-color-scheme: dark) {

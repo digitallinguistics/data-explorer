@@ -4,15 +4,35 @@
 
 <main id=main class=languages-page>
 
-  <h1 class=page-title>{{ caption }}</h1>
+  <div class=main>
 
-  <p class=page-description>
-    {{#if project}}
-      This page shows all the languages associated with the {{ project.name }} project.
-    {{else}}
-      This page shows all languages that you have permissions to view. A language may appear multiple times if more than one user has created a language with that name.
+    <h1 class=page-title>
+      {{~#if project ~}}
+        {{~ project.name ~}}
+      {{~ else ~}}
+        Languages
+      {{~/if~}}
+    </h1>
+
+    {{#if project }}
+      <div>
+        <nav class=page-nav>
+          <ul>
+          <li>
+            <a href='/projects/{{ project.id }}'><svg aria-hidden=true><use href=#box></svg> Project</a>
+          </li>
+          <li aria-selected=true>
+            <a href='/projects/{{ project.id }}/languages'><svg aria-hidden=true><use href=#language></svg> Languages</a>
+          </li>
+          <li>
+            <a href='/projects/{{ project.id }}/lexemes'><svg aria-hidden=true><use href=#cards></svg> Lexicon</a>
+          </li>
+          </ul>
+        </nav>
+      </div>
     {{/if}}
-  </p>
+
+  </div>
 
   <div class=table-wrapper>
     {{> LanguagesTable/LanguagesTable }}

@@ -4,16 +4,12 @@
 @import 'Label/Label.less';
 @import 'LanguagesTable/LanguagesTable.less';
 @import 'Markdown/Markdown.less';
+@import 'PageNav/PageNav.less';
 @import 'PageTitle/PageTitle.less';
 @import 'SectionHeader/SectionHeader.less';
 @import (reference) 'utilities.less';
 
 .project-page {
-
-  align-items: center;
-  gap        : var(--space);
-  inline-size: 100%;
-  padding    : var(--space-lg);
 
   .access {
     --block-color: var(--yellow-1);
@@ -27,23 +23,6 @@
 
   dd {
     font-family: var(--font-mono);
-  }
-
-  .languages-section {
-
-    max-inline-size: 100%;
-
-    &__header {
-      align-self     : center;
-      max-inline-size: 100%;
-      inline-size    : 60rem;
-      text-align     : center;
-    }
-
-  }
-
-  .languages-table caption {
-    .visually-hidden;
   }
 
   .metadata {
@@ -61,22 +40,17 @@
     --block-color: var(--cyan-1);
   }
 
-  > section:not(.languages-section) {
+  > section {
     inline-size    : var(--measure);
     max-inline-size: 100%;
   }
 
   .section-header {
-    padding-block: var(--text-block-padding);
+    padding: var(--text-padding);
   }
 
   .statistics {
     --block-color: var(--green-1);
-  }
-
-  .table-wrapper {
-    max-inline-size: 100%;
-    overflow-x     : auto;
   }
 
   #url {

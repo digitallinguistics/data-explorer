@@ -33,9 +33,6 @@ export default async function get(req, res) {
 
   if (project) languages = languages.filter(lang => lang.projects.includes(project.id))
 
-  const collectionName = project?.name ?? `All`
-  const title          = project ? `${ project.name } | Languages` : `Languages`
-
   for (const language of languages) {
     language.permissions.isOwner  = isOwner(res.locals.user, language)
     language.permissions.isEditor = isEditor(res.locals.user, language)
@@ -43,11 +40,10 @@ export default async function get(req, res) {
   }
 
   res.render(`Languages/Languages`, {
-    caption:   `Languages | ${ collectionName }`,
     languages,
     Languages: true,
     project,
-    title,
+    title:     `Languages`,
   })
 
 }

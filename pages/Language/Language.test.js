@@ -80,10 +80,11 @@ describe(`Language Page`, function() {
     cy.get(`.metadata`)
     .children()
     .filter(`output`)
-    .then(([urlEl, dateCreatedEl, dateModifiedEl]) => {
+    .then(([urlEl, dateCreatedEl, dateModifiedEl, lexicalEntries]) => {
       expect(urlEl.textContent).to.equal(`https://data.digitallinguistics.io/languages/${ publicLanguageID }`)
       expect(dateCreatedEl.textContent).to.equal(new Date(data.dateCreated).toLocaleDateString(`en-CA`))
       expect(dateModifiedEl.textContent).to.equal(new Date(data.dateModified).toLocaleDateString(`en-CA`))
+      expect(lexicalEntries.textContent).to.equal(`7`)
     })
 
     // Notes

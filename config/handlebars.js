@@ -8,11 +8,12 @@ import prepareTranscription  from '../utilities/prepareTranscription.js'
 const __filename = fileURLToPath(import.meta.url)
 const __dirname  = path.dirname(__filename)
 
-/**
- * Checks to see whether the object passed to the helper has any data in it (any keys), and whether the object exists at all.
- */
 function all(...args) {
   return args.every(isTruthy)
+}
+
+function and(a, b) {
+  return isTruthy(a) && isTruthy(b)
 }
 
 function any(...args) {
@@ -93,6 +94,7 @@ const hbs = new ExpressHandlebars({
   extname:       `hbs`,
   helpers:       {
     all,
+    and,
     any,
     concat,
     date,

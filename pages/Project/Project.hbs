@@ -2,9 +2,24 @@
   <link rel=stylesheet href=/styles/Project.css>
 {{/section}}
 
-<main id=main class=project-page>
+<main id=main class='main project-page'>
+  {{#with project }}
 
-  <h1 class=page-title>{{ project.name }}</h1>
+  <h1 class=page-title>{{ name }}</h1>
+
+  <nav class=page-nav>
+    <ul>
+      <li aria-selected=true>
+        <a href='/projects/{{ id }}'><svg aria-hidden=true><use href=#box></svg> Project</a>
+      </li>
+      <li>
+        <a href='/projects/{{ id }}/languages'><svg aria-hidden=true><use href=#language></svg> Languages</a>
+      </li>
+      <li>
+        <a href='/projects/{{ id }}/lexemes'><svg aria-hidden=true><use href=#cards></svg> Lexicon</a>
+      </li>
+    </ul>
+  </nav>
 
   <section class=statistics-section>
 
@@ -13,13 +28,13 @@
     <dl class='color-block def-list statistics'>
 
       <dt class=label># of languages</dt>
-      <dd>{{number numLanguages }}</dd>
+      <dd><output>{{number @root.numLanguages }}</output></dd>
 
       <dt class=label># of lexemes</dt>
-      <dd>{{number numLexemes }}</dd>
+      <dd><output>{{number @root.numLexemes }}</output></dd>
 
       <dt class=label># of collaborators</dt>
-      <dd>{{number numCollaborators }}</dd>
+      <dd><output>{{number @root.numCollaborators }}</output></dd>
 
     </dl>
 
@@ -30,8 +45,8 @@
     <h2 class=section-header>Readme</h2>
 
     <div class='color-block md readme'>
-      {{#if project.readme.html }}
-        {{{ project.readme.html }}}
+      {{#if readme.html }}
+        {{{ readme.html }}}
       {{else}}
         [No readme provided.]
       {{/if}}
@@ -44,8 +59,8 @@
     <h2 class=section-header>Access Conditions</h2>
 
     <article class='access color-block md'>
-      {{#if project.access.note.html }}
-        {{{ project.access.note.html }}}
+      {{#if access.note.html }}
+        {{{ access.note.html }}}
       {{else}}
         [No access conditions provided.]
       {{/if}}
@@ -60,26 +75,17 @@
     <fieldset class='color-block def-list metadata'>
 
       <label class=label for=url>URL:</label>
-      <output class=box-input id=url>https://data.digitallinguistics.io/projects/{{ project.id }}</output>
+      <output class=box-input id=url>https://data.digitallinguistics.io/projects/{{ id }}</output>
 
       <label class=label for=date-created>Date Created:</label>
-      <output id=date-created>{{#if project.dateCreated }}{{date project.dateCreated }}{{else}}—{{/if}}</output>
+      <output id=date-created>{{#if dateCreated }}{{date dateCreated }}{{else}}—{{/if}}</output>
 
       <label class=label for=date-modified>Date Modified:</label>
-      <output id=date-modified>{{#if project.dateModified }}{{date project.dateModified }}{{else}}—{{/if}}</output>
+      <output id=date-modified>{{#if dateModified }}{{date dateModified }}{{else}}—{{/if}}</output>
 
     </fieldset>
 
   </section>
 
-  <section class=languages-section>
-
-    <h2 class='languages-section__header section-header'>Languages</h2>
-
-    <div class=table-wrapper>
-      {{> LanguagesTable/LanguagesTable }}
-    </div>
-
-  </section>
-
+  {{/with}}
 </main>

@@ -4,12 +4,46 @@
 
 <main id=main class=lexemes-page>
 
-  <h1 class=page-title>{{ caption }}</h1>
+  <div class=main>
+
+    <h1 class=page-title>
+      {{~#if project ~}}
+        {{~ project.name ~}}
+      {{~ else ~}}
+        {{~mls language.name language.defaultAnalysisLanguage ~}}
+      {{~/if~}}
+    </h1>
+
+    <nav class=page-nav>
+      <ul>
+        {{#if project}}
+          <li>
+            <a href='/projects/{{ project.id }}'><svg aria-hidden=true><use href=#box></svg> Project</a>
+          </li>
+          <li>
+            <a href='/projects/{{ project.id }}/languages'><svg aria-hidden=true><use href=#language></svg> Languages</a>
+          </li>
+          <li aria-selected=true>
+            <a href='/projects/{{ project.id }}/lexemes'><svg aria-hidden=true><use href=#cards></svg> Lexicon</a>
+          </li>
+        {{else}}
+          <li>
+            <a href='/languages/{{ language.id }}'><svg aria-hidden=true><use href=#language></svg> Language</a>
+          </li>
+          <li aria-selected=true>
+            <a href='/languages/{{ language.id }}/lexemes'><svg aria-hidden=true><use href=#cards></svg> Lexicon</a>
+          </li>
+          <li>
+            <a href='/languages/{{ language.id }}/projects'><svg aria-hidden=true><use href=#box></svg> Projects</a>
+          </li>
+        {{/if}}
+      </ul>
+    </nav>
+
+  </div>
 
   <div class=table-wrapper>
     <table class='lexemes-table table'>
-
-      <caption class=visually-hidden>{{ caption }}</caption>
 
       <thead>
         <tr>
@@ -23,7 +57,7 @@
 
       <tbody>
         {{#each lexemes as |lexeme| }}
-          <tr>
+          <tr data-id={{ id }}>
 
             {{!-- lemma --}}
             <td class=lemma>
@@ -33,18 +67,22 @@
             </td>
 
             {{!-- language --}}
-            <td>
-              <a class=link href='/languages/{{ language.id }}'>{{mls language.name }}</a>
+            <td class=language>
+              <a class=link href='/languages/{{ language.id }}'>{{mls language.name language.defaultAnalysisLanguage }}</a>
             </td>
 
             {{!-- glosses --}}
-            <td>
+            <td class=glosses>
               <ol class=numbered>
-                {{#each senses as |sense|}}
-                  {{#if sense.gloss}}
-                    <li>{{ sense.gloss }}</li>
-                  {{/if}}
-                {{/each}}
+                {{~#each senses as |sense| ~}}
+                  <li>
+                    {{~#if sense.gloss ~}}
+                      {{~mls sense.gloss @root.language.defaultAnalysisLanguage ~}}
+                    {{~else~}}
+                      —
+                    {{~/if~}}
+                  </li>
+                {{~/each~}}
               </ol>
             </td>
 

@@ -76,21 +76,21 @@
   <li class=tag><a href='/people/{{ id }}' title='{{ givenName }}{{#if (all givenName familyName) }} {{/if}}{{ familyName }}'>{{ abbreviation }}</a></li>
 {{~/inline}}
 
-<main id=main class=lexeme-page>
+<main id=main class='lexeme-page main'>
 
   <header class=header>
 
     <h1 class='headword {{#if lexeme.lemma.abstract }}mp{{/if}} page-title' lang='{{ language.iso }}'>{{#if lexeme.lemma.unattested }}*{{/if}}{{mot lexeme.lemma.transcription language.defaultOrthography }}</h1>
 
-    <span class=language>
+    <a class='language link' href='/languages/{{ language.id }}'>
       {{~#if language.name ~}}
-        <a class='link' href='/languages/{{ language.id }}'>{{mls language.name language.defaultAnalysisLanguage }}</a>
+        {{mls language.name language.defaultAnalysisLanguage }}
       {{~/if~}}
-      {{~#if (all language.name language.autonym) }} | {{/if~}}
+      {{~#if (and language.name language.autonym) }} | {{/if~}}
       {{~#if language.autonym ~}}
-        <a class='link txn' href='/languages/{{ language.id }}'>{{mot language.autonym language.defaultOrthography }}</a>
+        <span class=txn>{{mot language.autonym language.defaultOrthography }}</span>
       {{~/if~}}
-    </span>
+    </a>
 
     {{#if lexeme.senses }}
       <ol class='glosses numbered'>
@@ -108,11 +108,11 @@
 
   </header>
 
-  <nav>
-    <ul class=tabs role=tablist>
-      <li role=tab class=tab><a class=tab-link id=forms-link href=#forms aria-selected=true>Forms</a></li>
-      <li role=tab class=tab><a class=tab-link id=meaning-link href=#meaning>Meaning</a></li>
-      <li role=tab class=tab><a class=tab-link id=metadata-link href=#metadata>Metadata</a></li>
+  <nav class=page-nav>
+    <ul role=tablist>
+      <li role=tab aria-selected=true><a id=forms-link href=#forms>Forms</a></li>
+      <li role=tab><a id=meaning-link href=#meaning>Meaning</a></li>
+      <li role=tab><a id=metadata-link href=#metadata>Metadata</a></li>
     </ul>
   </nav>
 

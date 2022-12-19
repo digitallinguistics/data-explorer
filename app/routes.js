@@ -18,10 +18,10 @@ export default function addRoutes(app) {
   app.get(`/languages/:languageID`, handlers.Language)
   app.get(`/languages/:languageID/lexemes`, handlers.Lexemes)
   app.get(`/languages/:languageID/lexemes/:lexemeID`, handlers.Lexeme)
+  app.get(`/languages/:languageID/projects`, handlers.Projects)
   app.get(`/projects`, handlers.Projects)
   app.get(`/projects/:projectID`, handlers.Project)
   app.get(`/projects/:projectID/languages`, handlers.Languages)
-  app.get(`/projects/:projectID/languages/:languageID/lexemes`, handlers.Lexemes)
   app.get(`/projects/:projectID/lexemes`, handlers.Lexemes)
 
   app.use(handlers.PageNotFound)
