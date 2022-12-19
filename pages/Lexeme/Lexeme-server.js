@@ -37,8 +37,9 @@ export default async function get(req, res) {
   res.render(`Lexeme/Lexeme`, {
     language,
     lexeme,
-    [title]: true,
-    title:   lexeme ? getDefaultOrthography(lexeme.lemma.transcription) : title,
+    projects: lexemeProjects,
+    [title]:  true,
+    title:    lexeme ? getDefaultOrthography(lexeme.lemma.transcription) : title,
   })
 
 }
