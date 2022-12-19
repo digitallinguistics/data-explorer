@@ -353,6 +353,17 @@
       <label class=label for=language-name>Language Name</label>
       {{> MultiLangString/MultiLangString data=language.name attributes='id=language-name' }}
 
+      <label class=label for=projects>Projects</label>
+      {{#if projects }}
+        <ul id=projects>
+          {{#each projects as |project| }}
+            <li><a class=link href=/projects/{{ id }}>{{ name }}</a></li>
+          {{/each}}
+        </ul>
+      {{else}}
+        <span id=projects>—</span>
+      {{/if}}
+
       <label class=label for=lexeme-references>References</label>
       {{#unless lexeme.bibliography }}
         <span id=lexeme-references>—</span>
@@ -360,7 +371,7 @@
         <div id=lexeme-references>
           {{> CitationsList lexeme.bibliography }}
           <span class=bib-links>
-            <a class='link subtle' href='/languages/{{ @root.language.id }}/lexemes/{{ @root.lexeme.id }}/references?view=bibliography'>View as Bibliography</a> | <a class='link subtle' href='/languages/{{ @root.language.id }}/lexemes/{{ @root.lexeme.id }}/references?view=table'>View as Table</a>
+            <a class='link subtle' href='/languages/{{ language.id }}/lexemes/{{ lexeme.id }}/references?view=bibliography'>View as Bibliography</a> | <a class='link subtle' href='/languages/{{ language.id }}/lexemes/{{ lexeme.id }}/references?view=table'>View as Table</a>
           </span>
         </div>
       {{/unless}}
