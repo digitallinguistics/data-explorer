@@ -106,7 +106,7 @@ describe(`Lexemes Page`, function() {
       cy.get(`.error-message`).should(`have.text`, `You do not have permission to view this project.`)
     })
 
-    it.only(`displays the lexemes for a project`, function() {
+    it(`displays the lexemes for a project`, function() {
 
       cy.readFile(`data/lexemes.yml`)
       .then(yaml => yamlParser.load(yaml))
