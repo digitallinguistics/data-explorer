@@ -1,6 +1,3 @@
-import { env }          from '../../config/app.js'
-import { msAuthCookie } from '../../constants/index.js'
-
 describe(`Error Page`, function() {
 
   it(`404: Page Not Found`, function() {
@@ -20,7 +17,7 @@ describe(`Error Page`, function() {
     })
   })
 
-  if (env !== `production`) {
+  if (process.env.NODE_ENV !== `production`) {
 
     it(`500: Server Error`, function() {
       cy.visit(`/500-test`, { failOnStatusCode: false })

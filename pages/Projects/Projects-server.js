@@ -1,5 +1,5 @@
 import compare from '../../utilities/compare.js'
-import db      from '../../config/database.js'
+import db      from '../../services/database.js'
 
 import {
   hasAccess,

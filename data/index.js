@@ -1,4 +1,4 @@
-import Citer                   from '../config/cite.js'
+import Citer                   from '../services/cite.js'
 import compare                 from '../utilities/compare.js'
 import { load as convertYAML } from 'js-yaml'
 import { fileURLToPath }       from 'url'

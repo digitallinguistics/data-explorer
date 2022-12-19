@@ -1,12 +1,13 @@
-import { env } from '../config/app.js'
-import { msAuthCookie, msAuthHeader, msAuthUser } from '../constants/index.js'
+const msAuthCookie = process.env.MS_AUTH_COOKIE
+const msAuthHeader = process.env.MS_AUTH_HEADER
+const msAuthUser   = process.env.MS_AUTH_USER
 
 export default function auth(req, res, next) {
 
   const authCookie = req.cookies[msAuthCookie]
   res.locals.loggedIn = Boolean(authCookie)
 
-  if (env === `localhost` && res.locals.loggedIn) {
+  if (process.env.NODE_ENV === `localhost` && res.locals.loggedIn) {
     req.headers[msAuthHeader] = authCookie ?? msAuthUser
   }
 

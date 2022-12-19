@@ -1,12 +1,11 @@
 import auth     from './auth.js'
-import { env }  from '../config/app.js'
 import handlers from '../pages/index.js'
 
 export default function addRoutes(app) {
 
   app.get(`/`, handlers.Home)
 
-  if (env === `localhost`) {
+  if (process.env.NODE_ENV === `localhost`) {
     app.get(`/.auth/login/facebook`, auth.login)
     app.get(`/.auth/logout`, auth.logout)
     app.get(`/500-test`, handlers.ServerErrorTest)

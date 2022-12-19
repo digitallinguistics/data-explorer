@@ -1,4 +1,4 @@
-import db                    from '../../config/database.js'
+import db                    from '../../services/database.js'
 import getDefaultOrthography from '../../utilities/getDefaultOrthography.js'
 import { hasAccess }         from '../../utilities/permissions.js'
 

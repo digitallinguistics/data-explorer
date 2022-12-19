@@ -2,10 +2,11 @@
  * These methods are only available in local development.
  */
 
-import { msAuthCookie } from '../constants/index.js'
+const msAuthCookie = process.env.MS_AUTH_COOKIE
+const msAuthUser   = process.env.MS_AUTH_USER
 
 function login(req, res) {
-  res.cookie(msAuthCookie, `owner@digitallinguistics.io`)
+  res.cookie(msAuthCookie, msAuthUser)
   res.redirect(req.query.post_login_redirect_uri)
 }
 

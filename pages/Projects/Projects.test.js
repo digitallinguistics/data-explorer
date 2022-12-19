@@ -1,4 +1,4 @@
-import { msAuthCookie } from '../../constants/index.js'
+const msAuthCookie = Cypress.env(`msAuthCookie`)
 
 describe(`Projects`, function() {
 

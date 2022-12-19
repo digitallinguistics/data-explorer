@@ -1,5 +1,5 @@
 import compareLemmas from '../../utilities/compareLemmas.js'
-import db            from '../../config/database.js'
+import db            from '../../services/database.js'
 import { hasAccess } from '../../utilities/permissions.js'
 
 export default async function get(req, res) {

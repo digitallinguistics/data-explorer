@@ -1,3 +1,7 @@
+import * as dotenv from 'dotenv'
+
+dotenv.config()
+
 import { defineConfig } from 'cypress'
 
 export default defineConfig({
@@ -12,9 +16,9 @@ export default defineConfig({
     supportFile: false,
   },
   env:             {
-    msAuthCookie: `AppServiceAuthSession`,
-    msAuthHeader: `X-MS-CLIENT-PRINCIPAL-NAME`,
-    testUser:     `owner@digitallinguistics.io`,
+    msAuthCookie: process.env.MS_AUTH_COOKIE,
+    msAuthHeader: process.env.MS_AUTH_HEADER,
+    testUser:     process.env.MS_AUTH_USER,
   },
   fixturesFolder:         `test/fixtures`,
   screenshotOnRunFailure: false,

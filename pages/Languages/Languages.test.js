@@ -1,6 +1,7 @@
-import { hasAccess }    from '../../utilities/permissions.js'
-import { msAuthCookie } from '../../constants/index.js'
-import yamlParser       from 'js-yaml'
+import { hasAccess } from '../../utilities/permissions.js'
+import yamlParser    from 'js-yaml'
+
+const msAuthCookie = Cypress.env(`msAuthCookie`)
 
 describe(`Languages`, function() {
 
