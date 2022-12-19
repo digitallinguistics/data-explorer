@@ -46,6 +46,11 @@ describe(`Lexemes Page`, function() {
         cy.get(`.page-title`).should(`have.text`, `Plains Cree`)
         cy.get(`tbody`).children().should(`have.length`, lexemes.length)
 
+        // check for correct page nav
+        cy.contains(`.page-nav a`, `Language`)
+        cy.contains(`.page-nav a`, `Lexicon`)
+        cy.contains(`.page-nav a`, `Projects`)
+
         // check for the existence of a few expected lexemes
         cy.contains(`.lemma`, `cīkahikan`)
         cy.contains(`.lemma`, `masinahikan`)
@@ -101,7 +106,7 @@ describe(`Lexemes Page`, function() {
       cy.get(`.error-message`).should(`have.text`, `You do not have permission to view this project.`)
     })
 
-    it(`displays the lexemes for a project`, function() {
+    it.only(`displays the lexemes for a project`, function() {
 
       cy.readFile(`data/lexemes.yml`)
       .then(yaml => yamlParser.load(yaml))
@@ -111,6 +116,12 @@ describe(`Lexemes Page`, function() {
 
         cy.visit(`/projects/${ publicProjectID }/lexemes`)
         cy.title().should(`eq`, `Oxalis | Lexemes`)
+
+        // check for correct page nav
+        cy.contains(`.page-nav a`, `Project`)
+        cy.contains(`.page-nav a`, `Languages`)
+        cy.contains(`.page-nav a`, `Lexicon`)
+
         cy.get(`tbody`).children().should(`have.length`, lexemes.length)
         cy.contains(`.lemma`, `cīkahikan`)
         cy.contains(`.lemma`, `sūniyanikamekmahka͞esen`).should(`not.exist`)
