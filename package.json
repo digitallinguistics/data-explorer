@@ -34,13 +34,9 @@
   },
   "scripts": {
     "build": "node build/index.js",
-    "start-cosmos": "powershell -NoProfile -ExecutionPolicy Unrestricted -Command ./test/start-db.ps1",
-    "stop-cosmos": "cd C:\\Program Files\\Azure Cosmos DB Emulator && Microsoft.Azure.Cosmos.Emulator.exe /Shutdown",
     "cypress": "server-test 3001 open-cypress",
     "open-cypress": "cypress open --config-file=test/cypress.config.js",
     "run-cypress": "cypress run --config-file=test/cypress.config.js",
-    "db-tests": "mocha services/Database.test.js",
-    "db-tests-cosmos": "npm run open-cosmos & mocha services/Database.test.js && npm run stop-cosmos",
     "prepare-release": "node build/updateCitation.js",
     "start": "node index.js",
     "stop-only": "stop-only --folder layouts,pages,services,test",
