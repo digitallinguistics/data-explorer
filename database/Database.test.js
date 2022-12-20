@@ -37,6 +37,11 @@ describe(`Database`, function() {
 
     this.language = yamlParser.load(languageYAML)
 
+    const lexemePath = joinPath(__dirname, `../data/lexeme.yml`)
+    const lexemeYAML = await readFile(lexemePath, `utf8`)
+
+    this.lexeme = yamlParser.load(lexemeYAML)
+
     const projectPath = joinPath(__dirname, `../data/project.yml`)
     const projectYAML = await readFile(projectPath, `utf8`)
 
@@ -148,6 +153,30 @@ describe(`Database`, function() {
       expect(status).to.equal(200)
       expect(data).to.have.length(count)
       expect(data.every(language => language.projects.includes(this.project.id))).to.be.true
+
+    })
+
+  })
+
+  describe(`getLexeme`, function() {
+
+    it(`200 OK`, async function() {
+
+      await this.addOne(this.lexeme)
+
+      const { data, status } = await db.getLexeme(this.lexeme.id)
+
+      expect(status).to.equal(200)
+      expect(data.lemma.transcription.Modern).to.equal(this.lexeme.lemma.transcription.Modern)
+
+    })
+
+    it(`404 Not Found`, async function() {
+
+      const { data, status } = await db.getLexeme(`bad-id`)
+
+      expect(status).to.equal(404)
+      expect(data).to.be.undefined
 
     })
 

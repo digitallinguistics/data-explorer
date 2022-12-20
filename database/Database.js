@@ -32,7 +32,7 @@ export default class Database {
   /**
    * Get a language from the database.
    * @param {String} id The ID of the language to retrieve.
-   * @returns Promise<Object>
+   * @returns Promise<Language>
    */
   async getLanguage(id) {
 
@@ -44,7 +44,9 @@ export default class Database {
 
   /**
    * Get all the languages from the database.
-   * @returns Promise<Array>
+   * @param {Object} [options={}]      An options hash.
+   * @param {String} [options.project] The ID of a project to return languages for.
+   * @returns Promise<Array<Language>>
    */
   async getLanguages(options = {}) {
 
@@ -55,6 +57,19 @@ export default class Database {
     if (project) resources = resources.filter(language => language.projects.includes(project))
 
     return { data: resources, status: 200 }
+
+  }
+
+  /**
+   * Get a lexeme from the database.
+   * @param {String} id The ID of the Lexeme to retrieve.
+   * @returns Promise<Lexeme>
+   */
+  async getLexeme(id) {
+
+    const { resource, statusCode } = await this.container.item(id).read()
+
+    return { data: resource, status: statusCode }
 
   }
 

@@ -16,21 +16,6 @@ describe(`Database`, function() {
 
   before(async function() {
 
-    const languagesYAML = await readFile(`data/languages.yml`, `utf8`)
-
-    this.languages = yamlParser.load(languagesYAML)
-    this.language  = this.languages.find(lang => lang.id === languageID)
-
-    const lexemesYAML = await readFile(`data/lexemes.yml`, `utf8`)
-
-    this.lexemes = yamlParser.load(lexemesYAML)
-    this.lexeme  = this.lexemes.find(lex => lex.id === lexemeID)
-
-    const projectsYAML = await readFile(`data/projects.yml`, `utf8`)
-    const projects     = yamlParser.load(projectsYAML)
-
-    this.project = projects.find(proj => proj.id === projectID)
-
     const bibtex = await readFile(`data/references.bib`, `utf8`)
 
     const { data: references } = new Cite(bibtex, {
@@ -40,48 +25,6 @@ describe(`Database`, function() {
 
     this.references = references
     this.reference  = references.find(ref => ref.id === referenceID)
-
-  })
-
-  describe(`getLanguages`, function() {
-
-    it(`option: project`, async function() {
-
-      const projectLanguages = this.languages.filter(lang => lang.projects.includes(this.project.id))
-      const db = new Database
-      const { data, status } = await db.getLanguages({ project: projectID })
-
-      expect(status).to.equal(200)
-      expect(data).to.have.lengthOf(projectLanguages.length)
-      expect(data.every(language => language.projects.includes(projectID))).to.be.true
-
-    })
-
-  })
-
-  describe(`getLexeme`, function() {
-
-    it(`returns a copy of the data`, async function() {
-      const db = new Database
-      const { data: a } = await db.getLexeme(lexemeID)
-      const { data: b } = await db.getLexeme(lexemeID)
-      expect(a).to.not.equal(b)
-      expect(a.senses).to.not.equal(b.senses)
-    })
-
-    it(`200 OK`, async function() {
-      const db = new Database
-      const { data, status } = await db.getLexeme(lexemeID)
-      expect(status).to.equal(200)
-      expect(data.lemma.transcription.SRO).to.equal(this.lexeme.lemma.transcription.SRO)
-    })
-
-    it(`404 Not Found`, async function() {
-      const db = new Database
-      const { data, status } = await db.getLexeme(`bad-id`)
-      expect(status).to.equal(404)
-      expect(data).to.be.undefined
-    })
 
   })
 
