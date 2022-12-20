@@ -46,10 +46,13 @@ export default class Database {
    * Get all the languages from the database.
    * @returns Promise<Array>
    */
-  async getLanguages() {
+  async getLanguages(options = {}) {
 
+    const { project }   = options
     const query         = `SELECT * FROM ${ this.containerName } t WHERE t.type = 'Language'`
-    const { resources } = await this.container.items.query(query).fetchAll()
+    let   { resources } = await this.container.items.query(query).fetchAll()
+
+    if (project) resources = resources.filter(language => language.projects.includes(project))
 
     return { data: resources, status: 200 }
 

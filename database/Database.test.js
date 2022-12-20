@@ -3,6 +3,7 @@ import '../services/env.js'
 import db                from '../services/database.js'
 import { expect }        from 'chai'
 import { fileURLToPath } from 'url'
+import Language          from '../models/Language.js'
 import { readFile }      from 'fs/promises'
 import yamlParser        from 'js-yaml'
 
@@ -13,6 +14,8 @@ import {
 
 const __filename = fileURLToPath(import.meta.url)
 const __dirname  = getDirname(__filename)
+
+const teardown = true
 
 const { client }    = db
 const dbName        = `test`
@@ -34,6 +37,11 @@ describe(`Database`, function() {
 
     this.language = yamlParser.load(languageYAML)
 
+    const projectPath = joinPath(__dirname, `../data/project.yml`)
+    const projectYAML = await readFile(projectPath, `utf8`)
+
+    this.project = yamlParser.load(projectYAML)
+
     const { database }  = await client.databases.createIfNotExists({ id: dbName })
     const { container } = await database.containers.createIfNotExists({ id: containerName })
 
@@ -43,7 +51,7 @@ describe(`Database`, function() {
     // NOTE: Cosmos DB Create methods modify the original object by setting an `id` property on it.
 
     this.addOne = async function addOne(data = {}) {
-      const { resource } = await this.container.items.create(Object.assign({}, data))
+      const { resource } = await this.container.items.upsert(Object.assign({}, data))
       return resource
     }
 
@@ -52,10 +60,15 @@ describe(`Database`, function() {
       const operations = []
 
       for (let i = 0; i < count; i++) {
+
+        const resourceBody = Object.assign({}, data)
+        delete resourceBody.id
+
         operations[i] = {
-          operationType: `Create`,
-          resourceBody:  Object.assign({}, data),
+          operationType: `Upsert`,
+          resourceBody,
         }
+
       }
 
       return this.container.items.bulk(operations)
@@ -65,6 +78,8 @@ describe(`Database`, function() {
   })
 
   afterEach(async function() {
+
+    if (!teardown) return
 
     const { resources } = await this.container.items.readAll().fetchAll()
 
@@ -78,7 +93,7 @@ describe(`Database`, function() {
   })
 
   after(async function() {
-    await client.database(dbName).delete()
+    if (teardown) await client.database(dbName).delete()
   })
 
   describe(`getLanguage`, function() {
@@ -117,6 +132,22 @@ describe(`Database`, function() {
 
       expect(status).to.equal(200)
       expect(data).to.have.length(count)
+
+    })
+
+    it(`option: project`, async function() {
+
+      const count = 3
+
+      await this.addMany(count, this.language) // add languages with projects
+      await this.addOne(new Language)          // add a language without a project
+      await this.addOne(this.project)          // add the project
+
+      const { data, status } = await db.getLanguages({ project: this.project.id })
+
+      expect(status).to.equal(200)
+      expect(data).to.have.length(count)
+      expect(data.every(language => language.projects.includes(this.project.id))).to.be.true
 
     })
 
