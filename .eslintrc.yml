@@ -24,6 +24,7 @@ overrides:
       prefer-arrow-callback: off
       max-nested-callbacks:  off
       max-params:            off
+      no-invalid-this:       off
       no-magic-numbers:      off
       no-param-reassign:     off
       no-unused-expressions: off

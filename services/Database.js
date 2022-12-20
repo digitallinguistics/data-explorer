@@ -1,5 +1,7 @@
 import Database from '../Database/Database.js'
 
-const db = new Database
+const dbName = process.env.NODE_ENV === `production` ? `digitallinguistics` : `test`
+
+const db = new Database(dbName)
 
 export default db

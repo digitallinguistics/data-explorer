@@ -43,46 +43,7 @@ describe(`Database`, function() {
 
   })
 
-  describe(`getLanguage`, function() {
-
-    it(`returns a copy of the data`, async function() {
-      const db = new Database
-      const { data: a } = await db.getLanguage(languageID)
-      const { data: b } = await db.getLanguage(languageID)
-      expect(a).to.not.equal(b)
-    })
-
-    it(`200 OK`, async function() {
-      const db = new Database
-      const { data: language, status } = await db.getLanguage(languageID)
-      expect(status).to.equal(200)
-      expect(language.name.eng).to.equal(this.language.name.eng)
-    })
-
-    it(`404 Not Found`, async function() {
-      const db = new Database
-      const { data, status } = await db.getLanguage(`bad-id`)
-      expect(status).to.equal(404)
-      expect(data).to.be.undefined
-    })
-
-  })
-
   describe(`getLanguages`, function() {
-
-    it(`returns copies of the data`, async function() {
-      const db = new Database
-      const { data: [a] } = await db.getLanguages()
-      const { data: [b] } = await db.getLanguages()
-      expect(a).to.not.equal(b)
-    })
-
-    it(`returns all languages by default`, async function() {
-      const db = new Database
-      const { data, status } = await db.getLanguages()
-      expect(status).to.equal(200)
-      expect(data).to.have.lengthOf(this.languages.length)
-    })
 
     it(`option: project`, async function() {
 
