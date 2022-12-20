@@ -11,27 +11,30 @@
 
 /**
 * This is executed as stored procedure to count the number of docs in the collection.
-* To avoid script timeout on the server when there are lots of documents (100K+), the script executed in batches,
-* each batch counts docs to some number and returns continuation token.
+* To avoid script timeout on the server when there are lots of documents (100K+), the script executes in batches.
+* Each batch counts docs to some number and returns continuation token.
 * The script is run multiple times, starting from empty continuation,
 * then using continuation returned by last invocation script until continuation returned by the script is null/empty string.
 *
-* @param {String} filterQuery - Optional filter for query (e.g. "SELECT * FROM docs WHERE docs.category = 'food'").
+* @param {String} filterQuery       - Optional filter for query (e.g. "SELECT * FROM docs WHERE docs.category = 'food'").
 * @param {String} continuationToken - The continuation token passed by request, continue counting from this token.
 */
 function count(filterQuery, continuationToken) {
+
   var collection = getContext().getCollection();
-  var maxResult = 25; // MAX number of docs to process in one batch, when reached, return to client/request continuation.
+  var maxResult  = 100; // MAX number of docs to process in one batch, when reached, return to client/request continuation.
   // intentionally set low to demonstrate the concept. This can be much higher. Try experimenting.
   // We've had it in to the high thousands before seeing the stored proceudre timing out.
 
   // The number of documents counted.
   var result = 0;
+  var temp;
 
   tryQuery(continuationToken);
 
   // Helper method to check for max result and call query.
   function tryQuery(nextContinuationToken) {
+
     var responseOptions = { continuation: nextContinuationToken, pageSize: maxResult };
 
     // In case the server is running this script for long time/near timeout, it would return false,
@@ -41,6 +44,7 @@ function count(filterQuery, continuationToken) {
     if (result >= maxResult || !query(responseOptions)) {
       setBody(nextContinuationToken);
     }
+
   }
 
   function query(responseOptions) {
@@ -52,6 +56,7 @@ function count(filterQuery, continuationToken) {
 
   // This is callback is called from collection.queryDocuments/readDocuments.
   function onReadDocuments(err, docFeed, responseOptions) {
+
     if (err) {
       throw 'Error while reading document: ' + err;
     }
@@ -66,11 +71,13 @@ function count(filterQuery, continuationToken) {
     } else {
       setBody(null);
     }
+
   }
 
   // Set response body: use an object the client is expecting (2 properties: result and continuationToken).
   function setBody(continuationToken) {
-    var body = { count: result, continuationToken: continuationToken };
+    var body = { count: result, continuationToken };
     getContext().getResponse().setBody(body);
   }
+
 }

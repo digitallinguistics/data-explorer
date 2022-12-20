@@ -29,6 +29,33 @@ export default class Database {
     this.container = this.database.container(this.containerName)
   }
 
+  async countLanguages(options = {}) {
+
+    const { project } = options
+
+    let query = `SELECT * FROM ${ this.containerName } WHERE ${ this.containerName }.type = 'Language'`
+
+    if (project) query += ` AND ARRAY_CONTAINS(${ this.containerName }.projects, '${ project }')`
+
+    let count = 0
+
+    const getCount = async continuationToken => {
+
+      const args         = [query, continuationToken]
+      const { resource } = await this.container.scripts.storedProcedure(`count`).execute(undefined, args) // The first argument to `.execute()` is the partition key.
+
+      count += resource.count
+
+      if (resource.continuationToken) await getCount(resource.continuationToken)
+
+    }
+
+    await getCount()
+
+    return { count, status: 200 }
+
+  }
+
   /**
    * Get a language from the database.
    * @param {String} id The ID of the language to retrieve.
@@ -50,8 +77,9 @@ export default class Database {
    */
   async getLanguages(options = {}) {
 
-    const { project }   = options
-    const query         = `SELECT * FROM ${ this.containerName } t WHERE t.type = 'Language'`
+    const { project } = options
+
+    const query         = `SELECT * FROM ${ this.containerName } WHERE ${ this.containerName }.type = 'Language'`
     let   { resources } = await this.container.items.query(query).fetchAll()
 
     if (project) resources = resources.filter(language => language.projects.includes(project))

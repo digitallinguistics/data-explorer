@@ -1,5 +1,6 @@
 import '../services/env.js'
 
+import chunk             from '../utilities/chunk.js'
 import db                from '../services/database.js'
 import { expect }        from 'chai'
 import { fileURLToPath } from 'url'
@@ -32,6 +33,8 @@ describe(`Database`, function() {
 
   before(async function() {
 
+    // Retrieve data fixtures
+
     const languagePath = joinPath(__dirname, `../data/language.yml`)
     const languageYAML = await readFile(languagePath, `utf8`)
 
@@ -47,16 +50,35 @@ describe(`Database`, function() {
 
     this.project = yamlParser.load(projectYAML)
 
+    // Initialize Cosmos DB
+
     const { database }  = await client.databases.createIfNotExists({ id: dbName })
     const { container } = await database.containers.createIfNotExists({ id: containerName })
 
     this.database  = database
     this.container = container
 
+    // Register stored procedures
+
+    const scriptPath = joinPath(__dirname, `./sprocs/count.js`)
+    const script     = await readFile(scriptPath, `utf8`)
+
+    try {
+      await container.scripts.storedProcedures.create({
+        body: script,
+        id:   `count`,
+      })
+    } catch (error) {
+      // The sproc will already exist if the database hasn't been torn down.
+      // Ignore the 409 error and continue if this is the case, and throw otherwise.
+      if (error.code !== 409) throw error
+    }
+
+    // Create helper functions for seeding the database.
     // NOTE: Cosmos DB Create methods modify the original object by setting an `id` property on it.
 
     this.addOne = async function addOne(data = {}) {
-      const { resource } = await this.container.items.upsert(Object.assign({}, data))
+      const { resource } = await container.items.upsert(Object.assign({}, data))
       return resource
     }
 
@@ -76,7 +98,7 @@ describe(`Database`, function() {
 
       }
 
-      return this.container.items.bulk(operations)
+      return container.items.bulk(operations)
 
     }
 
@@ -88,18 +110,115 @@ describe(`Database`, function() {
 
     const { resources } = await this.container.items.readAll().fetchAll()
 
-    const operations = resources.map(item => ({
-      id:            item.id,
-      operationType: `Delete`,
-    }))
+    const batches = chunk(resources, 100)
 
-    await this.container.items.bulk(operations)
+    for (const batch of batches) {
+
+      const operations = batch.map(item => ({
+        id:            item.id,
+        operationType: `Delete`,
+      }))
+
+      await this.container.items.bulk(operations)
+
+    }
 
   })
 
   after(async function() {
     if (teardown) await client.database(dbName).delete()
   })
+
+  describe(`sproc: count`, function() {
+
+    it(`counts all documents`, async function() {
+
+      const count = 10
+
+      await this.addMany(count)
+
+      const { resource } = await this.container.scripts.storedProcedure(`count`).execute()
+
+      expect(resource.count).to.equal(count)
+
+    })
+
+    it(`filters documents`, async function() {
+
+      const count = 5
+
+      await this.addMany(count, this.language)
+      await this.addMany(count, this.lexeme)
+
+      const query = `SELECT * FROM ${ db.containerName } t WHERE t.type = 'Language'`
+
+      const args         = [query]
+      const { resource } = await this.container.scripts.storedProcedure(`count`).execute(undefined, args)
+
+      expect(resource.count).to.equal(count)
+
+    })
+
+    it(`uses a continuation token`, async function() {
+
+      const count = 100
+
+      await this.addMany(count)
+      await this.addMany(count)
+      await this.addMany(count)
+
+      let total = 0
+
+      const getCount = async continuationToken => {
+
+        const args         = [undefined, continuationToken]
+        const { resource } = await this.container.scripts.storedProcedure(`count`).execute(undefined, args)
+
+        total += resource.count
+
+        if (resource.continuationToken) await getCount(resource.continuationToken)
+
+      }
+
+      await getCount()
+
+      expect(total).to.equal(300)
+
+    })
+
+  })
+
+  describe(`countLanguages`, function() {
+
+    it(`200 OK`, async function() {
+
+      const seedCount = 3
+
+      await this.addMany(seedCount, new Language)
+
+      const { count, status } = await db.countLanguages()
+
+      expect(status).to.equal(200)
+      expect(count).to.equal(seedCount)
+
+    })
+
+    it(`option: project`, async function() {
+
+      const seedCount = 3
+
+      await this.addMany(seedCount, this.language)
+      await this.addMany(seedCount, new Language)
+
+      const { count, status } = await db.countLanguages({ project: this.project.id })
+
+      expect(status).to.equal(200)
+      expect(count).to.equal(seedCount)
+
+    })
+
+  })
+
 
   describe(`getLanguage`, function() {
 
@@ -179,6 +298,18 @@ describe(`Database`, function() {
       expect(data).to.be.undefined
 
     })
+
+  })
+
+  describe(`getLexemes`, function() {
+
+    it(`200 OK`)
+
+    it(`option: language`)
+
+    it(`option: project`)
+
+    it(`option: summary`)
 
   })
 

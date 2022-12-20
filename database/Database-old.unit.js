@@ -30,14 +30,6 @@ describe(`Database`, function() {
 
   describe(`getLexemes`, function() {
 
-    it(`returns copies of the data`, async function() {
-      const db = new Database
-      const { data: [a] } = await db.getLexemes()
-      const { data: [b] } = await db.getLexemes()
-      expect(a).to.not.equal(b)
-      expect(a.senses).to.not.equal(b.senses)
-    })
-
     it(`returns all lexemes by default`, async function() {
       const db = new Database
       const { data, status } = await db.getLexemes()
