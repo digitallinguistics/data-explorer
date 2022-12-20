@@ -487,4 +487,12 @@ describe(`Database`, function() {
 
   })
 
+  describe(`getReferences`, function() {
+
+    it(`200 OK`)
+
+    it(`no results`)
+
+  })
+
 })
