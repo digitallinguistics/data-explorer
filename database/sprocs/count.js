@@ -3,6 +3,8 @@
  * https://github.com/Azure/azure-cosmosdb-js-server/blob/master/samples/stored-procedures/Count.js
  *
  * Fun story, you actually wrote the original version of this example way back in 2014/2015.
+ *
+ * NOTE: At least the last time you used the server-side JS API, not all modern JS features were supported (hence disabling ESLint for now.)
  */
 
 /* eslint-disable */
