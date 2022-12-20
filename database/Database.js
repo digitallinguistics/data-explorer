@@ -31,17 +31,19 @@ export default class Database {
 
   /**
    * Count the number of items of the specified type. Use the `options` parameter to provide various filters.
-   * @param {String} type              The type of item to count.
-   * @param {Object} [options={}]      An options hash.
-   * @param {String} [options.project] The ID of the project to filter for.
+   * @param {String} type               The type of item to count.
+   * @param {Object} [options={}]       An options hash.
+   * @param {String} [options.language] The ID of the language to filter for.
+   * @param {String} [options.project]  The ID of the project to filter for.
    * @returns Promise<Object> Returns an object with `count` and `status` properties.
    */
   async count(type, options = {}) {
 
-    const { project } = options
+    const { language, project } = options
 
     let query = `SELECT * FROM ${ this.containerName } WHERE ${ this.containerName }.type = '${ type }'`
 
+    if (language) query += ` AND ${ this.containerName }.language = '${ language }'`
     if (project) query += ` AND ARRAY_CONTAINS(${ this.containerName }.projects, '${ project }')`
 
     let count = 0

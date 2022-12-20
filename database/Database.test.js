@@ -206,6 +206,20 @@ describe(`Database`, function() {
 
     })
 
+    it(`option: language`, async function() {
+
+      const seedCount = 3
+
+      await this.addMany(seedCount, this.lexeme)
+      await this.addMany(seedCount, new Lexeme)
+
+      const { count, status } = await db.count(`Lexeme`, { language: this.language.id })
+
+      expect(status).to.equal(200)
+      expect(count).to.equal(seedCount)
+
+    })
+
     it(`option: project`, async function() {
 
       const seedCount = 3
@@ -214,6 +228,23 @@ describe(`Database`, function() {
       await this.addMany(seedCount, new Language)
 
       const { count, status } = await db.count(`Language`, { project: this.project.id })
+
+      expect(status).to.equal(200)
+      expect(count).to.equal(seedCount)
+
+    })
+
+    it(`options: language + project`, async function() {
+
+      const seedCount = 3
+
+      await this.addMany(seedCount, this.lexeme)
+      await this.addMany(seedCount, new Lexeme)
+
+      const { count, status } = await db.count(`Lexeme`, {
+        language: this.language.id,
+        project:  this.project.id,
+      })
 
       expect(status).to.equal(200)
       expect(count).to.equal(seedCount)
