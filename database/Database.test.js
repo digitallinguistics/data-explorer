@@ -4,7 +4,6 @@ import chunk             from '../utilities/chunk.js'
 import db                from '../services/database.js'
 import { expect }        from 'chai'
 import { fileURLToPath } from 'url'
-import Language          from '../models/Language.js'
 import { readFile }      from 'fs/promises'
 import yamlParser        from 'js-yaml'
 
@@ -12,6 +11,10 @@ import {
   dirname as getDirname,
   join as joinPath,
 } from 'path'
+
+import Language from '../models/Language.js'
+import Lexeme   from '../models/Lexeme.js'
+import Project  from '../models/Project.js'
 
 const __filename = fileURLToPath(import.meta.url)
 const __dirname  = getDirname(__filename)
@@ -147,8 +150,8 @@ describe(`Database`, function() {
 
       const count = 5
 
-      await this.addMany(count, this.language)
-      await this.addMany(count, this.lexeme)
+      await this.addMany(count, new Language)
+      await this.addMany(count, new Lexeme)
 
       const query = `SELECT * FROM ${ db.containerName } t WHERE t.type = 'Language'`
 
@@ -188,7 +191,7 @@ describe(`Database`, function() {
 
   })
 
-  describe(`countLanguages`, function() {
+  describe(`count`, function() {
 
     it(`200 OK`, async function() {
 
@@ -196,7 +199,7 @@ describe(`Database`, function() {
 
       await this.addMany(seedCount, new Language)
 
-      const { count, status } = await db.countLanguages()
+      const { count, status } = await db.count(`Language`)
 
       expect(status).to.equal(200)
       expect(count).to.equal(seedCount)
@@ -210,7 +213,7 @@ describe(`Database`, function() {
       await this.addMany(seedCount, this.language)
       await this.addMany(seedCount, new Language)
 
-      const { count, status } = await db.countLanguages({ project: this.project.id })
+      const { count, status } = await db.count(`Language`, { project: this.project.id })
 
       expect(status).to.equal(200)
       expect(count).to.equal(seedCount)
@@ -218,7 +221,6 @@ describe(`Database`, function() {
     })
 
   })
-
 
   describe(`getLanguage`, function() {
 
@@ -250,7 +252,7 @@ describe(`Database`, function() {
 
       const count = 3
 
-      await this.addMany(count, this.language)
+      await this.addMany(count, new Language)
 
       const { data, status } = await db.getLanguages()
 
@@ -265,7 +267,6 @@ describe(`Database`, function() {
 
       await this.addMany(count, this.language) // add languages with projects
       await this.addOne(new Language)          // add a language without a project
-      await this.addOne(this.project)          // add the project
 
       const { data, status } = await db.getLanguages({ project: this.project.id })
 
@@ -308,8 +309,6 @@ describe(`Database`, function() {
     it(`option: language`)
 
     it(`option: project`)
-
-    it(`option: summary`)
 
   })
 

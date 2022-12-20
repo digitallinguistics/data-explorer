@@ -2,7 +2,6 @@ import Cite       from 'citation-js'
 import Database   from './Database.js'
 import { expect } from 'chai'
 import fs         from 'fs-extra'
-import yamlParser from 'js-yaml'
 
 const { readFile } = fs
 
@@ -10,7 +9,6 @@ describe(`Database`, function() {
 
   const badUser     = `bademail@digitallinguistics.io`
   const languageID  = `850f3bd9-2a57-4289-bc57-05640b5d8d7d`  // Plains Cree
-  const lexemeID    = `79eb0aaf-944c-40b4-93f3-e1785ec0adde`  // cīkahikan (Plains Cree)
   const projectID   = `c554474c-7f39-4ede-941b-c40b8f58b059`  // Nisinoon
   const referenceID = `Hieber2019b`                           // Semantic alignment in Chitimacha
 
@@ -29,13 +27,6 @@ describe(`Database`, function() {
   })
 
   describe(`getLexemes`, function() {
-
-    it(`returns all lexemes by default`, async function() {
-      const db = new Database
-      const { data, status } = await db.getLexemes()
-      expect(status).to.equal(200)
-      expect(data).to.have.lengthOf(this.lexemes.length)
-    })
 
     it(`option: language`, async function() {
       const db               = new Database

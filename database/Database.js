@@ -29,11 +29,18 @@ export default class Database {
     this.container = this.database.container(this.containerName)
   }
 
-  async countLanguages(options = {}) {
+  /**
+   * Count the number of items of the specified type. Use the `options` parameter to provide various filters.
+   * @param {String} type              The type of item to count.
+   * @param {Object} [options={}]      An options hash.
+   * @param {String} [options.project] The ID of the project to filter for.
+   * @returns Promise<Object> Returns an object with `count` and `status` properties.
+   */
+  async count(type, options = {}) {
 
     const { project } = options
 
-    let query = `SELECT * FROM ${ this.containerName } WHERE ${ this.containerName }.type = 'Language'`
+    let query = `SELECT * FROM ${ this.containerName } WHERE ${ this.containerName }.type = '${ type }'`
 
     if (project) query += ` AND ARRAY_CONTAINS(${ this.containerName }.projects, '${ project }')`
 
@@ -41,7 +48,7 @@ export default class Database {
 
     const getCount = async continuationToken => {
 
-      const args         = [query, continuationToken]
+      const args = [query, continuationToken]
       const { resource } = await this.container.scripts.storedProcedure(`count`).execute(undefined, args) // The first argument to `.execute()` is the partition key.
 
       count += resource.count
