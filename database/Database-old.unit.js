@@ -7,9 +7,7 @@ const { readFile } = fs
 
 describe(`Database`, function() {
 
-  const badUser     = `bademail@digitallinguistics.io`
-  const projectID   = `c554474c-7f39-4ede-941b-c40b8f58b059`  // Nisinoon
-  const referenceID = `Hieber2019b`                           // Semantic alignment in Chitimacha
+  const referenceID = `Hieber2019b` // Semantic alignment in Chitimacha
 
   before(async function() {
 
@@ -25,33 +23,7 @@ describe(`Database`, function() {
 
   })
 
-  describe(`getProjects`, function() {
-
-    it(`returns all projects by default`, async function() {
-      const db = new Database
-      const { data, status } = await db.getProjects()
-      expect(status).to.equal(200)
-      expect(data).to.have.length(4)
-    })
-
-    it(`returns an empty array if there are no projects`, async function() {
-      const db = new Database
-      db.projects = []
-      const { data, status } = await db.getProjects(badUser)
-      expect(status).to.equal(200)
-      expect(data).to.be.empty
-    })
-
-  })
-
   describe(`getReference`, function() {
-
-    it(`returns a copy of the data`, async function() {
-      const db = new Database
-      const { data: a } = await db.getReference(referenceID)
-      const { data: b } = await db.getReference(referenceID)
-      expect(a).to.not.equal(b)
-    })
 
     it(`includes the bibliography entry`, async function() {
       const db = new Database
