@@ -238,8 +238,20 @@ describe(`Database`, function() {
 
       const seedCount = 3
 
+      // add lexemes with language + project
       await this.addMany(seedCount, this.lexeme)
-      await this.addMany(seedCount, new Lexeme)
+
+      // add lexemes with language but diferent project
+      await this.addMany(seedCount, new Lexeme({
+        language: this.language.id,
+        projects: [`abc123`],
+      }))
+
+      // add lexemes with project but different language
+      await this.addMany(seedCount, new Lexeme({
+        language: `abc123`,
+        projects: [this.project.id],
+      }))
 
       const { count, status } = await db.count(`Lexeme`, {
         language: this.language.id,
@@ -253,13 +265,12 @@ describe(`Database`, function() {
 
   })
 
-  describe(`getLanguage`, function() {
+  describe(`get`, function() {
 
     it(`200 OK`, async function() {
 
-      const data = await this.addOne(this.language)
-
-      const { data: language, status } = await db.getLanguage(data.id)
+      const data                       = await this.addOne(this.language)
+      const { data: language, status } = await db.get(data.id)
 
       expect(status).to.equal(200)
       expect(language.name.eng).to.equal(data.name.eng)
@@ -268,7 +279,7 @@ describe(`Database`, function() {
 
     it(`404 Not Found`, async function() {
 
-      const { data, status } = await db.getLanguage(`bad-id`)
+      const { data, status } = await db.get(`bad-id`)
 
       expect(status).to.equal(404)
       expect(data).to.be.undefined
@@ -284,6 +295,7 @@ describe(`Database`, function() {
       const count = 3
 
       await this.addMany(count, new Language)
+      await this.addMany(count, new Lexeme)
 
       const { data, status } = await db.getLanguages()
 
@@ -297,7 +309,7 @@ describe(`Database`, function() {
       const count = 3
 
       await this.addMany(count, this.language) // add languages with projects
-      await this.addOne(new Language)          // add a language without a project
+      await this.addMany(count, new Language)  // add languages without a project
 
       const { data, status } = await db.getLanguages({ project: this.project.id })
 
@@ -309,37 +321,169 @@ describe(`Database`, function() {
 
   })
 
-  describe(`getLexeme`, function() {
+  describe(`getLexemes`, function() {
 
     it(`200 OK`, async function() {
 
-      await this.addOne(this.lexeme)
+      const count = 3
 
-      const { data, status } = await db.getLexeme(this.lexeme.id)
+      await this.addMany(count, new Lexeme)
+      await this.addMany(count, new Language)
+
+      const { data, status } = await db.getLexemes()
 
       expect(status).to.equal(200)
-      expect(data.lemma.transcription.Modern).to.equal(this.lexeme.lemma.transcription.Modern)
+      expect(data).to.have.length(count)
 
     })
 
-    it(`404 Not Found`, async function() {
+    it(`option: language`, async function() {
 
-      const { data, status } = await db.getLexeme(`bad-id`)
+      const count = 3
 
-      expect(status).to.equal(404)
-      expect(data).to.be.undefined
+      await this.addMany(count, this.lexeme)
+      await this.addMany(count, new Lexeme)
+
+      const { data, status } = await db.getLexemes({ language: this.language.id })
+
+      expect(status).to.equal(200)
+      expect(data).to.have.length(count)
+      expect(data.every(lexeme => lexeme.language === this.language.id)).to.be.true
+
+    })
+
+    it(`option: project`, async function() {
+
+      const count = 3
+
+      await this.addMany(count, this.lexeme) // add lexemes with projects
+      await this.addMany(count, new Lexeme)  // add lexemes without a project
+
+      const { data, status } = await db.getLexemes({ project: this.project.id })
+
+      expect(status).to.equal(200)
+      expect(data).to.have.length(count)
+      expect(data.every(lexeme => lexeme.projects.includes(this.project.id))).to.be.true
+
+    })
+
+    it(`option: language + project`, async function() {
+
+      const seedCount = 3
+
+      // add lexemes with language and project
+      await this.addMany(seedCount, this.lexeme)
+
+      // add lexemes with language but different project
+      await this.addMany(seedCount, new Lexeme({
+        language: this.language.id,
+        projects: [`abc123`],
+      }))
+
+      // add lexemes with project but different language
+      await this.addMany(seedCount, new Lexeme({
+        language: `abc123`,
+        projects: [this.project.id],
+      }))
+
+      const { data, status } = await db.getLexemes({
+        language: this.language.id,
+        project:  this.project.id,
+      })
+
+      expect(status).to.equal(200)
+      expect(data).to.have.length(3)
+
+    })
+
+    // This should return an empty array, not 404.
+    // It's entirely possible to create a language but not have added lexemes for it yet.
+    it(`no results`, async function() {
+
+      const { data, status } = await db.getLexemes({ language: `bad-id` })
+
+      expect(status).to.equal(200)
+      expect(data).to.have.length(0)
 
     })
 
   })
 
-  describe(`getLexemes`, function() {
+  describe(`getMany`, function() {
 
-    it(`200 OK`)
+    it(`200 OK`, async function() {
 
-    it(`option: language`)
+      const count    = 3
+      const seedData = await this.addMany(count)
+      const response = await db.getMany(seedData.map(result => result.resourceBody.id))
 
-    it(`option: project`)
+      expect(response).to.have.length(3)
+
+      for (const result of response) {
+
+        const seedItem = seedData.find(item => item.resourceBody.id === result.data.id)
+
+        expect(result.status).to.equal(200)
+        expect(seedItem).to.exist
+
+      }
+
+    })
+
+    it(`missing results`, async function() {
+
+      const count    = 3
+      const seedData = await this.addMany(count)
+      const ids      = seedData.map(result => result.resourceBody.id)
+      const badID    = `abc123`
+
+      ids.unshift(badID) // Use unshift here to test that Cosmos DB continues to return results after a 404.
+
+      const results = await db.getMany(ids)
+
+      expect(results).to.have.length(ids.length)
+
+      const notFound = results.filter(result => result.status === 404)
+      const found    = results.filter(result => result.status === 200)
+
+      expect(notFound).to.have.length(1)
+      // expect(notFound.id).to.equal(badID) // It's not currently possible to match individual input operations with specific results in Cosmos DB.
+      expect(notFound.data).to.be.undefined
+      expect(found).to.have.length(3)
+
+    })
+
+  })
+
+  describe(`getProjects`, function() {
+
+    it(`200 OK`, async function() {
+
+      const count = 3
+
+      await this.addMany(count, this.project)
+      await this.addMany(count, new Language)
+
+      const { data, status } = await db.getProjects()
+
+      expect(status).to.equal(200)
+      expect(data).to.have.length(count)
+
+    })
+
+    // Do not test for `language` or `lexeme` options.
+    // Projects don't contain info about their languages or lexemes.
+    // The client should first request the lexeme/language,
+    // then use `getMany()` to retrieve the associated projects by their IDs.
+
+    it(`no results`, async function() {
+
+      const { data, status } = await db.getProjects()
+
+      expect(status).to.equal(200)
+      expect(data).to.have.length(0)
+
+    })
 
   })
 

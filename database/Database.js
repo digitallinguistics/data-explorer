@@ -29,6 +29,9 @@ export default class Database {
     this.container = this.database.container(this.containerName)
   }
 
+
+  // GENERIC METHODS
+
   /**
    * Count the number of items of the specified type. Use the `options` parameter to provide various filters.
    * @param {String} type               The type of item to count.
@@ -66,11 +69,11 @@ export default class Database {
   }
 
   /**
-   * Get a language from the database.
-   * @param {String} id The ID of the language to retrieve.
-   * @returns Promise<Language>
+   * Get a single item from the database.
+   * @param {String} id The ID of the item to retrieve.
+   * @returns Promise<Object>
    */
-  async getLanguage(id) {
+  async get(id) {
 
     const { resource, statusCode } = await this.container.item(id).read()
 
@@ -79,7 +82,31 @@ export default class Database {
   }
 
   /**
-   * Get all the languages from the database.
+   * Get multiple items from the database by ID.
+   * @param {Array<String>} ids An array of IDs to retrieve from the database.
+   * @returns Promise<Array<Object>> Resolves to an array of response objects, each containing `data` and `status` properties.
+   */
+  async getMany(ids = []) {
+
+    const operations = ids.map(id => ({
+      id,
+      operationType: `Read`,
+    }))
+
+    const results = await this.container.items.bulk(operations, { continueOnError: true })
+
+    return results.map(({ resourceBody, statusCode }) => ({
+      data:   resourceBody,
+      status: statusCode,
+    }))
+
+  }
+
+
+  // TYPE-SPECIFIC METHODS
+
+  /**
+   * Get multiple languages from the database.
    * @param {Object} [options={}]      An options hash.
    * @param {String} [options.project] The ID of a project to return languages for.
    * @returns Promise<Array<Language>>
@@ -88,25 +115,47 @@ export default class Database {
 
     const { project } = options
 
-    const query         = `SELECT * FROM ${ this.containerName } WHERE ${ this.containerName }.type = 'Language'`
-    let   { resources } = await this.container.items.query(query).fetchAll()
+    let query = `SELECT * FROM ${ this.containerName } WHERE ${ this.containerName }.type = 'Language'`
 
-    if (project) resources = resources.filter(language => language.projects.includes(project))
+    if (project) query += ` AND ARRAY_CONTAINS(${ this.containerName }.projects, '${ project }')`
+
+    const { resources } = await this.container.items.query(query).fetchAll()
 
     return { data: resources, status: 200 }
 
   }
 
   /**
-   * Get a lexeme from the database.
-   * @param {String} id The ID of the Lexeme to retrieve.
-   * @returns Promise<Lexeme>
+ * Get multiple lexemes from the database.
+ * @param {Object} [options={}]      An options hash.
+ * @param {String} [options.project] The ID of a project to return lexemes for.
+ * @returns Promise<Array<Lexeme>>
+ */
+  async getLexemes(options = {}) {
+
+    const { language, project } = options
+
+    let query = `SELECT * FROM ${ this.containerName } WHERE ${ this.containerName }.type = 'Lexeme'`
+
+    if (language) query += ` AND ${ this.containerName }.language = '${ language }'`
+    if (project) query += ` AND ARRAY_CONTAINS(${ this.containerName }.projects, '${ project }')`
+
+    const { resources } = await this.container.items.query(query).fetchAll()
+
+    return { data: resources, status: 200 }
+
+  }
+
+  /**
+   * Get multiple projects from the database.
+   * @returns Promise<Array<Project>>
    */
-  async getLexeme(id) {
+  async getProjects() {
 
-    const { resource, statusCode } = await this.container.item(id).read()
+    const query         = `SELECT * FROM ${ this.containerName } WHERE ${ this.containerName }.type = 'Project'`
+    const { resources } = await this.container.items.query(query).fetchAll()
 
-    return { data: resource, status: statusCode }
+    return { data: resources, status: 200 }
 
   }
 

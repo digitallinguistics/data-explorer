@@ -8,7 +8,6 @@ const { readFile } = fs
 describe(`Database`, function() {
 
   const badUser     = `bademail@digitallinguistics.io`
-  const languageID  = `850f3bd9-2a57-4289-bc57-05640b5d8d7d`  // Plains Cree
   const projectID   = `c554474c-7f39-4ede-941b-c40b8f58b059`  // Nisinoon
   const referenceID = `Hieber2019b`                           // Semantic alignment in Chitimacha
 
@@ -26,82 +25,7 @@ describe(`Database`, function() {
 
   })
 
-  describe(`getLexemes`, function() {
-
-    it(`option: language`, async function() {
-      const db               = new Database
-      const languageLexemes  = this.lexemes.filter(lex => lex.language === languageID)
-      const { data, status } = await db.getLexemes({ language: languageID })
-      expect(status).to.equal(200)
-      expect(data).to.have.lengthOf(languageLexemes.length)
-      expect(data.every(lexeme => lexeme.language.id === languageID)).to.be.true
-    })
-
-    it(`option: project`, async function() {
-
-      const db               = new Database
-      const { data, status } = await db.getLexemes({ project: projectID })
-      const projectLexemes   = this.lexemes.filter(lexeme => lexeme.projects.includes(projectID))
-
-      expect(status).to.equal(200)
-      expect(data).to.have.lengthOf(projectLexemes.length)
-      expect(data.every(lexeme => lexeme.projects.includes(projectID))).to.be.true
-
-    })
-
-    it(`option: summary`, async function() {
-
-      const db               = new Database
-      const { data, status } = await db.getLexemes({ project: projectID, summary: true })
-      const projectLexemes   = this.lexemes.filter(lexeme => lexeme.projects.includes(projectID))
-
-      expect(status).to.equal(200)
-      expect(data.count).to.equal(projectLexemes.length)
-
-    })
-
-    it(`returns an empty array for nonexistent projects/languages`, async function() {
-      const db = new Database
-      const { data, status } = await db.getLexemes({ project: `bad-id` })
-      expect(status).to.equal(200)
-      expect(data).to.be.empty
-    })
-
-  })
-
-  describe(`getProject`, function() {
-
-    it(`returns a copy of the data`, async function() {
-      const db = new Database
-      const { data: a } = await db.getProject(projectID)
-      const { data: b } = await db.getProject(projectID)
-      expect(a).to.not.equal(b)
-    })
-
-    it(`200 OK`, async function() {
-      const db = new Database
-      const { data, status } = await db.getProject(projectID)
-      expect(status).to.equal(200)
-      expect(data.name).to.equal(this.project.name)
-    })
-
-    it(`404 Not Found`, async function() {
-      const db = new Database
-      const { data, status } = await db.getProject(`bad-id`)
-      expect(status).to.equal(404)
-      expect(data).to.be.undefined
-    })
-
-  })
-
   describe(`getProjects`, function() {
-
-    it(`returns copies of the data`, async function() {
-      const db = new Database
-      const { data: [a] } = await db.getProjects()
-      const { data: [b] } = await db.getProjects()
-      expect(a).to.not.equal(b)
-    })
 
     it(`returns all projects by default`, async function() {
       const db = new Database
