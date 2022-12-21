@@ -183,4 +183,23 @@ export default class Database {
 
   }
 
+  /**
+   * Get all the bibliographic references from the database.
+   * @returns Promise<Array<BibliographicReference>>
+   */
+  async getReferences() {
+
+    const query = `SELECT * FROM ${ this.containerName } WHERE ${ this.containerName }.type = 'BibliographicReference'`
+
+    const queryIterator = this.container.items.query(query).getAsyncIterator()
+    const data          = []
+
+    for await (const result of queryIterator) {
+      data.push(...result.resources)
+    }
+
+    return { data, status: 200 }
+
+  }
+
 }

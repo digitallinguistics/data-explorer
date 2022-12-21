@@ -1,6 +1,7 @@
 import '../services/env.js'
 
 import chunk             from '../utilities/chunk.js'
+import Cite              from 'citation-js'
 import db                from '../services/database.js'
 import { expect }        from 'chai'
 import { fileURLToPath } from 'url'
@@ -54,6 +55,18 @@ describe(`Database`, function() {
     const projectYAML = await readFile(projectPath, `utf8`)
 
     this.project = yamlParser.load(projectYAML)
+
+    const bibtex = await readFile(`data/references.bib`, `utf8`)
+
+    const { data: references } = new Cite(bibtex, {
+      forceType:     `@biblatex/text`,
+      generateGraph: false,
+    })
+
+    this.references = references.map(ref => ({
+      reference: ref,
+      type:      `BibliographicReference`,
+    }))
 
     // Initialize Cosmos DB
 
@@ -546,9 +559,52 @@ describe(`Database`, function() {
 
   describe(`getReferences`, function() {
 
-    it(`200 OK`)
+    it(`200 OK`, async function() {
 
-    it(`no results`)
+      const operations    = []
+      const operationType = `Upsert`
+
+      for (const reference of this.references) {
+
+        const resourceBody = Object.assign({}, reference)
+
+        operations.push({
+          operationType,
+          resourceBody,
+        })
+
+      }
+
+      await this.container.items.bulk(operations)
+
+      const { data, status } = await db.getReferences()
+
+      expect(status).to.equal(200)
+      expect(data).to.have.length(this.references.length)
+
+    })
+
+    it(`many results`, async function() {
+
+      const count = 200
+
+      await this.addMany(count, { type: `BibliographicReference` })
+
+      const { data, status } = await db.getReferences()
+
+      expect(status).to.equal(200)
+      expect(data).to.have.length(count)
+
+    })
+
+    it(`no results`, async function() {
+
+      const { data, status } = await db.getReferences()
+
+      expect(status).to.equal(200)
+      expect(data).to.have.length(0)
+
+    })
 
   })
 
