@@ -1,7 +1,8 @@
 import { CosmosClient } from '@azure/cosmos'
 
-const endpoint = process.env.COSMOS_ENDPOINT
-const key      = process.env.COSMOS_KEY
+const bulkLimit = 100
+const endpoint  = process.env.COSMOS_ENDPOINT
+const key       = process.env.COSMOS_KEY
 
 const client = new CosmosClient({ endpoint, key })
 
@@ -82,11 +83,18 @@ export default class Database {
   }
 
   /**
-   * Get multiple items from the database by ID.
+   * Get multiple items from the database by ID. Max 100 items per request.
    * @param {Array<String>} ids An array of IDs to retrieve from the database.
    * @returns Promise<Array<Object>> Resolves to an array of response objects, each containing `data` and `status` properties.
    */
   async getMany(ids = []) {
+
+    if (ids.length > bulkLimit) {
+      return {
+        message: `You can only retrieve ${ bulkLimit } items at a time.`,
+        status:  400,
+      }
+    }
 
     const operations = ids.map(id => ({
       id,
@@ -119,9 +127,14 @@ export default class Database {
 
     if (project) query += ` AND ARRAY_CONTAINS(${ this.containerName }.projects, '${ project }')`
 
-    const { resources } = await this.container.items.query(query).fetchAll()
+    const queryIterator = this.container.items.query(query).getAsyncIterator()
+    const data          = []
 
-    return { data: resources, status: 200 }
+    for await (const result of queryIterator) {
+      data.push(...result.resources)
+    }
+
+    return { data, status: 200 }
 
   }
 
@@ -140,9 +153,14 @@ export default class Database {
     if (language) query += ` AND ${ this.containerName }.language = '${ language }'`
     if (project) query += ` AND ARRAY_CONTAINS(${ this.containerName }.projects, '${ project }')`
 
-    const { resources } = await this.container.items.query(query).fetchAll()
+    const queryIterator = this.container.items.query(query).getAsyncIterator()
+    const data          = []
 
-    return { data: resources, status: 200 }
+    for await (const result of queryIterator) {
+      data.push(...result.resources)
+    }
+
+    return { data, status: 200 }
 
   }
 
@@ -152,10 +170,16 @@ export default class Database {
    */
   async getProjects() {
 
-    const query         = `SELECT * FROM ${ this.containerName } WHERE ${ this.containerName }.type = 'Project'`
-    const { resources } = await this.container.items.query(query).fetchAll()
+    const query = `SELECT * FROM ${ this.containerName } WHERE ${ this.containerName }.type = 'Project'`
 
-    return { data: resources, status: 200 }
+    const queryIterator = this.container.items.query(query).getAsyncIterator()
+    const data          = []
+
+    for await (const result of queryIterator) {
+      data.push(...result.resources)
+    }
+
+    return { data, status: 200 }
 
   }
 

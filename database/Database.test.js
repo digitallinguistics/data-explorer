@@ -21,6 +21,8 @@ const __dirname  = getDirname(__filename)
 
 const teardown = true
 
+const badID         = `abc123`
+const bulkLimit     = 100
 const { client }    = db
 const dbName        = `test`
 const containerName = `data`
@@ -85,7 +87,7 @@ describe(`Database`, function() {
       return resource
     }
 
-    this.addMany = function addMany(count, data = {}) {
+    this.addMany = async function addMany(count, data = {}) {
 
       const operations = []
 
@@ -101,7 +103,15 @@ describe(`Database`, function() {
 
       }
 
-      return container.items.bulk(operations)
+      const batches = chunk(operations, bulkLimit)
+      const results = []
+
+      for (const batch of batches) {
+        const response = await container.items.bulk(batch)
+        results.push(...response)
+      }
+
+      return results
 
     }
 
@@ -113,7 +123,7 @@ describe(`Database`, function() {
 
     const { resources } = await this.container.items.readAll().fetchAll()
 
-    const batches = chunk(resources, 100)
+    const batches = chunk(resources, bulkLimit)
 
     for (const batch of batches) {
 
@@ -164,10 +174,8 @@ describe(`Database`, function() {
 
     it(`uses a continuation token`, async function() {
 
-      const count = 100
+      const count = 300
 
-      await this.addMany(count)
-      await this.addMany(count)
       await this.addMany(count)
 
       let total = 0
@@ -185,7 +193,7 @@ describe(`Database`, function() {
 
       await getCount()
 
-      expect(total).to.equal(300)
+      expect(total).to.equal(count)
 
     })
 
@@ -279,10 +287,66 @@ describe(`Database`, function() {
 
     it(`404 Not Found`, async function() {
 
-      const { data, status } = await db.get(`bad-id`)
+      const { data, status } = await db.get(badID)
 
       expect(status).to.equal(404)
       expect(data).to.be.undefined
+
+    })
+
+  })
+
+  describe(`getMany`, function() {
+
+    it(`200 OK`, async function() {
+
+      const count    = 3
+      const seedData = await this.addMany(count)
+      const response = await db.getMany(seedData.map(result => result.resourceBody.id))
+
+      expect(response).to.have.length(3)
+
+      for (const result of response) {
+
+        const seedItem = seedData.find(item => item.resourceBody.id === result.data.id)
+
+        expect(result.status).to.equal(200)
+        expect(seedItem).to.exist
+
+      }
+
+    })
+
+    it(`400 Too Many IDs`, async function() {
+
+      const ids = new Array(101).fill(badID, 0, 101)
+      const { data, message, status } = await db.getMany(ids)
+
+      expect(status).to.equal(400)
+      expect(data).to.be.undefined
+      expect(message).to.be.a(`string`)
+
+    })
+
+    it(`missing results`, async function() {
+
+      const count    = 3
+      const seedData = await this.addMany(count)
+      const ids      = seedData.map(result => result.resourceBody.id)
+
+      ids.unshift(badID) // Use unshift here to test that Cosmos DB continues to return results after a 404.
+
+      const results = await db.getMany(ids)
+
+      expect(results).to.have.length(ids.length)
+
+      const notFound = results.filter(result => result.status === 404)
+      const found    = results.filter(result => result.status === 200)
+
+      expect(notFound).to.have.length(1)
+      // expect(notFound.id).to.equal(badID) // It's not currently possible to match individual input operations with specific results in Cosmos DB.
+      expect(notFound.data).to.be.undefined
+      expect(found).to.have.length(3)
 
     })
 
@@ -296,6 +360,19 @@ describe(`Database`, function() {
 
       await this.addMany(count, new Language)
       await this.addMany(count, new Lexeme)
+
+      const { data, status } = await db.getLanguages()
+
+      expect(status).to.equal(200)
+      expect(data).to.have.length(count)
+
+    })
+
+    it(`many results`, async function() {
+
+      const count = 200
+
+      await this.addMany(count, new Language)
 
       const { data, status } = await db.getLanguages()
 
@@ -329,6 +406,19 @@ describe(`Database`, function() {
 
       await this.addMany(count, new Lexeme)
       await this.addMany(count, new Language)
+
+      const { data, status } = await db.getLexemes()
+
+      expect(status).to.equal(200)
+      expect(data).to.have.length(count)
+
+    })
+
+    it(`many results`, async function() {
+
+      const count = 200
+
+      await this.addMany(count, new Lexeme)
 
       const { data, status } = await db.getLexemes()
 
@@ -400,56 +490,10 @@ describe(`Database`, function() {
     // It's entirely possible to create a language but not have added lexemes for it yet.
     it(`no results`, async function() {
 
-      const { data, status } = await db.getLexemes({ language: `bad-id` })
+      const { data, status } = await db.getLexemes({ language: badID })
 
       expect(status).to.equal(200)
       expect(data).to.have.length(0)
-
-    })
-
-  })
-
-  describe(`getMany`, function() {
-
-    it(`200 OK`, async function() {
-
-      const count    = 3
-      const seedData = await this.addMany(count)
-      const response = await db.getMany(seedData.map(result => result.resourceBody.id))
-
-      expect(response).to.have.length(3)
-
-      for (const result of response) {
-
-        const seedItem = seedData.find(item => item.resourceBody.id === result.data.id)
-
-        expect(result.status).to.equal(200)
-        expect(seedItem).to.exist
-
-      }
-
-    })
-
-    it(`missing results`, async function() {
-
-      const count    = 3
-      const seedData = await this.addMany(count)
-      const ids      = seedData.map(result => result.resourceBody.id)
-      const badID    = `abc123`
-
-      ids.unshift(badID) // Use unshift here to test that Cosmos DB continues to return results after a 404.
-
-      const results = await db.getMany(ids)
-
-      expect(results).to.have.length(ids.length)
-
-      const notFound = results.filter(result => result.status === 404)
-      const found    = results.filter(result => result.status === 200)
-
-      expect(notFound).to.have.length(1)
-      // expect(notFound.id).to.equal(badID) // It's not currently possible to match individual input operations with specific results in Cosmos DB.
-      expect(notFound.data).to.be.undefined
-      expect(found).to.have.length(3)
 
     })
 
@@ -463,6 +507,19 @@ describe(`Database`, function() {
 
       await this.addMany(count, this.project)
       await this.addMany(count, new Language)
+
+      const { data, status } = await db.getProjects()
+
+      expect(status).to.equal(200)
+      expect(data).to.have.length(count)
+
+    })
+
+    it(`many results`, async function() {
+
+      const count = 200
+
+      await this.addMany(count, new Project)
 
       const { data, status } = await db.getProjects()
 
