@@ -1,3 +1,4 @@
+import '../services/env.js'
 import { CosmosClient } from '@azure/cosmos'
 
 const bulkLimit = 100
@@ -25,7 +26,7 @@ export default class Database {
    * Create a new Database client.
    * @param {String} dbName The name to use for the database. Should generally be `digitallinguistics` for production and `test` otherwise.
    */
-  constructor(dbName = `test`) {
+  constructor(dbName = `digitallinguistics`) {
     this.database  = this.client.database(dbName)
     this.container = this.database.container(this.containerName)
   }

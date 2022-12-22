@@ -2,7 +2,7 @@ const msAuthCookie = Cypress.env(`msAuthCookie`)
 
 describe(`Projects`, function() {
 
-  it(`displays all public projects`, function() {
+  it.only(`displays all public projects`, function() {
     cy.visit(`/projects`)
     cy.title().should(`eq`, `Oxalis | Projects`)
     cy.get(`.page-title`).should(`have.text`, `Projects`)

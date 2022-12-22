@@ -1,11 +1,10 @@
-import '../services/env.js'
-
 import chunk             from '../utilities/chunk.js'
 import Cite              from 'citation-js'
 import db                from '../services/database.js'
 import { expect }        from 'chai'
 import { fileURLToPath } from 'url'
 import { readFile }      from 'fs/promises'
+import setupDatabase     from './setupDatabase.js'
 import yamlParser        from 'js-yaml'
 
 import {
@@ -24,7 +23,6 @@ const teardown = true
 
 const badID         = `abc123`
 const bulkLimit     = 100
-const { client }    = db
 const dbName        = `test`
 const containerName = `data`
 
@@ -68,35 +66,17 @@ describe(`Database`, function() {
       type:      `BibliographicReference`,
     }))
 
-    // Initialize Cosmos DB
+    // Setup test database
 
-    const { database }  = await client.databases.createIfNotExists({ id: dbName })
-    const { container } = await database.containers.createIfNotExists({ id: containerName })
-
-    this.database  = database
-    this.container = container
-
-    // Register stored procedures
-
-    const scriptPath = joinPath(__dirname, `./sprocs/count.js`)
-    const script     = await readFile(scriptPath, `utf8`)
-
-    try {
-      await container.scripts.storedProcedures.create({
-        body: script,
-        id:   `count`,
-      })
-    } catch (error) {
-      // The sproc will already exist if the database hasn't been torn down.
-      // Ignore the 409 error and continue if this is the case, and throw otherwise.
-      if (error.code !== 409) throw error
-    }
+    this.client    = await setupDatabase(`test`)
+    this.database  = this.client.database(dbName)
+    this.container = this.database.container(containerName)
 
     // Create helper functions for seeding the database.
     // NOTE: Cosmos DB Create methods modify the original object by setting an `id` property on it.
 
     this.addOne = async function addOne(data = {}) {
-      const { resource } = await container.items.upsert(Object.assign({}, data))
+      const { resource } = await this.container.items.upsert(Object.assign({}, data))
       return resource
     }
 
@@ -120,7 +100,7 @@ describe(`Database`, function() {
       const results = []
 
       for (const batch of batches) {
-        const response = await container.items.bulk(batch)
+        const response = await this.container.items.bulk(batch)
         results.push(...response)
       }
 
@@ -152,7 +132,7 @@ describe(`Database`, function() {
   })
 
   after(async function() {
-    if (teardown) await client.database(dbName).delete()
+    if (teardown) await this.client.database(dbName).delete()
   })
 
   describe(`sproc: count`, function() {
