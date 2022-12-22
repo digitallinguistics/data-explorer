@@ -1,6 +1,6 @@
 import chunk             from '../utilities/chunk.js'
 import Cite              from 'citation-js'
-import db                from '../services/database.js'
+import Database          from '../Database/Database.js'
 import { expect }        from 'chai'
 import { fileURLToPath } from 'url'
 import { readFile }      from 'fs/promises'
@@ -25,6 +25,8 @@ const badID         = `abc123`
 const bulkLimit     = 100
 const dbName        = `test`
 const containerName = `data`
+
+const db = new Database(dbName)
 
 // 3A Pattern:
 // 1. Arrange
