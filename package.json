@@ -1,6 +1,6 @@
 {
   "name": "data-explorer",
-  "version": "0.1.2",
+  "version": "0.5.1",
   "description": "The DLx portal for viewing, searching, and aggregating data.",
   "author": {
     "name": "Daniel W. Hieber",
