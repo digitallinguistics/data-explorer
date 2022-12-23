@@ -5,8 +5,8 @@ authors:
     given-names: Daniel W.
     orcid: https://orcid.org/0000-0002-1411-3773
 title: Oxalis
-version: 0.1.0
+version: 0.1.2
 doi: https://github.com/digitallinguistics/data-explorer
-date-released: '2022-03-20'
+date-released: '2022-12-23'
 url: https://github.com/digitallinguistics/data-explorer
 license: MIT
