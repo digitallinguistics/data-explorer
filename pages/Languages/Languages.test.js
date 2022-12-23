@@ -1,14 +1,23 @@
 import { hasAccess } from '../../utilities/permissions.js'
 import yamlParser    from 'js-yaml'
 
-const msAuthCookie = Cypress.env(`MS_AUTH_COOKIE`)
+const msAuthCookie = Cypress.env(`msAuthCookie`)
 
 describe(`Languages`, function() {
 
   before(function() {
+
+    cy.task(`setupDatabase`)
+    cy.task(`seedDatabase`)
+
     cy.readFile(`data/languages.yml`)
     .then(yaml => yamlParser.load(yaml))
     .as(`languages`)
+
+  })
+
+  after(function() {
+    cy.task(`deleteDatabase`)
   })
 
   describe(`/languages`, function() {

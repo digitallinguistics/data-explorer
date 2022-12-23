@@ -1,20 +1,22 @@
 import { CosmosClient } from '@azure/cosmos'
 
-const bulkLimit = 100
-const endpoint  = process.env.COSMOS_ENDPOINT
-const key       = process.env.COSMOS_KEY
-
-const client = new CosmosClient({ endpoint, key })
-
 /**
  * A class for managing a Cosmos DB database connection.
  */
 export default class Database {
 
   /**
-   * The Cosmos DB client from the Node SDK.
+   * Cosmos DB's limit on bulk operations.
    */
-  client = client
+  bulkLimit = 100
+
+  /**
+   * The Cosmos DB client from the Node SDK.
+   * NOTE: The endpoint/key options need to use `process.env` rather than the `config` object exported by `env.js`
+   * because `env.js` is imported (loading the variables into `process.env`) BEFORE the rest of its code is executed.
+   * So the environment variables are available in `process.env` before they're initialized in the object exported by `env.js`.
+   */
+  client = new CosmosClient({ endpoint: process.env.COSMOS_ENDPOINT, key: process.env.COSMOS_KEY })
 
   /**
    * The name of the Cosmos DB container.
@@ -89,9 +91,9 @@ export default class Database {
    */
   async getMany(ids = []) {
 
-    if (ids.length > bulkLimit) {
+    if (ids.length > this.bulkLimit) {
       return {
-        message: `You can only retrieve ${ bulkLimit } items at a time.`,
+        message: `You can only retrieve ${ this.bulkLimit } items at a time.`,
         status:  400,
       }
     }

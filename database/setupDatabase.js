@@ -1,9 +1,7 @@
 /**
  * Run this script to set up the DLx Cosmos database, either locally or in production.
  */
-
-import '../services/env.js'
-
+import '../env.js'
 import { CosmosClient }  from '@azure/cosmos'
 import { fileURLToPath } from 'url'
 import { readFile }      from 'fs/promises'
@@ -16,15 +14,12 @@ import {
 const __filename = fileURLToPath(import.meta.url)
 const __dirname  = getDirname(__filename)
 
-const containerName = `data`
-const endpoint      = process.env.COSMOS_ENDPOINT
-const key           = process.env.COSMOS_KEY
-
 export default async function setupDatabase(dbName = `digitallinguistics`) {
 
   console.info(`Setting up ${ dbName } database.`)
 
-  const client = new CosmosClient({ endpoint, key })
+  const containerName = `data`
+  const client        = new CosmosClient({ endpoint: process.env.COSMOS_ENDPOINT, key: process.env.COSMOS_KEY })
 
   const { database } = await client.databases.createIfNotExists({ id: dbName })
   const { container } = await database.containers.createIfNotExists({ id: containerName })

@@ -31,12 +31,12 @@ async function buildJSFiles(dir) {
 
     const scriptName = entry.basename.replace(`-client`, ``)
 
-    const config = Object.assign({}, baseConfig, {
+    const recurseConfig = Object.assign({}, baseConfig, {
       entryPoints: [entry.fullPath],
       outfile:     path.join(scriptsDir, scriptName),
     })
 
-    await build(config)
+    await build(recurseConfig)
 
   }
 }

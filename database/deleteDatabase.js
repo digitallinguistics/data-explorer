@@ -1,9 +1,5 @@
-import '../services/env.js'
+import '../env.js'
 import { CosmosClient } from '@azure/cosmos'
-
-const endpoint = process.env.COSMOS_ENDPOINT
-const key      = process.env.COSMOS_KEY
-const client   = new CosmosClient({ endpoint, key })
 
 export default async function deleteDatabase(dbName) {
 
@@ -12,6 +8,8 @@ export default async function deleteDatabase(dbName) {
   }
 
   console.info(`Deleting the ${ dbName } database.`)
+
+  const client   = new CosmosClient({ endpoint: process.env.COSMOS_ENDPOINT, key: process.env.COSMOS_KEY })
 
   await client.database(dbName).delete()
 

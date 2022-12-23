@@ -1,5 +1,3 @@
-import '../services/env.js'
-
 import chunk             from '../utilities/chunk.js'
 import Cite              from 'citation-js'
 import Database          from '../database/Database.js'

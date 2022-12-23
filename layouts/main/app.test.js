@@ -1,5 +1,13 @@
 describe(`app shell`, function() {
 
+  before(function() {
+    cy.task(`setupDatabase`)
+  })
+
+  after(function() {
+    cy.task(`deleteDatabase`)
+  })
+
   describe(`Main Nav`, function() {
 
     it(`Home`, function() {

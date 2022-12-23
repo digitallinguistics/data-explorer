@@ -1,11 +1,20 @@
 import yamlParser from 'js-yaml'
 
-const msAuthCookie = Cypress.env(`MS_AUTH_COOKIE`)
+const msAuthCookie = Cypress.env(`msAuthCookie`)
 
 describe(`Language Page`, function() {
 
   const publicLanguageID  = `850f3bd9-2a57-4289-bc57-05640b5d8d7d` // Plains Cree
   const privateLanguageID = `4580756f-ce39-4ea0-b96e-8f176371afcb` // Swahili
+
+  before(function() {
+    cy.task(`setupDatabase`)
+    cy.task(`seedDatabase`)
+  })
+
+  after(function() {
+    cy.task(`deleteDatabase`)
+  })
 
   beforeEach(function() {
     cy.readFile(`data/languages.yml`)

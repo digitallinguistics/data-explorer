@@ -1,18 +1,15 @@
-const msAuthCookie = process.env.MS_AUTH_COOKIE
-const msAuthHeader = process.env.MS_AUTH_HEADER
-const msAuthUser   = process.env.MS_AUTH_USER
-
 export default function auth(req, res, next) {
 
-  const authCookie = req.cookies[msAuthCookie]
+  const authCookie = req.cookies[process.env.MS_AUTH_COOKIE]
+
   res.locals.loggedIn = Boolean(authCookie)
 
   if (process.env.NODE_ENV !== `production` && res.locals.loggedIn) {
-    req.headers[msAuthHeader] = authCookie ?? msAuthUser
+    req.headers[process.env.MS_AUTH_HEADER] = authCookie ?? process.env.MS_AUTH_USER
   }
 
   if (res.locals.loggedIn) {
-    res.locals.user = req.headers[msAuthHeader]
+    res.locals.user = req.headers[process.env.MS_AUTH_HEADER]
   }
 
   next()

@@ -1,4 +1,4 @@
-const msAuthCookie = Cypress.env(`MS_AUTH_COOKIE`)
+const msAuthCookie = Cypress.env(`msAuthCookie`)
 
 describe(`Projects`, function() {
 

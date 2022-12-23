@@ -11,6 +11,9 @@ plugins:
   - chai-friendly
   - cypress
 
+globals:
+  process: true
+
 overrides:
   - files:
       - '**/*.component.*'
