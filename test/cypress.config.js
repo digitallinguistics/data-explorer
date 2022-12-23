@@ -1,16 +1,4 @@
-import { defineConfig }  from 'cypress'
-import dotenv            from 'dotenv'
-import { fileURLToPath } from 'url'
-import path              from 'path'
-import { readFile }      from 'fs/promises'
-
-// dotenv doesn't work with Cypress for unknown reasons.
-// Manually load environment variables instead.
-const __filename = fileURLToPath(import.meta.url)
-const __dirname  = path.dirname(__filename)
-const envPath    = path.join(__dirname, `../.env`)
-const envText    = await readFile(envPath, `utf8`)
-const env        = dotenv.parse(envText)
+import { defineConfig } from 'cypress'
 
 export default defineConfig({
   downloadsFolder: `test/downloads`,
@@ -23,7 +11,9 @@ export default defineConfig({
     ],
     supportFile: false,
   },
-  env,
+  env: {
+    MS_AUTH_COOKIE: `AppServiceAuthSession`,
+  },
   fixturesFolder:         `test/fixtures`,
   screenshotOnRunFailure: false,
   screenshotsFolder:      `test/screenshots`,
