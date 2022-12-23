@@ -2,7 +2,7 @@ import '../services/env.js'
 
 import chunk             from '../utilities/chunk.js'
 import Cite              from 'citation-js'
-import Database          from '../Database/Database.js'
+import Database          from '../database/Database.js'
 import { expect }        from 'chai'
 import { fileURLToPath } from 'url'
 import { readFile }      from 'fs/promises'
