@@ -7,7 +7,7 @@ export default function auth(req, res, next) {
   const authCookie = req.cookies[msAuthCookie]
   res.locals.loggedIn = Boolean(authCookie)
 
-  if (process.env.NODE_ENV === `localhost` && res.locals.loggedIn) {
+  if (process.env.NODE_ENV !== `production` && res.locals.loggedIn) {
     req.headers[msAuthHeader] = authCookie ?? msAuthUser
   }
 
