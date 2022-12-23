@@ -5,7 +5,7 @@ export default function addRoutes(app) {
 
   app.get(`/`, handlers.Home)
 
-  if (process.env.NODE_ENV === `localhost`) {
+  if (process.env.NODE_ENV !== `production`) {
     app.get(`/.auth/login/facebook`, auth.login)
     app.get(`/.auth/logout`, auth.logout)
     app.get(`/500-test`, handlers.ServerErrorTest)
