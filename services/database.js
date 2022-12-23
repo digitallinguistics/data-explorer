@@ -1,4 +1,4 @@
-import Database from '../Database/Database.js'
+import Database from '../database/Database.js'
 
 const db = new Database(`digitallinguistics`)
 
