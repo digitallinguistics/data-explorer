@@ -1,6 +1,6 @@
 import yamlParser from 'js-yaml'
 
-const msAuthCookie = Cypress.env(`msAuthCookie`)
+const msAuthCookie = Cypress.env(`MS_AUTH_COOKIE`)
 
 describe(`Language Page`, function() {
 
@@ -29,7 +29,7 @@ describe(`Language Page`, function() {
     cy.get(`.error-message`).should(`have.text`, `You must be logged in to view this language.`)
   })
 
-  it(`Unauthorized`, function() {
+  it.only(`Unauthorized`, function() {
     cy.visit(`/`)
     cy.setCookie(msAuthCookie, `bademail@digitallinguistics.io`)
     cy.visit(`/languages/${ privateLanguageID }`, { failOnStatusCode: false })

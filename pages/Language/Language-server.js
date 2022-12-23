@@ -5,7 +5,7 @@ import { hasAccess }         from '../../utilities/permissions.js'
 export default async function get(req, res) {
 
   const { languageID }     = req.params
-  const { data: language } = await db.getLanguage(languageID)
+  const { data: language } = await db.get(languageID)
 
   if (!language) {
     return res.error(`ItemNotFound`, {

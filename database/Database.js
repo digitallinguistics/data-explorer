@@ -1,4 +1,3 @@
-import '../services/env.js'
 import { CosmosClient } from '@azure/cosmos'
 
 const bulkLimit = 100
