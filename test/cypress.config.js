@@ -12,8 +12,6 @@ const envPath    = path.join(__dirname, `../.env`)
 const envText    = await readFile(envPath, `utf8`)
 const env        = dotenv.parse(envText)
 
-console.log(env)
-
 export default defineConfig({
   downloadsFolder: `test/downloads`,
   e2e:                    {

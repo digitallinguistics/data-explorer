@@ -1,6 +1,6 @@
 import yamlParser from 'js-yaml'
 
-const msAuthCookie = Cypress.env(`msAuthCookie`)
+const msAuthCookie = Cypress.env(`MS_AUTH_COOKIE`)
 
 describe(`Lexemes Page`, function() {
 

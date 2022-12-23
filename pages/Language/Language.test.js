@@ -29,7 +29,7 @@ describe(`Language Page`, function() {
     cy.get(`.error-message`).should(`have.text`, `You must be logged in to view this language.`)
   })
 
-  it.only(`Unauthorized`, function() {
+  it(`Unauthorized`, function() {
     cy.visit(`/`)
     cy.setCookie(msAuthCookie, `bademail@digitallinguistics.io`)
     cy.visit(`/languages/${ privateLanguageID }`, { failOnStatusCode: false })

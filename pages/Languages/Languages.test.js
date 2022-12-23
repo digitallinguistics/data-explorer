@@ -1,7 +1,7 @@
 import { hasAccess } from '../../utilities/permissions.js'
 import yamlParser    from 'js-yaml'
 
-const msAuthCookie = Cypress.env(`msAuthCookie`)
+const msAuthCookie = Cypress.env(`MS_AUTH_COOKIE`)
 
 describe(`Languages`, function() {
 
@@ -115,7 +115,7 @@ describe(`Languages`, function() {
     it(`displays an Unauthorized error for private projects`, function() {
       cy.visit(`/`)
       cy.setCookie(msAuthCookie, `bademail@digitallinguistics.io`)
-      cy.visit(`/projects/${ privateProjectID }`, { failOnStatusCode: false })
+      cy.visit(`/projects/${ privateProjectID }/languages`, { failOnStatusCode: false })
       cy.title().should(`eq`, `Oxalis | Unauthorized`)
       cy.get(`.page-title`).should(`have.text`, `403: Unauthorized`)
       cy.get(`.error-message`).should(`have.text`, `You do not have permission to view this project.`)

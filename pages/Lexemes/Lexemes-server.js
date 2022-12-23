@@ -12,7 +12,7 @@ export default async function get(req, res) {
   // because it occurs first in the URL.
   if (projectID) {
 
-    ({ data: project } = await db.getProject(projectID))
+    ({ data: project } = await db.get(projectID))
 
     if (!project) {
       return res.error(`ItemNotFound`, {
@@ -36,7 +36,7 @@ export default async function get(req, res) {
 
   if (languageID) {
 
-    ({ data: language } = await db.getLanguage(languageID))
+    ({ data: language } = await db.get(languageID))
 
     if (!language) {
       return res.error(`ItemNotFound`, {

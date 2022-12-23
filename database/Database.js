@@ -47,7 +47,7 @@ export default class Database {
 
     let query = `SELECT * FROM ${ this.containerName } WHERE ${ this.containerName }.type = '${ type }'`
 
-    if (language) query += ` AND ${ this.containerName }.language = '${ language }'`
+    if (language) query += ` AND ${ this.containerName }.language.id = '${ language }'`
     if (project) query += ` AND ARRAY_CONTAINS(${ this.containerName }.projects, '${ project }')`
 
     let count = 0
@@ -103,10 +103,7 @@ export default class Database {
 
     const results = await this.container.items.bulk(operations, { continueOnError: true })
 
-    return results.map(({ resourceBody, statusCode }) => ({
-      data:   resourceBody,
-      status: statusCode,
-    }))
+    return results.map(({ resourceBody }) => resourceBody)
 
   }
 
@@ -150,7 +147,7 @@ export default class Database {
 
     let query = `SELECT * FROM ${ this.containerName } WHERE ${ this.containerName }.type = 'Lexeme'`
 
-    if (language) query += ` AND ${ this.containerName }.language = '${ language }'`
+    if (language) query += ` AND ${ this.containerName }.language.id = '${ language }'`
     if (project) query += ` AND ARRAY_CONTAINS(${ this.containerName }.projects, '${ project }')`
 
     const queryIterator = this.container.items.query(query).getAsyncIterator()
