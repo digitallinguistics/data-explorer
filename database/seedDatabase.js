@@ -18,11 +18,12 @@ import {
 const __filename = fileURLToPath(import.meta.url)
 const __dirname  = getDirname(__filename)
 
+const dbName        = `test`
 const containerName = `data`
 const endpoint      = process.env.COSMOS_ENDPOINT
 const key           = process.env.COSMOS_KEY
 const client        = new CosmosClient({ endpoint, key })
-const container     = client.database(`digitallinguistics`).container(containerName)
+const container     = client.database(dbName).container(containerName)
 
 function addCitations(bibliography, referencesIndex) {
 
