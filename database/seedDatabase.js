@@ -18,12 +18,10 @@ import {
 const __filename = fileURLToPath(import.meta.url)
 const __dirname  = getDirname(__filename)
 
-const dbName        = `test`
 const containerName = `data`
 const endpoint      = process.env.COSMOS_ENDPOINT
 const key           = process.env.COSMOS_KEY
 const client        = new CosmosClient({ endpoint, key })
-const container     = client.database(dbName).container(containerName)
 
 function addCitations(bibliography, referencesIndex) {
 
@@ -151,7 +149,7 @@ async function loadData(type) {
   return convertYAML(yaml)
 }
 
-async function upsert(items) {
+async function upsert(items, container) {
 
   const operations = []
 
@@ -168,7 +166,11 @@ async function upsert(items) {
 
 }
 
-export default async function seedDatabase() {
+export default async function seedDatabase(dbName) {
+
+  console.info(`Seeding the ${ dbName } database.`)
+
+  const container = client.database(dbName).container(containerName)
 
   const languages  = await loadData(`languages`)
   const projects   = await loadData(`projects`)
@@ -176,10 +178,12 @@ export default async function seedDatabase() {
   const references = await loadReferences()
   const lexemes    = await loadLexemes(languages, references)
 
-  await upsert(languages)
-  await upsert(lexemes)
-  await upsert(projects)
-  await upsert(references)
-  await upsert(users)
+  await upsert(languages, container)
+  await upsert(lexemes, container)
+  await upsert(projects, container)
+  await upsert(references, container)
+  await upsert(users, container)
+
+  console.info(`Done seeding the ${ dbName } database.`)
 
 }

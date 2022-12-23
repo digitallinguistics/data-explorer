@@ -22,6 +22,8 @@ const key           = process.env.COSMOS_KEY
 
 export default async function setupDatabase(dbName = `digitallinguistics`) {
 
+  console.info(`Setting up ${ dbName } database.`)
+
   const client = new CosmosClient({ endpoint, key })
 
   const { database } = await client.databases.createIfNotExists({ id: dbName })
@@ -40,6 +42,8 @@ export default async function setupDatabase(dbName = `digitallinguistics`) {
     // Ignore the 409 error and continue if this is the case, and throw otherwise.
     if (error.code !== 409) throw error
   }
+
+  console.info(`${ dbName } database setup complete.`)
 
   return client
 

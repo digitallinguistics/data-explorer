@@ -17,6 +17,7 @@ overrides:
       - '**/*.e2e.*'
       - '**/*.test.*'
       - '**/*.unit.*'
+      - 'test/support.js'
     globals:
       expect: readonly
     rules:
