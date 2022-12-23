@@ -1,11 +1,11 @@
-import db                    from '../../config/database.js'
+import db                    from '../../services/database.js'
 import getDefaultOrthography from '../../utilities/getDefaultOrthography.js'
 import { hasAccess }         from '../../utilities/permissions.js'
 
 export default async function get(req, res) {
 
   const { languageID }     = req.params
-  const { data: language } = await db.getLanguage(languageID)
+  const { data: language } = await db.get(languageID)
 
   if (!language) {
     return res.error(`ItemNotFound`, {
@@ -25,16 +25,16 @@ export default async function get(req, res) {
     })
   }
 
-  const { data: projects } = await db.getProjects()
-  const languageProjects   = projects.filter(project => language.projects.includes(project.id) && hasAccess(res.locals.user, project))
+  const { count } = await db.count(`Lexeme`, { language: languageID })
+  let   projects  = await db.getMany(language.projects)
 
-  const { data: { count: numEntries } } = await db.getLexemes({ language: languageID, summary: true })
+  projects = projects.filter(project => hasAccess(res.locals.user, project))
 
   res.render(`Language/Language`, {
     language,
     Language:   true,
-    numEntries,
-    projects:   languageProjects,
+    numEntries: count,
+    projects,
     title:      getDefaultOrthography(language.name) ?? `Language`,
   })
 

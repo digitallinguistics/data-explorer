@@ -11,10 +11,8 @@ export default defineConfig({
     ],
     supportFile: false,
   },
-  env:             {
-    msAuthCookie: `AppServiceAuthSession`,
-    msAuthHeader: `X-MS-CLIENT-PRINCIPAL-NAME`,
-    testUser:     `owner@digitallinguistics.io`,
+  env: {
+    MS_AUTH_COOKIE: `AppServiceAuthSession`,
   },
   fixturesFolder:         `test/fixtures`,
   screenshotOnRunFailure: false,

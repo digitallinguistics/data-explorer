@@ -1,4 +1,4 @@
-import db from '../../config/database.js'
+import db from '../../services/database.js'
 
 import {
   hasAccess,
@@ -11,7 +11,7 @@ export default async function get(req, res) {
 
   if (req.params.projectID) {
 
-    var { data: project } = await db.getProject(req.params.projectID)
+    var { data: project } = await db.get(req.params.projectID)
 
     if (!project) {
       return res.error(`ItemNotFound`, {
@@ -22,6 +22,12 @@ export default async function get(req, res) {
     if (!project.permissions.public && !res.locals.user) {
       return res.error(`Unauthenticated`, {
         message: `You must be logged in to view this project.`,
+      })
+    }
+
+    if (!hasAccess(res.locals.user, project)) {
+      return res.error(`Unauthorized`, {
+        message: `You do not have permission to view this project.`,
       })
     }
 

@@ -1,5 +1,7 @@
 # Test Database
 
+This folder contains test data.
+
 ## Projects
 
 - Public Project [Nisinoon]

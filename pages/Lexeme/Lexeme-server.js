@@ -1,4 +1,4 @@
-import db                    from '../../config/database.js'
+import db                    from '../../services/database.js'
 import getDefaultOrthography from '../../utilities/getDefaultOrthography.js'
 import { hasAccess }         from '../../utilities/permissions.js'
 
@@ -6,7 +6,7 @@ export default async function get(req, res) {
 
   const title            = `Lexeme`
   const { lexemeID }     = req.params
-  const { data: lexeme } = await db.getLexeme(lexemeID)
+  const { data: lexeme } = await db.get(lexemeID)
 
   if (!lexeme) {
     return res.error(`ItemNotFound`, {
@@ -32,7 +32,7 @@ export default async function get(req, res) {
     })
   }
 
-  const { data: language } = await db.getLanguage(lexeme.language.id)
+  const { data: language } = await db.get(lexeme.language.id)
 
   res.render(`Lexeme/Lexeme`, {
     language,

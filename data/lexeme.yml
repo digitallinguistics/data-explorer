@@ -1,0 +1,11 @@
+id:       abc56564-5754-4698-845c-2ea32a760bbd
+language:
+  id: cc4978f6-13a9-4735-94c5-10e4e8030437 # Chitimacha
+type:     Lexeme
+lemma:
+  transcription:
+    Modern:  cuw-
+    Swadesh: čuw-
+    IPA:     t͡ʃuw-
+projects:
+  - 683a5d27-53bf-451b-80d1-f6e731674c9e # Chitimacha Dictionary Project

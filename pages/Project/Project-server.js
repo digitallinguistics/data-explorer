@@ -1,4 +1,4 @@
-import db from '../../config/database.js'
+import db from '../../services/database.js'
 
 import {
   hasAccess,
@@ -9,7 +9,7 @@ import {
 export default async function get(req, res) {
 
   const { projectID }     = req.params
-  const { data: project } = await db.getProject(projectID)
+  const { data: project } = await db.get(projectID)
 
   if (!project) {
     return res.error(`ItemNotFound`, {
@@ -40,8 +40,10 @@ export default async function get(req, res) {
     language.permissions.isOwner  = isOwner(res.locals.user, language)
     language.permissions.isEditor = isEditor(res.locals.user, language)
 
-    const lexemesRequestOptions = { language: language.id, project: project.id, summary: true }
-    const { data: { count } }   = await db.getLexemes(lexemesRequestOptions)
+    const { count } = await db.count(`Lexeme`, {
+      language: language.id,
+      project:  project.id,
+    })
 
     numLexemes += count
 

@@ -1,6 +1,5 @@
 import browserslist                  from 'browserslist'
 import { build }                     from 'esbuild'
-import { env }                       from '../config/app.js'
 import { esbuildPluginBrowserslist } from 'esbuild-plugin-browserslist'
 import { fileURLToPath }             from 'url'
 import path                          from 'path'
@@ -12,12 +11,14 @@ const mainDir    = path.join(__dirname, `../layouts/main`)
 const pagesDir   = path.join(__dirname, `../pages`)
 const scriptsDir = path.join(__dirname, `../public/scripts`)
 
+const isProduction = process.env.NODE_ENV === `production`
+
 const baseConfig = {
   bundle:    true,
   format:    `esm`,
-  minify:    env === `production`,
+  minify:    isProduction,
   plugins:   [esbuildPluginBrowserslist(browserslist())],
-  sourcemap: env === `production` ? true : `inline`,
+  sourcemap:  isProduction ? true : `inline`,
 }
 
 const recurseOptions = {

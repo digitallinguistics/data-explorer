@@ -1,5 +1,6 @@
-import { msAuthCookie } from '../../constants/index.js'
-import yamlParser       from 'js-yaml'
+import yamlParser from 'js-yaml'
+
+const msAuthCookie = Cypress.env(`MS_AUTH_COOKIE`)
 
 describe(`Lexeme page`, function() {
 

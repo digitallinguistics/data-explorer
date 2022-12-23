@@ -1,5 +1,5 @@
 import compare from '../../utilities/compare.js'
-import db      from '../../config/database.js'
+import db      from '../../services/database.js'
 
 import {
   hasAccess,
@@ -19,7 +19,7 @@ export default async function get(req, res) {
 
   if (languageID) {
 
-    var { data: language } = await db.getLanguage(languageID)
+    var { data: language } = await db.get(languageID)
 
     if (!language) {
       return res.error(`ItemNotFound`, {
