@@ -1,3 +1,5 @@
+import '../services/env.js'
+
 import chunk             from '../utilities/chunk.js'
 import Cite              from 'citation-js'
 import Database          from '../Database/Database.js'
@@ -302,12 +304,8 @@ describe(`Database`, function() {
       expect(response).to.have.length(3)
 
       for (const result of response) {
-
-        const seedItem = seedData.find(item => item.resourceBody.id === result.data.id)
-
-        expect(result.status).to.equal(200)
+        const seedItem = seedData.find(item => item.resourceBody.id === result.id)
         expect(seedItem).to.exist
-
       }
 
     })
@@ -333,15 +331,7 @@ describe(`Database`, function() {
 
       const results = await db.getMany(ids)
 
-      expect(results).to.have.length(ids.length)
-
-      const notFound = results.filter(result => result.status === 404)
-      const found    = results.filter(result => result.status === 200)
-
-      expect(notFound).to.have.length(1)
-      // expect(notFound.id).to.equal(badID) // It's not currently possible to match individual input operations with specific results in Cosmos DB.
-      expect(notFound.data).to.be.undefined
-      expect(found).to.have.length(3)
+      expect(results).to.have.length(count)
 
     })
 
@@ -433,7 +423,7 @@ describe(`Database`, function() {
 
       expect(status).to.equal(200)
       expect(data).to.have.length(count)
-      expect(data.every(lexeme => lexeme.language === this.language.id)).to.be.true
+      expect(data.every(lexeme => lexeme.language.id === this.language.id)).to.be.true
 
     })
 

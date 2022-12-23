@@ -83,9 +83,9 @@ export default class Database {
   }
 
   /**
-   * Get multiple items from the database by ID. Max 100 items per request.
+   * Get multiple items from the database by ID. Max 100 items per request. Items not found are simply omitted without warning.
    * @param {Array<String>} ids An array of IDs to retrieve from the database.
-   * @returns Promise<Array<Object>> Resolves to an array of response objects, each containing `data` and `status` properties.
+   * @returns Promise<Array<Object>> Resolves to an array of results.
    */
   async getMany(ids = []) {
 
@@ -103,7 +103,7 @@ export default class Database {
 
     const results = await this.container.items.bulk(operations, { continueOnError: true })
 
-    return results.map(({ resourceBody }) => resourceBody)
+    return results.map(({ resourceBody }) => resourceBody).filter(Boolean)
 
   }
 
