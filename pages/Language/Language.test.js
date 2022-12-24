@@ -2,15 +2,10 @@ import * as dotenv from 'dotenv'
 
 dotenv.config()
 
-import Database   from '../../database/Database.js'
+import Language   from '../../models/Language.js'
 import yamlParser from 'js-yaml'
 
-const dbName       = Cypress.env(`dbName`)
 const msAuthCookie = Cypress.env(`msAuthCookie`)
-const endpoint     = Cypress.env(`cosmosEndpoint`)
-const key          = Cypress.env(`cosmosKey`)
-
-const db = new Database({ dbName, endpoint, key })
 
 describe(`Language Page`, function() {
 
@@ -18,11 +13,18 @@ describe(`Language Page`, function() {
   const privateLanguageID = `4580756f-ce39-4ea0-b96e-8f176371afcb` // Swahili
 
   before(function() {
+
     cy.task(`setupDatabase`)
+
+    // cy.readFile(`data/language.yml`)
+    // .then(yaml => yamlParser.load(yaml))
+    // .then(data => cy.addOne(data))
+    // .as(`language`)
+
   })
 
-  after(function() {
-    cy.task(`deleteDatabase`)
+  afterEach(function() {
+    cy.clearDatabase()
   })
 
   // beforeEach(function() {
@@ -40,23 +42,39 @@ describe(`Language Page`, function() {
     cy.get(`.error-message`).should(`have.text`, `No language exists with ID 1234.`)
   })
 
-  it.only(`Unauthenticated`, function() {
-    cy.visit(`/languages/${ privateLanguageID }`, { failOnStatusCode: false })
-    cy.title().should(`eq`, `Oxalis | Unauthenticated`)
-    cy.get(`.page-title`).should(`have.text`, `401: Unauthenticated`)
-    cy.get(`.error-message`).should(`have.text`, `You must be logged in to view this language.`)
+  it(`Unauthenticated`, function() {
+
+    const data = new Language
+
+    data.permissions.public = false
+
+    cy.addOne(data).then(language => {
+      cy.visit(`/languages/${ language.id }`, { failOnStatusCode: false })
+      cy.title().should(`eq`, `Oxalis | Unauthenticated`)
+      cy.get(`.page-title`).should(`have.text`, `401: Unauthenticated`)
+      cy.get(`.error-message`).should(`have.text`, `You must be logged in to view this language.`)
+    })
+
   })
 
   it(`Unauthorized`, function() {
-    cy.visit(`/`)
-    cy.setCookie(msAuthCookie, `bademail@digitallinguistics.io`)
-    cy.visit(`/languages/${ privateLanguageID }`, { failOnStatusCode: false })
-    cy.title().should(`eq`, `Oxalis | Unauthorized`)
-    cy.get(`.page-title`).should(`have.text`, `403: Unauthorized`)
-    cy.get(`.error-message`).should(`have.text`, `You do not have permission to view this language.`)
+
+    const data = new Language
+
+    data.permissions.public = false
+
+    cy.addOne(data).then(language => {
+      cy.visit(`/`)
+      cy.setCookie(msAuthCookie, `bademail@digitallinguistics.io`)
+      cy.visit(`/languages/${ language.id }`, { failOnStatusCode: false })
+      cy.title().should(`eq`, `Oxalis | Unauthorized`)
+      cy.get(`.page-title`).should(`have.text`, `403: Unauthorized`)
+      cy.get(`.error-message`).should(`have.text`, `You do not have permission to view this language.`)
+    })
+
   })
 
-  it(`Language Details`, function() {
+  it.only(`Language Details`, function() {
 
     const { data } = this
 

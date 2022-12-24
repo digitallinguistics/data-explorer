@@ -21,11 +21,10 @@ const __dirname  = getDirname(__filename)
 
 const teardown = true
 
-const badID     = `abc123`
-const bulkLimit = 100
-const dbName    = `test`
-const endpoint  = process.env.COSMOS_ENDPOINT
-const key       = process.env.COSMOS_KEY
+const badID    = `abc123`
+const dbName   = `test`
+const endpoint = process.env.COSMOS_ENDPOINT
+const key      = process.env.COSMOS_KEY
 
 const db = new Database({ dbName, endpoint, key })
 
@@ -67,33 +66,17 @@ describe(`Database`, function() {
       type:      `BibliographicReference`,
     }))
 
-    await setupDatabase(dbName)
+    return setupDatabase(dbName)
 
   })
 
-  afterEach(async function() {
-
-    if (!teardown) return
-
-    const { resources } = await db.container.items.readAll().fetchAll()
-
-    const batches = chunk(resources, bulkLimit)
-
-    for (const batch of batches) {
-
-      const operations = batch.map(item => ({
-        id:            item.id,
-        operationType: `Delete`,
-      }))
-
-      await db.container.items.bulk(operations)
-
-    }
-
+  afterEach(function() {
+    // Be sure to return the Promise here so that Mocha waits for cleanup before running the next one.
+    if (teardown) return db.clear()
   })
 
-  after(async function() {
-    if (teardown) await db.database.delete()
+  after(function() {
+    if (teardown) return db.database.delete()
   })
 
   describe(`sproc: count`, function() {

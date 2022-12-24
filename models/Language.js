@@ -2,6 +2,13 @@ export default class Language {
 
   name = {}
 
+  permissions = {
+    owners:  [],
+    editors: [],
+    viewers: [],
+    public:  true,
+  }
+
   projects = []
 
   type = `Language`

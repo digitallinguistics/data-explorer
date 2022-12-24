@@ -3,5 +3,10 @@ type: Language
 name:
   eng: Chitimacha
   ctm: Sitimaxa
+permissions:
+  owners:  [owner@digitallinguistics.io]
+  editors: []
+  viewers: [viewer@digitallinguistics.io]
+  public:  true
 projects:
   - 683a5d27-53bf-451b-80d1-f6e731674c9e # Chitimacha Dictionary Project

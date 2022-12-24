@@ -92,6 +92,28 @@ export default class Database {
   }
 
   /**
+   * Deletes all the items from the container.
+   * @returns Promise
+   */
+  async clear() {
+
+    const { resources } = await this.container.items.readAll().fetchAll()
+
+    const batches = chunk(resources, this.bulkLimit)
+
+    for (const batch of batches) {
+
+      const operations = batch.map(item => ({
+        id:            item.id,
+        operationType: `Delete`,
+      }))
+
+      await this.container.items.bulk(operations)
+
+    }
+  }
+
+  /**
    * Count the number of items of the specified type. Use the `options` parameter to provide various filters.
    * @param {String} type               The type of item to count.
    * @param {Object} [options={}]       An options hash.
