@@ -9,31 +9,25 @@ import Lexeme     from '../../models/Lexeme.js'
 import Project    from '../../models/Project.js'
 
 const msAuthCookie = Cypress.env(`msAuthCookie`)
+const msAuthUser   = Cypress.env(`msAuthUser`)
 
 describe(`Language Page`, function() {
 
   before(function() {
-
     cy.task(`setupDatabase`)
+  })
 
+  beforeEach(function() {
+    // It's necessary to do this in `beforeEach()` because Cypress clears aliases between each test.
+    // So any aliases created in `before()` only persist for the first test run after it.
     cy.readFile(`data/language.yml`)
     .then(yaml => yamlParser.load(yaml))
-    .then(data => cy.addOne(data))
     .as(`data`)
-
   })
 
   afterEach(function() {
     cy.clearDatabase()
   })
-
-  // beforeEach(function() {
-  //   cy.readFile(`data/languages.yml`)
-  //   .then(yaml => yamlParser.load(yaml))
-  //   .as(`languages`)
-  //   .then(languages => languages.find(lang => lang.id === publicLanguageID))
-  //   .as(`data`)
-  // })
 
   it(`Not Found`, function() {
     cy.visit(`/languages/1234`, { failOnStatusCode: false })
@@ -44,11 +38,11 @@ describe(`Language Page`, function() {
 
   it(`Unauthenticated`, function() {
 
-    const data = new Language
+    const sample = new Language
 
-    data.permissions.public = false
+    sample.permissions.public = false
 
-    cy.addOne(data).then(language => {
+    cy.addOne(sample).then(language => {
       cy.visit(`/languages/${ language.id }`, { failOnStatusCode: false })
       cy.title().should(`eq`, `Oxalis | Unauthenticated`)
       cy.get(`.page-title`).should(`have.text`, `401: Unauthenticated`)
@@ -74,7 +68,7 @@ describe(`Language Page`, function() {
 
   })
 
-  it.only(`Language Details`, function() {
+  it(`Language Details`, function() {
 
     const { data } = this
     const count    = 3
@@ -157,11 +151,103 @@ describe(`Language Page`, function() {
 
   })
 
-  it(`private projects`)
-  // Create a Language that's a member of one public project and one private project.
-  // Test that the correct number of projects shows when logged in vs. logged out
-  // (and for their specific names).
+  it(`empty lexeme`, function() {
 
-  it(`Language Details: empty lexeme`)
+    const emDash = `—`
+    const data   = new Language({ id: `9eda6d17-a1fc-46ed-819c-fcc4690583c4` })
+
+    cy.addOne(data)
+    cy.visit(`/languages/${ data.id }`)
+
+    // Page Title
+    cy.get(`.page-title`).should(`have.text`, `[no scientific name given]`)
+
+    // Scientific Name
+    cy.get(`.name .mls`).should(`have.text`, emDash)
+
+    // Autonym
+    cy.get(`.autonym .mot`).should(`have.text`, emDash)
+
+    // Language Codes
+    cy.get(`.codes dd`)
+    .then(([glottocodeEl, isoEl, abbreviationEl]) => {
+      expect(glottocodeEl).to.have.text(emDash)
+      expect(isoEl).to.have.text(emDash)
+      expect(abbreviationEl).to.have.text(emDash)
+    })
+
+    // Description
+    cy.get(`.description`)
+    .should(`have.text`, `[No description provided.]`)
+
+    // METADATA
+
+    // URL
+    cy.contains(`#url`, `https://data.digitallinguistics.io/languages/${ data.id }`)
+
+    // Date Created
+    cy.contains(`#date-created`, new Date(data.dateCreated).toLocaleDateString(`en-CA`))
+
+    // Date Modified
+    cy.contains(`#date-modified`, new Date(data.dateModified).toLocaleDateString(`en-CA`))
+
+    // # of Lexical Entries
+    cy.contains(`#num-lexical-entries`, 0)
+
+    // Projects
+    cy.get(`#projects`).children()
+    .should(`have.length`, data.projects.length)
+
+    // Notes
+    cy.get(`.notes`).children().should(`have.length`, data.notes.length)
+
+  })
+
+  it(`private projects`, function() {
+
+    const publicProject = new Project({
+      id:   `391c2a79-14aa-4e1d-a4e7-9cf9634ca833`,
+      name: `Public Project`,
+    })
+
+    const privateProject = new Project({
+      id:   `f3ca091d-1317-43a0-bb24-d81f87e1e385`,
+      name: `Private Project`,
+    })
+
+    privateProject.permissions.owners.push(msAuthUser)
+    privateProject.permissions.public = false
+
+    cy.addOne(publicProject)
+    cy.addOne(privateProject)
+
+    const data = new Language({
+      id:       `af18abc0-2246-4ead-b222-27cd7ecbcf96`,
+      projects: [
+        publicProject.id,
+        privateProject.id,
+      ],
+    })
+
+    cy.addOne(data)
+    cy.visit(`/languages/${ data.id }`)
+
+    cy.get(`#projects`)
+    .children()
+    .should(`have.length`, 1)
+    .first()
+    .should(`have.text`, publicProject.name)
+
+    cy.setCookie(msAuthCookie, msAuthUser)
+    cy.reload()
+
+    cy.get(`#projects`)
+    .children()
+    .should(`have.length`, 2)
+
+    cy.contains(`#projects li`, `Public Project`)
+    cy.contains(`#projects li`, `Private Project`)
+
+  })
 
 })

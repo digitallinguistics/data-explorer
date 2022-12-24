@@ -58,6 +58,7 @@ export default defineConfig({
     cosmosKey:      process.env.COSMOS_KEY,
     dbName:         `test`,
     msAuthCookie:   process.env.MS_AUTH_COOKIE,
+    msAuthUser:     process.env.MS_AUTH_USER,
   },
   fixturesFolder:         `test/fixtures`,
   screenshotOnRunFailure: false,

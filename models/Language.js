@@ -13,7 +13,12 @@ export default class Language {
   type = `Language`
 
   constructor(data = {}) {
+
     Object.assign(this, data)
+
+    this.dateCreated  ??= new Date
+    this.dateModified ??= new Date
+
   }
 
 }

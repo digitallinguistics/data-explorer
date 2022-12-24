@@ -11,7 +11,12 @@ export default class Lexeme {
   type = `Lexeme`
 
   constructor(data = {}) {
+
     Object.assign(this, data)
+
+    this.dateCreated  ??= new Date
+    this.dateModified ??= new Date
+
   }
 
 }
