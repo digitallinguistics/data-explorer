@@ -1,10 +1,12 @@
-abbreviation: chiti
-dateCreated:  2022-12-23T00:00:00.000Z
-dateModified: 2022-12-24T00:00:00.000Z
-glottocode:   chit1248
-id:           cc4978f6-13a9-4735-94c5-10e4e8030437
-iso:          ctm
-type:         Language
+abbreviation:            chiti
+dateCreated:             2022-12-23T00:00:00.000Z
+dateModified:            2022-12-24T00:00:00.000Z
+defaultAnalysisLanguage: eng
+defaultOrthography:      Modern
+glottocode:              chit1248
+id:                      cc4978f6-13a9-4735-94c5-10e4e8030437
+iso:                     ctm
+type:                    Language
 autonym:
   Modern:  Sitimaxa
   Swadesh: sitimaša
