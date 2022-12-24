@@ -1,8 +1,38 @@
-id:   cc4978f6-13a9-4735-94c5-10e4e8030437
-type: Language
+abbreviation: chiti
+dateCreated:  2022-12-23T00:00:00.000Z
+dateModified: 2022-12-24T00:00:00.000Z
+id:           cc4978f6-13a9-4735-94c5-10e4e8030437
+type:         Language
+glottocode:   chit1248
+iso:          ctm
+autonym:
+  Modern:  Sitimaxa
+  Swadesh: sitimaša
+  IPA:     sitimaʃa
+description:
+  html: >
+    <p>Chitimacha is a language isolate spoken by the Chitimacha people of Louisiana, United States. Its last two fluent speakers died in 1934 and 1940, but today the Chitimacha Tribe of Louisiana is working to revitalize the language using documentary archival materials.</p>
+    <p>Documentation of the language exists from Martin Duralde (1802), Albert S. Gatschet (1881–1882), John R. Swanton (1907–1920), and Morris Swadesh (1930–1934), however little of this was ever published (see Swadesh [1946]).</p>
+  markdown: >
+    Chitimacha is a language isolate spoken by the Chitimacha people of Louisiana, United States. Its last two fluent speakers died in 1934 and 1940, but today the Chitimacha Tribe of Louisiana is working to revitalize the language using documentary archival materials.
+
+    Documentation of the language exists from Martin Duralde (1802), Albert S. Gatschet (1881–1882), John R. Swanton (1907–1920), and Morris Swadesh (1930–1934), however little of this was ever published (see Swadesh [1946]).
 name:
   eng: Chitimacha
   ctm: Sitimaxa
+notes:
+  - dateCreated:  2020-01-01T00:00:00.000Z
+    dateModified: 2022-01-01T00:00:00.000Z
+    source:
+      id:           1c0eb2b5-6e7b-4dcf-b590-a352fcfd8f68
+      abbreviation: DWH
+    text:         It's unclear whether the Washa and Chawasha people also spoke Chitimacha.
+  - dateCreated:  2020-01-01T00:00:00.000Z
+    dateModified: 2020-01-01T00:00:00.000Z
+    source:
+      id:           5f3e1abb-fefd-4e2c-925c-bc08fee8552f
+      abbreviation: KW
+    text:         The tribe prefers to use the term "sleeping" or "dormant" rather than "extinct".
 permissions:
   owners:  [owner@digitallinguistics.io]
   editors: []
@@ -10,3 +40,4 @@ permissions:
   public:  true
 projects:
   - 683a5d27-53bf-451b-80d1-f6e731674c9e # Chitimacha Dictionary Project
+  - 225eeff5-adb8-421b-b9d0-7b5174419402 # Typology Project

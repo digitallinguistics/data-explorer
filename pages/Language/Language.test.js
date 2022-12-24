@@ -2,24 +2,24 @@ import * as dotenv from 'dotenv'
 
 dotenv.config()
 
-import Language   from '../../models/Language.js'
 import yamlParser from 'js-yaml'
+
+import Language   from '../../models/Language.js'
+import Lexeme     from '../../models/Lexeme.js'
+import Project    from '../../models/Project.js'
 
 const msAuthCookie = Cypress.env(`msAuthCookie`)
 
 describe(`Language Page`, function() {
 
-  const publicLanguageID  = `850f3bd9-2a57-4289-bc57-05640b5d8d7d` // Plains Cree
-  const privateLanguageID = `4580756f-ce39-4ea0-b96e-8f176371afcb` // Swahili
-
   before(function() {
 
     cy.task(`setupDatabase`)
 
-    // cy.readFile(`data/language.yml`)
-    // .then(yaml => yamlParser.load(yaml))
-    // .then(data => cy.addOne(data))
-    // .as(`language`)
+    cy.readFile(`data/language.yml`)
+    .then(yaml => yamlParser.load(yaml))
+    .then(data => cy.addOne(data))
+    .as(`data`)
 
   })
 
@@ -77,29 +77,43 @@ describe(`Language Page`, function() {
   it.only(`Language Details`, function() {
 
     const { data } = this
+    const count    = 3
 
-    cy.visit(`/languages/${ publicLanguageID }`)
+    cy.addOne(data)
+
+    cy.addOne(new Project({
+      id:   `683a5d27-53bf-451b-80d1-f6e731674c9e`,
+      name: `Chitimacha Dictionary Project`,
+    }))
+
+    cy.addOne(new Project({
+      id:   `225eeff5-adb8-421b-b9d0-7b5174419402`,
+      name: `Typology Project`,
+    }))
+
+    cy.addMany(count, new Lexeme({
+      language: {
+        id: data.id,
+      },
+    }))
+
+    cy.visit(`/languages/${ data.id }`)
     cy.title().should(`equal`, `Oxalis | ${ data.name.eng }`)
 
     // Page Title
     cy.get(`.page-title`).should(`have.text`, data.name.eng)
 
     // Scientific Name
-    cy.get(`.names .mls`)
-    .children()
-    .filter(`dd`)
-    .then(([eng]) => {
-      expect(eng).to.contain(data.name.eng)
-    })
+    for (const lang in data.name) {
+      cy.contains(`.name dt`, lang)
+      cy.contains(`.name dd`, data.name[lang])
+    }
 
     // Autonym
-    cy.get(`.names .mot`)
-    .children()
-    .filter(`dd`)
-    .then(([SRO, syl]) => {
-      expect(SRO).to.contain(data.autonym.SRO)
-      expect(syl).contain(data.autonym.syllabics)
-    })
+    for (const ortho in data.autonym) {
+      cy.contains(`.autonym dt`, ortho)
+      cy.contains(`.autonym dd`, data.autonym[ortho])
+    }
 
     // Language Codes
     cy.get(`.codes dd`)
@@ -111,47 +125,43 @@ describe(`Language Page`, function() {
 
     // Description
     cy.get(`.description`)
-    .should(`include.text`, `Plains Cree`)
+    .should(`include.text`, data.description.markdown.slice(0, 20))
 
-    // Metadata
-    cy.get(`.metadata`)
-    .children()
-    .filter(`output`)
-    .then(([urlEl, dateCreatedEl, dateModifiedEl, lexicalEntries]) => {
-      expect(urlEl.textContent).to.equal(`https://data.digitallinguistics.io/languages/${ publicLanguageID }`)
-      expect(dateCreatedEl.textContent).to.equal(new Date(data.dateCreated).toLocaleDateString(`en-CA`))
-      expect(dateModifiedEl.textContent).to.equal(new Date(data.dateModified).toLocaleDateString(`en-CA`))
-      expect(lexicalEntries.textContent).to.equal(`7`)
+    // METADATA
+
+    // URL
+    cy.contains(`#url`, `https://data.digitallinguistics.io/languages/${ data.id }`)
+
+    // Date Created
+    cy.contains(`#date-created`, new Date(data.dateCreated).toLocaleDateString(`en-CA`))
+
+    // Date Modified
+    cy.contains(`#date-modified`, new Date(data.dateModified).toLocaleDateString(`en-CA`))
+
+    // # of Lexical Entries
+    cy.contains(`#num-lexical-entries`, count)
+
+    // Projects
+    cy.get(`#projects`).children()
+    .should(`have.length`, data.projects.length)
+    .then(([a, b]) => {
+      expect(a).to.have.text(`Chitimacha Dictionary Project`)
+      expect(b).to.have.text(`Typology Project`)
     })
 
     // Notes
-    cy.get(`.notes`)
-    .children()
-    .then(([a, b]) => {
-
-      const [noteDataA, noteDataB] = data.notes
-
-      expect(a).to.contain(noteDataA.text)
-      expect(a).to.contain(noteDataA.source.abbreviation)
-      expect(b).to.contain(noteDataB.text)
-      expect(b).to.contain(noteDataB.source.abbreviation)
-
-    })
+    for (const note of data.notes) {
+      cy.contains(`.note__source`, note.source.abbreviation)
+      cy.contains(`.note__text`, note.text)
+    }
 
   })
 
-  it(`Metadata: Project Links`, function() {
+  it(`private projects`)
+  // Create a Language that's a member of one public project and one private project.
+  // Test that the correct number of projects shows when logged in vs. logged out
+  // (and for their specific names).
 
-    const menomineeLanguageID = `5fc405aa-a1a3-41e5-a80d-adb9dfbaa293`
-    const language            = this.languages.find(language => language.id === menomineeLanguageID)
-
-    cy.visit(`/`)
-    cy.setCookie(msAuthCookie, `owner@digitallinguistics.io`)
-    cy.visit(`/languages/${ menomineeLanguageID }`)
-    cy.get(`#projects`).children().should(`have.length`, language.projects.length)
-    cy.contains(`Log out`).click()
-    cy.get(`#projects`).children().should(`have.length`, 1)
-
-  })
+  it(`Language Details: empty lexeme`)
 
 })

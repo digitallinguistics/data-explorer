@@ -1,13 +1,12 @@
+import Permissions from './Permissions.js'
+
 export default class Language {
 
   name = {}
 
-  permissions = {
-    owners:  [],
-    editors: [],
-    viewers: [],
-    public:  true,
-  }
+  notes = []
+
+  permissions = new Permissions
 
   projects = []
 
