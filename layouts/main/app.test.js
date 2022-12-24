@@ -5,7 +5,7 @@ describe(`app shell`, function() {
   })
 
   after(function() {
-    cy.task(`deleteDatabase`)
+    // cy.task(`deleteDatabase`)
   })
 
   describe(`Main Nav`, function() {

@@ -1,3 +1,4 @@
+import chunk            from '../utilities/chunk.js'
 import { CosmosClient } from '@azure/cosmos'
 
 /**
@@ -11,12 +12,9 @@ export default class Database {
   bulkLimit = 100
 
   /**
-   * The Cosmos DB client from the Node SDK.
-   * NOTE: The endpoint/key options need to use `process.env` rather than the `config` object exported by `env.js`
-   * because `env.js` is imported (loading the variables into `process.env`) BEFORE the rest of its code is executed.
-   * So the environment variables are available in `process.env` before they're initialized in the object exported by `env.js`.
+   * The Cosmos DB client.
    */
-  client = new CosmosClient({ endpoint: process.env.COSMOS_ENDPOINT, key: process.env.COSMOS_KEY })
+  client
 
   /**
    * The name of the Cosmos DB container.
@@ -27,13 +25,71 @@ export default class Database {
    * Create a new Database client.
    * @param {String} dbName The name to use for the database. Should generally be `digitallinguistics` for production and `test` otherwise.
    */
-  constructor(dbName = `digitallinguistics`) {
+  constructor({
+    dbName,
+    endpoint,
+    key,
+  }) {
+    this.client    = new CosmosClient({ endpoint, key })
     this.database  = this.client.database(dbName)
     this.container = this.database.container(this.containerName)
   }
 
 
   // GENERIC METHODS
+
+  // Create helper functions for seeding the database.
+  // NOTE: Cosmos DB Create methods modify the original object by setting an `id` property on it.
+
+  /**
+   * Upsert a single item to the database.
+   * WARNING: This method is only used during testing. Do not use in production.
+   * @param {Object} data The object to upsert.
+   * @returns Promise<Object>
+   */
+  async addOne(data = {}) {
+
+    const item         = Object.assign({}, data)
+    const { resource } = await this.container.items.upsert(item)
+
+    return resource
+
+  }
+
+  /**
+   * Upserts multiple copies of the same object to the database.
+   * WARNING: This method is only used during testing. Do not use in production.
+   * @param {Integer} count The number of copies of the item to upsert.
+   * @param {Object} data The item to upsert multiple times.
+   * @returns Promise<Array<Object>>
+   */
+  async addMany(count, data = {}) {
+
+    const operations = []
+
+    for (let i = 0; i < count; i++) {
+
+      const resourceBody = Object.assign({}, data)
+      delete resourceBody.id
+
+      operations[i] = {
+        operationType: `Upsert`,
+        resourceBody,
+      }
+
+    }
+
+    const batches = chunk(operations, this.bulkLimit)
+    const results = []
+
+    for (const batch of batches) {
+      const response = await this.container.items.bulk(batch)
+      results.push(...response)
+    }
+
+    return results
+
+  }
 
   /**
    * Count the number of items of the specified type. Use the `options` parameter to provide various filters.

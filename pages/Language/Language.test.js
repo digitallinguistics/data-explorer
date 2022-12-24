@@ -1,6 +1,16 @@
+import * as dotenv from 'dotenv'
+
+dotenv.config()
+
+import Database   from '../../database/Database.js'
 import yamlParser from 'js-yaml'
 
+const dbName       = Cypress.env(`dbName`)
 const msAuthCookie = Cypress.env(`msAuthCookie`)
+const endpoint     = Cypress.env(`cosmosEndpoint`)
+const key          = Cypress.env(`cosmosKey`)
+
+const db = new Database({ dbName, endpoint, key })
 
 describe(`Language Page`, function() {
 
@@ -9,20 +19,19 @@ describe(`Language Page`, function() {
 
   before(function() {
     cy.task(`setupDatabase`)
-    cy.task(`seedDatabase`)
   })
 
   after(function() {
     cy.task(`deleteDatabase`)
   })
 
-  beforeEach(function() {
-    cy.readFile(`data/languages.yml`)
-    .then(yaml => yamlParser.load(yaml))
-    .as(`languages`)
-    .then(languages => languages.find(lang => lang.id === publicLanguageID))
-    .as(`data`)
-  })
+  // beforeEach(function() {
+  //   cy.readFile(`data/languages.yml`)
+  //   .then(yaml => yamlParser.load(yaml))
+  //   .as(`languages`)
+  //   .then(languages => languages.find(lang => lang.id === publicLanguageID))
+  //   .as(`data`)
+  // })
 
   it(`Not Found`, function() {
     cy.visit(`/languages/1234`, { failOnStatusCode: false })
@@ -31,7 +40,7 @@ describe(`Language Page`, function() {
     cy.get(`.error-message`).should(`have.text`, `No language exists with ID 1234.`)
   })
 
-  it(`Unauthenticated`, function() {
+  it.only(`Unauthenticated`, function() {
     cy.visit(`/languages/${ privateLanguageID }`, { failOnStatusCode: false })
     cy.title().should(`eq`, `Oxalis | Unauthenticated`)
     cy.get(`.page-title`).should(`have.text`, `401: Unauthenticated`)

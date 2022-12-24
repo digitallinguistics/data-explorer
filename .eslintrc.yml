@@ -20,6 +20,7 @@ overrides:
       - '**/*.e2e.*'
       - '**/*.test.*'
       - '**/*.unit.*'
+      - 'test/commands.js'
       - 'test/support.js'
     globals:
       expect: readonly
