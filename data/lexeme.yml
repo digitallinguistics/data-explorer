@@ -155,6 +155,10 @@ senses:
         eng: intransitive verb
     gloss:
       eng: go
+    inflectionClass:
+      abbreviation: REGULAR
+      name:
+        eng: regular verb
     semanticClass:
       abbreviation: DYNAM
       name:

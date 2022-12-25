@@ -221,6 +221,11 @@ describe.only(`Lexeme`, function() {
           .should(`contain.text`, sense.semanticClass.abbreviation)
           .should(`have.attr`, `title`, sense.semanticClass.name.eng)
 
+          // Inflection Class
+          cy.get(`#sense-${ sense.id }__inflection-class`)
+          .should(`contain.text`, sense.inflectionClass.abbreviation)
+          .should(`have.attr`, `title`, sense.inflectionClass.name.eng)
+
         })
 
       })
