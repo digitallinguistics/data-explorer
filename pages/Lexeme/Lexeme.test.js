@@ -216,6 +216,11 @@ describe.only(`Lexeme`, function() {
           .should(`contain.text`, sense.category.abbreviation)
           .should(`have.attr`, `title`, sense.category.name.eng)
 
+          // Semantic Class
+          cy.get(`#sense-${ sense.id }__semantic-class`)
+          .should(`contain.text`, sense.semanticClass.abbreviation)
+          .should(`have.attr`, `title`, sense.semanticClass.name.eng)
+
         })
 
       })
