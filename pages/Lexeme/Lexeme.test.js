@@ -163,6 +163,26 @@ describe.only(`Lexeme`, function() {
             expect(b).to.contain.text(prepareTranscription(`*${ form.componentOf[1].transcription.Modern }`))
           })
 
+          // Etymology
+          cy.get(`#form-${ form.id }__etymology`).children()
+          .should(`have.length`, form.etymology.length + form.etymology.length - 1)
+          .then(([a, , c]) => {
+            expect(a).to.contain.text(prepareTranscription(`*${ form.etymology[0].transcription.APA }`))
+            expect(a).to.contain.text(form.etymology[0].language.abbreviation)
+            expect(c).to.contain.text(prepareTranscription(`*${ form.etymology[1].transcription.APA }`))
+            expect(c).to.contain.text(form.etymology[1].language.abbreviation)
+          })
+
+          // Reflexes
+          cy.get(`#form-${ form.id }__reflexes`).children()
+          .should(`have.length`, form.reflexes.length)
+          .then(([a, b]) => {
+            expect(a).to.contain.text(prepareTranscription(form.reflexes[0].transcription.Modern))
+            expect(a).to.contain.text(form.reflexes[0].language.abbreviation)
+            expect(b).to.contain.text(prepareTranscription(form.reflexes[1].transcription.Modern))
+            expect(b).to.contain.text(form.reflexes[1].language.abbreviation)
+          })
+
         })
 
       })

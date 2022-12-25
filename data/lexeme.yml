@@ -51,10 +51,66 @@ forms:
           Modern:  cuwa
           Swadesh: čuwa
           IPA:     t͡ʃuwa
+    etymology:
+      - form:       a649c2b9-978c-4416-bacf-a0a0eb39abd2 # doesn't actually exist
+        lexeme:     40ddb937-d32d-480d-8142-6f7d76a67a3e # doesn't actually exist
+        unattested: true
+        language:
+          id:                      5f63cbf3-8144-4050-834d-561d0c1da143 # Proto-Amerind (doesn't actually exist)
+          abbreviation:            PAmer
+          defaultAnalysisLanguage: eng
+          defaultOrthography:      APA
+          name:
+            eng: Proto-Amerind
+        transcription:
+          Modern: tuw-
+          APA:    tuw-
+          IPA:    tuw-
+      - form:       f3d7bf19-9607-4c90-ba20-5fba89f92be6 # doesn't actually exist
+        lexeme:     0f76d45f-479f-4512-95fd-706cc7329500 # doesn't actually exist
+        unattested: true
+        language:
+          id:                      526f593d-b58f-4ba3-a39b-d0f09190a074 # Proto-Chitimacha (doesn't actually exist)
+          abbreviation:            PChiti
+          defaultAnalysisLanguage: eng
+          defaultOrthography:      APA
+          name:
+            eng: Proto-Chitimacha
+        transcription:
+          Modern: cuw-
+          APA:    čuw-
+          IPA:    t͡ʃuw-
+    reflexes:
+      - form:   8eb74bff-3e29-419b-909f-3785fab607f4 # doesn't actually exist
+        lexeme: 7ae5d142-122e-4d1e-bddd-fe4ada5bda6f # doesn't actually exist
+        language:
+          id:                      17b227c0-2c8e-403a-87c5-9e4ab934ac95 # Future Chitimacha (doesn't actually exist)
+          abbreviation:            FutChiti
+          defaultAnalysisLanguage: eng
+          defaultOrthography:      Modern
+          name:
+            eng: Future Chitimacha
+        transcription:
+          Modern:  cuwa
+          Swadesh: čuwa
+          IPA:     t͡ʃuwa
+      - form:   8eb74bff-3e29-419b-909f-3785fab607f4 # doesn't actually exist
+        lexeme: 54573fd2-2823-4183-9d3a-854a38bb8cb5 # doesn't actually exist
+        language:
+          id:                      17b227c0-2c8e-403a-87c5-9e4ab934ac95 # Future Chitimacha (doesn't actually exist)
+          abbreviation:            FutChiti
+          defaultAnalysisLanguage: eng
+          defaultOrthography:      Modern
+          name:
+            eng: Future Chitimacha
+        transcription:
+          Modern:  cuyi
+          Swadesh: čuyi
+          IPA:     t͡ʃuji
     transcription:
       Modern:  cuw-
       Swadesh: čuw-
-      IPA:     cuw-
+      IPA:     t͡ʃuw-
   - id: ef8c42e2-6ecf-4fc0-8d92-2e6483e53558
 language:
   id: cc4978f6-13a9-4735-94c5-10e4e8030437 # Chitimacha
@@ -62,7 +118,7 @@ lemma:
   transcription:
     Modern:  cuw-
     Swadesh: čuw-
-    IPA:     cuw-
+    IPA:     t͡ʃuw-
 morphType:
   eng: stem
 projects:
