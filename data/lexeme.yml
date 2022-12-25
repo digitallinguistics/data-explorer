@@ -147,6 +147,14 @@ morphType:
   eng: stem
 projects:
   - 683a5d27-53bf-451b-80d1-f6e731674c9e # Chitimacha Dictionary Project
-senses: []
+senses:
+  - id: 813eaa72-fab2-4f50-81d7-949c59651d20
+    category:
+      abbreviation: INTR V
+      name:
+        eng: intransitive verb
+    gloss:
+      eng: go
+  - id: 7c66df2a-304c-400e-b64d-8ceda8d55ebd
 slot:
   eng: stem
