@@ -149,6 +149,12 @@ projects:
   - 683a5d27-53bf-451b-80d1-f6e731674c9e # Chitimacha Dictionary Project
 senses:
   - id: 813eaa72-fab2-4f50-81d7-949c59651d20
+    # Having data for `baseCategory` doesn't actually make sense for a stem,
+    # but this is just for testing purposes.
+    baseCategory:
+      abbreviation: V
+      name:
+        eng: verb
     category:
       abbreviation: INTR V
       name:
