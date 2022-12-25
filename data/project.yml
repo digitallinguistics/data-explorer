@@ -1,3 +1,8 @@
 id:   683a5d27-53bf-451b-80d1-f6e731674c9e
 name: Chitimacha Dictionary
 type: Project
+permissions:
+  owners:  [owner@digitallinguistics.io]
+  editors: [editor@digitallinguistics.io]
+  viewers: [viewer@digitallinguistics.io]
+  public:  true

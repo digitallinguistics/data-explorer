@@ -1,11 +1,72 @@
-id:       abc56564-5754-4698-845c-2ea32a760bbd
+id:   abc56564-5754-4698-845c-2ea32a760bbd
+type: Lexeme
+citationForm:
+  Modern:  cuyi
+  Swadesh: čuyi
+  IPA:     t͡ʃuji
+forms:
+  - abstract:   true
+    id:         422040f0-3fa3-4b97-a5fc-d077c02d74ee
+    unattested: true
+    allomorphs:
+      - environments:
+          - _i
+          - _y
+        transcription:
+          Modern:  cuy-
+          Swadesh: čuy-
+          IPA:     t͡ʃuy-
+      - environments: []
+        transcription:
+          Modern:  cu-
+          Swadesh: ču-
+          IPA:     t͡ʃu-
+    components:
+      - abstract: true
+        form:     664e35b0-47ac-4540-b881-a7dbc8397707 # doesn't actually exist
+        lexeme:   8d253181-ffa0-4f3f-bb80-8d33dd42c6ec # doesn't actually exist
+        transcription:
+          Modern:  cu-
+          Swadesh: ču-
+          IPA:     t͡ʃu-
+      - form:       3460eb4c-7520-4138-b920-b4cb929c609a # doesn't actually exist
+        lexeme:     a60c91b4-cbe9-4109-a275-1a19118e2c15 # doesn't actually exist
+        unattested: true
+        transcription:
+          Modern:  -w
+          Swadesh: -w
+          IPA:     -w
+    componentOf:
+      - abstract: true
+        form:     2cc89164-1d30-4d0e-962e-bb5507cd3fb4 # doesn't actually exist
+        lexeme:   519346dd-04e0-4d27-b55e-5901de444c3f # doesn't actually exist
+        transcription:
+          Modern:  cuug
+          Swadesh: ču·g
+          IPA:     t͡ʃuːkʼ
+      - form:       9f26498d-52db-4159-9773-e3e82563359e # doesn't actually exist
+        lexeme:     19f45b5c-9497-418a-a898-b4420f803e3c # doesn't actually exist
+        unattested: true
+        transcription:
+          Modern:  cuwa
+          Swadesh: čuwa
+          IPA:     t͡ʃuwa
+    transcription:
+      Modern:  cuw-
+      Swadesh: čuw-
+      IPA:     cuw-
+  - id: ef8c42e2-6ecf-4fc0-8d92-2e6483e53558
 language:
   id: cc4978f6-13a9-4735-94c5-10e4e8030437 # Chitimacha
-type:     Lexeme
 lemma:
   transcription:
     Modern:  cuw-
     Swadesh: čuw-
-    IPA:     t͡ʃuw-
+    IPA:     cuw-
+morphType:
+  eng: stem
 projects:
   - 683a5d27-53bf-451b-80d1-f6e731674c9e # Chitimacha Dictionary Project
+senses: []
+slot:
+  eng: stem

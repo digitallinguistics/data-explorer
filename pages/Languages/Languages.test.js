@@ -7,7 +7,7 @@ import Project     from '../../models/Project.js'
 const msAuthCookie = Cypress.env(`msAuthCookie`)
 const msAuthUser   = Cypress.env(`msAuthUser`)
 
-describe.only(`Languages`, function() {
+describe(`Languages`, function() {
 
   before(function() {
     cy.task(`setupDatabase`)
@@ -221,56 +221,6 @@ describe.only(`Languages`, function() {
 
       cy.visit(`/projects/${ project.id }/languages`)
       cy.get(`.languages-table tbody`).children().should(`have.length`, count)
-
-    })
-
-  })
-
-})
-
-describe(`Languages (OLD)`, function() {
-
-  describe(`/projects/{projectID}/languages`, function() {
-
-    const privateProjectID = `a24157c1-000f-4771-aa47-485fb91bf24f` // Swahili
-
-    it(`displays a 404 page for nonexistent projects`, function() {
-      cy.visit(`/projects/1234/languages`, { failOnStatusCode: false })
-      cy.title().should(`eq`, `Oxalis | Item Not Found`)
-      cy.get(`.page-title`).should(`have.text`, `404: Item Not Found`)
-      cy.get(`.error-message`).should(`have.text`, `No project exists with ID 1234.`)
-    })
-
-    it(`displays an Unauthenticated error for private projects`, function() {
-      cy.visit(`/projects/${ privateProjectID }/languages`, { failOnStatusCode: false })
-      cy.title().should(`eq`, `Oxalis | Unauthenticated`)
-      cy.get(`.page-title`).should(`have.text`, `401: Unauthenticated`)
-      cy.get(`.error-message`).should(`have.text`, `You must be logged in to view this project.`)
-    })
-
-    it(`displays an Unauthorized error for private projects`, function() {
-      cy.visit(`/`)
-      cy.setCookie(msAuthCookie, `bademail@digitallinguistics.io`)
-      cy.visit(`/projects/${ privateProjectID }/languages`, { failOnStatusCode: false })
-      cy.title().should(`eq`, `Oxalis | Unauthorized`)
-      cy.get(`.page-title`).should(`have.text`, `403: Unauthorized`)
-      cy.get(`.error-message`).should(`have.text`, `You do not have permission to view this project.`)
-    })
-
-    it(`displays all (and only all) project languages`, function() {
-
-      const publicProjectID = `c554474c-7f39-4ede-941b-c40b8f58b059` // Nisinoon
-      const projectLanguages = this.languages.filter(lang => lang.projects.includes(publicProjectID))
-
-      cy.visit(`/projects/${ publicProjectID }/languages`)
-      cy.title().should(`eq`, `Oxalis | Languages`)
-
-      // check for correct page nav
-      cy.contains(`.page-nav a`, `Project`)
-      cy.contains(`.page-nav a`, `Languages`)
-      cy.contains(`.page-nav a`, `Lexicon`)
-
-      cy.get(`tbody`).children().should(`have.length`, projectLanguages.length)
 
     })
 
