@@ -191,6 +191,14 @@ describe.only(`Lexeme`, function() {
             expect(b).to.contain.text(form.bibliography[1].citation)
           })
 
+          // Sources
+          cy.get(`#form-${ form.id }__sources`).children()
+          .should(`have.length`, form.sources.length)
+          .then(([a, b]) => {
+            expect(a).to.contain.text(form.sources[0].abbreviation)
+            expect(b).to.contain.text(form.sources[1].abbreviation)
+          })
+
         })
 
       })
