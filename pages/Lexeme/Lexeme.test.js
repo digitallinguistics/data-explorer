@@ -239,6 +239,10 @@ describe.only(`Lexeme`, function() {
           .should(`contain.text`, sense.baseCategory.abbreviation)
           .should(`have.attr`, `title`, sense.baseCategory.name.eng)
 
+          // METADATA
+
+          cy.get(`#metadata-link`).click()
+
         })
 
       })
