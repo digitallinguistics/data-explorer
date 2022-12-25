@@ -95,6 +95,14 @@ describe.only(`Lexeme`, function() {
           // Language
           cy.contains(`.language`, `${ language.name.eng } | ${ language.autonym.Modern }`)
 
+          // Glosses
+          cy.get(`.glosses`).children()
+          .should(`have.length`, lexeme.senses.length)
+          .then(([a, b]) => {
+            expect(a).to.contain.text(lexeme.senses[0].gloss.eng)
+            expect(b).to.contain.text(lexeme.senses[1].gloss.eng)
+          })
+
           // FORMS
 
           // Lemma

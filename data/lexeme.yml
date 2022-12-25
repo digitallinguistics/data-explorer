@@ -170,5 +170,7 @@ senses:
       name:
         eng: dynamic
   - id: 7c66df2a-304c-400e-b64d-8ceda8d55ebd
+    gloss:
+      eng: walk
 slot:
   eng: stem
