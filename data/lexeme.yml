@@ -21,6 +21,21 @@ forms:
           Modern:  cu-
           Swadesh: ču-
           IPA:     t͡ʃu-
+    bibliography:
+      - id:       5e481789-96d5-487a-930d-beb5ecb3259c
+        bibEntry:
+          html: '<p class=bib-entry id=Hieber2018>Hieber, Daniel W. 2018. Category genesis in Chitimacha: A constructional approach. In Kristel Van Goethem, Muriel Norde, Evie Coussé, & Gudrun Vanderbauwhede (eds.), <cite class=cite>Category change from a constructional perspective</cite> (Constructional Approaches to Language 20), pp. 15–46. John Benjamins. DOI:<a href=https://doi.org/10.1075/cal.20.02hie>10.1075/cal.20.02hie</a>.</p>'
+          text: 'Hieber, Daniel W. 2018. Category genesis in Chitimacha: A constructional approach. In Kristel Van Goethem, Muriel Norde, Evie Coussé, & Gudrun Vanderbauwhede (eds.), Category change from a constructional perspective (Constructional Approaches to Language 20), pp. 15–46. John Benjamins. DOI: 10.1075/cal.20.02hie.'
+        bibID:    Hieber2018
+        citation: 'Hieber (2018: 16)'
+        locator:  16
+      - id:       e3d5da92-0e69-48c8-b482-2b258611ad3c
+        bibEntry:
+          html: '<p class=bib-entry id=Hieber2019>Hieber, Daniel W. 2019. Semantic alignment in Chitimacha. <cite class=cite>International Journal of American Linguistics</cite> 85(3): 313–363. DOI:<a href=https://doi.org/10.1086/703239>10.1086/703239</a>.</p>'
+          text: 'Hieber, Daniel W. 2019. Semantic alignment in Chitimacha. International Journal of American Linguistics 85(3): 313–363. DOI:10.1086/703239.'
+        bibID:    Hieber2019
+        citation: 'Hieber (2019: 329)'
+        locator:  329
     components:
       - abstract: true
         form:     664e35b0-47ac-4540-b881-a7dbc8397707 # doesn't actually exist
@@ -107,6 +122,15 @@ forms:
           Modern:  cuyi
           Swadesh: čuyi
           IPA:     t͡ʃuji
+    sources:
+      - id:           5f3e1abb-fefd-4e2c-925c-bc08fee8552f
+        abbreviation: KW
+        familyName:   Walden
+        givenName:    Kim
+      - id:           4ad9955f-f823-483b-bc62-b98cbf02b10a
+        abbreviation: SB
+        familyName:   Boutte
+        givenName:    Sandra
     transcription:
       Modern:  cuw-
       Swadesh: čuw-
