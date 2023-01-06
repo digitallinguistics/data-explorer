@@ -2,6 +2,21 @@ id:           abc56564-5754-4698-845c-2ea32a760bbd
 dateCreated:  2022-01-01T00:00:00Z
 dateModified: 2022-01-02T00:00:00Z
 type:         Lexeme
+bibliography:
+  - id:       5e481789-96d5-487a-930d-beb5ecb3259c
+    bibEntry:
+      html: '<p class=bib-entry id=Hieber2018>Hieber, Daniel W. 2018. Category genesis in Chitimacha: A constructional approach. In Kristel Van Goethem, Muriel Norde, Evie Coussé, & Gudrun Vanderbauwhede (eds.), <cite class=cite>Category change from a constructional perspective</cite> (Constructional Approaches to Language 20), pp. 15–46. John Benjamins. DOI:<a href=https://doi.org/10.1075/cal.20.02hie>10.1075/cal.20.02hie</a>.</p>'
+      text: 'Hieber, Daniel W. 2018. Category genesis in Chitimacha: A constructional approach. In Kristel Van Goethem, Muriel Norde, Evie Coussé, & Gudrun Vanderbauwhede (eds.), Category change from a constructional perspective (Constructional Approaches to Language 20), pp. 15–46. John Benjamins. DOI: 10.1075/cal.20.02hie.'
+    bibID:    Hieber2018
+    citation: 'Hieber (2018: 16)'
+    locator:  16
+  - id:       e3d5da92-0e69-48c8-b482-2b258611ad3c
+    bibEntry:
+      html: '<p class=bib-entry id=Hieber2019>Hieber, Daniel W. 2019. Semantic alignment in Chitimacha. <cite class=cite>International Journal of American Linguistics</cite> 85(3): 313–363. DOI:<a href=https://doi.org/10.1086/703239>10.1086/703239</a>.</p>'
+      text: 'Hieber, Daniel W. 2019. Semantic alignment in Chitimacha. International Journal of American Linguistics 85(3): 313–363. DOI:10.1086/703239.'
+    bibID:    Hieber2019
+    citation: 'Hieber (2019: 329)'
+    locator:  329
 citationForm:
   Modern:  cuyi
   Swadesh: čuyi
