@@ -218,6 +218,21 @@ lemma:
     IPA:     t͡ʃuw-
 morphType:
   eng: stem
+notes:
+  - dateCreated:  2022-01-01T00:00:00Z
+    dateModified: 2022-01-01T00:00:00Z
+    noteType:     private
+    source:
+      id:           81cd041c-67c1-4873-97cd-6ebdbc0ec00d
+      abbreviation: DWH
+    text: It's unclear whether *dut-* can also be pluractional.
+  - dateCreated:  2022-01-01T00:00:00Z
+    dateModified: 2022-01-01T00:00:00Z
+    noteType:     grammar
+    source:
+      id:           81cd041c-67c1-4873-97cd-6ebdbc0ec00d
+      abbreviation: DWH
+    text: This is a suppletive verb.
 projects:
   - 683a5d27-53bf-451b-80d1-f6e731674c9e # Chitimacha Dictionary Project
   - 56b6e164-cf90-4e83-835e-d8e92ed11778 # Typology Project (created during Lexeme test)

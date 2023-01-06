@@ -8,8 +8,6 @@ export default class Lexeme {
 
   projects = []
 
-  sources = []
-
   type = `Lexeme`
 
   constructor(data = {}) {

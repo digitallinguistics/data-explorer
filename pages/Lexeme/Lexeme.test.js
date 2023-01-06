@@ -335,6 +335,12 @@ describe.only(`Lexeme`, function() {
           cy.contains(`#url`, `https://data.digitallinguistics.io/languages/${ language.id }/lexemes/${ lexeme.id }`)
 
           // Notes
+          cy.get(`.lexeme__notes`).children()
+          .should(`have.length`, lexeme.notes.length)
+
+          for (const note of lexeme.notes) {
+            cy.contains(`.note`, note.text)
+          }
 
         })
 

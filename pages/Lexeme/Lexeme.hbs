@@ -417,7 +417,7 @@
         <h2 class=section-header>Notes <span class=summary-count>({{#if lexeme.notes }}{{ lexeme.notes.length }}{{else}}0{{/if}})</span></h2>
       </summary>
 
-      <ul class=notes>
+      <ul class='lexeme__notes notes'>
         {{#each lexeme.notes as |note| }}
           <li>{{> Note/Note note }}</li>
         {{/each}}
