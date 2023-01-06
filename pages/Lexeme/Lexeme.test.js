@@ -321,6 +321,16 @@ describe.only(`Lexeme`, function() {
           }
 
           // Tags
+          cy.get(`#tags`).children()
+          .should(`have.length`, Object.keys(lexeme.tags).length)
+          .then(([a, b, c, d, e]) => {
+            expect(a).to.have.text(`checked: yes`)
+            expect(b).to.have.text(`elicited`)
+            expect(c).to.have.text(`compound: false`)
+            expect(d).to.have.text(`preverbs: 0`)
+            expect(e).to.have.text(`syllables: 2`)
+          })
+
           // URL
           // Notes
 
