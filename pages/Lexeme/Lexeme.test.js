@@ -8,7 +8,7 @@ import Project  from '../../models/Project.js'
 const msAuthCookie = Cypress.env(`msAuthCookie`)
 const msAuthUser   = Cypress.env(`msAuthUser`)
 
-describe.only(`Lexeme`, function() {
+describe(`Lexeme`, function() {
 
   it(`Not Found`, function() {
 
@@ -69,7 +69,7 @@ describe.only(`Lexeme`, function() {
 
   })
 
-  it.only(`Lexeme Details`, function() {
+  it(`Lexeme Details`, function() {
 
     cy.readFile(`data/language.yml`)
     .then(yaml => yamlParser.load(yaml))
@@ -350,7 +350,35 @@ describe.only(`Lexeme`, function() {
 
   })
 
-  it(`empty lexeme`)
+  it.only(`empty lexeme`, function() {
+
+    // Seed database
+
+    const projectData = new Project({
+      id: `d12a00e6-a324-450f-8a06-7265b6eb5c33`,
+    })
+
+    const languageData = new Language({
+      id: `a64b2239-e094-49df-a2c4-b2a8c5e35f8c`,
+    })
+
+    const lexemeData = new Lexeme({
+      id:       `dc305010-fd42-4356-b4e9-a6eef7323119`,
+      language: {
+        id: languageData.id,
+      },
+      projects: [projectData.id],
+    })
+
+    cy.addOne(projectData)
+    cy.addOne(languageData)
+    cy.addOne(lexemeData)
+
+    // Assertions
+
+    cy.visit(`/languages/1234/lexemes/${ lexemeData.id }`)
+
+  })
 
   it(`private projects`)
 
