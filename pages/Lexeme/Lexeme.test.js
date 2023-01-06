@@ -3,6 +3,7 @@ import yamlParser           from 'js-yaml'
 
 import Language from '../../models/Language.js'
 import Lexeme   from '../../models/Lexeme.js'
+import Project  from '../../models/Project.js'
 
 const msAuthCookie = Cypress.env(`msAuthCookie`)
 const msAuthUser   = Cypress.env(`msAuthUser`)
@@ -82,9 +83,15 @@ describe.only(`Lexeme`, function() {
         .then(yaml => yamlParser.load(yaml))
         .then(project => {
 
+          const typologyProject = new Project({
+            id:   `56b6e164-cf90-4e83-835e-d8e92ed11778`,
+            name: `Typology Project`,
+          })
+
           cy.addOne(language)
           cy.addOne(lexeme)
           cy.addOne(project)
+          cy.addOne(typologyProject)
           cy.visit(`/languages/${ language.id }/lexemes/${ lexeme.id }`)
 
           // HEADER
@@ -271,8 +278,31 @@ describe.only(`Lexeme`, function() {
           cy.contains(`#date-modified`, new Date(lexeme.dateModified).toLocaleDateString(`en-CA`))
 
           // Language Name
+          cy.get(`#language-name`)
+          .within(() => {
+            for (const lang in language.name) {
+              cy.contains(`dt`, lang)
+              cy.contains(`dd`, language.name[lang])
+            }
+          })
+
           // Language Autonym
+          cy.get(`#language-autonym`)
+          .within(() => {
+            for (const ortho in language.autonym) {
+              cy.contains(`dt`, ortho)
+              cy.contains(`dd`, language.autonym[ortho])
+            }
+          })
+
           // Projects
+          cy.get(`#projects`).children()
+          .should(`have.length`, lexeme.projects.length)
+          .then(([a, b]) => {
+            expect(a).to.include.text(`Chitimacha Dictionary`)
+            expect(b).to.include.text(`Typology Project`)
+          })
+
           // References
           // Sources
           // Tags

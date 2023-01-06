@@ -209,6 +209,7 @@ morphType:
   eng: stem
 projects:
   - 683a5d27-53bf-451b-80d1-f6e731674c9e # Chitimacha Dictionary Project
+  - 56b6e164-cf90-4e83-835e-d8e92ed11778 # Typology Project (created during Lexeme test)
 senses:
   - id: 813eaa72-fab2-4f50-81d7-949c59651d20
     # Having data for `baseCategory` doesn't actually make sense for a stem,
