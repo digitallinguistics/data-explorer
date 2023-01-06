@@ -4,6 +4,66 @@ citationForm:
   Modern:  cuyi
   Swadesh: čuyi
   IPA:     t͡ʃuji
+crossReferences:
+
+  - id: 671535bb-8f0e-4f62-8e32-7a883b3edd73 # doesn't actually exist
+    label:        Delphine
+    lemma:
+      transcription:
+        Modern:  cuwi
+        Swadesh: čuyi
+        IPA:     t͡ʃuwi
+    relation:     Delphine
+    relationType: unidirectional
+
+  - label:        compare
+    relation:     Compare
+    relationType: open set
+    members:
+      - id: abc56564-5754-4698-845c-2ea32a760bbd # <- this entry
+        lemma:
+          transcription:
+            Modern:  cuw-
+            Swadesh: čuw-
+            IPA:     t͡ʃuw-
+      - id: a5bf5857-4145-4a33-a8d9-5b73cab729e6 # doesn't actually exist
+        lemma:
+          transcription:
+            Modern:  nuhc-
+            Swadesh: nuhč-
+            IPA:     nuht͡ʃ-
+      - id: f76fd13f-6220-4eab-83bf-308d3e3cffdd # doesn't actually exist
+        lemma:
+          transcription:
+            Modern:  nicwa-
+            Swadesh: ničwa-
+            IPA:     nit͡ʃwa-
+
+  - relation:     Suppletive (sg./pl.)
+    relationType: enumerated set
+    members:
+      singular:
+        id: abc56564-5754-4698-845c-2ea32a760bbd # <- this entry
+        lemma:
+          transcription:
+            Modern:  cuw-
+            Swadesh: čuw-
+            IPA:     t͡ʃuw-
+      plural:
+        id: 4b630ebc-4eba-4444-9fb8-7ef6ef1ee95b # doesn't actually exist
+        lemma:
+          transcription:
+            Modern:  dut-
+            Swadesh: dut-
+            IPA:     tʼut-
+      pluractional:
+        id: 9f2dc613-4e83-4364-b8ff-e52074f34745 # doesn't actually exist
+        lemma:
+          transcription:
+            Modern:  dutma-
+            Swadesh: dutma-
+            IPA:     tʼutma-
+
 forms:
   - abstract:   true
     id:         422040f0-3fa3-4b97-a5fc-d077c02d74ee

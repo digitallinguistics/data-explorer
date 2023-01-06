@@ -243,6 +243,20 @@ describe.only(`Lexeme`, function() {
 
           cy.get(`#metadata-link`).click()
 
+          // Cross References
+
+
+          // Date Created
+          // Date Modified
+          // Language Name
+          // Language Autonym
+          // Projects
+          // References
+          // Sources
+          // Tags
+          // URL
+          // Notes
+
         })
 
       })
