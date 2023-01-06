@@ -265,7 +265,11 @@ describe.only(`Lexeme`, function() {
           })
 
           // Date Created
+          cy.contains(`#date-created`, new Date(lexeme.dateCreated).toLocaleDateString(`en-CA`))
+
           // Date Modified
+          cy.contains(`#date-modified`, new Date(lexeme.dateModified).toLocaleDateString(`en-CA`))
+
           // Language Name
           // Language Autonym
           // Projects
