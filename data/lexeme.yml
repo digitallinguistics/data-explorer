@@ -22,7 +22,6 @@ citationForm:
   Swadesh: čuyi
   IPA:     t͡ʃuji
 crossReferences:
-
   - id: 671535bb-8f0e-4f62-8e32-7a883b3edd73 # doesn't actually exist
     label:        Delphine
     lemma:
@@ -32,7 +31,6 @@ crossReferences:
         IPA:     t͡ʃuwi
     relation:     Delphine
     relationType: unidirectional
-
   - label:        compare
     relation:     Compare
     relationType: open set
@@ -55,7 +53,6 @@ crossReferences:
             Modern:  nicwa-
             Swadesh: ničwa-
             IPA:     nit͡ʃwa-
-
   - relation:     Suppletive (sg./pl.)
     relationType: enumerated set
     members:
@@ -80,7 +77,6 @@ crossReferences:
             Modern:  dutma-
             Swadesh: dutma-
             IPA:     tʼutma-
-
 forms:
   - abstract:   true
     id:         422040f0-3fa3-4b97-a5fc-d077c02d74ee
@@ -252,3 +248,12 @@ senses:
       eng: walk
 slot:
   eng: stem
+sources:
+  - id:           7e163f85-e3de-4cf4-92e0-ae79c5a374a3 # doesn't actually exist
+    abbreviation: BP
+    familyName:   Paul
+    givenName:    Benjamin
+  - id:           fe690a07-6375-46b5-a115-be55b2c573ec # doesn't actually exist
+    abbreviation: DD
+    familyName:   DuCloux
+    givenName:    Delphine

@@ -312,8 +312,14 @@ describe.only(`Lexeme`, function() {
             expect(b).to.contain.text(lexeme.bibliography[1].citation)
           })
 
-
           // Sources
+          cy.get(`#lexeme-sources`).children()
+          .should(`have.length`, lexeme.sources.length)
+
+          for (const source of lexeme.sources) {
+            cy.contains(`#lexeme-sources li`, source.abbreviation)
+          }
+
           // Tags
           // URL
           // Notes
