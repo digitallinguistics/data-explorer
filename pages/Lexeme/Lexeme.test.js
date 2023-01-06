@@ -244,7 +244,25 @@ describe.only(`Lexeme`, function() {
           cy.get(`#metadata-link`).click()
 
           // Cross References
+          cy.get(`#cross-references`).children()
+          .should(`have.length`, 8)
 
+          cy.get(`#cross-references`)
+          .within(() => {
+
+            cy.contains(`dt`, `Delphine`)
+            cy.contains(`dd`, `cuwi`)
+            cy.contains(`dt`, `compare`)
+            cy.get(`.cross-refs-set`).children()
+            .should(`have.length`, 2)
+            .should(`include.text`, `nuhc‑`)  // non-breaking hyphen
+            .should(`include.text`, `nicwa‑`) // non-breaking hyphen
+            cy.contains(`dt`, `plural`)
+            cy.contains(`dd`, `dut‑`)         // non-breaking hyphen
+            cy.contains(`dt`, `pluractional`)
+            cy.contains(`dd`, `dutma‑`)       // non-breaking hyphen
+
+          })
 
           // Date Created
           // Date Modified

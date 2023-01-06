@@ -162,7 +162,7 @@ async function upsert(items, container) {
 
 }
 
-export default async function seedDatabase(dbName) {
+export default async function seedDatabase(dbName = `digitallinguistics`) {
 
   console.info(`Seeding the ${ dbName } database.`)
 
