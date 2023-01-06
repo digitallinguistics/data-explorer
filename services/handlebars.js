@@ -101,6 +101,7 @@ const hbs = new ExpressHandlebars({
     is,
     isFalse,
     isNull,
+    isTruthy,
     mls,
     mot,
     number,

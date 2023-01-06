@@ -66,6 +66,7 @@
   {{/if}}
 {{/inline}}
 
+{{!-- NB: .mp = .morphophonemic --}}
 {{#*inline 'Headword' ~}}
   <a class='headword {{#if abstract }}mp{{/if}}' href='/languages/{{ @root.language.id }}/lexemes/{{ lexeme }}'>
     {{~#if unattested }}*{{/if~}}{{~ mot transcription @root.language.defaultOrthography ~}}
@@ -80,7 +81,14 @@
 
   <header class=header>
 
-    <h1 class='headword {{#if lexeme.lemma.abstract }}mp{{/if}} page-title' lang='{{ language.iso }}'>{{#if lexeme.lemma.unattested }}*{{/if}}{{mot lexeme.lemma.transcription language.defaultOrthography }}</h1>
+    {{!-- This differs from the inline Headword partial because it's not wrapped in a link. --}}
+    <h1 class='headword {{#if lexeme.lemma.abstract }}mp{{/if}} page-title' lang='{{ language.iso }}'>
+      {{#if (isTruthy lexeme.lemma.transcription) }}
+        {{#if lexeme.lemma.unattested }}*{{/if}}{{mot lexeme.lemma.transcription language.defaultOrthography }}
+      {{else}}
+        [no lemma given]
+      {{/if}}
+    </h1>
 
     <a class='language link' href='/languages/{{ language.id }}'>
       {{~#if language.name ~}}

@@ -378,6 +378,9 @@ describe(`Lexeme`, function() {
 
     cy.visit(`/languages/1234/lexemes/${ lexemeData.id }`)
 
+    // Lemma
+    cy.contains(`.headword`, `[no lemma given]`)
+
   })
 
   it(`private projects`)
