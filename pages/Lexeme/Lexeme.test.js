@@ -332,6 +332,8 @@ describe.only(`Lexeme`, function() {
           })
 
           // URL
+          cy.contains(`#url`, `https://data.digitallinguistics.io/languages/${ language.id }/lexemes/${ lexeme.id }`)
+
           // Notes
 
         })
