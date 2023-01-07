@@ -565,7 +565,7 @@ describe(`Lexeme`, function() {
 
   // If a lexeme is part of both public and private projects,
   // only show the private projects if the user has access to them.
-  it.only(`private projects`, function() {
+  it(`private projects`, function() {
 
     // SETUP
 

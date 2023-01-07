@@ -1,4 +1,3 @@
-import chunk             from '../utilities/chunk.js'
 import Cite              from 'citation-js'
 import Database          from '../database/Database.js'
 import { expect }        from 'chai'
@@ -12,9 +11,10 @@ import {
   join as joinPath,
 } from 'path'
 
-import Language from '../models/Language.js'
-import Lexeme   from '../models/Lexeme.js'
-import Project  from '../models/Project.js'
+import Language    from '../models/Language.js'
+import Lexeme      from '../models/Lexeme.js'
+import Permissions from '../models/Permissions.js'
+import Project     from '../models/Project.js'
 
 const __filename = fileURLToPath(import.meta.url)
 const __dirname  = getDirname(__filename)
@@ -424,7 +424,7 @@ describe(`Database`, function() {
 
   })
 
-  describe(`getProjects`, function() {
+  describe.only(`getProjects`, function() {
 
     it(`200 OK`, async function() {
 
@@ -464,6 +464,24 @@ describe(`Database`, function() {
 
       expect(status).to.equal(200)
       expect(data).to.have.length(0)
+
+    })
+
+    it.only(`option: user`, async function() {
+
+      const count = 3
+
+      await db.addMany(count, this.project)
+      await db.addMany(count, new Project({
+        permissions: new Permissions({
+          public: false,
+        }),
+      }))
+
+      const { data, status } = await db.getProjects({ user: `owner@digitallinguistics.io` })
+
+      expect(status).to.equal(200)
+      expect(data).to.have.length(count)
 
     })
 

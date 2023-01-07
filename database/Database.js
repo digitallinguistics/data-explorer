@@ -243,11 +243,27 @@ export default class Database {
 
   /**
    * Get multiple projects from the database.
+   * @param {Object} [options={}]   An options hash.
+   * @param {String} [options.user] The ID of a user to filter projects for.
    * @returns Promise<Array<Project>>
    */
-  async getProjects() {
+  async getProjects(options = {}) {
 
-    const query = `SELECT * FROM ${ this.containerName } WHERE ${ this.containerName }.type = 'Project'`
+    const { user } = options
+
+    let query = `SELECT * FROM ${ this.containerName } WHERE ${ this.containerName }.type = 'Project'`
+
+    if (user) {
+      query += ` AND (
+        ${ this.containerName }.permissions.public = true
+        OR
+        ARRAY_CONTAINS(${ this.containerName }.permissions.owners, '${ user }')
+        OR
+        ARRAY_CONTAINS(${ this.containerName }.permissions.editors, '${ user }')
+        OR
+        ARRAY_CONTAINS(${ this.containerName }.permissions.viewers, '${ user }')
+      )`
+    }
 
     const queryIterator = this.container.items.query(query).getAsyncIterator()
     const data          = []

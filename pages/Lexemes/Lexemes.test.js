@@ -1,8 +1,91 @@
 import yamlParser from 'js-yaml'
 
+import Language    from '../../models/Language.js'
+import Lexeme      from '../../models/Lexeme.js'
+import Permissions from '../../models/Permissions.js'
+import Project     from '../../models/Project.js'
+
+const badID        = `bad-id`
 const msAuthCookie = Cypress.env(`msAuthCookie`)
 
-describe(`Lexemes Page`, function() {
+describe(`Lexemes`, function() {
+
+  describe(`/languages`, function() {
+
+    it(`404: Language Not Found`, function() {
+
+      // SETUP
+
+      const lexeme = new Lexeme({
+        id: `ae4e6f0c-994a-400a-a47b-65f61eaaa65d`,
+      })
+
+      cy.addOne(lexeme)
+
+      cy.visit(`/languages/${ badID }/lexemes`, { failOnStatusCode: false })
+
+      // ASSERTIONS
+
+      cy.contains(`.page-title`, `404: Item Not Found`)
+      cy.contains(`.error-message`, `No language exists with ID ${ badID }.`)
+
+    })
+
+    it.only(`401: Unauthenticated`, function() {
+
+      // SETUP
+
+      const project = new Project({
+        id:          `5ac8da11-ad52-4705-8f10-cce06d45e2a0`,
+        permissions: new Permissions({ public: false }),
+      })
+
+      const language = new Language({
+        id: `09b9550d-95bd-408d-868e-32f655f33987`,
+      })
+
+      const lexeme = new Lexeme({
+        id:       `f8c33b57-d45f-4728-93a1-657da2990c49`,
+        language: new Language({
+          id: language.id,
+        }),
+        projects: [project.id],
+      })
+
+      cy.addOne(project)
+      cy.addOne(language)
+      cy.addOne(lexeme)
+
+      cy.visit(`/languages/${ language.id }/lexemes`, { failOnStatusCode: false })
+
+      // ASSERTIONS
+
+      cy.contains(`.page-title`, `401: Unauthorized`)
+
+    })
+
+    it(`403: Unauthorized`)
+
+    it(`200: Lexemes`)
+
+  })
+
+  describe(`/projects`, function() {
+
+    it(`404: Project Not Found`)
+
+    it(`401: Unauthenticated`)
+
+    it(`403: Unauthorized`)
+
+    it(`200: Lexemes`)
+
+  })
+
+
+})
+
+describe.skip(`Lexemes Page`, function() {
 
   const publicLanguageID  = `850f3bd9-2a57-4289-bc57-05640b5d8d7d` // Plains Cree
   const publicProjectID   = `c554474c-7f39-4ede-941b-c40b8f58b059` // Nisinoon
