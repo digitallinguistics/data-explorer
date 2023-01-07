@@ -402,6 +402,9 @@ describe(`Lexeme`, function() {
     // Morph Type
     cy.contains(`#morph-type`, emDash)
 
+    // Slot
+    cy.contains(`#slot`, emDash)
+
     // Base Form
     // TODO: # of base forms
 
