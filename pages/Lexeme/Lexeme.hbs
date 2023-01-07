@@ -176,7 +176,7 @@
 
     <section class=forms-section>
 
-      <h2 class=section-header>Base Forms <span class=summary-count>({{ lexeme.forms.length }})</span></h2>
+      <h2 class=section-header>Base Forms <span class=summary-count>({{#if lexeme.forms }}{{ lexeme.forms.length }}{{else}}0{{/if}})</span></h2>
 
       {{#unless lexeme.forms }}
         <span class=empty-list>No forms listed.</span>

@@ -2,6 +2,8 @@ import Permissions from './Permissions.js'
 
 export default class Lexeme {
 
+  forms = []
+
   lemma = {
     transcription: {},
   }

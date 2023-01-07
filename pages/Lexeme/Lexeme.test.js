@@ -405,8 +405,9 @@ describe(`Lexeme`, function() {
     // Slot
     cy.contains(`#slot`, emDash)
 
-    // Base Form
-    // TODO: # of base forms
+    // Base Forms
+    cy.get(`.forms-list`).should(`not.exist`)
+    cy.contains(`.forms-section .summary-count`, `(${ lexeme.forms.length })`)
 
   })
 
