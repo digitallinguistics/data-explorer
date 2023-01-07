@@ -8,6 +8,8 @@ import Project  from '../../models/Project.js'
 const msAuthCookie = Cypress.env(`msAuthCookie`)
 const msAuthUser   = Cypress.env(`msAuthUser`)
 
+const emDash = `—`
+
 describe(`Lexeme`, function() {
 
   it(`Not Found`, function() {
@@ -69,7 +71,7 @@ describe(`Lexeme`, function() {
 
   })
 
-  it(`Lexeme Details`, function() {
+  it.only(`Lexeme Details`, function() {
 
     cy.readFile(`data/language.yml`)
     .then(yaml => yamlParser.load(yaml))
@@ -105,9 +107,10 @@ describe(`Lexeme`, function() {
           // Glosses
           cy.get(`.glosses`).children()
           .should(`have.length`, lexeme.senses.length)
-          .then(([a, b]) => {
+          .then(([a, b, c]) => {
             expect(a).to.contain.text(lexeme.senses[0].gloss.eng)
             expect(b).to.contain.text(lexeme.senses[1].gloss.eng)
+            expect(c).to.contain.text(emDash)
           })
 
           // FORMS
@@ -350,7 +353,7 @@ describe(`Lexeme`, function() {
 
   })
 
-  it.only(`empty lexeme`, function() {
+  it(`empty lexeme`, function() {
 
     // Seed database
 
@@ -383,6 +386,9 @@ describe(`Lexeme`, function() {
 
     // Language
     cy.contains(`.language`, `[no language name given]`)
+
+    // Glosses
+    cy.get(`.glosses`).should(`not.exist`)
 
   })
 
