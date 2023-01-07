@@ -1,9 +1,10 @@
 import prepareTranscription from '../../utilities/prepareTranscription.js'
 import yamlParser           from 'js-yaml'
 
-import Language from '../../models/Language.js'
-import Lexeme   from '../../models/Lexeme.js'
-import Project  from '../../models/Project.js'
+import Language    from '../../models/Language.js'
+import Lexeme      from '../../models/Lexeme.js'
+import Permissions from '../../models/Permissions.js'
+import Project     from '../../models/Project.js'
 
 const msAuthCookie = Cypress.env(`msAuthCookie`)
 const msAuthUser   = Cypress.env(`msAuthUser`)
@@ -466,7 +467,7 @@ describe(`Lexeme`, function() {
 
   })
 
-  it.only(`empty form + empty sense`, function() {
+  it(`empty form + empty sense`, function() {
 
     // SETUP
 
@@ -564,8 +565,59 @@ describe(`Lexeme`, function() {
 
   // If a lexeme is part of both public and private projects,
   // only show the private projects if the user has access to them.
-  // Test this with 1 public project, 1 private project the user has access to,
-  // and 1 private project the user does not have access to.
-  it(`private projects`)
+  it.only(`private projects`, function() {
+
+    // SETUP
+
+    const publicProject = new Project({
+      id:   `b43470b6-24ab-41d7-acff-ff24dc299548`,
+      name: `Public Project`,
+    })
+
+    const privateProject = new Project({
+      id:          `4ef445ec-20e1-4755-b574-89626cabea87`,
+      name:        `Private Project`,
+      permissions: new Permissions({ public: false }),
+    })
+
+    const userProject = new Project({
+      id:          `80c0998a-1091-466d-a99b-b71407693637`,
+      name:        `User Project`,
+      permissions: new Permissions({
+        owners: [msAuthUser],
+      }),
+    })
+
+    const language = new Language({
+      id: `9bae693b-f953-4880-af23-683c9b374aa3`,
+    })
+
+    const lexeme = new Lexeme({
+      id:       `15183462-fe10-439e-a90c-217d0a8777e3`,
+      language: {
+        id: language.id,
+      },
+      projects: [
+        publicProject.id,
+        privateProject.id,
+        userProject.id,
+      ],
+    })
+
+    cy.addOne(publicProject)
+    cy.addOne(privateProject)
+    cy.addOne(userProject)
+    cy.addOne(language)
+    cy.addOne(lexeme)
+
+    cy.visit(`/languages/1234/lexemes/${ lexeme.id }`)
+    cy.get(`#metadata-link`).click()
+
+    // ASSERT
+
+    cy.get(`#projects`).children()
+    .should(`have.length`, 2)
+
+  })
 
 })

@@ -14,7 +14,7 @@ export default async function get(req, res) {
     })
   }
 
-  const projects  = await db.getMany(lexeme.projects)
+  let projects    = await db.getMany(lexeme.projects)
   const isPrivate = !projects.some(project => project.permissions.public)
 
   if (isPrivate && !res.locals.user) {
@@ -23,7 +23,9 @@ export default async function get(req, res) {
     })
   }
 
-  const userHasAccess = projects.some(project => hasAccess(res.locals.user, project))
+  projects = projects.filter(project => hasAccess(res.locals.user, project))
+
+  const userHasAccess = Boolean(projects.length)
 
   if (!userHasAccess) {
     return res.error(`Unauthorized`, {
