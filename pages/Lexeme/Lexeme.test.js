@@ -515,6 +515,9 @@ describe(`Lexeme`, function() {
     // Abstract Form
     cy.get(`#form-${ id }__abstract`).should(`not.be.checked`)
 
+    // Unattested
+    cy.get(`#form-${ id }__unattested`).should(`not.be.checked`)
+
   })
 
   // If a lexeme is part of both public and private projects,
