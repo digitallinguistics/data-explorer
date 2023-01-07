@@ -396,6 +396,9 @@ describe(`Lexeme`, function() {
     // Lemma
     cy.contains(`#lemma`, emDash)
 
+    // Citation Form
+    cy.contains(`#citation-form`, emDash)
+
   })
 
   it(`private projects`)
