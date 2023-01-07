@@ -83,6 +83,10 @@ function obj(value) {
   return value && Object.keys(value).length > 0
 }
 
+function or(a, b) {
+  return isTruthy(a) ?? isTruthy(b)
+}
+
 function section(name, opts) {
   this.sections       ??= {}
   this.sections[name]   = opts.fn(this)
@@ -106,6 +110,7 @@ const hbs = new ExpressHandlebars({
     mot,
     number,
     obj,
+    or,
     section,
   },
   layoutsDir:    path.resolve(__dirname, `../layouts`),

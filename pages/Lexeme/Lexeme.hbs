@@ -91,13 +91,17 @@
     </h1>
 
     <a class='language link' href='/languages/{{ language.id }}'>
-      {{~#if language.name ~}}
-        {{mls language.name language.defaultAnalysisLanguage }}
-      {{~/if~}}
-      {{~#if (and language.name language.autonym) }} | {{/if~}}
-      {{~#if language.autonym ~}}
-        <span class=txn>{{mot language.autonym language.defaultOrthography }}</span>
-      {{~/if~}}
+      {{#if (or language.name language.autonym) }}
+        {{~#if language.name ~}}
+          {{mls language.name language.defaultAnalysisLanguage }}
+        {{~/if~}}
+        {{~#if (and language.name language.autonym) }} | {{/if~}}
+        {{~#if language.autonym ~}}
+          <span class=txn>{{mot language.autonym language.defaultOrthography }}</span>
+        {{~/if~}}
+      {{else}}
+        <span class=txn>[no language name given]</span>
+      {{/if}}
     </a>
 
     {{#if lexeme.senses }}

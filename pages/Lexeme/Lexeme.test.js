@@ -354,32 +354,35 @@ describe(`Lexeme`, function() {
 
     // Seed database
 
-    const projectData = new Project({
+    const project = new Project({
       id: `d12a00e6-a324-450f-8a06-7265b6eb5c33`,
     })
 
-    const languageData = new Language({
+    const language = new Language({
       id: `a64b2239-e094-49df-a2c4-b2a8c5e35f8c`,
     })
 
-    const lexemeData = new Lexeme({
+    const lexeme = new Lexeme({
       id:       `dc305010-fd42-4356-b4e9-a6eef7323119`,
       language: {
-        id: languageData.id,
+        id: language.id,
       },
-      projects: [projectData.id],
+      projects: [project.id],
     })
 
-    cy.addOne(projectData)
-    cy.addOne(languageData)
-    cy.addOne(lexemeData)
+    cy.addOne(project)
+    cy.addOne(language)
+    cy.addOne(lexeme)
 
     // Assertions
 
-    cy.visit(`/languages/1234/lexemes/${ lexemeData.id }`)
+    cy.visit(`/languages/1234/lexemes/${ lexeme.id }`)
 
     // Lemma
     cy.contains(`.headword`, `[no lemma given]`)
+
+    // Language
+    cy.contains(`.language`, `[no language name given]`)
 
   })
 
