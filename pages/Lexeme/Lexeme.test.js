@@ -352,7 +352,7 @@ describe(`Lexeme`, function() {
 
   })
 
-  it.only(`empty lexeme`, function() {
+  it(`empty lexeme`, function() {
 
     // SETUP: Seed database
 
@@ -366,8 +366,6 @@ describe(`Lexeme`, function() {
     })
 
     const lexeme = new Lexeme({
-      dateCreated:  null,
-      dateModified: null,
       id:           `dc305010-fd42-4356-b4e9-a6eef7323119`,
       language:     {
         id: language.id,
@@ -468,7 +466,56 @@ describe(`Lexeme`, function() {
 
   })
 
-  it(`empty form + empty sense`)
+  it.only(`empty form + empty sense`, function() {
+
+    // SETUP
+
+    const project = new Project({
+      id:   `d12a00e6-a324-450f-8a06-7265b6eb5c33`,
+      name: `Test Project`,
+    })
+
+    const language = new Language({
+      id: `a64b2239-e094-49df-a2c4-b2a8c5e35f8c`,
+    })
+
+    const lexeme = new Lexeme({
+      forms:    [
+        {
+          id: `60a80a96-02b0-4458-b3ed-cd6ff6179c5a`,
+        },
+      ],
+      id:           `dc305010-fd42-4356-b4e9-a6eef7323119`,
+      language:     {
+        id: language.id,
+      },
+      projects: [project.id],
+      senses:   [
+        {
+          id: `cffc430d-11b3-4a55-a383-7747bb3a1d15`,
+        },
+      ],
+    })
+
+    cy.addOne(project)
+    cy.addOne(language)
+    cy.addOne(lexeme)
+
+    cy.visit(`/languages/1234/lexemes/${ lexeme.id }`)
+
+    // ASSERTIONS
+
+    // FORM
+
+    const [{ id }] = lexeme.forms
+
+    // Transcription
+    cy.contains(`.form summary`, `[no transcription given]`)
+
+    // Abstract Form
+    cy.get(`#form-${ id }__abstract`).should(`not.be.checked`)
+
+  })
 
   // If a lexeme is part of both public and private projects,
   // only show the private projects if the user has access to them.

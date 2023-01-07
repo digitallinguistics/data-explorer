@@ -187,7 +187,11 @@
               <details class=details open>
 
                 <summary>
-                  {{> MultiOrthoTranscription/MultiOrthoTranscription data=form.transcription lang=@root.language.iso attributes='class="color-block mot form__transcription"' }}
+                  {{#if (obj form.transcription) }}
+                    {{> MultiOrthoTranscription/MultiOrthoTranscription data=form.transcription lang=@root.language.iso attributes='class="color-block mot form__transcription"' }}
+                  {{else}}
+                    <span class=txn>[no transcription given]</span>
+                  {{/if}}
                 </summary>
 
                 <fieldset class='def-list form-props'>

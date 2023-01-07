@@ -12,6 +12,8 @@ export default class Lexeme {
 
   projects = []
 
+  senses = []
+
   type = `Lexeme`
 
   constructor(data = {}) {
