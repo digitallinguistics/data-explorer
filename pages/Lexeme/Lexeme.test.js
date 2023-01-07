@@ -518,6 +518,27 @@ describe(`Lexeme`, function() {
     // Unattested
     cy.get(`#form-${ id }__unattested`).should(`not.be.checked`)
 
+    // Allomorphs
+    cy.contains(`#form-${ id }__allomorphs`, emDash)
+
+    // Components
+    cy.contains(`#form-${ id }__components`, emDash)
+
+    // Component Of
+    cy.contains(`#form-${ id }__component-of`, emDash)
+
+    // Etymology
+    cy.contains(`#form-${ id }__etymology`, emDash)
+
+    // Reflexes
+    cy.contains(`#form-${ id }__reflexes`, emDash)
+
+    // References
+    cy.contains(`#form-${ id }__references`, emDash)
+
+    // Sources
+    cy.contains(`#form-${ id }__sources`, emDash)
+
   })
 
   // If a lexeme is part of both public and private projects,
