@@ -507,7 +507,7 @@ describe(`Lexeme`, function() {
 
     // FORM
 
-    const [{ id }] = lexeme.forms
+    let [{ id }] = lexeme.forms
 
     // Transcription
     cy.contains(`.form summary`, `[no transcription given]`)
@@ -538,6 +538,27 @@ describe(`Lexeme`, function() {
 
     // Sources
     cy.contains(`#form-${ id }__sources`, emDash)
+
+    // SENSE
+
+    ;[{ id }] = lexeme.senses // eslint-disable-line semi-style
+
+    cy.get(`#meaning-link`).click()
+
+    // Gloss
+    cy.contains(`#sense-${ id }__gloss`, emDash)
+
+    // Lexical Category
+    cy.contains(`#sense-${ id }__category`, emDash)
+
+    // Semantic Class
+    cy.contains(`#sense-${ id }__semantic-class`, emDash)
+
+    // Inflection Class
+    cy.contains(`#sense-${ id }__inflection-class`, emDash)
+
+    // Base Category
+    cy.contains(`#sense-${ id }__base-category`, emDash)
 
   })
 
