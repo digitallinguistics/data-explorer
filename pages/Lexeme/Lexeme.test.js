@@ -460,6 +460,12 @@ describe(`Lexeme`, function() {
     // Tags
     cy.contains(`#tags`, emDash)
 
+    // URL: Already tested above
+
+    // Notes
+    cy.contains(`.notes-section .summary-count`, `(0)`)
+    cy.get(`.lexeme__notes`).children().should(`have.length`, 0)
+
   })
 
   it(`empty form + empty sense`)
