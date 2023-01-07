@@ -399,6 +399,12 @@ describe(`Lexeme`, function() {
     // Citation Form
     cy.contains(`#citation-form`, emDash)
 
+    // Morph Type
+    cy.contains(`#morph-type`, emDash)
+
+    // Base Form
+    // TODO: # of base forms
+
   })
 
   it(`private projects`)
