@@ -398,11 +398,11 @@
         </div>
       {{/unless}}
 
-      <label class=label for=lexeme-sources>Sources</label>
+      <label class=label for=lexeme__sources>Sources</label>
       {{#unless lexeme.sources ~}}
-        <span id=lexeme-sources>—</span>
+        <span id=lexeme__sources>—</span>
       {{~else~}}
-        <ul class=tags-list id=lexeme-sources>
+        <ul class=tags-list id=lexeme__sources>
           {{~#each lexeme.sources ~}}
             {{~> Source ~}}
           {{~/each~}}

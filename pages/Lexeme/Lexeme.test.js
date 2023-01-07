@@ -307,7 +307,6 @@ describe(`Lexeme`, function() {
           })
 
           // References
-          // References
           cy.get(`#lexeme__references ul`).children()
           .should(`have.length`, lexeme.bibliography.length)
           .then(([a, b]) => {
@@ -316,11 +315,11 @@ describe(`Lexeme`, function() {
           })
 
           // Sources
-          cy.get(`#lexeme-sources`).children()
+          cy.get(`#lexeme__sources`).children()
           .should(`have.length`, lexeme.sources.length)
 
           for (const source of lexeme.sources) {
-            cy.contains(`#lexeme-sources li`, source.abbreviation)
+            cy.contains(`#lexeme__sources li`, source.abbreviation)
           }
 
           // Tags
@@ -454,6 +453,12 @@ describe(`Lexeme`, function() {
 
     // References
     cy.contains(`#lexeme__references`, emDash)
+
+    // Sources
+    cy.contains(`#lexeme__sources`, emDash)
+
+    // Tags
+    cy.contains(`#tags`, emDash)
 
   })
 
