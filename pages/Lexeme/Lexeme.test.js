@@ -366,12 +366,17 @@ describe(`Lexeme`, function() {
     })
 
     const lexeme = new Lexeme({
-      id:       `dc305010-fd42-4356-b4e9-a6eef7323119`,
-      language: {
+      dateCreated:  null,
+      dateModified: null,
+      id:           `dc305010-fd42-4356-b4e9-a6eef7323119`,
+      language:     {
         id: language.id,
       },
       projects: [project.id],
     })
+
+    delete lexeme.dateCreated
+    delete lexeme.dateModified
 
     cy.addOne(project)
     cy.addOne(language)
@@ -428,6 +433,18 @@ describe(`Lexeme`, function() {
 
     // Cross References
     cy.contains(`#cross-references`, emDash)
+
+    // Date Created
+    cy.contains(`#date-created`, emDash)
+
+    // Date Modified
+    cy.contains(`#date-modified`, emDash)
+
+    // Language Name
+    cy.contains(`#language-name`, emDash)
+
+    // Language Autonym
+    cy.contains(`#language-autonym`, emDash)
 
   })
 

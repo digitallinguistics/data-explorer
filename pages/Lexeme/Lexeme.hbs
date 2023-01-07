@@ -362,7 +362,11 @@
       <output id=date-modified>{{#if lexeme.dateModified }}{{date lexeme.dateModified }}{{else}}—{{/if}}</output>
 
       <label class=label for=language-name>Language Name</label>
-      {{> MultiLangString/MultiLangString data=language.name attributes='id=language-name' }}
+      {{#if (obj language.name) }}
+        {{> MultiLangString/MultiLangString data=language.name attributes='id=language-name' }}
+      {{else}}
+        <span id=language-name>—</span>
+      {{/if}}
 
       <label class=label for=language-autonym>Language Autonym</label>
       {{#if (obj language.autonym)}}
