@@ -71,7 +71,7 @@ describe(`Lexeme`, function() {
 
   })
 
-  it.only(`Lexeme Details`, function() {
+  it(`Lexeme Details`, function() {
 
     cy.readFile(`data/language.yml`)
     .then(yaml => yamlParser.load(yaml))
@@ -353,7 +353,7 @@ describe(`Lexeme`, function() {
 
   })
 
-  it(`empty lexeme`, function() {
+  it.only(`empty lexeme`, function() {
 
     // Seed database
 
@@ -378,8 +378,9 @@ describe(`Lexeme`, function() {
     cy.addOne(lexeme)
 
     // Assertions
-
     cy.visit(`/languages/1234/lexemes/${ lexeme.id }`)
+
+    // HEADER
 
     // Lemma
     cy.contains(`.headword`, `[no lemma given]`)
@@ -389,6 +390,11 @@ describe(`Lexeme`, function() {
 
     // Glosses
     cy.get(`.glosses`).should(`not.exist`)
+
+    // FORM
+
+    // Lemma
+    cy.contains(`#lemma`, emDash)
 
   })
 

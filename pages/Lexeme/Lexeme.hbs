@@ -133,7 +133,13 @@
     <dl class='def-list lexeme__transcriptions'>
 
       <dt class=label for=lemma>Lemma</dt>
-      <dd>{{> MultiOrthoTranscription/MultiOrthoTranscription data=lexeme.lemma.transcription lang=language.iso attributes='id=lemma' }}</dd>
+      <dd id=lemma>
+        {{#if (obj lexeme.lemma.transcription) }}
+          {{> MultiOrthoTranscription/MultiOrthoTranscription data=lexeme.lemma.transcription lang=language.iso }}
+        {{else}}
+          <span>—</span>
+        {{/if}}
+      </dd>
 
       <dt class=label for=citation-form>Citation Form</dt>
       <dd id=citation-form>
