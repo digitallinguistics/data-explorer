@@ -358,7 +358,8 @@ describe(`Lexeme`, function() {
     // SETUP: Seed database
 
     const project = new Project({
-      id: `d12a00e6-a324-450f-8a06-7265b6eb5c33`,
+      id:   `d12a00e6-a324-450f-8a06-7265b6eb5c33`,
+      name: `Test Project`,
     })
 
     const language = new Language({
@@ -445,6 +446,11 @@ describe(`Lexeme`, function() {
 
     // Language Autonym
     cy.contains(`#language-autonym`, emDash)
+
+    // Projects
+    // A lexeme must have a project in order for the server
+    // to render the page properly.
+    cy.contains(`#projects`, project.name)
 
   })
 
