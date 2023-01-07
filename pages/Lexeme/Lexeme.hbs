@@ -386,11 +386,11 @@
         <span id=projects>—</span>
       {{/if}}
 
-      <label class=label for=lexeme-references>References</label>
+      <label class=label for=lexeme__references>References</label>
       {{#unless lexeme.bibliography }}
-        <span id=lexeme-references>—</span>
+        <span id=lexeme__references>—</span>
       {{else}}
-        <div id=lexeme-references>
+        <div id=lexeme__references>
           {{> CitationsList lexeme.bibliography }}
           <span class=bib-links>
             <a class='link subtle' href='/languages/{{ language.id }}/lexemes/{{ lexeme.id }}/references?view=bibliography'>View as Bibliography</a> | <a class='link subtle' href='/languages/{{ language.id }}/lexemes/{{ lexeme.id }}/references?view=table'>View as Table</a>

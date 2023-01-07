@@ -308,7 +308,7 @@ describe(`Lexeme`, function() {
 
           // References
           // References
-          cy.get(`#lexeme-references ul`).children()
+          cy.get(`#lexeme__references ul`).children()
           .should(`have.length`, lexeme.bibliography.length)
           .then(([a, b]) => {
             expect(a).to.contain.text(lexeme.bibliography[0].citation)
@@ -451,6 +451,9 @@ describe(`Lexeme`, function() {
     // A lexeme must have a project in order for the server
     // to render the page properly.
     cy.contains(`#projects`, project.name)
+
+    // References
+    cy.contains(`#lexeme__references`, emDash)
 
   })
 
