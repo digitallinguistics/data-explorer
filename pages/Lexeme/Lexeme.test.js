@@ -355,7 +355,7 @@ describe(`Lexeme`, function() {
 
   it.only(`empty lexeme`, function() {
 
-    // Seed database
+    // SETUP: Seed database
 
     const project = new Project({
       id: `d12a00e6-a324-450f-8a06-7265b6eb5c33`,
@@ -377,7 +377,8 @@ describe(`Lexeme`, function() {
     cy.addOne(language)
     cy.addOne(lexeme)
 
-    // Assertions
+    // ASSERTIONS
+
     cy.visit(`/languages/1234/lexemes/${ lexeme.id }`)
 
     // HEADER
@@ -391,7 +392,7 @@ describe(`Lexeme`, function() {
     // Glosses
     cy.get(`.glosses`).should(`not.exist`)
 
-    // FORM
+    // FORMS
 
     // Lemma
     cy.contains(`#lemma`, emDash)
@@ -409,8 +410,33 @@ describe(`Lexeme`, function() {
     cy.get(`.forms-list`).should(`not.exist`)
     cy.contains(`.forms-section .summary-count`, `(${ lexeme.forms.length })`)
 
+    // FORM
+    // See separate test for empty form below
+
+    // SENSES
+
+    cy.get(`#meaning-link`).click()
+    cy.get(`.senses-list`).should(`not.exist`)
+    cy.contains(`#meaning`, `No senses listed.`)
+
+    // SENSE
+    // See separate test for empty sense below
+
+    // METADATA
+
+    cy.get(`#metadata-link`).click()
+
+    // Cross References
+    cy.contains(`#cross-references`, emDash)
+
   })
 
+  it(`empty form + empty sense`)
+
+  // If a lexeme is part of both public and private projects,
+  // only show the private projects if the user has access to them.
+  // Test this with 1 public project, 1 private project the user has access to,
+  // and 1 private project the user does not have access to.
   it(`private projects`)
 
 })
