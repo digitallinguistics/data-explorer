@@ -8,9 +8,17 @@
 
     <h1 class=page-title>
       {{~#if project ~}}
-        {{~ project.name ~}}
+        {{#if project.name }}
+          {{~ project.name ~}}
+        {{else}}
+          [no project name given]
+        {{/if}}
       {{~ else ~}}
-        {{~mls language.name language.defaultAnalysisLanguage ~}}
+        {{#if (obj language.name) }}
+          {{~mls language.name language.defaultAnalysisLanguage ~}}
+        {{else}}
+          [no language name given]
+        {{/if}}
       {{~/if~}}
     </h1>
 
@@ -68,22 +76,32 @@
 
             {{!-- language --}}
             <td class=language>
-              <a class=link href='/languages/{{ language.id }}'>{{mls language.name language.defaultAnalysisLanguage }}</a>
+              <a class=link href='/languages/{{ language.id }}'>
+                {{#if (obj language.name) }}
+                  {{mls language.name language.defaultAnalysisLanguage }}
+                {{else}}
+                  [no language name given]
+                {{/if}}
+              </a>
             </td>
 
             {{!-- glosses --}}
             <td class=glosses>
-              <ol class=numbered>
-                {{~#each senses as |sense| ~}}
-                  <li>
-                    {{~#if sense.gloss ~}}
-                      {{~mls sense.gloss @root.language.defaultAnalysisLanguage ~}}
-                    {{~else~}}
-                      —
-                    {{~/if~}}
-                  </li>
-                {{~/each~}}
-              </ol>
+              {{#if senses }}
+                <ol class=numbered>
+                  {{~#each senses as |sense| ~}}
+                    <li>
+                      {{~#if sense.gloss ~}}
+                        {{~mls sense.gloss ../language.defaultAnalysisLanguage ~}}
+                      {{~else~}}
+                        —
+                      {{~/if~}}
+                    </li>
+                  {{~/each~}}
+                </ol>
+              {{else}}
+                —
+              {{/if}}
             </td>
 
             {{!-- date created --}}

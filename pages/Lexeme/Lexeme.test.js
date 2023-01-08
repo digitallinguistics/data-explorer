@@ -13,6 +13,14 @@ const emDash = `—`
 
 describe(`Lexeme`, function() {
 
+  before(function() {
+    cy.task(`setupDatabase`)
+  })
+
+  after(function() {
+    cy.clearDatabase()
+  })
+
   it(`Not Found`, function() {
 
     const badID    = `bad-id`

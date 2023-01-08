@@ -210,7 +210,12 @@ forms:
       IPA:     t͡ʃuw-
   - id: ef8c42e2-6ecf-4fc0-8d92-2e6483e53558
 language:
-  id: cc4978f6-13a9-4735-94c5-10e4e8030437 # Chitimacha
+  id:                      cc4978f6-13a9-4735-94c5-10e4e8030437 # Chitimacha
+  defaultAnalysisLanguage: eng
+  defaultOrthography:      Modern
+  name:
+    eng: Chitimacha
+    ctm: Sitimaxa
 lemma:
   transcription:
     Modern:  cuw-

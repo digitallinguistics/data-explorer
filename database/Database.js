@@ -217,8 +217,9 @@ export default class Database {
 
   /**
  * Get multiple lexemes from the database.
- * @param {Object} [options={}]      An options hash.
- * @param {String} [options.project] The ID of a project to return lexemes for.
+ * @param {Object} [options={}]       An options hash.
+ * @param {String} [options.language] The ID of a language to return lexemes for.
+ * @param {String} [options.project]  The ID of a project to return lexemes for.
  * @returns Promise<Array<Lexeme>>
  */
   async getLexemes(options = {}) {
@@ -249,20 +250,26 @@ export default class Database {
    */
   async getProjects(options = {}) {
 
-    const { user } = options
-
     let query = `SELECT * FROM ${ this.containerName } WHERE ${ this.containerName }.type = 'Project'`
 
-    if (user) {
-      query += ` AND (
-        ${ this.containerName }.permissions.public = true
-        OR
-        ARRAY_CONTAINS(${ this.containerName }.permissions.owners, '${ user }')
-        OR
-        ARRAY_CONTAINS(${ this.containerName }.permissions.editors, '${ user }')
-        OR
-        ARRAY_CONTAINS(${ this.containerName }.permissions.viewers, '${ user }')
-      )`
+    if (`user` in options) {
+      if (options.user) {
+
+        query += ` AND (
+          ${ this.containerName }.permissions.public = true
+          OR
+          ARRAY_CONTAINS(${ this.containerName }.permissions.owners, '${ options.user }')
+          OR
+          ARRAY_CONTAINS(${ this.containerName }.permissions.editors, '${ options.user }')
+          OR
+          ARRAY_CONTAINS(${ this.containerName }.permissions.viewers, '${ options.user }')
+        )`
+
+      } else {
+
+        query += ` AND ${ this.containerName }.permissions.public = true`
+
+      }
     }
 
     const queryIterator = this.container.items.query(query).getAsyncIterator()
