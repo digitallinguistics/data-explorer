@@ -30,30 +30,16 @@ export default async function get(req, res) {
   }
 
   const { data: languages } = await db.getLanguages({ project: projectID })
+  const { count }           = await db.count(`Lexeme`, { project: projectID })
   const { owners, editors } = project.permissions
 
   const numCollaborators = new Set([...owners, ...editors]).size
-  let   numLexemes       = 0
-
-  for (const language of languages) {
-
-    language.permissions.isOwner  = isOwner(res.locals.user, language)
-    language.permissions.isEditor = isEditor(res.locals.user, language)
-
-    const { count } = await db.count(`Lexeme`, {
-      language: language.id,
-      project:  project.id,
-    })
-
-    numLexemes += count
-
-  }
 
   res.render(`Project/Project`, {
     languages,
     numCollaborators,
     numLanguages: languages.length,
-    numLexemes,
+    numLexemes:   count,
     project,
     Project:      true,
     title:        project.name,

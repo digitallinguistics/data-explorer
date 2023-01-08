@@ -424,7 +424,7 @@ describe(`Database`, function() {
 
   })
 
-  describe.only(`getProjects`, function() {
+  describe(`getProjects`, function() {
 
     it(`200 OK`, async function() {
 
@@ -467,7 +467,7 @@ describe(`Database`, function() {
 
     })
 
-    it.only(`option: user`, async function() {
+    it(`option: user`, async function() {
 
       const count = 3
 
