@@ -30,7 +30,7 @@
 
   <ul class='bordered nav-list projects-list'>
     {{#each projects as |project|}}
-      <li class=project>
+      <li class=project data-id='{{ project.id }}'>
         <header class=project__header>
 
           <a class='link project__name' href='/projects/{{ id }}'>{{ name }}</a>
