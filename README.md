@@ -16,7 +16,7 @@ Oxalis is the Digital Linguistics (DLx) portal for viewing, searching, and aggre
 
 If you use the Oxalis app in your work, please consider citing it using the following model:
 
-> Hieber, Daniel W. 2022. Oxalis (@digitallinguistics/data-explorer). DOI: [10.5281/zenodo.6348175][DOI].
+> Hieber, Daniel W. 2023. Oxalis (@digitallinguistics/data-explorer). DOI: [10.5281/zenodo.6348175][DOI].
 
 <!-- LINKS -->
 
