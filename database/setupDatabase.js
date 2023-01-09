@@ -14,7 +14,7 @@ import {
 const __filename = fileURLToPath(import.meta.url)
 const __dirname  = getDirname(__filename)
 
-export default async function setupDatabase(dbName = `digitallinguistics`) {
+export default async function setupDatabase(dbName) {
 
   console.info(`Setting up ${ dbName } database.`)
 

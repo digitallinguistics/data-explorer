@@ -38,7 +38,7 @@ export default class Database {
 
   // GENERIC METHODS
 
-  // Create helper functions for seeding the database.
+  // Helper functions for seeding the database.
   // NOTE: Cosmos DB Create methods modify the original object by setting an `id` property on it.
 
   /**
