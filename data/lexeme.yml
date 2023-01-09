@@ -1,11 +1,286 @@
-id:       abc56564-5754-4698-845c-2ea32a760bbd
+id:           abc56564-5754-4698-845c-2ea32a760bbd
+dateCreated:  2022-01-01T00:00:00Z
+dateModified: 2022-01-02T00:00:00Z
+type:         Lexeme
+bibliography:
+  - id:       5e481789-96d5-487a-930d-beb5ecb3259c
+    bibEntry:
+      html: '<p class=bib-entry id=Hieber2018>Hieber, Daniel W. 2018. Category genesis in Chitimacha: A constructional approach. In Kristel Van Goethem, Muriel Norde, Evie Coussé, & Gudrun Vanderbauwhede (eds.), <cite class=cite>Category change from a constructional perspective</cite> (Constructional Approaches to Language 20), pp. 15–46. John Benjamins. DOI:<a href=https://doi.org/10.1075/cal.20.02hie>10.1075/cal.20.02hie</a>.</p>'
+      text: 'Hieber, Daniel W. 2018. Category genesis in Chitimacha: A constructional approach. In Kristel Van Goethem, Muriel Norde, Evie Coussé, & Gudrun Vanderbauwhede (eds.), Category change from a constructional perspective (Constructional Approaches to Language 20), pp. 15–46. John Benjamins. DOI: 10.1075/cal.20.02hie.'
+    bibID:    Hieber2018
+    citation: 'Hieber (2018: 16)'
+    locator:  16
+  - id:       e3d5da92-0e69-48c8-b482-2b258611ad3c
+    bibEntry:
+      html: '<p class=bib-entry id=Hieber2019>Hieber, Daniel W. 2019. Semantic alignment in Chitimacha. <cite class=cite>International Journal of American Linguistics</cite> 85(3): 313–363. DOI:<a href=https://doi.org/10.1086/703239>10.1086/703239</a>.</p>'
+      text: 'Hieber, Daniel W. 2019. Semantic alignment in Chitimacha. International Journal of American Linguistics 85(3): 313–363. DOI:10.1086/703239.'
+    bibID:    Hieber2019
+    citation: 'Hieber (2019: 329)'
+    locator:  329
+citationForm:
+  Modern:  cuyi
+  Swadesh: čuyi
+  IPA:     t͡ʃuji
+crossReferences:
+  - id: 671535bb-8f0e-4f62-8e32-7a883b3edd73 # doesn't actually exist
+    label:        Delphine
+    lemma:
+      transcription:
+        Modern:  cuwi
+        Swadesh: čuyi
+        IPA:     t͡ʃuwi
+    relation:     Delphine
+    relationType: unidirectional
+  - label:        compare
+    relation:     Compare
+    relationType: open set
+    members:
+      - id: abc56564-5754-4698-845c-2ea32a760bbd # <- this entry
+        lemma:
+          transcription:
+            Modern:  cuw-
+            Swadesh: čuw-
+            IPA:     t͡ʃuw-
+      - id: a5bf5857-4145-4a33-a8d9-5b73cab729e6 # doesn't actually exist
+        lemma:
+          transcription:
+            Modern:  nuhc-
+            Swadesh: nuhč-
+            IPA:     nuht͡ʃ-
+      - id: f76fd13f-6220-4eab-83bf-308d3e3cffdd # doesn't actually exist
+        lemma:
+          transcription:
+            Modern:  nicwa-
+            Swadesh: ničwa-
+            IPA:     nit͡ʃwa-
+  - relation:     Suppletive (sg./pl.)
+    relationType: enumerated set
+    members:
+      singular:
+        id: abc56564-5754-4698-845c-2ea32a760bbd # <- this entry
+        lemma:
+          transcription:
+            Modern:  cuw-
+            Swadesh: čuw-
+            IPA:     t͡ʃuw-
+      plural:
+        id: 4b630ebc-4eba-4444-9fb8-7ef6ef1ee95b # doesn't actually exist
+        lemma:
+          transcription:
+            Modern:  dut-
+            Swadesh: dut-
+            IPA:     tʼut-
+      pluractional:
+        id: 9f2dc613-4e83-4364-b8ff-e52074f34745 # doesn't actually exist
+        lemma:
+          transcription:
+            Modern:  dutma-
+            Swadesh: dutma-
+            IPA:     tʼutma-
+forms:
+  - abstract:   true
+    id:         422040f0-3fa3-4b97-a5fc-d077c02d74ee
+    unattested: true
+    allomorphs:
+      - environments:
+          - _i
+          - _y
+        transcription:
+          Modern:  cuy-
+          Swadesh: čuy-
+          IPA:     t͡ʃuy-
+      - environments: []
+        transcription:
+          Modern:  cu-
+          Swadesh: ču-
+          IPA:     t͡ʃu-
+    bibliography:
+      - id:       5e481789-96d5-487a-930d-beb5ecb3259c
+        bibEntry:
+          html: '<p class=bib-entry id=Hieber2018>Hieber, Daniel W. 2018. Category genesis in Chitimacha: A constructional approach. In Kristel Van Goethem, Muriel Norde, Evie Coussé, & Gudrun Vanderbauwhede (eds.), <cite class=cite>Category change from a constructional perspective</cite> (Constructional Approaches to Language 20), pp. 15–46. John Benjamins. DOI:<a href=https://doi.org/10.1075/cal.20.02hie>10.1075/cal.20.02hie</a>.</p>'
+          text: 'Hieber, Daniel W. 2018. Category genesis in Chitimacha: A constructional approach. In Kristel Van Goethem, Muriel Norde, Evie Coussé, & Gudrun Vanderbauwhede (eds.), Category change from a constructional perspective (Constructional Approaches to Language 20), pp. 15–46. John Benjamins. DOI: 10.1075/cal.20.02hie.'
+        bibID:    Hieber2018
+        citation: 'Hieber (2018: 16)'
+        locator:  16
+      - id:       e3d5da92-0e69-48c8-b482-2b258611ad3c
+        bibEntry:
+          html: '<p class=bib-entry id=Hieber2019>Hieber, Daniel W. 2019. Semantic alignment in Chitimacha. <cite class=cite>International Journal of American Linguistics</cite> 85(3): 313–363. DOI:<a href=https://doi.org/10.1086/703239>10.1086/703239</a>.</p>'
+          text: 'Hieber, Daniel W. 2019. Semantic alignment in Chitimacha. International Journal of American Linguistics 85(3): 313–363. DOI:10.1086/703239.'
+        bibID:    Hieber2019
+        citation: 'Hieber (2019: 329)'
+        locator:  329
+    components:
+      - abstract: true
+        form:     664e35b0-47ac-4540-b881-a7dbc8397707 # doesn't actually exist
+        lexeme:   8d253181-ffa0-4f3f-bb80-8d33dd42c6ec # doesn't actually exist
+        transcription:
+          Modern:  cu-
+          Swadesh: ču-
+          IPA:     t͡ʃu-
+      - form:       3460eb4c-7520-4138-b920-b4cb929c609a # doesn't actually exist
+        lexeme:     a60c91b4-cbe9-4109-a275-1a19118e2c15 # doesn't actually exist
+        unattested: true
+        transcription:
+          Modern:  -w
+          Swadesh: -w
+          IPA:     -w
+    componentOf:
+      - abstract: true
+        form:     2cc89164-1d30-4d0e-962e-bb5507cd3fb4 # doesn't actually exist
+        lexeme:   519346dd-04e0-4d27-b55e-5901de444c3f # doesn't actually exist
+        transcription:
+          Modern:  cuug
+          Swadesh: ču·g
+          IPA:     t͡ʃuːkʼ
+      - form:       9f26498d-52db-4159-9773-e3e82563359e # doesn't actually exist
+        lexeme:     19f45b5c-9497-418a-a898-b4420f803e3c # doesn't actually exist
+        unattested: true
+        transcription:
+          Modern:  cuwa
+          Swadesh: čuwa
+          IPA:     t͡ʃuwa
+    etymology:
+      - form:       a649c2b9-978c-4416-bacf-a0a0eb39abd2 # doesn't actually exist
+        lexeme:     40ddb937-d32d-480d-8142-6f7d76a67a3e # doesn't actually exist
+        unattested: true
+        language:
+          id:                      5f63cbf3-8144-4050-834d-561d0c1da143 # Proto-Amerind (doesn't actually exist)
+          abbreviation:            PAmer
+          defaultAnalysisLanguage: eng
+          defaultOrthography:      APA
+          name:
+            eng: Proto-Amerind
+        transcription:
+          Modern: tuw-
+          APA:    tuw-
+          IPA:    tuw-
+      - form:       f3d7bf19-9607-4c90-ba20-5fba89f92be6 # doesn't actually exist
+        lexeme:     0f76d45f-479f-4512-95fd-706cc7329500 # doesn't actually exist
+        unattested: true
+        language:
+          id:                      526f593d-b58f-4ba3-a39b-d0f09190a074 # Proto-Chitimacha (doesn't actually exist)
+          abbreviation:            PChiti
+          defaultAnalysisLanguage: eng
+          defaultOrthography:      APA
+          name:
+            eng: Proto-Chitimacha
+        transcription:
+          Modern: cuw-
+          APA:    čuw-
+          IPA:    t͡ʃuw-
+    reflexes:
+      - form:   8eb74bff-3e29-419b-909f-3785fab607f4 # doesn't actually exist
+        lexeme: 7ae5d142-122e-4d1e-bddd-fe4ada5bda6f # doesn't actually exist
+        language:
+          id:                      17b227c0-2c8e-403a-87c5-9e4ab934ac95 # Future Chitimacha (doesn't actually exist)
+          abbreviation:            FutChiti
+          defaultAnalysisLanguage: eng
+          defaultOrthography:      Modern
+          name:
+            eng: Future Chitimacha
+        transcription:
+          Modern:  cuwa
+          Swadesh: čuwa
+          IPA:     t͡ʃuwa
+      - form:   8eb74bff-3e29-419b-909f-3785fab607f4 # doesn't actually exist
+        lexeme: 54573fd2-2823-4183-9d3a-854a38bb8cb5 # doesn't actually exist
+        language:
+          id:                      17b227c0-2c8e-403a-87c5-9e4ab934ac95 # Future Chitimacha (doesn't actually exist)
+          abbreviation:            FutChiti
+          defaultAnalysisLanguage: eng
+          defaultOrthography:      Modern
+          name:
+            eng: Future Chitimacha
+        transcription:
+          Modern:  cuyi
+          Swadesh: čuyi
+          IPA:     t͡ʃuji
+    sources:
+      - id:           5f3e1abb-fefd-4e2c-925c-bc08fee8552f
+        abbreviation: KW
+        familyName:   Walden
+        givenName:    Kim
+      - id:           4ad9955f-f823-483b-bc62-b98cbf02b10a
+        abbreviation: SB
+        familyName:   Boutte
+        givenName:    Sandra
+    transcription:
+      Modern:  cuw-
+      Swadesh: čuw-
+      IPA:     t͡ʃuw-
+  - id: ef8c42e2-6ecf-4fc0-8d92-2e6483e53558
 language:
-  id: cc4978f6-13a9-4735-94c5-10e4e8030437 # Chitimacha
-type:     Lexeme
+  id:                      cc4978f6-13a9-4735-94c5-10e4e8030437 # Chitimacha
+  defaultAnalysisLanguage: eng
+  defaultOrthography:      Modern
+  name:
+    eng: Chitimacha
+    ctm: Sitimaxa
 lemma:
   transcription:
     Modern:  cuw-
     Swadesh: čuw-
     IPA:     t͡ʃuw-
+morphType:
+  eng: stem
+notes:
+  - dateCreated:  2022-01-01T00:00:00Z
+    dateModified: 2022-01-01T00:00:00Z
+    noteType:     private
+    source:
+      id:           81cd041c-67c1-4873-97cd-6ebdbc0ec00d
+      abbreviation: DWH
+    text: It's unclear whether *dut-* can also be pluractional.
+  - dateCreated:  2022-01-01T00:00:00Z
+    dateModified: 2022-01-01T00:00:00Z
+    noteType:     grammar
+    source:
+      id:           81cd041c-67c1-4873-97cd-6ebdbc0ec00d
+      abbreviation: DWH
+    text: This is a suppletive verb.
 projects:
   - 683a5d27-53bf-451b-80d1-f6e731674c9e # Chitimacha Dictionary Project
+  - 56b6e164-cf90-4e83-835e-d8e92ed11778 # Typology Project (created during Lexeme test)
+senses:
+  - id: 813eaa72-fab2-4f50-81d7-949c59651d20
+    # Having data for `baseCategory` doesn't actually make sense for a stem,
+    # but this is just for testing purposes.
+    baseCategory:
+      abbreviation: V
+      name:
+        eng: verb
+    category:
+      abbreviation: INTR V
+      name:
+        eng: intransitive verb
+    gloss:
+      eng: go
+    inflectionClass:
+      abbreviation: REGULAR
+      name:
+        eng: regular verb
+    semanticClass:
+      abbreviation: DYNAM
+      name:
+        eng: dynamic
+  - id: 7c66df2a-304c-400e-b64d-8ceda8d55ebd
+    gloss:
+      eng: walk
+  - id: 46e9ecfb-0aa8-4851-877b-f82d00b1d620
+slot:
+  eng: stem
+sources:
+  - id:           7e163f85-e3de-4cf4-92e0-ae79c5a374a3 # doesn't actually exist
+    abbreviation: BP
+    familyName:   Paul
+    givenName:    Benjamin
+  - id:           fe690a07-6375-46b5-a115-be55b2c573ec # doesn't actually exist
+    abbreviation: DD
+    familyName:   DuCloux
+    givenName:    Delphine
+tags:
+  checked:   yes
+  elicited:  null
+  compound:  false
+  preverbs:  0
+  syllables: 2

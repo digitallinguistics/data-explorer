@@ -5,7 +5,7 @@
 <main id=main class='language-page main'>
   {{#with language}}
 
-    <h1 class=page-title>{{mls name }}</h1>
+    <h1 class=page-title>{{#if (obj name) }}{{mls name }}{{else}}[no scientific name given]{{/if}}</h1>
 
     <nav class=page-nav>
       <ul>
@@ -29,10 +29,14 @@
 
         <div class=name>
           <label class=label>Scientific Name</label>
-          {{> MultiLangString/MultiLangString data=name }}
+          {{#if (obj name) }}
+            {{> MultiLangString/MultiLangString data=name }}
+          {{else}}
+            <span class=mls>—</span>
+          {{/if}}
         </div>
 
-        <div class=name>
+        <div class=autonym>
           <label class=label>Autonym</label>
           {{#if autonym }}
             {{> MultiOrthoTranscription/MultiOrthoTranscription data=autonym lang=iso }}
@@ -54,33 +58,33 @@
         <div>
           <dt class=label>Glottocode</dt>
           <dd>
-            {{#if glottocode }}
+            {{~#if glottocode ~}}
               <a class=link href='https://glottolog.org/resource/languoid/id/{{ glottocode }}'>{{ glottocode }}</a>
-            {{else}}
+            {{~else~}}
               —
-            {{/if}}
+            {{~/if~}}
           </dd>
         </div>
 
         <div>
           <dt class=label>ISO 639-3 Code</dt>
           <dd>
-            {{#if iso}}
+            {{~#if iso ~}}
               <a class=link href='https://www.ethnologue.com/language/{{ iso }}'>{{ iso }}</a>
-            {{else}}
+            {{~else~}}
               —
-            {{/if}}
+            {{~/if~}}
           </dd>
         </div>
 
         <div>
           <dt class=label>Abbreviation</dt>
           <dd>
-            {{#if abbreviation }}
+            {{~#if abbreviation ~}}
               {{ abbreviation }}
-            {{else}}
+            {{~else~}}
               —
-            {{/if}}
+            {{~/if~}}
           </dd>
         </div>
 
@@ -93,11 +97,11 @@
       <h2 class=section-header>Description</h2>
 
       <article class='color-block description md'>
-      {{#if description.html }}
-        {{{ description.html }}}
-      {{else}}
-        [No description provided.]
-      {{/if}}
+        {{~#if description.html ~}}
+          {{{ description.html }}}
+        {{~else~}}
+          [No description provided.]
+        {{~/if~}}
       </article>
 
     </section>

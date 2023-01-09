@@ -14,9 +14,8 @@ export default async function get(req, res) {
     })
   }
 
-  const { data: projects } = await db.getProjects()
-  const lexemeProjects     = projects.filter(project => lexeme.projects.includes(project.id))
-  const isPrivate          = !lexemeProjects.some(project => project.permissions.public)
+  let projects    = await db.getMany(lexeme.projects)
+  const isPrivate = !projects.some(project => project.permissions.public)
 
   if (isPrivate && !res.locals.user) {
     return res.error(`Unauthenticated`, {
@@ -24,7 +23,9 @@ export default async function get(req, res) {
     })
   }
 
-  const userHasAccess = lexemeProjects.some(project => hasAccess(res.locals.user, project))
+  projects = projects.filter(project => hasAccess(res.locals.user, project))
+
+  const userHasAccess = Boolean(projects.length)
 
   if (!userHasAccess) {
     return res.error(`Unauthorized`, {
@@ -37,9 +38,9 @@ export default async function get(req, res) {
   res.render(`Lexeme/Lexeme`, {
     language,
     lexeme,
-    projects: lexemeProjects,
-    [title]:  true,
-    title:    lexeme ? getDefaultOrthography(lexeme.lemma.transcription) : title,
+    projects,
+    [title]: true,
+    title:   lexeme ? getDefaultOrthography(lexeme.lemma.transcription) : title,
   })
 
 }

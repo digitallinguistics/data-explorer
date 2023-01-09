@@ -1,5 +1,9 @@
 describe(`app shell`, function() {
 
+  before(function() {
+    cy.task(`setupDatabase`)
+  })
+
   describe(`Main Nav`, function() {
 
     it(`Home`, function() {

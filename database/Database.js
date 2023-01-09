@@ -1,10 +1,5 @@
+import chunk            from '../utilities/chunk.js'
 import { CosmosClient } from '@azure/cosmos'
-
-const bulkLimit = 100
-const endpoint  = process.env.COSMOS_ENDPOINT
-const key       = process.env.COSMOS_KEY
-
-const client = new CosmosClient({ endpoint, key })
 
 /**
  * A class for managing a Cosmos DB database connection.
@@ -12,9 +7,14 @@ const client = new CosmosClient({ endpoint, key })
 export default class Database {
 
   /**
-   * The Cosmos DB client from the Node SDK.
+   * Cosmos DB's limit on bulk operations.
    */
-  client = client
+  bulkLimit = 100
+
+  /**
+   * The Cosmos DB client.
+   */
+  client
 
   /**
    * The name of the Cosmos DB container.
@@ -25,13 +25,93 @@ export default class Database {
    * Create a new Database client.
    * @param {String} dbName The name to use for the database. Should generally be `digitallinguistics` for production and `test` otherwise.
    */
-  constructor(dbName = `digitallinguistics`) {
+  constructor({
+    dbName,
+    endpoint,
+    key,
+  }) {
+    this.client    = new CosmosClient({ endpoint, key })
     this.database  = this.client.database(dbName)
     this.container = this.database.container(this.containerName)
   }
 
 
   // GENERIC METHODS
+
+  // Helper functions for seeding the database.
+  // NOTE: Cosmos DB Create methods modify the original object by setting an `id` property on it.
+
+  /**
+   * Upsert a single item to the database.
+   * WARNING: This method is only used during testing. Do not use in production.
+   * @param {Object} data The object to upsert.
+   * @returns Promise<Object>
+   */
+  async addOne(data = {}) {
+
+    const item         = Object.assign({}, data)
+    const { resource } = await this.container.items.upsert(item)
+
+    return resource
+
+  }
+
+  /**
+   * Upserts multiple copies of the same object to the database.
+   * WARNING: This method is only used during testing. Do not use in production.
+   * @param {Integer} count The number of copies of the item to upsert.
+   * @param {Object} data The item to upsert multiple times.
+   * @returns Promise<Array<Object>>
+   */
+  async addMany(count, data = {}) {
+
+    const operations = []
+
+    for (let i = 0; i < count; i++) {
+
+      const resourceBody = Object.assign({}, data)
+      delete resourceBody.id
+
+      operations[i] = {
+        operationType: `Upsert`,
+        resourceBody,
+      }
+
+    }
+
+    const batches = chunk(operations, this.bulkLimit)
+    const results = []
+
+    for (const batch of batches) {
+      const response = await this.container.items.bulk(batch)
+      results.push(...response)
+    }
+
+    return results
+
+  }
+
+  /**
+   * Deletes all the items from the container.
+   * @returns Promise
+   */
+  async clear() {
+
+    const { resources } = await this.container.items.readAll().fetchAll()
+
+    const batches = chunk(resources, this.bulkLimit)
+
+    for (const batch of batches) {
+
+      const operations = batch.map(item => ({
+        id:            item.id,
+        operationType: `Delete`,
+      }))
+
+      await this.container.items.bulk(operations)
+
+    }
+  }
 
   /**
    * Count the number of items of the specified type. Use the `options` parameter to provide various filters.
@@ -89,9 +169,9 @@ export default class Database {
    */
   async getMany(ids = []) {
 
-    if (ids.length > bulkLimit) {
+    if (ids.length > this.bulkLimit) {
       return {
-        message: `You can only retrieve ${ bulkLimit } items at a time.`,
+        message: `You can only retrieve ${ this.bulkLimit } items at a time.`,
         status:  400,
       }
     }
@@ -137,8 +217,9 @@ export default class Database {
 
   /**
  * Get multiple lexemes from the database.
- * @param {Object} [options={}]      An options hash.
- * @param {String} [options.project] The ID of a project to return lexemes for.
+ * @param {Object} [options={}]       An options hash.
+ * @param {String} [options.language] The ID of a language to return lexemes for.
+ * @param {String} [options.project]  The ID of a project to return lexemes for.
  * @returns Promise<Array<Lexeme>>
  */
   async getLexemes(options = {}) {
@@ -163,11 +244,33 @@ export default class Database {
 
   /**
    * Get multiple projects from the database.
+   * @param {Object} [options={}]   An options hash.
+   * @param {String} [options.user] The ID of a user to filter projects for.
    * @returns Promise<Array<Project>>
    */
-  async getProjects() {
+  async getProjects(options = {}) {
 
-    const query = `SELECT * FROM ${ this.containerName } WHERE ${ this.containerName }.type = 'Project'`
+    let query = `SELECT * FROM ${ this.containerName } WHERE ${ this.containerName }.type = 'Project'`
+
+    if (`user` in options) {
+      if (options.user) {
+
+        query += ` AND (
+          ${ this.containerName }.permissions.public = true
+          OR
+          ARRAY_CONTAINS(${ this.containerName }.permissions.owners, '${ options.user }')
+          OR
+          ARRAY_CONTAINS(${ this.containerName }.permissions.editors, '${ options.user }')
+          OR
+          ARRAY_CONTAINS(${ this.containerName }.permissions.viewers, '${ options.user }')
+        )`
+
+      } else {
+
+        query += ` AND ${ this.containerName }.permissions.public = true`
+
+      }
+    }
 
     const queryIterator = this.container.items.query(query).getAsyncIterator()
     const data          = []

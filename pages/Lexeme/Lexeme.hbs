@@ -66,6 +66,7 @@
   {{/if}}
 {{/inline}}
 
+{{!-- NB: .mp = .morphophonemic --}}
 {{#*inline 'Headword' ~}}
   <a class='headword {{#if abstract }}mp{{/if}}' href='/languages/{{ @root.language.id }}/lexemes/{{ lexeme }}'>
     {{~#if unattested }}*{{/if~}}{{~ mot transcription @root.language.defaultOrthography ~}}
@@ -80,16 +81,27 @@
 
   <header class=header>
 
-    <h1 class='headword {{#if lexeme.lemma.abstract }}mp{{/if}} page-title' lang='{{ language.iso }}'>{{#if lexeme.lemma.unattested }}*{{/if}}{{mot lexeme.lemma.transcription language.defaultOrthography }}</h1>
+    {{!-- This differs from the inline Headword partial because it's not wrapped in a link. --}}
+    <h1 class='headword {{#if lexeme.lemma.abstract }}mp{{/if}} page-title' lang='{{ language.iso }}'>
+      {{#if (isTruthy lexeme.lemma.transcription) }}
+        {{#if lexeme.lemma.unattested }}*{{/if}}{{mot lexeme.lemma.transcription language.defaultOrthography }}
+      {{else}}
+        [no lemma given]
+      {{/if}}
+    </h1>
 
     <a class='language link' href='/languages/{{ language.id }}'>
-      {{~#if language.name ~}}
-        {{mls language.name language.defaultAnalysisLanguage }}
-      {{~/if~}}
-      {{~#if (and language.name language.autonym) }} | {{/if~}}
-      {{~#if language.autonym ~}}
-        <span class=txn>{{mot language.autonym language.defaultOrthography }}</span>
-      {{~/if~}}
+      {{#if (or language.name language.autonym) }}
+        {{~#if language.name ~}}
+          {{mls language.name language.defaultAnalysisLanguage }}
+        {{~/if~}}
+        {{~#if (and language.name language.autonym) }} | {{/if~}}
+        {{~#if language.autonym ~}}
+          <span class=txn>{{mot language.autonym language.defaultOrthography }}</span>
+        {{~/if~}}
+      {{else}}
+        <span class=txn>[no language name given]</span>
+      {{/if}}
     </a>
 
     {{#if lexeme.senses }}
@@ -121,7 +133,13 @@
     <dl class='def-list lexeme__transcriptions'>
 
       <dt class=label for=lemma>Lemma</dt>
-      <dd>{{> MultiOrthoTranscription/MultiOrthoTranscription data=lexeme.lemma.transcription lang=language.iso attributes='id=lemma' }}</dd>
+      <dd id=lemma>
+        {{#if (obj lexeme.lemma.transcription) }}
+          {{> MultiOrthoTranscription/MultiOrthoTranscription data=lexeme.lemma.transcription lang=language.iso }}
+        {{else}}
+          <span>—</span>
+        {{/if}}
+      </dd>
 
       <dt class=label for=citation-form>Citation Form</dt>
       <dd id=citation-form>
@@ -158,7 +176,7 @@
 
     <section class=forms-section>
 
-      <h2 class=section-header>Base Forms <span class=summary-count>({{ lexeme.forms.length }})</span></h2>
+      <h2 class=section-header>Base Forms <span class=summary-count>({{#if lexeme.forms }}{{ lexeme.forms.length }}{{else}}0{{/if}})</span></h2>
 
       {{#unless lexeme.forms }}
         <span class=empty-list>No forms listed.</span>
@@ -169,7 +187,11 @@
               <details class=details open>
 
                 <summary>
-                  {{> MultiOrthoTranscription/MultiOrthoTranscription data=form.transcription lang=@root.language.iso attributes='class="color-block mot form__transcription"' }}
+                  {{#if (obj form.transcription) }}
+                    {{> MultiOrthoTranscription/MultiOrthoTranscription data=form.transcription lang=@root.language.iso attributes='class="color-block mot form__transcription"' }}
+                  {{else}}
+                    <span class=txn>[no transcription given]</span>
+                  {{/if}}
                 </summary>
 
                 <fieldset class='def-list form-props'>
@@ -343,15 +365,19 @@
       <label class=label for=date-modified>Date Modified</label>
       <output id=date-modified>{{#if lexeme.dateModified }}{{date lexeme.dateModified }}{{else}}—{{/if}}</output>
 
+      <label class=label for=language-name>Language Name</label>
+      {{#if (obj language.name) }}
+        {{> MultiLangString/MultiLangString data=language.name attributes='id=language-name' }}
+      {{else}}
+        <span id=language-name>—</span>
+      {{/if}}
+
       <label class=label for=language-autonym>Language Autonym</label>
       {{#if (obj language.autonym)}}
         {{> MultiOrthoTranscription/MultiOrthoTranscription data=language.autonym attributes='id=language-autonym' }}
       {{else}}
         <span id=language-autonym>—</span>
       {{/if}}
-
-      <label class=label for=language-name>Language Name</label>
-      {{> MultiLangString/MultiLangString data=language.name attributes='id=language-name' }}
 
       <label class=label for=projects>Projects</label>
       {{#if projects }}
@@ -364,11 +390,11 @@
         <span id=projects>—</span>
       {{/if}}
 
-      <label class=label for=lexeme-references>References</label>
+      <label class=label for=lexeme__references>References</label>
       {{#unless lexeme.bibliography }}
-        <span id=lexeme-references>—</span>
+        <span id=lexeme__references>—</span>
       {{else}}
-        <div id=lexeme-references>
+        <div id=lexeme__references>
           {{> CitationsList lexeme.bibliography }}
           <span class=bib-links>
             <a class='link subtle' href='/languages/{{ language.id }}/lexemes/{{ lexeme.id }}/references?view=bibliography'>View as Bibliography</a> | <a class='link subtle' href='/languages/{{ language.id }}/lexemes/{{ lexeme.id }}/references?view=table'>View as Table</a>
@@ -376,11 +402,11 @@
         </div>
       {{/unless}}
 
-      <label class=label for=lexeme-sources>Sources</label>
+      <label class=label for=lexeme__sources>Sources</label>
       {{#unless lexeme.sources ~}}
-        <span id=lexeme-sources>—</span>
+        <span id=lexeme__sources>—</span>
       {{~else~}}
-        <ul class=tags-list id=lexeme-sources>
+        <ul class=tags-list id=lexeme__sources>
           {{~#each lexeme.sources ~}}
             {{~> Source ~}}
           {{~/each~}}
@@ -417,7 +443,7 @@
         <h2 class=section-header>Notes <span class=summary-count>({{#if lexeme.notes }}{{ lexeme.notes.length }}{{else}}0{{/if}})</span></h2>
       </summary>
 
-      <ul class=notes>
+      <ul class='lexeme__notes notes'>
         {{#each lexeme.notes as |note| }}
           <li>{{> Note/Note note }}</li>
         {{/each}}

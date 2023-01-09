@@ -1,29 +1,31 @@
-import About        from './About/About-server.js'
-import Dictionaries from './Dictionaries/Dictionaries-server.js'
-import Home         from './Home/Home-server.js'
-import Language     from './Language/Language-server.js'
-import Languages    from './Languages/Languages-server.js'
-import Lexeme       from './Lexeme/Lexeme-server.js'
-import Lexemes      from './Lexemes/Lexemes-server.js'
-import Project      from './Project/Project-server.js'
-import Projects     from './Projects/Projects-server.js'
+import About           from './About/About.js'
+import Dictionaries    from './Dictionaries/Dictionaries.js'
+import Home            from './Home/Home.js'
+import Language        from './Language/Language.js'
+import LanguageLexemes from './Lexemes/LanguageLexemes.js'
+import Languages       from './Languages/Languages.js'
+import Lexeme          from './Lexeme/Lexeme.js'
+import Project         from './Project/Project.js'
+import ProjectLexemes  from './Lexemes/ProjectLexemes.js'
+import Projects        from './Projects/Projects.js'
 
 import {
   PageNotFound,
   ServerError,
   ServerErrorTest,
-} from './Error/Error-server.js'
+} from './Error/Error.js'
 
 export default {
   About,
   Dictionaries,
   Home,
   Language,
+  LanguageLexemes,
   Languages,
   Lexeme,
-  Lexemes,
   PageNotFound,
   Project,
+  ProjectLexemes,
   Projects,
   ServerError,
   ServerErrorTest,

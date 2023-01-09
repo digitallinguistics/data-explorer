@@ -11,12 +11,16 @@ plugins:
   - chai-friendly
   - cypress
 
+globals:
+  process: true
+
 overrides:
   - files:
       - '**/*.component.*'
       - '**/*.e2e.*'
       - '**/*.test.*'
       - '**/*.unit.*'
+      - 'test/commands.js'
       - 'test/support.js'
     globals:
       expect: readonly

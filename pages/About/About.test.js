@@ -4,4 +4,5 @@ describe(`About`, function() {
     cy.visit(`/about`)
     cy.title().should(`eq`, `Oxalis | About`)
   })
+
 })

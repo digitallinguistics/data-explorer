@@ -1,8 +1,7 @@
 /**
  * Seeds the local database with some sample data for manual testing and exploration.
  */
-import '../services/env.js'
-
+import '../env.js'
 import Citer                   from '../services/cite.js'
 import compare                 from '../utilities/compare.js'
 import { load as convertYAML } from 'js-yaml'
@@ -19,9 +18,6 @@ const __filename = fileURLToPath(import.meta.url)
 const __dirname  = getDirname(__filename)
 
 const containerName = `data`
-const endpoint      = process.env.COSMOS_ENDPOINT
-const key           = process.env.COSMOS_KEY
-const client        = new CosmosClient({ endpoint, key })
 
 function addCitations(bibliography, referencesIndex) {
 
@@ -170,6 +166,7 @@ export default async function seedDatabase(dbName) {
 
   console.info(`Seeding the ${ dbName } database.`)
 
+  const client    = new CosmosClient({ endpoint: process.env.COSMOS_ENDPOINT, key: process.env.COSMOS_KEY })
   const container = client.database(dbName).container(containerName)
 
   const languages  = await loadData(`languages`)

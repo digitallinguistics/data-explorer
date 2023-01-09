@@ -1,408 +1,630 @@
-import yamlParser from 'js-yaml'
+import prepareTranscription from '../../utilities/prepareTranscription.js'
+import yamlParser           from 'js-yaml'
 
-const msAuthCookie = Cypress.env(`MS_AUTH_COOKIE`)
+import Language    from '../../models/Language.js'
+import Lexeme      from '../../models/Lexeme.js'
+import Permissions from '../../models/Permissions.js'
+import Project     from '../../models/Project.js'
 
-describe(`Lexeme page`, function() {
+const msAuthCookie = Cypress.env(`msAuthCookie`)
+const msAuthUser   = Cypress.env(`msAuthUser`)
 
-  const arapahoLanguageID    = `e2b3b685-fd01-40ea-96ae-cb22f2511cd1`
-  const chitimachaLanguageID = `cc4978f6-13a9-4735-94c5-10e4e8030437`
-  const menomineeLanguageID  = `5fc405aa-a1a3-41e5-a80d-adb9dfbaa293`
-  const publicLanguageID     = `850f3bd9-2a57-4289-bc57-05640b5d8d7d`  // Plains Cree
-  const publicLexemeID       = `79eb0aaf-944c-40b4-93f3-e1785ec0adde`  // Plains Cree 'axe'
-  const privateLexemeID      = `b05e479f-29c9-466d-932a-715431e905b5`  // kula (Swahili)
-  const privateLanguageID    = `4580756f-ce39-4ea0-b96e-8f176371afcb`  // Swahili
+const emDash = `—`
 
-  beforeEach(function() {
-    cy.readFile(`data/lexemes.yml`)
-    .then(yaml => yamlParser.load(yaml))
-    .as(`lexemes`)
-    .then(lexemes => lexemes.find(lex => lex.id === publicLexemeID))
-    .as(`data`)
+describe(`Lexeme`, function() {
+
+  before(function() {
+    cy.task(`setupDatabase`)
+  })
+
+  after(function() {
+    cy.clearDatabase()
   })
 
   it(`Not Found`, function() {
-    cy.visit(`/languages/${ publicLanguageID }/lexemes/1234`, { failOnStatusCode: false })
-    cy.title().should(`eq`, `Oxalis | Item Not Found`)
-    cy.get(`.page-title`).should(`have.text`, `404: Item Not Found`)
-    cy.get(`.error-message`).should(`have.text`, `No lexeme exists with ID 1234.`)
+
+    const badID    = `bad-id`
+    const language = new Language({ id: `642ca288-3e38-4f16-8789-1506028d13b4` })
+
+    cy.addOne(language)
+
+    cy.visit(`/languages/${ language.id }/lexemes/${ badID }`, { failOnStatusCode: false })
+    cy.contains(`.page-title`, `404: Item Not Found`)
+    cy.contains(`.error-message`, `No lexeme exists with ID ${ badID }.`)
+
   })
 
   it(`Unauthenticated`, function() {
-    cy.visit(`/languages/${ privateLanguageID }/lexemes/${ privateLexemeID }`, { failOnStatusCode: false })
-    cy.title().should(`eq`, `Oxalis | Unauthenticated`)
-    cy.get(`.page-title`).should(`have.text`, `401: Unauthenticated`)
-    cy.get(`.error-message`).should(`have.text`, `You must be logged in to view this lexeme.`)
+
+    const language = new Language({ id: `35ba99b6-9e81-4052-8e8f-148b814b57f3` })
+    const lexeme   = new Lexeme({
+      id:       `1a3ca796-dfce-4688-9e93-f736a228d176`,
+      language: {
+        id: language.id,
+      },
+      permissions: {
+        public: false,
+      },
+    })
+
+    cy.addOne(language)
+    cy.addOne(lexeme)
+
+    cy.visit(`/languages/${ language.id }/lexemes/${ lexeme.id }`, { failOnStatusCode: false })
+    cy.contains(`.page-title`, `401: Unauthenticated`)
+    cy.contains(`.error-message`, `You must be logged in to view this lexeme.`)
+
   })
 
   it(`Unauthorized`, function() {
-    cy.visit(`/`)
-    cy.setCookie(msAuthCookie, `bademail@digitallinguistics.io`)
-    cy.visit(`/languages/${ privateLanguageID }/lexemes/${ privateLexemeID }`, { failOnStatusCode: false })
-    cy.title().should(`eq`, `Oxalis | Unauthorized`)
-    cy.get(`.page-title`).should(`have.text`, `403: Unauthorized`)
-    cy.get(`.error-message`).should(`have.text`, `You do not have permission to view this lexeme.`)
-  })
 
-  it(`Lexeme Details: Arapaho: ‑(')enih`, function() {
-
-    const lexemeID = `67944dcf-f7d9-4e9c-88f7-cb2408b10b9b`
-    const formID   = `8497d64d-1427-41ee-a165-ffb3b987f731`
-
-    cy.visit(`/languages/${ arapahoLanguageID }/lexemes/${ lexemeID }`)
-
-    // FORMS
-
-    // Abstract Form
-    cy.get(`#form-${ formID }__abstract`).should(`not.be.checked`)
-
-    // Form Sources
-    cy.get(`#form-${ formID }__sources`).children()
-    .should(`have.length`, 2)
-    .then(([a, b]) => {
-      expect(a).to.have.text(`PM`)
-      expect(b).to.have.text(`KW`)
+    const language = new Language({ id: `35ba99b6-9e81-4052-8e8f-148b814b57f3` })
+    const lexeme = new Lexeme({
+      id:       `1a3ca796-dfce-4688-9e93-f736a228d176`,
+      language: {
+        id: language.id,
+      },
+      permissions: {
+        public: false,
+      },
     })
 
-    // SENSES
-
-    cy.get(`#meaning-link`).click()
-
-    cy.get(`.sense__inflection-class`)
-    .should(`have.text`, `TA`)
-
-    // METADATA
-
-    cy.get(`#metadata-link`).click()
-
-    // Lexeme Sources
-    cy.get(`#lexeme-sources`).children()
-    .should(`have.length`, 2)
-    .then(([a, b]) => {
-      expect(a).to.have.text(`PM`)
-      expect(b).to.have.text(`KW`)
-    })
-
-  })
-
-  it(`Lexeme Details: Arapaho: -oh`, function() {
-
-    const lexemeID = `f00de78a-3e58-44ae-a132-69a5fc6e951c`
-    const formID   = `4aa45b62-05eb-412d-a789-510f99530ed8`
-    const senseID  = `a23cdfb8-0ef9-4e5b-bee4-2261a27bae05`
-
-    cy.visit(`/languages/${ arapahoLanguageID }/lexemes/${ lexemeID }`)
-
-    // FORMS
-
-    // Etymology
-    cy.get(`#form-${ formID }__etymology`).should(`have.text`, `PAlg: *‑ahw → PA: *‑ahw`)
-
-    // MEANING
-
-    cy.get(`#meaning-link`).click()
-
-    // Semantic Class
-    cy.get(`#sense-${ senseID }__semantic-class dd`).should(`have.text`, `abstract`)
-
-  })
-
-  it(`Lexeme Details: Arapaho: -tii`, function() {
-
-    const lexemeID = `365e8f6f-775a-4e07-ac33-914e65dfad5f`
-    const formID   = `7db2aa28-536c-42a6-970f-d98258f31cb6`
-
-    cy.visit(`/languages/${ arapahoLanguageID }/lexemes/${ lexemeID }`)
-
-    // Abstract Form
-    cy.get(`#form-${ formID }__abstract`).should(`be.checked`)
-
-  })
-
-  it(`Lexeme Details: Arapaho: wo'oteen‑`, function() {
-
-    const lexemeID = `f19f279b-97a5-4e07-bae0-7bb67699e745`
-
-    cy.visit(`/languages/${ arapahoLanguageID }/lexemes/${ lexemeID }#metadata`)
-
-    // Language Autonym (without data)
-    cy.get(`.language`).should(`have.text`, `Arapaho`)
-    cy.get(`#language-autonym`).should(`have.text`, `—`)
-
-    // Cross-References: unidirectional relation
-    cy.get(`#cross-references dt`).should(`have.text`, `deverbal from:`)
-    cy.get(`#cross-references dd`).should(`have.text`, `wo'oteeneihi`)
-
-    // Tags
-    cy.get(`#tags`).children()
-    .should(`have.length`, 1)
-    .first()
-    .should(`have.text`, `deverbal`)
-
-  })
-
-  it(`Lexeme Details: Chitimacha: cuw‑`, function() {
-
-    const chitiVerbID = `abc56564-5754-4698-845c-2ea32a760bbd`
+    cy.addOne(language)
+    cy.addOne(lexeme)
 
     cy.visit(`/`)
-    cy.setCookie(msAuthCookie, `owner@digitallinguistics.io`)
-    cy.visit(`/languages/${ chitimachaLanguageID }/lexemes/${ chitiVerbID }`)
-
-    cy.contains(`#lemma`, `cuw‑`)
-    cy.contains(`#lemma`, `čuw‑`)
-    cy.contains(`#lemma`, `t͡ʃuw‑`)
-
-    // Citation Form (with data)
-    cy.contains(`#citation-form`, `cuyi`)
-    cy.contains(`#citation-form`, `čuyi`)
-    cy.contains(`#citation-form`, `t͡ʃuji`)
-
-    // Base Forms
-    cy.get(`.forms-section .section-header`).should(`have.text`, `Base Forms (2)`)
-    cy.get(`.forms-list`).children()
-    .should(`have.length`, 2)
-    .then(([a, b]) => {
-      expect(a).to.include.text(`cuw‑`) // non-breaking hyphen
-      expect(b).to.include.text(`dut‑`) // non-breaking hyphen
-    })
+    cy.setCookie(msAuthCookie, msAuthUser)
+    cy.visit(`/languages/${ language.id }/lexemes/${ lexeme.id }`, { failOnStatusCode: false })
+    cy.contains(`.page-title`, `403: Unauthorized`)
+    cy.contains(`.error-message`, `You do not have permission to view this lexeme.`)
 
   })
 
-  it(`Lexeme Details: Chitimacha: hi-`, function() {
+  it(`Lexeme Details`, function() {
 
-    const lexemeID = `6a7915d6-085f-46f8-98ba-6555d761a943`
-    const senseID  = `f6c0f4a9-191a-49b1-a910-7189090cf0f3`
-    const data     = this.lexemes.find(lex => lex.id === lexemeID)
+    cy.readFile(`data/language.yml`)
+    .then(yaml => yamlParser.load(yaml))
+    .then(language => {
 
-    cy.visit(`/`)
-    cy.setCookie(msAuthCookie, `owner@digitallinguistics.io`)
-    cy.visit(`/languages/${ chitimachaLanguageID }/lexemes/${ lexemeID }#meaning`)
+      cy.readFile(`data/lexeme.yml`)
+      .then(yaml => yamlParser.load(yaml))
+      .then(lexeme => {
 
-    // SENSES
+        cy.readFile(`data/project.yml`)
+        .then(yaml => yamlParser.load(yaml))
+        .then(project => {
 
-    // Senses List
+          const typologyProject = new Project({
+            id:   `56b6e164-cf90-4e83-835e-d8e92ed11778`,
+            name: `Typology Project`,
+          })
 
-    cy.get(`.senses-list`).children()
-    .should(`have.length`, data.senses.length)
-    .then(([a, b, c]) => {
-      expect(a).to.include.text(`COP(NEUT)`)
-      expect(b).to.include.text(`AUX(NEUT)`)
-      expect(c).to.include.text(`be equal`)
-    })
+          cy.addOne(language)
+          cy.addOne(lexeme)
+          cy.addOne(project)
+          cy.addOne(typologyProject)
+          cy.visit(`/languages/${ language.id }/lexemes/${ lexeme.id }`)
 
-    const [sense] = data.senses
+          // HEADER
 
-    cy.get(`#${ senseID }`).within(() => {
-      cy.get(`#sense-${ senseID }__gloss`).should(`include.text`, sense.gloss.eng)
-      cy.get(`#sense-${ senseID }__category`).should(`include.text`, sense.category.abbreviation)
-      cy.get(`#sense-${ senseID }__base-category`).should(`include.text`, `—`)
-    })
+          // Headword
+          cy.contains(`.headword`, prepareTranscription(lexeme.lemma.transcription.Modern))
 
-    // METADATA
+          // Language
+          cy.contains(`.language`, `${ language.name.eng } | ${ language.autonym.Modern }`)
 
-    cy.get(`#metadata-link`).click()
+          // Glosses
+          cy.get(`.glosses`).children()
+          .should(`have.length`, lexeme.senses.length)
+          .then(([a, b, c]) => {
+            expect(a).to.contain.text(lexeme.senses[0].gloss.eng)
+            expect(b).to.contain.text(lexeme.senses[1].gloss.eng)
+            expect(c).to.contain.text(emDash)
+          })
 
-    // Cross-References
-    cy.get(`#cross-references`).children()
-    .filter(`dt`)
-    .should(`have.length`, 2)
-    .then(([a, b]) => {
-      expect(a).to.have.text(`compare:`)
-      expect(b).to.have.text(`see also:`)
-    })
+          // FORMS
 
-    cy.get(`#cross-references`).children()
-    .filter(`dd`)
-    .then(([a, b]) => {
-      expect(a).to.have.text(`ci‑, pe‑`)
-      expect(b).to.have.text(`qix‑`)
-    })
+          // Lemma
+          for (const ortho in lexeme.lemma.transcription) {
+            cy.contains(`#lemma dt`, ortho)
+            cy.contains(`#lemma dd`, prepareTranscription(lexeme.lemma.transcription[ortho]))
+          }
 
-  })
+          // Citation Form
+          for (const ortho in lexeme.citationForm) {
+            cy.contains(`#citation-form dt`, ortho)
+            cy.contains(`#citation-form dd`, prepareTranscription(lexeme.citationForm[ortho]))
+          }
 
-  it(`Lexeme Details: Menominee: ‑a·n`, function() {
+          // Morph Type
+          cy.contains(`#morph-type`, lexeme.morphType.eng)
 
-    const lexemeID = `99d2e994-8d18-424e-9d84-31de57256204`
-    const formID   = `1abb5ad4-cc63-4d52-b079-816841d0e60f`
+          // Slot
+          cy.contains(`#slot`, lexeme.slot.eng)
 
-    cy.visit(`/languages/${ menomineeLanguageID }/lexemes/${ lexemeID }`)
+          // Base Forms
+          cy.get(`.forms-list`).children().should(`have.length`, lexeme.forms.length)
 
-    // Component Of
-    cy.get(`#form-${ formID }__component-of`).first().should(`have.text`, `wa·nɛhka·n‑`) // non-breaking hyphen
+          // FORM
 
-  })
+          const [form] = lexeme.forms
 
-  it(`Lexeme Details: Menominee: ‑ænææ‑`, function() {
+          // Summary
+          const summary = `#${ form.id } summary`
 
-    const lexemeID = `8951aed1-0531-40d9-8d9d-496858c79978`
+          for (const ortho in form.transcription) {
+            cy.contains(summary, ortho)
+            cy.contains(summary, prepareTranscription(form.transcription[ortho]))
+          }
 
-    cy.visit(`/languages/${ menomineeLanguageID }/lexemes/${ lexemeID }#metadata`)
+          // Abstract Form
+          cy.get(`#form-${ form.id }__abstract`).should(`be.checked`)
 
-    // Lexeme Notes
-    cy.get(`.notes-section .summary-count`).should(`have.text`, `(1)`)
-    cy.get(`.note__source`).should(`have.text`, `MAM`)
-    cy.get(`.note__text`).should(`include.text`, `Not explicit`)
+          // Unattested
+          cy.get(`#form-${ form.id }__unattested`).should(`be.checked`)
 
-  })
+          // Allomorphs
+          const allomorphsID = `#form-${ form.id }__allomorphs`
 
-  it(`Lexeme Details: Menominee: -ehk`, function() {
+          cy.get(allomorphsID).children()
+          .should(`have.length`, form.allomorphs.length)
 
-    const lexemeID = `ba728ea4-c0d3-4b74-816d-eedf086e32fd`
+          const firstAllomorph = `${ allomorphsID } .allomorph:first-child`
 
-    cy.visit(`/languages/${ menomineeLanguageID }/lexemes/${ lexemeID }`)
+          cy.contains(firstAllomorph, prepareTranscription(form.allomorphs[0].transcription.Modern))
+          cy.contains(firstAllomorph, prepareTranscription(form.allomorphs[0].environments[0]))
 
-    // Allomorphs
-    cy.contains(`.allomorph dd`, `‑eck‑`) // non-breaking hyphens
+          // Components
+          cy.get(`#form-${ form.id }__components`).children()
+          .should(`have.length`, form.components.length)
+          .then(([a, b]) => {
+            expect(a).to.contain.text(prepareTranscription(form.components[0].transcription.Modern))
+            expect(b).to.contain.text(prepareTranscription(`*${ form.components[1].transcription.Modern }`))
+          })
 
-    cy.get(`.environment`)
-    .then(([a, b]) => {
-      expect(a).to.have.text(`_V`)
-      expect(b).to.have.text(`_N`)
-    })
+          // Component Of
+          cy.get(`#form-${ form.id }__component-of`).children()
+          .should(`have.length`, form.componentOf.length)
+          .then(([a, b]) => {
+            expect(a).to.contain.text(prepareTranscription(form.componentOf[0].transcription.Modern))
+            expect(b).to.contain.text(prepareTranscription(`*${ form.componentOf[1].transcription.Modern }`))
+          })
 
-  })
+          // Etymology
+          cy.get(`#form-${ form.id }__etymology`).children()
+          .should(`have.length`, form.etymology.length + form.etymology.length - 1)
+          .then(([a, , c]) => {
+            expect(a).to.contain.text(prepareTranscription(`*${ form.etymology[0].transcription.APA }`))
+            expect(a).to.contain.text(form.etymology[0].language.abbreviation)
+            expect(c).to.contain.text(prepareTranscription(`*${ form.etymology[1].transcription.APA }`))
+            expect(c).to.contain.text(form.etymology[1].language.abbreviation)
+          })
 
-  it(`Lexeme Details: Menominee: peN`, function() {
+          // Reflexes
+          cy.get(`#form-${ form.id }__reflexes`).children()
+          .should(`have.length`, form.reflexes.length)
+          .then(([a, b]) => {
+            expect(a).to.contain.text(prepareTranscription(form.reflexes[0].transcription.Modern))
+            expect(a).to.contain.text(form.reflexes[0].language.abbreviation)
+            expect(b).to.contain.text(prepareTranscription(form.reflexes[1].transcription.Modern))
+            expect(b).to.contain.text(form.reflexes[1].language.abbreviation)
+          })
 
-    const lexemeID = `99c7f697-2613-437a-b729-f612dd0045a0`
+          // References
+          cy.get(`#form-${ form.id }__references ul`).children()
+          .should(`have.length`, form.bibliography.length)
+          .then(([a, b]) => {
+            expect(a).to.contain.text(form.bibliography[0].citation)
+            expect(b).to.contain.text(form.bibliography[1].citation)
+          })
 
-    cy.visit(`/languages/${ menomineeLanguageID }/lexemes/${ lexemeID }#metadata`)
+          // Sources
+          cy.get(`#form-${ form.id }__sources`).children()
+          .should(`have.length`, form.sources.length)
+          .then(([a, b]) => {
+            expect(a).to.contain.text(form.sources[0].abbreviation)
+            expect(b).to.contain.text(form.sources[1].abbreviation)
+          })
 
-    // Cross-References
-    cy.get(`#cross-references`)
-    .children()
-    .then(([a, b]) => {
-      expect(a).to.have.text(`TI:`)
-      expect(b).to.have.text(`‑petoo`) // non-breaking hyphen
-    })
+          // SENSES
 
-  })
+          cy.get(`#meaning-link`).click()
+          cy.get(`.senses-list`).children().should(`have.length`, lexeme.senses.length)
 
-  it(`Lexeme Details: Menominee: wa·nɛhka·n‑`, function() {
+          // SENSE
 
-    const lexemeID = `1fbfe299-2aa6-467c-b562-a0e22876a552`
-    const formID   = `957c76d3-90fb-4325-99f6-2e9e28ee248c`
+          const [sense] = lexeme.senses
 
-    cy.visit(`/languages/${ menomineeLanguageID }/lexemes/${ lexemeID }`)
+          // Gloss
+          cy.get(`#sense-${ sense.id }__gloss`).should(`contain.text`, sense.gloss.eng)
 
-    // Form Components
-    cy.get(`#form-${ formID }__components`).should(`have.text`, `‑a·n`) // non-breaking hyphen
+          // Category
+          cy.get(`#sense-${ sense.id }__category`)
+          .should(`contain.text`, sense.category.abbreviation)
+          .should(`have.attr`, `title`, sense.category.name.eng)
 
-  })
+          // Semantic Class
+          cy.get(`#sense-${ sense.id }__semantic-class`)
+          .should(`contain.text`, sense.semanticClass.abbreviation)
+          .should(`have.attr`, `title`, sense.semanticClass.name.eng)
 
-  it(`Lexeme Details: Plains Cree: cīkahikan`, function() {
+          // Inflection Class
+          cy.get(`#sense-${ sense.id }__inflection-class`)
+          .should(`contain.text`, sense.inflectionClass.abbreviation)
+          .should(`have.attr`, `title`, sense.inflectionClass.name.eng)
 
-    const { data } = this
+          // Base Category
+          cy.get(`#sense-${ sense.id }__base-category`)
+          .should(`contain.text`, sense.baseCategory.abbreviation)
+          .should(`have.attr`, `title`, sense.baseCategory.name.eng)
 
-    cy.visit(`/languages/${ publicLanguageID }/lexemes/${ data.id }`)
+          // METADATA
 
-    // page title
-    cy.title().should(`eq`, `Oxalis | ${ data.lemma.transcription.SRO }`)
+          cy.get(`#metadata-link`).click()
 
-    // SUMMARY
-    cy.contains(`.page-title`, data.lemma.transcription.SRO)
-    cy.contains(`.header`, data.senses[0].gloss.eng)
-    cy.get(`.header .language`).should(`have.text`, `Plains Cree | nêhiyawêwin`)
+          // Cross References
+          cy.get(`#cross-references`).children()
+          .should(`have.length`, 8)
 
-    // FORM TAB (default)
-    cy.hash().should(`eq`, ``)
-    cy.get(`#forms`).should(`be.visible`)
+          cy.get(`#cross-references`)
+          .within(() => {
 
-    // Lemma
-    cy.contains(`#lemma`, data.lemma.transcription.SRO)
-    cy.contains(`#lemma`, data.lemma.transcription.syllabics)
+            cy.contains(`dt`, `Delphine`)
+            cy.contains(`dd`, `cuwi`)
+            cy.contains(`dt`, `compare`)
+            cy.get(`.cross-refs-set`).children()
+            .should(`have.length`, 2)
+            .should(`include.text`, `nuhc‑`)  // non-breaking hyphen
+            .should(`include.text`, `nicwa‑`) // non-breaking hyphen
+            cy.contains(`dt`, `plural`)
+            cy.contains(`dd`, `dut‑`)         // non-breaking hyphen
+            cy.contains(`dt`, `pluractional`)
+            cy.contains(`dd`, `dutma‑`)       // non-breaking hyphen
 
-    // Citation Form (without data; see below for test with data)
-    cy.contains(`#citation-form`, `—`)
+          })
 
-    // Morph Type
-    cy.contains(`#morph-type`, `stem`)
+          // Date Created
+          cy.contains(`#date-created`, new Date(lexeme.dateCreated).toLocaleDateString(`en-CA`))
 
-    // Forms List
-    cy.get(`.forms-list`).children().should(`have.length`, 1)
+          // Date Modified
+          cy.contains(`#date-modified`, new Date(lexeme.dateModified).toLocaleDateString(`en-CA`))
 
-    // FORM
+          // Language Name
+          cy.get(`#language-name`)
+          .within(() => {
+            for (const lang in language.name) {
+              cy.contains(`dt`, lang)
+              cy.contains(`dd`, language.name[lang])
+            }
+          })
 
-    const [form] = data.forms
+          // Language Autonym
+          cy.get(`#language-autonym`)
+          .within(() => {
+            for (const ortho in language.autonym) {
+              cy.contains(`dt`, ortho)
+              cy.contains(`dd`, language.autonym[ortho])
+            }
+          })
 
-    cy.get(`.forms-list`).first().within(() => {
+          // Projects
+          cy.get(`#projects`).children()
+          .should(`have.length`, lexeme.projects.length)
+          .then(([a, b]) => {
+            expect(a).to.include.text(`Chitimacha Dictionary`)
+            expect(b).to.include.text(`Typology Project`)
+          })
 
-      cy.get(`.form__transcription`).should(`include.text`, form.transcription.SRO.replace(`-`, `‑`))
-      cy.get(`#form-${ form.id }__references .tags-list`).children()
-      .should(`have.length`, 3)
-      .then(([a, b, c]) => {
-        expect(a).to.include.text(`Bloomfield`)
-        expect(b).to.include.text(`Goddard`)
-        expect(c).to.include.text(`Wolvengrey`)
+          // References
+          cy.get(`#lexeme__references ul`).children()
+          .should(`have.length`, lexeme.bibliography.length)
+          .then(([a, b]) => {
+            expect(a).to.contain.text(lexeme.bibliography[0].citation)
+            expect(b).to.contain.text(lexeme.bibliography[1].citation)
+          })
+
+          // Sources
+          cy.get(`#lexeme__sources`).children()
+          .should(`have.length`, lexeme.sources.length)
+
+          for (const source of lexeme.sources) {
+            cy.contains(`#lexeme__sources li`, source.abbreviation)
+          }
+
+          // Tags
+          cy.get(`#tags`).children()
+          .should(`have.length`, Object.keys(lexeme.tags).length)
+          .then(([a, b, c, d, e]) => {
+            expect(a).to.have.text(`checked: yes`)
+            expect(b).to.have.text(`elicited`)
+            expect(c).to.have.text(`compound: false`)
+            expect(d).to.have.text(`preverbs: 0`)
+            expect(e).to.have.text(`syllables: 2`)
+          })
+
+          // URL
+          cy.contains(`#url`, `https://data.digitallinguistics.io/languages/${ language.id }/lexemes/${ lexeme.id }`)
+
+          // Notes
+          cy.get(`.lexeme__notes`).children()
+          .should(`have.length`, lexeme.notes.length)
+
+          for (const note of lexeme.notes) {
+            cy.contains(`.note`, note.text)
+          }
+
+        })
+
       })
 
     })
 
-    // MEANING TAB
+  })
+
+  it(`empty lexeme`, function() {
+
+    // SETUP: Seed database
+
+    const project = new Project({
+      id:   `d12a00e6-a324-450f-8a06-7265b6eb5c33`,
+      name: `Test Project`,
+    })
+
+    const language = new Language({
+      id: `a64b2239-e094-49df-a2c4-b2a8c5e35f8c`,
+    })
+
+    const lexeme = new Lexeme({
+      id:           `dc305010-fd42-4356-b4e9-a6eef7323119`,
+      language:     {
+        id: language.id,
+      },
+      projects: [project.id],
+    })
+
+    delete lexeme.dateCreated
+    delete lexeme.dateModified
+
+    cy.addOne(project)
+    cy.addOne(language)
+    cy.addOne(lexeme)
+
+    // ASSERTIONS
+
+    cy.visit(`/languages/1234/lexemes/${ lexeme.id }`)
+
+    // HEADER
+
+    // Lemma
+    cy.contains(`.headword`, `[no lemma given]`)
+
+    // Language
+    cy.contains(`.language`, `[no language name given]`)
+
+    // Glosses
+    cy.get(`.glosses`).should(`not.exist`)
+
+    // FORMS
+
+    // Lemma
+    cy.contains(`#lemma`, emDash)
+
+    // Citation Form
+    cy.contains(`#citation-form`, emDash)
+
+    // Morph Type
+    cy.contains(`#morph-type`, emDash)
+
+    // Slot
+    cy.contains(`#slot`, emDash)
+
+    // Base Forms
+    cy.get(`.forms-list`).should(`not.exist`)
+    cy.contains(`.forms-section .summary-count`, `(${ lexeme.forms.length })`)
+
+    // FORM
+    // See separate test for empty form below
+
+    // SENSES
+
     cy.get(`#meaning-link`).click()
-    cy.hash().should(`eq`, `#meaning`)
-    cy.get(`#meaning`).should(`be.visible`)
-    cy.get(`#forms`).should(`not.be.visible`)
+    cy.get(`.senses-list`).should(`not.exist`)
+    cy.contains(`#meaning`, `No senses listed.`)
 
-    // METADATA TAB
+    // SENSE
+    // See separate test for empty sense below
+
+    // METADATA
+
     cy.get(`#metadata-link`).click()
-    cy.hash().should(`eq`, `#metadata`)
-    cy.get(`#metadata`).should(`be.visible`)
-    cy.get(`#meaning`).should(`not.be.visible`)
 
-    // Language Details
-    cy.get(`#language-name`).should(`include.text`, `Plains Cree`)
-    cy.get(`#language-autonym`).should(`include.text`, `nêhiyawêwin`)
+    // Cross References
+    cy.contains(`#cross-references`, emDash)
 
-    // Metadata Properties
-    cy.get(`#url`).should(`have.text`, data.link)
-    cy.get(`#date-created`).should(`have.text`, new Date(data.dateCreated).toLocaleDateString(`en-CA`))
-    cy.get(`#date-modified`).should(`have.text`, new Date(data.dateModified).toLocaleDateString(`en-CA`))
+    // Date Created
+    cy.contains(`#date-created`, emDash)
+
+    // Date Modified
+    cy.contains(`#date-modified`, emDash)
+
+    // Language Name
+    cy.contains(`#language-name`, emDash)
+
+    // Language Autonym
+    cy.contains(`#language-autonym`, emDash)
+
+    // Projects
+    // A lexeme must have a project in order for the server
+    // to render the page properly.
+    cy.contains(`#projects`, project.name)
+
+    // References
+    cy.contains(`#lexeme__references`, emDash)
+
+    // Sources
+    cy.contains(`#lexeme__sources`, emDash)
 
     // Tags
-    cy.get(`#tags`).children()
-    .should(`have.length`, Object.keys(data.tags).length)
-    .then(([a, b, c, d, e]) => {
-      expect(a).to.have.text(`checked: yes`)
-      expect(b).to.have.text(`elicited`)
-      expect(c).to.have.text(`irregular: false`)
-      expect(d).to.have.text(`preverbs: 0`)
-      expect(e).to.have.text(`syllables: 4`)
-    })
+    cy.contains(`#tags`, emDash)
 
-    // Bibliography
-    cy.get(`#lexeme-references ul`).children()
-    .should(`have.length`, data.bibliography.length)
-    .then(([a, b, c, d]) => {
-      expect(a).to.contain(`Bloomfield`)
-      expect(b).to.contain(`Goddard`)
-      expect(c).to.contain(`Macaulay`)
-      expect(d).to.contain(`Wolvengrey`)
-    })
+    // URL: Already tested above
+
+    // Notes
+    cy.contains(`.notes-section .summary-count`, `(0)`)
+    cy.get(`.lexeme__notes`).children().should(`have.length`, 0)
 
   })
 
-  it(`Lexeme Details: Proto-Algic: -ahw`, function() {
+  it(`empty form + empty sense`, function() {
 
-    const lexemeID             = `b9a0edc6-59d1-44bd-a3e7-e226d0a33e5d`
-    const protoAlgicLanguageID = `2f8c9c1d-b08b-4b51-a016-b65a90eb8af8`
-    const formID               = `d9da9f62-803e-490a-927e-efaa1eef9f0f`
+    // SETUP
 
-    cy.visit(`/languages/${ protoAlgicLanguageID }/lexemes/${ lexemeID }`)
+    const project = new Project({
+      id:   `d12a00e6-a324-450f-8a06-7265b6eb5c33`,
+      name: `Test Project`,
+    })
 
-    // Header Lemma (Unattested)
-    cy.get(`.page-title`).should(`have.text`, `*‑ahw`)
+    const language = new Language({
+      id: `a64b2239-e094-49df-a2c4-b2a8c5e35f8c`,
+    })
+
+    const lexeme = new Lexeme({
+      forms:    [
+        {
+          id: `60a80a96-02b0-4458-b3ed-cd6ff6179c5a`,
+        },
+      ],
+      id:           `dc305010-fd42-4356-b4e9-a6eef7323119`,
+      language:     {
+        id: language.id,
+      },
+      projects: [project.id],
+      senses:   [
+        {
+          id: `cffc430d-11b3-4a55-a383-7747bb3a1d15`,
+        },
+      ],
+    })
+
+    cy.addOne(project)
+    cy.addOne(language)
+    cy.addOne(lexeme)
+
+    cy.visit(`/languages/1234/lexemes/${ lexeme.id }`)
+
+    // ASSERTIONS
+
+    // FORM
+
+    let [{ id }] = lexeme.forms
+
+    // Transcription
+    cy.contains(`.form summary`, `[no transcription given]`)
+
+    // Abstract Form
+    cy.get(`#form-${ id }__abstract`).should(`not.be.checked`)
 
     // Unattested
-    cy.get(`#form-${ formID }__unattested`).should(`be.checked`)
+    cy.get(`#form-${ id }__unattested`).should(`not.be.checked`)
+
+    // Allomorphs
+    cy.contains(`#form-${ id }__allomorphs`, emDash)
+
+    // Components
+    cy.contains(`#form-${ id }__components`, emDash)
+
+    // Component Of
+    cy.contains(`#form-${ id }__component-of`, emDash)
+
+    // Etymology
+    cy.contains(`#form-${ id }__etymology`, emDash)
 
     // Reflexes
-    cy.get(`#form-${ formID }__reflexes`).children()
-    .should(`have.length`, 2)
-    .then(([a, b]) => {
-      expect(a).to.have.text(`PA: ‑ahw, `) // non-breaking hyphen
-      expect(b).to.have.text(`arp: ‑oh`) // non-breaking hyphen
+    cy.contains(`#form-${ id }__reflexes`, emDash)
+
+    // References
+    cy.contains(`#form-${ id }__references`, emDash)
+
+    // Sources
+    cy.contains(`#form-${ id }__sources`, emDash)
+
+    // SENSE
+
+    ;[{ id }] = lexeme.senses // eslint-disable-line semi-style
+
+    cy.get(`#meaning-link`).click()
+
+    // Gloss
+    cy.contains(`#sense-${ id }__gloss`, emDash)
+
+    // Lexical Category
+    cy.contains(`#sense-${ id }__category`, emDash)
+
+    // Semantic Class
+    cy.contains(`#sense-${ id }__semantic-class`, emDash)
+
+    // Inflection Class
+    cy.contains(`#sense-${ id }__inflection-class`, emDash)
+
+    // Base Category
+    cy.contains(`#sense-${ id }__base-category`, emDash)
+
+  })
+
+  // If a lexeme is part of both public and private projects,
+  // only show the private projects if the user has access to them.
+  it(`private projects`, function() {
+
+    // SETUP
+
+    const publicProject = new Project({
+      id:   `b43470b6-24ab-41d7-acff-ff24dc299548`,
+      name: `Public Project`,
     })
+
+    const privateProject = new Project({
+      id:          `4ef445ec-20e1-4755-b574-89626cabea87`,
+      name:        `Private Project`,
+      permissions: new Permissions({ public: false }),
+    })
+
+    const userProject = new Project({
+      id:          `80c0998a-1091-466d-a99b-b71407693637`,
+      name:        `User Project`,
+      permissions: new Permissions({
+        owners: [msAuthUser],
+      }),
+    })
+
+    const language = new Language({
+      id: `9bae693b-f953-4880-af23-683c9b374aa3`,
+    })
+
+    const lexeme = new Lexeme({
+      id:       `15183462-fe10-439e-a90c-217d0a8777e3`,
+      language: {
+        id: language.id,
+      },
+      projects: [
+        publicProject.id,
+        privateProject.id,
+        userProject.id,
+      ],
+    })
+
+    cy.addOne(publicProject)
+    cy.addOne(privateProject)
+    cy.addOne(userProject)
+    cy.addOne(language)
+    cy.addOne(lexeme)
+
+    cy.visit(`/languages/1234/lexemes/${ lexeme.id }`)
+    cy.get(`#metadata-link`).click()
+
+    // ASSERT
+
+    cy.get(`#projects`).children()
+    .should(`have.length`, 2)
 
   })
 
