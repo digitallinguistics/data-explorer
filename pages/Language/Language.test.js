@@ -11,14 +11,15 @@ import Project    from '../../models/Project.js'
 const msAuthCookie = Cypress.env(`msAuthCookie`)
 const msAuthUser   = Cypress.env(`msAuthUser`)
 
-describe(`Language Page`, function() {
+describe(`Language`, function() {
 
   before(function() {
     cy.task(`setupDatabase`)
   })
 
   afterEach(function() {
-    cy.clearDatabase()
+    throw new Error(`BOOM`)
+    // cy.clearDatabase()
   })
 
   it(`Not Found`, function() {
