@@ -50,7 +50,7 @@ jobs:
         run:  npm run build --if-present
 
       - name: start database
-        uses: southpolesteve/cosmos-emulator-github-action@v1
+        run:  npm run start-db
 
       - name: run tests
         run:  npm test
