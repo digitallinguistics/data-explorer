@@ -31,7 +31,7 @@ jobs:
       - name: set up Node
         uses: actions/setup-node@v3
         with:
-          node-version: 16
+          node-version: 18
 
       - name: cache Node.js modules
         id:   cache
@@ -43,14 +43,15 @@ jobs:
       - name: install dependencies
         run:  npm install
 
+      # Start this as early as possible to give it time to start up before running tests.
+      - name: start database
+        run:  npm run start-db
+
       - name: run stop-only test
         run:  npm run stop-only
 
       - name: build app
         run:  npm run build --if-present
-
-      - name: start database
-        run:  npm run start-db
 
       - name: run tests
         run:  npm test
