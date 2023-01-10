@@ -21,7 +21,7 @@ export default async function setupDatabase(dbName) {
   const containerName = `data`
   const client        = new CosmosClient({ endpoint: process.env.COSMOS_ENDPOINT, key: process.env.COSMOS_KEY })
 
-  const { database } = await client.databases.createIfNotExists({ id: dbName })
+  const { database }  = await client.databases.createIfNotExists({ id: dbName })
   const { container } = await database.containers.createIfNotExists({ id: containerName })
 
   const scriptPath = joinPath(__dirname, `./sprocs/count.js`)
