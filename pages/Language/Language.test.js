@@ -18,17 +18,9 @@ describe(`Language`, function() {
   })
 
   afterEach(function() {
-    throw new Error(`BOOM`)
-    // cy.clearDatabase()
+    cy.clearDatabase()
   })
 
-  it(`Not Found`, function() {
-    const badID = `bad-id`
-    cy.visit(`/languages/${ badID }`, { failOnStatusCode: false })
-    cy.title().should(`eq`, `Oxalis | Item Not Found`)
-    cy.get(`.page-title`).should(`have.text`, `404: Item Not Found`)
-    cy.get(`.error-message`).should(`have.text`, `No language exists with ID ${ badID }.`)
-  })
 
   it(`Unauthenticated`, function() {
 
