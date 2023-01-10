@@ -9,14 +9,15 @@ on:
       - main
 
 env:
-  COSMOS_ENDPOINT: https://localhost:8081
-  COSMOS_KEY:      C2y6yDjf5/R+ob0N8A7Cgv30VRDJIWEHLM+4QDU5DE2nQ9nDuVTqobD4b8mGGyPMbIZnqyMsEcaGQy67XIw/Jw== # well-known key for Cosmos DB emulator
-  LOGGING:         TRUE
-  MS_AUTH_COOKIE:  AppServiceAuthSession
-  MS_AUTH_HEADER:  X-MS-CLIENT-PRINCIPAL-NAME
-  MS_AUTH_USER:    owner@digitallinguistics.io
-  NODE_ENV:        CI
-  PORT:            3001
+  COSMOS_ENDPOINT:              https://localhost:8081
+  COSMOS_KEY:                   C2y6yDjf5/R+ob0N8A7Cgv30VRDJIWEHLM+4QDU5DE2nQ9nDuVTqobD4b8mGGyPMbIZnqyMsEcaGQy67XIw/Jw== # well-known key for Cosmos DB emulator
+  LOGGING:                      TRUE
+  MS_AUTH_COOKIE:               AppServiceAuthSession
+  MS_AUTH_HEADER:               X-MS-CLIENT-PRINCIPAL-NAME
+  MS_AUTH_USER:                 owner@digitallinguistics.io
+  NODE_ENV:                     CI
+  NODE_TLS_REJECT_UNAUTHORIZED: 0
+  PORT:                         3001
 
 jobs:
 
@@ -43,15 +44,14 @@ jobs:
       - name: install dependencies
         run:  npm install
 
-      # Start this as early as possible to give it time to start up before running tests.
-      - name: start database
-        run:  npm run start-db
-
       - name: run stop-only test
         run:  npm run stop-only
 
       - name: build app
         run:  npm run build --if-present
+
+      - name: start database
+        run:  npm run start-db
 
       - name: run tests
         run:  npm test
