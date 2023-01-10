@@ -25,7 +25,7 @@ export default async function setupDatabase(dbName) {
   const { container } = await database.containers.createIfNotExists({ id: containerName })
 
   const scriptPath = joinPath(__dirname, `./sprocs/count.js`)
-  const script = await readFile(scriptPath, `utf8`)
+  const script     = await readFile(scriptPath, `utf8`)
 
   try {
     await container.scripts.storedProcedures.create({

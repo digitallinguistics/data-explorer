@@ -37,8 +37,6 @@ describe(`Database`, function() {
 
   before(async function() {
 
-    this.timeout(10000)
-
     // Retrieve data fixtures
 
     const languagePath = joinPath(__dirname, `../data/language.yml`)
