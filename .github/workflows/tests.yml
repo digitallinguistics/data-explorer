@@ -4,6 +4,9 @@ on:
   pull_request:
     branches:
       - main
+  push:
+    branches:
+      - main
 
 env:
   COSMOS_ENDPOINT: https://digitallinguistics.documents.azure.com:443/
