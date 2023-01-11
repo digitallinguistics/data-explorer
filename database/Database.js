@@ -7,6 +7,8 @@ import { readFile }      from 'fs/promises'
 const __filename = fileURLToPath(import.meta.url)
 const __dirname  = path.dirname(__filename)
 
+// NOTE: Cosmos DB Create methods modify the original object by setting an `id` property on it.
+
 /**
  * A class for managing a Cosmos DB database connection.
  */
@@ -45,23 +47,6 @@ export default class Database {
 
   // DEV METHODS
 
-  // Helper functions for seeding the database.
-  // NOTE: Cosmos DB Create methods modify the original object by setting an `id` property on it.
-
-  /**
-   * Upsert a single item to the database.
-   * WARNING: This method is only used during testing. Do not use in production.
-   * @param {Object} data The object to upsert.
-   * @returns Promise<Object>
-   */
-  async addOne(data = {}) {
-
-    const item         = Object.assign({}, data)
-    const { resource } = await this.container.items.upsert(item)
-
-    return resource
-
-  }
 
   /**
    * Upserts multiple copies of the same object to the database.
@@ -120,8 +105,60 @@ export default class Database {
     }
   }
 
+  /**
+   * Creates the database, container, and stored procedures in Cosmos DB if they don't yet exist.
+   * @returns Promise
+   */
+  async setup() {
+
+    console.info(`Setting up ${ this.dbName } database.`)
+
+    const { database } = await this.client.databases.createIfNotExists({ id: this.dbName })
+    const { container } = await database.containers.createIfNotExists({ id: this.containerName })
+
+    const scriptPath = path.join(__dirname, `./sprocs/count.js`)
+    const script = await readFile(scriptPath, `utf8`)
+
+    try {
+      await container.scripts.storedProcedures.create({
+        body: script,
+        id:   `count`,
+      })
+    } catch (error) {
+      // The sproc will already exist if the database hasn't been torn down.
+      // Ignore the 409 error and continue if this is the case, and throw otherwise.
+      if (error.code !== 409) throw error
+    }
+
+    console.info(`${ this.dbName } database setup complete.`)
+
+  }
+
 
   // GENERIC METHODS
+
+  /**
+   * Upsert a single item to the database.
+   * @param {Object} item The item to upsert.
+   * @returns Promise<Object>
+   */
+  async addOne(item) {
+    try {
+
+      const { resource, statusCode } = await this.container.items.create(item)
+      return { data: resource, status: statusCode }
+
+    } catch ({ code }) {
+
+      const response = { status: code }
+
+      if (code === 409) response.message = `An item with ID ${ item.id } already exists.`
+      else response.message = `An unknown error occurred while adding item with ID ${ item.id }.`
+
+      return response
+
+    }
+  }
 
   /**
    * Count the number of items of the specified type. Use the `options` parameter to provide various filters.
@@ -164,7 +201,7 @@ export default class Database {
    * @param {String} id The ID of the item to retrieve.
    * @returns Promise<Object>
    */
-  async get(id) {
+  async getOne(id) {
 
     const { resource, statusCode } = await this.container.item(id).read()
 
@@ -173,7 +210,7 @@ export default class Database {
   }
 
   /**
-   * Get multiple items from the database by ID. Max 100 items per request. Items not found are simply omitted without warning.
+   * Get multiple items from the database by ID. Max 100 items per request. Items not found are omitted without a warning.
    * @param {Array<String>} ids An array of IDs to retrieve from the database.
    * @returns Promise<Array<Object>> Resolves to an array of results.
    */
@@ -197,29 +234,14 @@ export default class Database {
 
   }
 
-  async setup() {
-
-    console.info(`Setting up ${ this.dbName } database.`)
-
-    const { database }  = await this.client.databases.createIfNotExists({ id: this.dbName })
-    const { container } = await database.containers.createIfNotExists({ id: this.containerName })
-
-    const scriptPath = path.join(__dirname, `./sprocs/count.js`)
-    const script     = await readFile(scriptPath, `utf8`)
-
-    try {
-      await container.scripts.storedProcedures.create({
-        body: script,
-        id:   `count`,
-      })
-    } catch (error) {
-      // The sproc will already exist if the database hasn't been torn down.
-      // Ignore the 409 error and continue if this is the case, and throw otherwise.
-      if (error.code !== 409) throw error
-    }
-
-    console.info(`${ this.dbName } database setup complete.`)
-
+  /**
+   * Upsert a single item to the database.
+   * @param {Object} item The item to upsert.
+   * @returns Promise<Object>
+   */
+  async upsertOne(item) {
+    const { resource, statusCode } = await this.container.items.upsert(item)
+    return { data: resource, status: statusCode }
   }
 
 

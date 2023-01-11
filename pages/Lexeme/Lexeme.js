@@ -6,7 +6,7 @@ export default async function get(req, res) {
 
   const title            = `Lexeme`
   const { lexemeID }     = req.params
-  const { data: lexeme } = await db.get(lexemeID)
+  const { data: lexeme } = await db.getOne(lexemeID)
 
   if (!lexeme) {
     return res.error(`ItemNotFound`, {
@@ -33,7 +33,7 @@ export default async function get(req, res) {
     })
   }
 
-  const { data: language } = await db.get(lexeme.language.id)
+  const { data: language } = await db.getOne(lexeme.language.id)
 
   res.render(`Lexeme/Lexeme`, {
     language,

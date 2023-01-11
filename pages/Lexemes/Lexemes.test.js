@@ -30,7 +30,7 @@ describe(`Lexemes`, function() {
         id: `ae4e6f0c-994a-400a-a47b-65f61eaaa65d`,
       })
 
-      cy.addOne(lexeme)
+      cy.upsertOne(lexeme)
 
       cy.visit(`/languages/${ badID }/lexemes`, { failOnStatusCode: false })
 
@@ -60,9 +60,9 @@ describe(`Lexemes`, function() {
           .then(yaml => yamlParser.load(yaml))
           .then(project => {
 
-            cy.addOne(project)
-            cy.addOne(language)
-            cy.addOne(lexeme)
+            cy.upsertOne(project)
+            cy.upsertOne(language)
+            cy.upsertOne(lexeme)
 
             cy.visit(`/languages/${ language.id }/lexemes`)
 
@@ -130,10 +130,10 @@ describe(`Lexemes`, function() {
 
       const count = 3
 
-      cy.addOne(publicProject)
-      cy.addOne(userProject)
-      cy.addOne(privateProject)
-      cy.addOne(language)
+      cy.upsertOne(publicProject)
+      cy.upsertOne(userProject)
+      cy.upsertOne(privateProject)
+      cy.upsertOne(language)
 
       cy.addMany(count, new Lexeme({
         language: {
@@ -193,9 +193,9 @@ describe(`Lexemes`, function() {
         projects: [project.id],
       })
 
-      cy.addOne(project)
-      cy.addOne(language)
-      cy.addOne(lexeme)
+      cy.upsertOne(project)
+      cy.upsertOne(language)
+      cy.upsertOne(lexeme)
 
       // ASSERTIONS
 
@@ -222,7 +222,7 @@ describe(`Lexemes`, function() {
         permissions: new Permissions({ public: false }),
       })
 
-      cy.addOne(project)
+      cy.upsertOne(project)
 
       cy.visit(`/projects/${ project.id }/lexemes`, { failOnStatusCode: false })
 
@@ -241,7 +241,7 @@ describe(`Lexemes`, function() {
         }),
       })
 
-      cy.addOne(project)
+      cy.upsertOne(project)
 
       cy.visit(`/projects/${ project.id }/lexemes`, { failOnStatusCode: false })
       cy.setCookie(msAuthCookie, msAuthUser)
@@ -257,7 +257,7 @@ describe(`Lexemes`, function() {
 
       const project = new Project({ id: `cce2b576-4d24-4356-a6c2-6d5ac6b7b6bb` })
 
-      cy.addOne(project)
+      cy.upsertOne(project)
 
       const count = 3
 

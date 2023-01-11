@@ -26,7 +26,7 @@ describe(`Lexeme`, function() {
     const badID    = `bad-id`
     const language = new Language({ id: `642ca288-3e38-4f16-8789-1506028d13b4` })
 
-    cy.addOne(language)
+    cy.upsertOne(language)
 
     cy.visit(`/languages/${ language.id }/lexemes/${ badID }`, { failOnStatusCode: false })
     cy.contains(`.page-title`, `404: Item Not Found`)
@@ -47,8 +47,8 @@ describe(`Lexeme`, function() {
       },
     })
 
-    cy.addOne(language)
-    cy.addOne(lexeme)
+    cy.upsertOne(language)
+    cy.upsertOne(lexeme)
 
     cy.visit(`/languages/${ language.id }/lexemes/${ lexeme.id }`, { failOnStatusCode: false })
     cy.contains(`.page-title`, `401: Unauthenticated`)
@@ -69,8 +69,8 @@ describe(`Lexeme`, function() {
       },
     })
 
-    cy.addOne(language)
-    cy.addOne(lexeme)
+    cy.upsertOne(language)
+    cy.upsertOne(lexeme)
 
     cy.visit(`/`)
     cy.setCookie(msAuthCookie, msAuthUser)
@@ -99,10 +99,10 @@ describe(`Lexeme`, function() {
             name: `Typology Project`,
           })
 
-          cy.addOne(language)
-          cy.addOne(lexeme)
-          cy.addOne(project)
-          cy.addOne(typologyProject)
+          cy.upsertOne(ne(language)
+          cy.upsertOne(lexeme)
+          cy.upsertOne(project)
+          cy.upsertOne(ne(ne(typologyProject)
           cy.visit(`/languages/${ language.id }/lexemes/${ lexeme.id }`)
 
           // HEADER
@@ -385,9 +385,9 @@ describe(`Lexeme`, function() {
     delete lexeme.dateCreated
     delete lexeme.dateModified
 
-    cy.addOne(project)
-    cy.addOne(language)
-    cy.addOne(lexeme)
+    cy.upsertOne(project)
+    cy.upsertOne(language)
+    cy.upsertOne(lexeme)
 
     // ASSERTIONS
 
@@ -506,9 +506,9 @@ describe(`Lexeme`, function() {
       ],
     })
 
-    cy.addOne(project)
-    cy.addOne(language)
-    cy.addOne(lexeme)
+    cy.upsertOne(project)
+    cy.upsertOne(language)
+    cy.upsertOne(lexeme)
 
     cy.visit(`/languages/1234/lexemes/${ lexeme.id }`)
 
@@ -612,11 +612,11 @@ describe(`Lexeme`, function() {
       ],
     })
 
-    cy.addOne(publicProject)
-    cy.addOne(privateProject)
-    cy.addOne(userProject)
-    cy.addOne(language)
-    cy.addOne(lexeme)
+    cy.upsertOne(publicProject)
+    cy.upsertOne(privateProject)
+    cy.upsertOne(userProject)
+    cy.upsertOne(language)
+    cy.upsertOne(lexeme)
 
     cy.visit(`/languages/1234/lexemes/${ lexeme.id }`)
     cy.get(`#metadata-link`).click()

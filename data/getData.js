@@ -27,3 +27,4 @@ const key       = process.env.COSMOS_KEY
 const db = new Database({ dbName, endpoint, key })
 
 await db.setup()
+await db.clear()

@@ -19,7 +19,7 @@ export default async function get(req, res) {
 
   if (languageID) {
 
-    var { data: language } = await db.get(languageID)
+    var { data: language } = await db.getOne(languageID)
 
     if (!language) {
       return res.error(`ItemNotFound`, {

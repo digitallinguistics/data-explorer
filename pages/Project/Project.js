@@ -9,7 +9,7 @@ import {
 export default async function get(req, res) {
 
   const { projectID }     = req.params
-  const { data: project } = await db.get(projectID)
+  const { data: project } = await db.getOne(projectID)
 
   if (!project) {
     return res.error(`ItemNotFound`, {

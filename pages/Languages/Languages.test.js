@@ -24,7 +24,7 @@ describe(`Languages`, function() {
       cy.readFile(`data/language.yml`)
       .then(yaml => yamlParser.load(yaml))
       .then(data => {
-        cy.addOne(data)
+        cy.upsertOne(data)
         cy.visit(`/languages`)
         cy.get(`.privacy`).should(`include.text`, `public`)
         cy.get(`.permissions`).should(`include.text`, `public`)
@@ -170,8 +170,8 @@ describe(`Languages`, function() {
         projects: [project.id],
       })
 
-      cy.addOne(project)
-      cy.addOne(language)
+      cy.upsertOne(project)
+      cy.upsertOne(language)
       cy.visit(`/projects/${ project.id }/languages`, { failOnStatusCode: false })
       cy.contains(`.page-title`, `401: Unauthenticated`)
       cy.contains(`.error-message`, `You must be logged in to view this project.`)
@@ -191,8 +191,8 @@ describe(`Languages`, function() {
         projects: [project.id],
       })
 
-      cy.addOne(project)
-      cy.addOne(language)
+      cy.upsertOne(project)
+      cy.upsertOne(language)
       cy.visit(`/`)
       cy.setCookie(msAuthCookie, msAuthUser)
       cy.visit(`/projects/${ project.id }/languages`, { failOnStatusCode: false })
@@ -215,7 +215,7 @@ describe(`Languages`, function() {
 
       const count = 3
 
-      cy.addOne(project)
+      cy.upsertOne(project)
       cy.addMany(count, projectLanguage)
       cy.addMany(count, otherLanguage)
 

@@ -1,3 +1,4 @@
+import '../env.js'
 import Cite              from 'citation-js'
 import Database          from '../database/Database.js'
 import { expect }        from 'chai'
@@ -211,21 +212,57 @@ describe(`Database`, function() {
 
   })
 
-  describe(`get`, function() {
+  describe(`addOne`, function() {
+
+    it(`201 Created`, async function() {
+
+      const { data, status } = await db.addOne(this.language)
+
+      expect(status).to.equal(201)
+      expect(data.name.eng).to.equal(this.language.name.eng)
+
+    })
+
+    it(`409 Conflict`, async function() {
+
+      await db.addOne(this.language)
+
+      const { data, message, status } = await db.addOne(this.language)
+
+      expect(status).to.equal(409)
+      expect(data).to.be.undefined
+      expect(message).to.be.a(`string`)
+
+    })
+
+  })
+
+  describe(`addMany`, function() {
+
+    // TODO: do a batch (not bulk) create, so that the operation fails and rolls back if any item fails
+
+    it(`201 Created`) // returns an array of created items
+
+    it(`409 Conflict`)
+
+  })
+
+  describe(`getOne`, function() {
 
     it(`200 OK`, async function() {
 
-      const data                       = await db.addOne(this.language)
-      const { data: language, status } = await db.get(data.id)
+      await db.addOne(this.language)
+
+      const { data: language, status } = await db.getOne(this.language.id)
 
       expect(status).to.equal(200)
-      expect(language.name.eng).to.equal(data.name.eng)
+      expect(language.name.eng).to.equal(this.language.name.eng)
 
     })
 
     it(`404 Not Found`, async function() {
 
-      const { data, status } = await db.get(badID)
+      const { data, status } = await db.getOne(badID)
 
       expect(status).to.equal(404)
       expect(data).to.be.undefined
@@ -237,6 +274,8 @@ describe(`Database`, function() {
   describe(`getMany`, function() {
 
     it(`200 OK`, async function() {
+
+      // TODO: return a 200 status code if no errors were thrown
 
       const count    = 3
       const seedData = await db.addMany(count)
@@ -253,7 +292,7 @@ describe(`Database`, function() {
 
     it(`400 Too Many IDs`, async function() {
 
-      const ids = new Array(101).fill(badID, 0, 101)
+      const ids                       = new Array(101).fill(badID, 0, 101)
       const { data, message, status } = await db.getMany(ids)
 
       expect(status).to.equal(400)

@@ -25,7 +25,7 @@ describe(`Projects`, function() {
     ]
 
     for (const project of projects) {
-      cy.addOne(new Project(project))
+      cy.upsertOne(new Project(project))
     }
 
     cy.visit(`/projects`)
@@ -59,9 +59,9 @@ describe(`Projects`, function() {
       }),
     })
 
-    cy.addOne(publicProject)
-    cy.addOne(userProject)
-    cy.addOne(privateProject)
+    cy.upsertOne(publicProject)
+    cy.upsertOne(userProject)
+    cy.upsertOne(privateProject)
 
     cy.visit(`/projects`)
     cy.get(`.projects-list`).children().should(`have.length`, 1)
@@ -77,7 +77,7 @@ describe(`Projects`, function() {
     .then(yaml => yamlParser.load(yaml))
     .then(project => {
 
-      cy.addOne(project)
+      cy.upsertOne(project)
       cy.visit(`/projects`)
 
       cy.get(`[data-id=${ project.id }]`).within(() => {

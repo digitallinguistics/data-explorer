@@ -36,7 +36,7 @@ describe(`Project`, function() {
       }),
     })
 
-    cy.addOne(project)
+    cy.upsertOne(project)
 
     cy.visit(`/projects/${ project.id }`, { failOnStatusCode: false })
     cy.title().should(`eq`, `Oxalis | Unauthenticated`)
@@ -54,7 +54,7 @@ describe(`Project`, function() {
       }),
     })
 
-    cy.addOne(project)
+    cy.upsertOne(project)
 
     cy.visit(`/projects/${ project.id }`, { failOnStatusCode: false })
     cy.setCookie(msAuthCookie, msAuthUser)
@@ -82,7 +82,7 @@ describe(`Project`, function() {
         projects: [project.id],
       })
 
-      cy.addOne(project)
+      cy.upsertOne(project)
       cy.addMany(count, language)
       cy.addMany(count, lexeme)
 

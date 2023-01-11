@@ -28,7 +28,7 @@ describe(`Language`, function() {
 
     sample.permissions.public = false
 
-    cy.addOne(sample).then(language => {
+    cy.upsertOne(sample).then(language => {
       cy.visit(`/languages/${ language.id }`, { failOnStatusCode: false })
       cy.title().should(`eq`, `Oxalis | Unauthenticated`)
       cy.get(`.page-title`).should(`have.text`, `401: Unauthenticated`)
@@ -43,7 +43,7 @@ describe(`Language`, function() {
 
     data.permissions.public = false
 
-    cy.addOne(data).then(language => {
+    cy.upsertOne(data).then(language => {
       cy.visit(`/`)
       cy.setCookie(msAuthCookie, `bademail@digitallinguistics.io`)
       cy.visit(`/languages/${ language.id }`, { failOnStatusCode: false })
@@ -60,14 +60,14 @@ describe(`Language`, function() {
     .then(yaml => yamlParser.load(yaml))
     .then(data => {
 
-      cy.addOne(data)
+      cy.upsertOne(data)
 
-      cy.addOne(new Project({
+      cy.upsertOne(new Project({
         id:   `683a5d27-53bf-451b-80d1-f6e731674c9e`,
         name: `Chitimacha Dictionary Project`,
       }))
 
-      cy.addOne(new Project({
+      cy.upsertOne(new Project({
         id:   `225eeff5-adb8-421b-b9d0-7b5174419402`,
         name: `Typology Project`,
       }))
@@ -147,7 +147,7 @@ describe(`Language`, function() {
     const emDash = `—`
     const data   = new Language({ id: `9eda6d17-a1fc-46ed-819c-fcc4690583c4` })
 
-    cy.addOne(data)
+    cy.upsertOne(data)
     cy.visit(`/languages/${ data.id }`)
 
     // Page Title
@@ -209,8 +209,8 @@ describe(`Language`, function() {
     privateProject.permissions.owners.push(msAuthUser)
     privateProject.permissions.public = false
 
-    cy.addOne(publicProject)
-    cy.addOne(privateProject)
+    cy.upsertOne(publicProject)
+    cy.upsertOne(privateProject)
 
     const data = new Language({
       id:       `af18abc0-2246-4ead-b222-27cd7ecbcf96`,
@@ -220,7 +220,7 @@ describe(`Language`, function() {
       ],
     })
 
-    cy.addOne(data)
+    cy.upsertOne(data)
     cy.visit(`/languages/${ data.id }`)
 
     cy.get(`#projects`)

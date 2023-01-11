@@ -11,7 +11,7 @@ export default async function get(req, res) {
 
   if (req.params.projectID) {
 
-    var { data: project } = await db.get(req.params.projectID)
+    var { data: project } = await db.getOne(req.params.projectID)
 
     if (!project) {
       return res.error(`ItemNotFound`, {
