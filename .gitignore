@@ -8,6 +8,7 @@ lerna-debug.log*
 
 # Project-Specific
 **/*.css
+**/*.ndjson
 **/sprites.hbs
 **/style.hbs
 **/*-style.hbs

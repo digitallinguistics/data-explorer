@@ -3,7 +3,6 @@ import Database          from '../database/Database.js'
 import { expect }        from 'chai'
 import { fileURLToPath } from 'url'
 import { readFile }      from 'fs/promises'
-import setupDatabase     from './setupDatabase.js'
 import yamlParser        from 'js-yaml'
 
 import {
@@ -68,7 +67,7 @@ describe(`Database`, function() {
       type:      `BibliographicReference`,
     }))
 
-    return setupDatabase(dbName)
+    await db.setup()
 
   })
 

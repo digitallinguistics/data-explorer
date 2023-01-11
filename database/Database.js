@@ -1,5 +1,11 @@
-import chunk            from '../utilities/chunk.js'
-import { CosmosClient } from '@azure/cosmos'
+import chunk             from '../utilities/chunk.js'
+import { CosmosClient }  from '@azure/cosmos'
+import { fileURLToPath } from 'url'
+import path              from 'path'
+import { readFile }      from 'fs/promises'
+
+const __filename = fileURLToPath(import.meta.url)
+const __dirname  = path.dirname(__filename)
 
 /**
  * A class for managing a Cosmos DB database connection.
@@ -30,13 +36,14 @@ export default class Database {
     endpoint,
     key,
   }) {
+    this.dbName    = dbName
     this.client    = new CosmosClient({ endpoint, key })
-    this.database  = this.client.database(dbName)
+    this.database  = this.client.database(this.dbName)
     this.container = this.database.container(this.containerName)
   }
 
 
-  // GENERIC METHODS
+  // DEV METHODS
 
   // Helper functions for seeding the database.
   // NOTE: Cosmos DB Create methods modify the original object by setting an `id` property on it.
@@ -113,6 +120,9 @@ export default class Database {
     }
   }
 
+
+  // GENERIC METHODS
+
   /**
    * Count the number of items of the specified type. Use the `options` parameter to provide various filters.
    * @param {String} type               The type of item to count.
@@ -184,6 +194,31 @@ export default class Database {
     const results = await this.container.items.bulk(operations, { continueOnError: true })
 
     return results.map(({ resourceBody }) => resourceBody).filter(Boolean)
+
+  }
+
+  async setup() {
+
+    console.info(`Setting up ${ this.dbName } database.`)
+
+    const { database }  = await this.client.databases.createIfNotExists({ id: this.dbName })
+    const { container } = await database.containers.createIfNotExists({ id: this.containerName })
+
+    const scriptPath = path.join(__dirname, `./sprocs/count.js`)
+    const script     = await readFile(scriptPath, `utf8`)
+
+    try {
+      await container.scripts.storedProcedures.create({
+        body: script,
+        id:   `count`,
+      })
+    } catch (error) {
+      // The sproc will already exist if the database hasn't been torn down.
+      // Ignore the 409 error and continue if this is the case, and throw otherwise.
+      if (error.code !== 409) throw error
+    }
+
+    console.info(`${ this.dbName } database setup complete.`)
 
   }
 
