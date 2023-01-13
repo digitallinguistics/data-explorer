@@ -25,11 +25,6 @@ export default class Database {
   client
 
   /**
-   * The name of the Cosmos DB container.
-   */
-  containerName = `data`
-
-  /**
    * Create a new Database client.
    * @param {String} dbName The name to use for the database. Should generally be `digitallinguistics` for production and `test` otherwise.
    */
@@ -38,53 +33,17 @@ export default class Database {
     endpoint,
     key,
   }) {
-    this.dbName    = dbName
-    this.client    = new CosmosClient({ endpoint, key })
-    this.database  = this.client.database(this.dbName)
-    this.container = this.database.container(this.containerName)
+    this.dbName   = dbName
+    this.client   = new CosmosClient({ endpoint, key })
+    this.database = this.client.database(this.dbName)
+    this.data     = this.database.container(`data`)
   }
 
 
   // DEV METHODS
 
-
   /**
-   * Upserts multiple copies of the same object to the database.
-   * WARNING: This method is only used during testing. Do not use in production.
-   * @param {Integer} count The number of copies of the item to upsert.
-   * @param {Object} data The item to upsert multiple times.
-   * @returns Promise<Array<Object>>
-   */
-  async addMany(count, data = {}) {
-
-    const operations = []
-
-    for (let i = 0; i < count; i++) {
-
-      const resourceBody = Object.assign({}, data)
-      delete resourceBody.id
-
-      operations[i] = {
-        operationType: `Upsert`,
-        resourceBody,
-      }
-
-    }
-
-    const batches = chunk(operations, this.bulkLimit)
-    const results = []
-
-    for (const batch of batches) {
-      const response = await this.container.items.bulk(batch)
-      results.push(...response)
-    }
-
-    return results
-
-  }
-
-  /**
-   * Deletes all the items from the container.
+   * Deletes all the items from the database.
    * @returns Promise
    */
   async clear() {
@@ -106,6 +65,24 @@ export default class Database {
   }
 
   /**
+   * Delete the entire database.
+   * @returns Promise
+   */
+  async delete() {
+
+    if (this.dbName === `digitallinguistics`) {
+      throw new Error(`This error is here to guard against accidental deletion. Comment it out or delete the database manually if you really truly actually srsly for realzies do want to delete the "digitallinguistics" database.`)
+    }
+
+    console.info(`Deleting the ${ this.dbName } database.`)
+
+    await this.database(this.dbName).delete()
+
+    console.info(`${ this.dbName } successfully deleted.`)
+
+  }
+
+  /**
    * Creates the database, container, and stored procedures in Cosmos DB if they don't yet exist.
    * @returns Promise
    */
@@ -113,14 +90,14 @@ export default class Database {
 
     console.info(`Setting up ${ this.dbName } database.`)
 
-    const { database } = await this.client.databases.createIfNotExists({ id: this.dbName })
-    const { container } = await database.containers.createIfNotExists({ id: this.containerName })
+    const { database }        = await this.client.databases.createIfNotExists({ id: this.dbName })
+    const { container: data } = await database.containers.createIfNotExists({ id: `data` })
 
     const scriptPath = path.join(__dirname, `./sprocs/count.js`)
-    const script = await readFile(scriptPath, `utf8`)
+    const script     = await readFile(scriptPath, `utf8`)
 
     try {
-      await container.scripts.storedProcedures.create({
+      await data.scripts.storedProcedures.create({
         body: script,
         id:   `count`,
       })
@@ -160,6 +137,23 @@ export default class Database {
     }
   }
 
+  async addMany(items) {
+
+    const item = {}
+
+    const operations = [
+      {
+        operationType: `Create`,
+        resourceBody:  item,
+      },
+    ]
+
+    // const response = await this.container.items.create(item)
+    const response = await this.container.items.batch(operations)
+    console.log(response)
+
+  }
+
   /**
    * Count the number of items of the specified type. Use the `options` parameter to provide various filters.
    * @param {String} type               The type of item to count.
@@ -172,10 +166,10 @@ export default class Database {
 
     const { language, project } = options
 
-    let query = `SELECT * FROM ${ this.containerName } WHERE ${ this.containerName }.type = '${ type }'`
+    let query = `SELECT * FROM data WHERE data.type = '${ type }'`
 
-    if (language) query += ` AND ${ this.containerName }.language.id = '${ language }'`
-    if (project) query += ` AND ARRAY_CONTAINS(${ this.containerName }.projects, '${ project }')`
+    if (language) query += ` AND data.language.id = '${ language }'`
+    if (project) query += ` AND ARRAY_CONTAINS(data.projects, '${ project }')`
 
     let count = 0
 
@@ -244,6 +238,41 @@ export default class Database {
     return { data: resource, status: statusCode }
   }
 
+  /**
+   * Upserts multiple copies of the same object to the database.
+   * WARNING: This method is only used during testing. Do not use in production.
+   * @param {Integer} count The number of copies of the item to upsert.
+   * @param {Object} data The item to upsert multiple times.
+   * @returns Promise<Array<Object>>
+   */
+  async upsertMany(count, data = {}) {
+
+    const operations = []
+
+    for (let i = 0; i < count; i++) {
+
+      const resourceBody = Object.assign({}, data)
+      delete resourceBody.id
+
+      operations[i] = {
+        operationType: `Upsert`,
+        resourceBody,
+      }
+
+    }
+
+    const batches = chunk(operations, this.bulkLimit)
+    const results = []
+
+    for (const batch of batches) {
+      const response = await this.container.items.bulk(batch)
+      results.push(...response)
+    }
+
+    return results
+
+  }
+
 
   // TYPE-SPECIFIC METHODS
 
@@ -257,9 +286,9 @@ export default class Database {
 
     const { project } = options
 
-    let query = `SELECT * FROM ${ this.containerName } WHERE ${ this.containerName }.type = 'Language'`
+    let query = `SELECT * FROM data WHERE data.type = 'Language'`
 
-    if (project) query += ` AND ARRAY_CONTAINS(${ this.containerName }.projects, '${ project }')`
+    if (project) query += ` AND ARRAY_CONTAINS(data.projects, '${ project }')`
 
     const queryIterator = this.container.items.query(query).getAsyncIterator()
     const data          = []
@@ -283,10 +312,10 @@ export default class Database {
 
     const { language, project } = options
 
-    let query = `SELECT * FROM ${ this.containerName } WHERE ${ this.containerName }.type = 'Lexeme'`
+    let query = `SELECT * FROM data WHERE data.type = 'Lexeme'`
 
-    if (language) query += ` AND ${ this.containerName }.language.id = '${ language }'`
-    if (project) query += ` AND ARRAY_CONTAINS(${ this.containerName }.projects, '${ project }')`
+    if (language) query += ` AND data.language.id = '${ language }'`
+    if (project) query += ` AND ARRAY_CONTAINS(data.projects, '${ project }')`
 
     const queryIterator = this.container.items.query(query).getAsyncIterator()
     const data          = []
@@ -307,24 +336,24 @@ export default class Database {
    */
   async getProjects(options = {}) {
 
-    let query = `SELECT * FROM ${ this.containerName } WHERE ${ this.containerName }.type = 'Project'`
+    let query = `SELECT * FROM data WHERE data.type = 'Project'`
 
     if (`user` in options) {
       if (options.user) {
 
         query += ` AND (
-          ${ this.containerName }.permissions.public = true
+          data.permissions.public = true
           OR
-          ARRAY_CONTAINS(${ this.containerName }.permissions.owners, '${ options.user }')
+          ARRAY_CONTAINS(data.permissions.owners, '${ options.user }')
           OR
-          ARRAY_CONTAINS(${ this.containerName }.permissions.editors, '${ options.user }')
+          ARRAY_CONTAINS(data.permissions.editors, '${ options.user }')
           OR
-          ARRAY_CONTAINS(${ this.containerName }.permissions.viewers, '${ options.user }')
+          ARRAY_CONTAINS(data.permissions.viewers, '${ options.user }')
         )`
 
       } else {
 
-        query += ` AND ${ this.containerName }.permissions.public = true`
+        query += ` AND data.permissions.public = true`
 
       }
     }
@@ -346,7 +375,7 @@ export default class Database {
    */
   async getReferences() {
 
-    const query = `SELECT * FROM ${ this.containerName } WHERE ${ this.containerName }.type = 'BibliographicReference'`
+    const query = `SELECT * FROM data WHERE data.type = 'BibliographicReference'`
 
     const queryIterator = this.container.items.query(query).getAsyncIterator()
     const data          = []

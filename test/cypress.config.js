@@ -16,7 +16,6 @@ const envPath    = joinPath(__dirname, `../.env`)
 dotenv.config({ path: envPath })
 
 import { defineConfig } from 'cypress'
-import deleteDatabase   from '../database/deleteDatabase.js'
 import seedDatabase     from '../database/seedDatabase.js'
 
 const dbName   = `test`
@@ -29,11 +28,6 @@ export default defineConfig({
     baseUrl:     `http://localhost:${ process.env.PORT }`,
     setupNodeEvents(on) {
       on(`task`, {
-        async deleteDatabase() {
-          await deleteDatabase(dbName)
-          return null // required by Cypress to verify that the task completed
-
-        },
         async seedDatabase() {
           await seedDatabase(dbName)
           return null // required by Cypress to verify that the task completed

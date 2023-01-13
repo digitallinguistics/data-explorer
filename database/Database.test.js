@@ -68,17 +68,17 @@ describe(`Database`, function() {
       type:      `BibliographicReference`,
     }))
 
-    await db.setup()
+    return db.setup()
 
   })
 
   afterEach(function() {
-    // Be sure to return the Promise here so that Mocha waits for cleanup before running the next one.
+    // Be sure to return the Promise here so that Mocha waits for cleanup before running the next test.
     if (teardown) return db.clear()
   })
 
   after(function() {
-    if (teardown) return db.database.delete()
+    if (teardown) return db.delete()
   })
 
   describe(`sproc: count`, function() {
@@ -239,9 +239,16 @@ describe(`Database`, function() {
 
   describe(`addMany`, function() {
 
-    // TODO: do a batch (not bulk) create, so that the operation fails and rolls back if any item fails
+    it.only(`201 Created`, function() {
 
-    it(`201 Created`) // returns an array of created items
+      const length           = 3
+      const items            = new Array(length).fill(new Lexeme, 0, length)
+      const { data, status } = db.addMany(items)
+
+      expect(status).to.equal(201)
+      expect(data).to.have.length(length)
+
+    })
 
     it(`409 Conflict`)
 
@@ -276,6 +283,7 @@ describe(`Database`, function() {
     it(`200 OK`, async function() {
 
       // TODO: return a 200 status code if no errors were thrown
+      // TODO: support 207 MultiStatus response
 
       const count    = 3
       const seedData = await db.addMany(count)
