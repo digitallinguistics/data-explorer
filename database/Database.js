@@ -1,11 +1,5 @@
-import chunk             from '../utilities/chunk.js'
-import { CosmosClient }  from '@azure/cosmos'
-import { fileURLToPath } from 'url'
-import path              from 'path'
-import { readFile }      from 'fs/promises'
-
-const __filename = fileURLToPath(import.meta.url)
-const __dirname  = path.dirname(__filename)
+import chunk            from '../utilities/chunk.js'
+import { CosmosClient } from '@azure/cosmos'
 
 // NOTE: Cosmos DB Create methods modify the original object by setting an `id` property on it.
 
@@ -25,6 +19,18 @@ export default class Database {
   client
 
   /**
+   * A hash that maps types to containers.
+   */
+  containers = {
+    BibliographicReference: `metadata`,
+    Language:               `metadata`,
+    Lexeme:                 `data`,
+    Person:                 `metadata`,
+    Project:                `metadata`,
+    User:                   `metadata`,
+  }
+
+  /**
    * Create a new Database client.
    * @param {String} dbName The name to use for the database. Should generally be `digitallinguistics` for production and `test` otherwise.
    */
@@ -37,78 +43,7 @@ export default class Database {
     this.client   = new CosmosClient({ endpoint, key })
     this.database = this.client.database(this.dbName)
     this.data     = this.database.container(`data`)
-  }
-
-
-  // DEV METHODS
-
-  /**
-   * Deletes all the items from the database.
-   * @returns Promise
-   */
-  async clear() {
-
-    const { resources } = await this.container.items.readAll().fetchAll()
-
-    const batches = chunk(resources, this.bulkLimit)
-
-    for (const batch of batches) {
-
-      const operations = batch.map(item => ({
-        id:            item.id,
-        operationType: `Delete`,
-      }))
-
-      await this.container.items.bulk(operations)
-
-    }
-  }
-
-  /**
-   * Delete the entire database.
-   * @returns Promise
-   */
-  async delete() {
-
-    if (this.dbName === `digitallinguistics`) {
-      throw new Error(`This error is here to guard against accidental deletion. Comment it out or delete the database manually if you really truly actually srsly for realzies do want to delete the "digitallinguistics" database.`)
-    }
-
-    console.info(`Deleting the ${ this.dbName } database.`)
-
-    await this.database(this.dbName).delete()
-
-    console.info(`${ this.dbName } successfully deleted.`)
-
-  }
-
-  /**
-   * Creates the database, container, and stored procedures in Cosmos DB if they don't yet exist.
-   * @returns Promise
-   */
-  async setup() {
-
-    console.info(`Setting up ${ this.dbName } database.`)
-
-    const { database }        = await this.client.databases.createIfNotExists({ id: this.dbName })
-    const { container: data } = await database.containers.createIfNotExists({ id: `data` })
-
-    const scriptPath = path.join(__dirname, `./sprocs/count.js`)
-    const script     = await readFile(scriptPath, `utf8`)
-
-    try {
-      await data.scripts.storedProcedures.create({
-        body: script,
-        id:   `count`,
-      })
-    } catch (error) {
-      // The sproc will already exist if the database hasn't been torn down.
-      // Ignore the 409 error and continue if this is the case, and throw otherwise.
-      if (error.code !== 409) throw error
-    }
-
-    console.info(`${ this.dbName } database setup complete.`)
-
+    this.metadata = this.database.container(`metadata`)
   }
 
 
@@ -117,12 +52,14 @@ export default class Database {
   /**
    * Upsert a single item to the database.
    * @param {Object} item The item to upsert.
-   * @returns Promise<Object>
+   * @returns {Promise<Object>}
    */
   async addOne(item) {
     try {
 
-      const { resource, statusCode } = await this.container.items.create(item)
+      const containerName            = this.containers[item.type]
+      const { resource, statusCode } = await this[containerName].items.create(item)
+
       return { data: resource, status: statusCode }
 
     } catch ({ code }) {
@@ -137,22 +74,7 @@ export default class Database {
     }
   }
 
-  async addMany(items) {
-
-    const item = {}
-
-    const operations = [
-      {
-        operationType: `Create`,
-        resourceBody:  item,
-      },
-    ]
-
-    // const response = await this.container.items.create(item)
-    const response = await this.container.items.batch(operations)
-    console.log(response)
-
-  }
+  async addMany(items) {}
 
   /**
    * Count the number of items of the specified type. Use the `options` parameter to provide various filters.
@@ -160,7 +82,7 @@ export default class Database {
    * @param {Object} [options={}]       An options hash.
    * @param {String} [options.language] The ID of the language to filter for.
    * @param {String} [options.project]  The ID of the project to filter for.
-   * @returns Promise<Object> Returns an object with `count` and `status` properties.
+   * @returns {Promise<Object>} Returns an object with `count` and `status` properties.
    */
   async count(type, options = {}) {
 
@@ -193,7 +115,7 @@ export default class Database {
   /**
    * Get a single item from the database.
    * @param {String} id The ID of the item to retrieve.
-   * @returns Promise<Object>
+   * @returns {Promise<Object>}
    */
   async getOne(id) {
 
@@ -206,7 +128,7 @@ export default class Database {
   /**
    * Get multiple items from the database by ID. Max 100 items per request. Items not found are omitted without a warning.
    * @param {Array<String>} ids An array of IDs to retrieve from the database.
-   * @returns Promise<Array<Object>> Resolves to an array of results.
+   * @returns {Promise<Array<Object>>} Resolves to an array of results.
    */
   async getMany(ids = []) {
 
@@ -231,7 +153,7 @@ export default class Database {
   /**
    * Upsert a single item to the database.
    * @param {Object} item The item to upsert.
-   * @returns Promise<Object>
+   * @returns {Promise<Object>}
    */
   async upsertOne(item) {
     const { resource, statusCode } = await this.container.items.upsert(item)
@@ -243,7 +165,7 @@ export default class Database {
    * WARNING: This method is only used during testing. Do not use in production.
    * @param {Integer} count The number of copies of the item to upsert.
    * @param {Object} data The item to upsert multiple times.
-   * @returns Promise<Array<Object>>
+   * @returns {Promise<Array<Object>>}
    */
   async upsertMany(count, data = {}) {
 
@@ -280,7 +202,7 @@ export default class Database {
    * Get multiple languages from the database.
    * @param {Object} [options={}]      An options hash.
    * @param {String} [options.project] The ID of a project to return languages for.
-   * @returns Promise<Array<Language>>
+   * @returns {Promise<Array<Language>>}
    */
   async getLanguages(options = {}) {
 
@@ -306,7 +228,7 @@ export default class Database {
  * @param {Object} [options={}]       An options hash.
  * @param {String} [options.language] The ID of a language to return lexemes for.
  * @param {String} [options.project]  The ID of a project to return lexemes for.
- * @returns Promise<Array<Lexeme>>
+ * @returns {Promise<Array<Lexeme>>}
  */
   async getLexemes(options = {}) {
 
@@ -332,7 +254,7 @@ export default class Database {
    * Get multiple projects from the database.
    * @param {Object} [options={}]   An options hash.
    * @param {String} [options.user] The ID of a user to filter projects for.
-   * @returns Promise<Array<Project>>
+   * @returns {Promise<Array<Project>>}
    */
   async getProjects(options = {}) {
 
@@ -371,7 +293,7 @@ export default class Database {
 
   /**
    * Get all the bibliographic references from the database.
-   * @returns Promise<Array<BibliographicReference>>
+   * @returns {Promise<Array<BibliographicReference>>}
    */
   async getReferences() {
 

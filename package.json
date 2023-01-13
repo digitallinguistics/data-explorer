@@ -42,7 +42,7 @@
     "stop-db": "cd C:\\Program Files\\Azure Cosmos DB Emulator && Microsoft.Azure.Cosmos.Emulator.exe /Shutdown",
     "seed-db": "node bin/seedDatabase.js test",
     "setup-db": "node bin/setupDatabase.js test",
-    "db-tests": "mocha database/Database.test.js --bail",
+    "db-tests": "mocha database/Database.test.js database/sprocs/count.test.js --bail",
     "prepare-release": "node build/updateCitation.js",
     "start": "node index.js",
     "stop-only": "stop-only --folder layouts,pages,services,test",

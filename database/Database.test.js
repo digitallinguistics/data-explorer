@@ -3,13 +3,9 @@ import Cite              from 'citation-js'
 import Database          from '../database/Database.js'
 import { expect }        from 'chai'
 import { fileURLToPath } from 'url'
+import path              from 'path'
 import { readFile }      from 'fs/promises'
 import yamlParser        from 'js-yaml'
-
-import {
-  dirname as getDirname,
-  join as joinPath,
-} from 'path'
 
 import Language    from '../models/Language.js'
 import Lexeme      from '../models/Lexeme.js'
@@ -17,7 +13,7 @@ import Permissions from '../models/Permissions.js'
 import Project     from '../models/Project.js'
 
 const __filename = fileURLToPath(import.meta.url)
-const __dirname  = getDirname(__filename)
+const __dirname  = path.dirname(__filename)
 
 const teardown = true
 
@@ -41,17 +37,17 @@ describe(`Database`, function() {
 
     // Retrieve data fixtures
 
-    const languagePath = joinPath(__dirname, `../data/language.yml`)
+    const languagePath = path.join(__dirname, `../data/language.yml`)
     const languageYAML = await readFile(languagePath, `utf8`)
 
     this.language = yamlParser.load(languageYAML)
 
-    const lexemePath = joinPath(__dirname, `../data/lexeme.yml`)
+    const lexemePath = path.join(__dirname, `../data/lexeme.yml`)
     const lexemeYAML = await readFile(lexemePath, `utf8`)
 
     this.lexeme = yamlParser.load(lexemeYAML)
 
-    const projectPath = joinPath(__dirname, `../data/project.yml`)
+    const projectPath = path.join(__dirname, `../data/project.yml`)
     const projectYAML = await readFile(projectPath, `utf8`)
 
     this.project = yamlParser.load(projectYAML)
@@ -79,63 +75,6 @@ describe(`Database`, function() {
 
   after(function() {
     if (teardown) return db.delete()
-  })
-
-  describe(`sproc: count`, function() {
-
-    it(`counts all documents`, async function() {
-
-      const count = 10
-
-      await db.addMany(count)
-
-      const { resource } = await db.container.scripts.storedProcedure(`count`).execute()
-
-      expect(resource.count).to.equal(count)
-
-    })
-
-    it(`filters documents`, async function() {
-
-      const count = 5
-
-      await db.addMany(count, new Language)
-      await db.addMany(count, new Lexeme)
-
-      const query = `SELECT * FROM ${ db.containerName } t WHERE t.type = 'Language'`
-
-      const args         = [query]
-      const { resource } = await db.container.scripts.storedProcedure(`count`).execute(undefined, args)
-
-      expect(resource.count).to.equal(count)
-
-    })
-
-    it(`uses a continuation token`, async function() {
-
-      const count = 300
-
-      await db.addMany(count)
-
-      let total = 0
-
-      const getCount = async continuationToken => {
-
-        const args         = [undefined, continuationToken]
-        const { resource } = await db.container.scripts.storedProcedure(`count`).execute(undefined, args)
-
-        total += resource.count
-
-        if (resource.continuationToken) await getCount(resource.continuationToken)
-
-      }
-
-      await getCount()
-
-      expect(total).to.equal(count)
-
-    })
-
   })
 
   describe(`count`, function() {
@@ -239,7 +178,7 @@ describe(`Database`, function() {
 
   describe(`addMany`, function() {
 
-    it.only(`201 Created`, function() {
+    it(`201 Created`, function() {
 
       const length           = 3
       const items            = new Array(length).fill(new Lexeme, 0, length)
