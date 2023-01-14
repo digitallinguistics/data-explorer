@@ -4,9 +4,9 @@ import { hasAccess }         from '../../utilities/permissions.js'
 
 export default async function get(req, res) {
 
-  const title            = `Lexeme`
-  const { lexemeID }     = req.params
-  const { data: lexeme } = await db.getOne(lexemeID)
+  const { languageID, lexemeID } = req.params
+
+  const { data: lexeme } = await db.getLexeme(languageID, lexemeID)
 
   if (!lexeme) {
     return res.error(`ItemNotFound`, {
@@ -14,7 +14,12 @@ export default async function get(req, res) {
     })
   }
 
-  let projects    = await db.getMany(lexeme.projects)
+  const { data: results } = await db.getMany(`metadata`, `Project`, lexeme.projects)
+
+  let projects = results
+  .filter(({ status }) => status === 200)
+  .map(({ data }) => data)
+
   const isPrivate = !projects.some(project => project.permissions.public)
 
   if (isPrivate && !res.locals.user) {
@@ -33,7 +38,8 @@ export default async function get(req, res) {
     })
   }
 
-  const { data: language } = await db.getOne(lexeme.language.id)
+  const { data: language } = await db.getLanguage(lexeme.language.id)
+  const title              = `Lexeme`
 
   res.render(`Lexeme/Lexeme`, {
     language,

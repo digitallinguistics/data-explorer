@@ -226,8 +226,9 @@ export default class Database {
     const operations    = ids.map(id => ({ id, operationType, partitionKey }))
     const results       = await this[containerName].items.bulk(operations, { continueOnError: true })
 
-    const data = results.map(({ resourceBody, statusCode }) => ({
+    const data = results.map(({ resourceBody, statusCode }, i) => ({
       data:   resourceBody,
+      id:     operations[i].id,
       status: statusCode,
     }))
 

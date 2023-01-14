@@ -2,8 +2,7 @@ import * as dotenv from 'dotenv'
 
 dotenv.config()
 
-import { randomUUID } from 'crypto'
-import yamlParser     from 'js-yaml'
+import yamlParser from 'js-yaml'
 
 import Language    from '../../models/Language.js'
 import Lexeme      from '../../models/Lexeme.js'

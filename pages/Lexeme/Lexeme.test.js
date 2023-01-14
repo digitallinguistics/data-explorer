@@ -9,24 +9,30 @@ import Project     from '../../models/Project.js'
 const msAuthCookie = Cypress.env(`msAuthCookie`)
 const msAuthUser   = Cypress.env(`msAuthUser`)
 
-const emDash = `—`
+const emDash   = `—`
+const DATA     = `data`
+const METADATA = `metadata`
 
 describe(`Lexeme`, function() {
 
   before(function() {
-    cy.task(`setupDatabase`)
+    cy.setupDatabase()
+  })
+
+  afterEach(function() {
+    cy.clearDatabase()
   })
 
   after(function() {
-    cy.clearDatabase()
+    cy.deleteDatabase()
   })
 
   it(`Not Found`, function() {
 
     const badID    = `bad-id`
-    const language = new Language({ id: `642ca288-3e38-4f16-8789-1506028d13b4` })
+    const language = new Language({ id: crypto.randomUUID() })
 
-    cy.upsertOne(language)
+    cy.seedOne(METADATA, language)
 
     cy.visit(`/languages/${ language.id }/lexemes/${ badID }`, { failOnStatusCode: false })
     cy.contains(`.page-title`, `404: Item Not Found`)
@@ -36,9 +42,10 @@ describe(`Lexeme`, function() {
 
   it(`Unauthenticated`, function() {
 
-    const language = new Language({ id: `35ba99b6-9e81-4052-8e8f-148b814b57f3` })
-    const lexeme   = new Lexeme({
-      id:       `1a3ca796-dfce-4688-9e93-f736a228d176`,
+    const language = new Language({ id: crypto.randomUUID() })
+
+    const lexeme = new Lexeme({
+      id:       crypto.randomUUID(),
       language: {
         id: language.id,
       },
@@ -47,8 +54,8 @@ describe(`Lexeme`, function() {
       },
     })
 
-    cy.upsertOne(language)
-    cy.upsertOne(lexeme)
+    cy.seedOne(METADATA, language)
+    cy.seedOne(DATA, lexeme)
 
     cy.visit(`/languages/${ language.id }/lexemes/${ lexeme.id }`, { failOnStatusCode: false })
     cy.contains(`.page-title`, `401: Unauthenticated`)
@@ -58,9 +65,10 @@ describe(`Lexeme`, function() {
 
   it(`Unauthorized`, function() {
 
-    const language = new Language({ id: `35ba99b6-9e81-4052-8e8f-148b814b57f3` })
+    const language = new Language({ id: crypto.randomUUID() })
+
     const lexeme = new Lexeme({
-      id:       `1a3ca796-dfce-4688-9e93-f736a228d176`,
+      id:       crypto.randomUUID(),
       language: {
         id: language.id,
       },
@@ -69,8 +77,8 @@ describe(`Lexeme`, function() {
       },
     })
 
-    cy.upsertOne(language)
-    cy.upsertOne(lexeme)
+    cy.seedOne(METADATA, language)
+    cy.seedOne(DATA, lexeme)
 
     cy.visit(`/`)
     cy.setCookie(msAuthCookie, msAuthUser)
@@ -80,282 +88,289 @@ describe(`Lexeme`, function() {
 
   })
 
-  it(`Lexeme Details`, function() {
+  describe(`Lexeme Details`, function() {
 
-    cy.readFile(`data/language.yml`)
-    .then(yaml => yamlParser.load(yaml))
-    .then(language => {
+    before(function() {
+
+      // This Before hook is here just to setup the data for the following test.
+
+      cy.readFile(`data/language.yml`)
+      .then(yaml => yamlParser.load(yaml))
+      .as(`language`)
 
       cy.readFile(`data/lexeme.yml`)
       .then(yaml => yamlParser.load(yaml))
-      .then(lexeme => {
+      .as(`lexeme`)
 
-        cy.readFile(`data/project.yml`)
-        .then(yaml => yamlParser.load(yaml))
-        .then(project => {
+      cy.readFile(`data/project.yml`)
+      .then(yaml => yamlParser.load(yaml))
+      .as(`project`)
 
-          const typologyProject = new Project({
-            id:   `56b6e164-cf90-4e83-835e-d8e92ed11778`,
-            name: `Typology Project`,
-          })
+    })
 
-          cy.upsertOne(ne(language)
-          cy.upsertOne(lexeme)
-          cy.upsertOne(project)
-          cy.upsertOne(ne(ne(typologyProject)
-          cy.visit(`/languages/${ language.id }/lexemes/${ lexeme.id }`)
+    it(`display correctly`, function() {
 
-          // HEADER
+      const { language, lexeme, project } = this
 
-          // Headword
-          cy.contains(`.headword`, prepareTranscription(lexeme.lemma.transcription.Modern))
+      const typologyProject = new Project({
+        id:   lexeme.projects[1],
+        name: `Typology Project`,
+      })
 
-          // Language
-          cy.contains(`.language`, `${ language.name.eng } | ${ language.autonym.Modern }`)
+      cy.seedOne(METADATA, language)
+      cy.seedOne(METADATA, project)
+      cy.seedOne(METADATA, typologyProject)
+      cy.seedOne(DATA, lexeme)
 
-          // Glosses
-          cy.get(`.glosses`).children()
-          .should(`have.length`, lexeme.senses.length)
-          .then(([a, b, c]) => {
-            expect(a).to.contain.text(lexeme.senses[0].gloss.eng)
-            expect(b).to.contain.text(lexeme.senses[1].gloss.eng)
-            expect(c).to.contain.text(emDash)
-          })
+      cy.visit(`/languages/${ language.id }/lexemes/${ lexeme.id }`)
 
-          // FORMS
+      // HEADER
 
-          // Lemma
-          for (const ortho in lexeme.lemma.transcription) {
-            cy.contains(`#lemma dt`, ortho)
-            cy.contains(`#lemma dd`, prepareTranscription(lexeme.lemma.transcription[ortho]))
-          }
+      // Headword
+      cy.contains(`.headword`, prepareTranscription(lexeme.lemma.transcription.Modern))
 
-          // Citation Form
-          for (const ortho in lexeme.citationForm) {
-            cy.contains(`#citation-form dt`, ortho)
-            cy.contains(`#citation-form dd`, prepareTranscription(lexeme.citationForm[ortho]))
-          }
+      // Language
+      cy.contains(`.language`, `${ language.name.eng } | ${ language.autonym.Modern }`)
 
-          // Morph Type
-          cy.contains(`#morph-type`, lexeme.morphType.eng)
+      // Glosses
+      cy.get(`.glosses`).children()
+      .should(`have.length`, lexeme.senses.length)
+      .then(([a, b, c]) => {
+        expect(a).to.contain.text(lexeme.senses[0].gloss.eng)
+        expect(b).to.contain.text(lexeme.senses[1].gloss.eng)
+        expect(c).to.contain.text(emDash)
+      })
 
-          // Slot
-          cy.contains(`#slot`, lexeme.slot.eng)
+      // FORMS
 
-          // Base Forms
-          cy.get(`.forms-list`).children().should(`have.length`, lexeme.forms.length)
+      // Lemma
+      for (const ortho in lexeme.lemma.transcription) {
+        cy.contains(`#lemma dt`, ortho)
+        cy.contains(`#lemma dd`, prepareTranscription(lexeme.lemma.transcription[ortho]))
+      }
 
-          // FORM
+      // Citation Form
+      for (const ortho in lexeme.citationForm) {
+        cy.contains(`#citation-form dt`, ortho)
+        cy.contains(`#citation-form dd`, prepareTranscription(lexeme.citationForm[ortho]))
+      }
 
-          const [form] = lexeme.forms
+      // Morph Type
+      cy.contains(`#morph-type`, lexeme.morphType.eng)
 
-          // Summary
-          const summary = `#${ form.id } summary`
+      // Slot
+      cy.contains(`#slot`, lexeme.slot.eng)
 
-          for (const ortho in form.transcription) {
-            cy.contains(summary, ortho)
-            cy.contains(summary, prepareTranscription(form.transcription[ortho]))
-          }
+      // Base Forms
+      cy.get(`.forms-list`).children().should(`have.length`, lexeme.forms.length)
 
-          // Abstract Form
-          cy.get(`#form-${ form.id }__abstract`).should(`be.checked`)
+      // FORM
 
-          // Unattested
-          cy.get(`#form-${ form.id }__unattested`).should(`be.checked`)
+      const [form] = lexeme.forms
 
-          // Allomorphs
-          const allomorphsID = `#form-${ form.id }__allomorphs`
+      // Summary
+      const summary = `#${ form.id } summary`
 
-          cy.get(allomorphsID).children()
-          .should(`have.length`, form.allomorphs.length)
+      for (const ortho in form.transcription) {
+        cy.contains(summary, ortho)
+        cy.contains(summary, prepareTranscription(form.transcription[ortho]))
+      }
 
-          const firstAllomorph = `${ allomorphsID } .allomorph:first-child`
+      // Abstract Form
+      cy.get(`#form-${ form.id }__abstract`).should(`be.checked`)
 
-          cy.contains(firstAllomorph, prepareTranscription(form.allomorphs[0].transcription.Modern))
-          cy.contains(firstAllomorph, prepareTranscription(form.allomorphs[0].environments[0]))
+      // Unattested
+      cy.get(`#form-${ form.id }__unattested`).should(`be.checked`)
 
-          // Components
-          cy.get(`#form-${ form.id }__components`).children()
-          .should(`have.length`, form.components.length)
-          .then(([a, b]) => {
-            expect(a).to.contain.text(prepareTranscription(form.components[0].transcription.Modern))
-            expect(b).to.contain.text(prepareTranscription(`*${ form.components[1].transcription.Modern }`))
-          })
+      // Allomorphs
+      const allomorphsID = `#form-${ form.id }__allomorphs`
 
-          // Component Of
-          cy.get(`#form-${ form.id }__component-of`).children()
-          .should(`have.length`, form.componentOf.length)
-          .then(([a, b]) => {
-            expect(a).to.contain.text(prepareTranscription(form.componentOf[0].transcription.Modern))
-            expect(b).to.contain.text(prepareTranscription(`*${ form.componentOf[1].transcription.Modern }`))
-          })
+      cy.get(allomorphsID).children()
+      .should(`have.length`, form.allomorphs.length)
 
-          // Etymology
-          cy.get(`#form-${ form.id }__etymology`).children()
-          .should(`have.length`, form.etymology.length + form.etymology.length - 1)
-          .then(([a, , c]) => {
-            expect(a).to.contain.text(prepareTranscription(`*${ form.etymology[0].transcription.APA }`))
-            expect(a).to.contain.text(form.etymology[0].language.abbreviation)
-            expect(c).to.contain.text(prepareTranscription(`*${ form.etymology[1].transcription.APA }`))
-            expect(c).to.contain.text(form.etymology[1].language.abbreviation)
-          })
+      const firstAllomorph = `${ allomorphsID } .allomorph:first-child`
 
-          // Reflexes
-          cy.get(`#form-${ form.id }__reflexes`).children()
-          .should(`have.length`, form.reflexes.length)
-          .then(([a, b]) => {
-            expect(a).to.contain.text(prepareTranscription(form.reflexes[0].transcription.Modern))
-            expect(a).to.contain.text(form.reflexes[0].language.abbreviation)
-            expect(b).to.contain.text(prepareTranscription(form.reflexes[1].transcription.Modern))
-            expect(b).to.contain.text(form.reflexes[1].language.abbreviation)
-          })
+      cy.contains(firstAllomorph, prepareTranscription(form.allomorphs[0].transcription.Modern))
+      cy.contains(firstAllomorph, prepareTranscription(form.allomorphs[0].environments[0]))
 
-          // References
-          cy.get(`#form-${ form.id }__references ul`).children()
-          .should(`have.length`, form.bibliography.length)
-          .then(([a, b]) => {
-            expect(a).to.contain.text(form.bibliography[0].citation)
-            expect(b).to.contain.text(form.bibliography[1].citation)
-          })
+      // Components
+      cy.get(`#form-${ form.id }__components`).children()
+      .should(`have.length`, form.components.length)
+      .then(([a, b]) => {
+        expect(a).to.contain.text(prepareTranscription(form.components[0].transcription.Modern))
+        expect(b).to.contain.text(prepareTranscription(`*${ form.components[1].transcription.Modern }`))
+      })
 
-          // Sources
-          cy.get(`#form-${ form.id }__sources`).children()
-          .should(`have.length`, form.sources.length)
-          .then(([a, b]) => {
-            expect(a).to.contain.text(form.sources[0].abbreviation)
-            expect(b).to.contain.text(form.sources[1].abbreviation)
-          })
+      // Component Of
+      cy.get(`#form-${ form.id }__component-of`).children()
+      .should(`have.length`, form.componentOf.length)
+      .then(([a, b]) => {
+        expect(a).to.contain.text(prepareTranscription(form.componentOf[0].transcription.Modern))
+        expect(b).to.contain.text(prepareTranscription(`*${ form.componentOf[1].transcription.Modern }`))
+      })
 
-          // SENSES
+      // Etymology
+      cy.get(`#form-${ form.id }__etymology`).children()
+      .should(`have.length`, form.etymology.length + form.etymology.length - 1)
+      .then(([a, , c]) => {
+        expect(a).to.contain.text(prepareTranscription(`*${ form.etymology[0].transcription.APA }`))
+        expect(a).to.contain.text(form.etymology[0].language.abbreviation)
+        expect(c).to.contain.text(prepareTranscription(`*${ form.etymology[1].transcription.APA }`))
+        expect(c).to.contain.text(form.etymology[1].language.abbreviation)
+      })
 
-          cy.get(`#meaning-link`).click()
-          cy.get(`.senses-list`).children().should(`have.length`, lexeme.senses.length)
+      // Reflexes
+      cy.get(`#form-${ form.id }__reflexes`).children()
+      .should(`have.length`, form.reflexes.length)
+      .then(([a, b]) => {
+        expect(a).to.contain.text(prepareTranscription(form.reflexes[0].transcription.Modern))
+        expect(a).to.contain.text(form.reflexes[0].language.abbreviation)
+        expect(b).to.contain.text(prepareTranscription(form.reflexes[1].transcription.Modern))
+        expect(b).to.contain.text(form.reflexes[1].language.abbreviation)
+      })
 
-          // SENSE
+      // References
+      cy.get(`#form-${ form.id }__references ul`).children()
+      .should(`have.length`, form.bibliography.length)
+      .then(([a, b]) => {
+        expect(a).to.contain.text(form.bibliography[0].citation)
+        expect(b).to.contain.text(form.bibliography[1].citation)
+      })
 
-          const [sense] = lexeme.senses
+      // Sources
+      cy.get(`#form-${ form.id }__sources`).children()
+      .should(`have.length`, form.sources.length)
+      .then(([a, b]) => {
+        expect(a).to.contain.text(form.sources[0].abbreviation)
+        expect(b).to.contain.text(form.sources[1].abbreviation)
+      })
 
-          // Gloss
-          cy.get(`#sense-${ sense.id }__gloss`).should(`contain.text`, sense.gloss.eng)
+      // SENSES
 
-          // Category
-          cy.get(`#sense-${ sense.id }__category`)
-          .should(`contain.text`, sense.category.abbreviation)
-          .should(`have.attr`, `title`, sense.category.name.eng)
+      cy.get(`#meaning-link`).click()
+      cy.get(`.senses-list`).children().should(`have.length`, lexeme.senses.length)
 
-          // Semantic Class
-          cy.get(`#sense-${ sense.id }__semantic-class`)
-          .should(`contain.text`, sense.semanticClass.abbreviation)
-          .should(`have.attr`, `title`, sense.semanticClass.name.eng)
+      // SENSE
 
-          // Inflection Class
-          cy.get(`#sense-${ sense.id }__inflection-class`)
-          .should(`contain.text`, sense.inflectionClass.abbreviation)
-          .should(`have.attr`, `title`, sense.inflectionClass.name.eng)
+      const [sense] = lexeme.senses
 
-          // Base Category
-          cy.get(`#sense-${ sense.id }__base-category`)
-          .should(`contain.text`, sense.baseCategory.abbreviation)
-          .should(`have.attr`, `title`, sense.baseCategory.name.eng)
+      // Gloss
+      cy.get(`#sense-${ sense.id }__gloss`).should(`contain.text`, sense.gloss.eng)
 
-          // METADATA
+      // Category
+      cy.get(`#sense-${ sense.id }__category`)
+      .should(`contain.text`, sense.category.abbreviation)
+      .should(`have.attr`, `title`, sense.category.name.eng)
 
-          cy.get(`#metadata-link`).click()
+      // Semantic Class
+      cy.get(`#sense-${ sense.id }__semantic-class`)
+      .should(`contain.text`, sense.semanticClass.abbreviation)
+      .should(`have.attr`, `title`, sense.semanticClass.name.eng)
 
-          // Cross References
-          cy.get(`#cross-references`).children()
-          .should(`have.length`, 8)
+      // Inflection Class
+      cy.get(`#sense-${ sense.id }__inflection-class`)
+      .should(`contain.text`, sense.inflectionClass.abbreviation)
+      .should(`have.attr`, `title`, sense.inflectionClass.name.eng)
 
-          cy.get(`#cross-references`)
-          .within(() => {
+      // Base Category
+      cy.get(`#sense-${ sense.id }__base-category`)
+      .should(`contain.text`, sense.baseCategory.abbreviation)
+      .should(`have.attr`, `title`, sense.baseCategory.name.eng)
 
-            cy.contains(`dt`, `Delphine`)
-            cy.contains(`dd`, `cuwi`)
-            cy.contains(`dt`, `compare`)
-            cy.get(`.cross-refs-set`).children()
-            .should(`have.length`, 2)
-            .should(`include.text`, `nuhc‑`)  // non-breaking hyphen
-            .should(`include.text`, `nicwa‑`) // non-breaking hyphen
-            cy.contains(`dt`, `plural`)
-            cy.contains(`dd`, `dut‑`)         // non-breaking hyphen
-            cy.contains(`dt`, `pluractional`)
-            cy.contains(`dd`, `dutma‑`)       // non-breaking hyphen
+      // METADATA
 
-          })
+      cy.get(`#metadata-link`).click()
 
-          // Date Created
-          cy.contains(`#date-created`, new Date(lexeme.dateCreated).toLocaleDateString(`en-CA`))
+      // Cross References
+      cy.get(`#cross-references`).children()
+      .should(`have.length`, 8)
 
-          // Date Modified
-          cy.contains(`#date-modified`, new Date(lexeme.dateModified).toLocaleDateString(`en-CA`))
+      cy.get(`#cross-references`)
+      .within(() => {
 
-          // Language Name
-          cy.get(`#language-name`)
-          .within(() => {
-            for (const lang in language.name) {
-              cy.contains(`dt`, lang)
-              cy.contains(`dd`, language.name[lang])
-            }
-          })
-
-          // Language Autonym
-          cy.get(`#language-autonym`)
-          .within(() => {
-            for (const ortho in language.autonym) {
-              cy.contains(`dt`, ortho)
-              cy.contains(`dd`, language.autonym[ortho])
-            }
-          })
-
-          // Projects
-          cy.get(`#projects`).children()
-          .should(`have.length`, lexeme.projects.length)
-          .then(([a, b]) => {
-            expect(a).to.include.text(`Chitimacha Dictionary`)
-            expect(b).to.include.text(`Typology Project`)
-          })
-
-          // References
-          cy.get(`#lexeme__references ul`).children()
-          .should(`have.length`, lexeme.bibliography.length)
-          .then(([a, b]) => {
-            expect(a).to.contain.text(lexeme.bibliography[0].citation)
-            expect(b).to.contain.text(lexeme.bibliography[1].citation)
-          })
-
-          // Sources
-          cy.get(`#lexeme__sources`).children()
-          .should(`have.length`, lexeme.sources.length)
-
-          for (const source of lexeme.sources) {
-            cy.contains(`#lexeme__sources li`, source.abbreviation)
-          }
-
-          // Tags
-          cy.get(`#tags`).children()
-          .should(`have.length`, Object.keys(lexeme.tags).length)
-          .then(([a, b, c, d, e]) => {
-            expect(a).to.have.text(`checked: yes`)
-            expect(b).to.have.text(`elicited`)
-            expect(c).to.have.text(`compound: false`)
-            expect(d).to.have.text(`preverbs: 0`)
-            expect(e).to.have.text(`syllables: 2`)
-          })
-
-          // URL
-          cy.contains(`#url`, `https://data.digitallinguistics.io/languages/${ language.id }/lexemes/${ lexeme.id }`)
-
-          // Notes
-          cy.get(`.lexeme__notes`).children()
-          .should(`have.length`, lexeme.notes.length)
-
-          for (const note of lexeme.notes) {
-            cy.contains(`.note`, note.text)
-          }
-
-        })
+        cy.contains(`dt`, `Delphine`)
+        cy.contains(`dd`, `cuwi`)
+        cy.contains(`dt`, `compare`)
+        cy.get(`.cross-refs-set`).children()
+        .should(`have.length`, 2)
+        .should(`include.text`, `nuhc‑`)  // non-breaking hyphen
+        .should(`include.text`, `nicwa‑`) // non-breaking hyphen
+        cy.contains(`dt`, `plural`)
+        cy.contains(`dd`, `dut‑`)         // non-breaking hyphen
+        cy.contains(`dt`, `pluractional`)
+        cy.contains(`dd`, `dutma‑`)       // non-breaking hyphen
 
       })
+
+      // Date Created
+      cy.contains(`#date-created`, new Date(lexeme.dateCreated).toLocaleDateString(`en-CA`))
+
+      // Date Modified
+      cy.contains(`#date-modified`, new Date(lexeme.dateModified).toLocaleDateString(`en-CA`))
+
+      // Language Name
+      cy.get(`#language-name`)
+      .within(() => {
+        for (const lang in language.name) {
+          cy.contains(`dt`, lang)
+          cy.contains(`dd`, language.name[lang])
+        }
+      })
+
+      // Language Autonym
+      cy.get(`#language-autonym`)
+      .within(() => {
+        for (const ortho in language.autonym) {
+          cy.contains(`dt`, ortho)
+          cy.contains(`dd`, language.autonym[ortho])
+        }
+      })
+
+      // Projects
+      cy.get(`#projects`).children()
+      .should(`have.length`, lexeme.projects.length)
+      .then(([a, b]) => {
+        expect(a).to.include.text(`Chitimacha Dictionary`)
+        expect(b).to.include.text(`Typology Project`)
+      })
+
+      // References
+      cy.get(`#lexeme__references ul`).children()
+      .should(`have.length`, lexeme.bibliography.length)
+      .then(([a, b]) => {
+        expect(a).to.contain.text(lexeme.bibliography[0].citation)
+        expect(b).to.contain.text(lexeme.bibliography[1].citation)
+      })
+
+      // Sources
+      cy.get(`#lexeme__sources`).children()
+      .should(`have.length`, lexeme.sources.length)
+
+      for (const source of lexeme.sources) {
+        cy.contains(`#lexeme__sources li`, source.abbreviation)
+      }
+
+      // Tags
+      cy.get(`#tags`).children()
+      .should(`have.length`, Object.keys(lexeme.tags).length)
+      .then(([a, b, c, d, e]) => {
+        expect(a).to.have.text(`checked: yes`)
+        expect(b).to.have.text(`elicited`)
+        expect(c).to.have.text(`compound: false`)
+        expect(d).to.have.text(`preverbs: 0`)
+        expect(e).to.have.text(`syllables: 2`)
+      })
+
+      // URL
+      cy.contains(`#url`, `https://data.digitallinguistics.io/languages/${ language.id }/lexemes/${ lexeme.id }`)
+
+      // Notes
+      cy.get(`.lexeme__notes`).children()
+      .should(`have.length`, lexeme.notes.length)
+
+      for (const note of lexeme.notes) {
+        cy.contains(`.note`, note.text)
+      }
 
     })
 
@@ -366,16 +381,16 @@ describe(`Lexeme`, function() {
     // SETUP: Seed database
 
     const project = new Project({
-      id:   `d12a00e6-a324-450f-8a06-7265b6eb5c33`,
+      id:   crypto.randomUUID(),
       name: `Test Project`,
     })
 
     const language = new Language({
-      id: `a64b2239-e094-49df-a2c4-b2a8c5e35f8c`,
+      id: crypto.randomUUID(),
     })
 
     const lexeme = new Lexeme({
-      id:           `dc305010-fd42-4356-b4e9-a6eef7323119`,
+      id:           crypto.randomUUID(),
       language:     {
         id: language.id,
       },
@@ -385,13 +400,13 @@ describe(`Lexeme`, function() {
     delete lexeme.dateCreated
     delete lexeme.dateModified
 
-    cy.upsertOne(project)
-    cy.upsertOne(language)
-    cy.upsertOne(lexeme)
+    cy.seedOne(METADATA, project)
+    cy.seedOne(METADATA, language)
+    cy.seedOne(DATA, lexeme)
 
     // ASSERTIONS
 
-    cy.visit(`/languages/1234/lexemes/${ lexeme.id }`)
+    cy.visit(`/languages/${ language.id }/lexemes/${ lexeme.id }`)
 
     // HEADER
 
@@ -480,37 +495,37 @@ describe(`Lexeme`, function() {
     // SETUP
 
     const project = new Project({
-      id:   `d12a00e6-a324-450f-8a06-7265b6eb5c33`,
+      id:   crypto.randomUUID(),
       name: `Test Project`,
     })
 
     const language = new Language({
-      id: `a64b2239-e094-49df-a2c4-b2a8c5e35f8c`,
+      id: crypto.randomUUID(),
     })
 
     const lexeme = new Lexeme({
       forms:    [
         {
-          id: `60a80a96-02b0-4458-b3ed-cd6ff6179c5a`,
+          id: crypto.randomUUID(),
         },
       ],
-      id:           `dc305010-fd42-4356-b4e9-a6eef7323119`,
+      id:           crypto.randomUUID(),
       language:     {
         id: language.id,
       },
       projects: [project.id],
       senses:   [
         {
-          id: `cffc430d-11b3-4a55-a383-7747bb3a1d15`,
+          id: crypto.randomUUID(),
         },
       ],
     })
 
-    cy.upsertOne(project)
-    cy.upsertOne(language)
-    cy.upsertOne(lexeme)
+    cy.seedOne(METADATA, project)
+    cy.seedOne(METADATA, language)
+    cy.seedOne(DATA, lexeme)
 
-    cy.visit(`/languages/1234/lexemes/${ lexeme.id }`)
+    cy.visit(`/languages/${ language.id }/lexemes/${ lexeme.id }`)
 
     // ASSERTIONS
 
@@ -578,18 +593,18 @@ describe(`Lexeme`, function() {
     // SETUP
 
     const publicProject = new Project({
-      id:   `b43470b6-24ab-41d7-acff-ff24dc299548`,
+      id:   crypto.randomUUID(),
       name: `Public Project`,
     })
 
     const privateProject = new Project({
-      id:          `4ef445ec-20e1-4755-b574-89626cabea87`,
+      id:          crypto.randomUUID(),
       name:        `Private Project`,
       permissions: new Permissions({ public: false }),
     })
 
     const userProject = new Project({
-      id:          `80c0998a-1091-466d-a99b-b71407693637`,
+      id:          crypto.randomUUID(),
       name:        `User Project`,
       permissions: new Permissions({
         owners: [msAuthUser],
@@ -597,11 +612,11 @@ describe(`Lexeme`, function() {
     })
 
     const language = new Language({
-      id: `9bae693b-f953-4880-af23-683c9b374aa3`,
+      id: crypto.randomUUID(),
     })
 
     const lexeme = new Lexeme({
-      id:       `15183462-fe10-439e-a90c-217d0a8777e3`,
+      id:       crypto.randomUUID(),
       language: {
         id: language.id,
       },
@@ -612,13 +627,13 @@ describe(`Lexeme`, function() {
       ],
     })
 
-    cy.upsertOne(publicProject)
-    cy.upsertOne(privateProject)
-    cy.upsertOne(userProject)
-    cy.upsertOne(language)
-    cy.upsertOne(lexeme)
+    cy.seedOne(METADATA, publicProject)
+    cy.seedOne(METADATA, privateProject)
+    cy.seedOne(METADATA, userProject)
+    cy.seedOne(METADATA, language)
+    cy.seedOne(DATA, lexeme)
 
-    cy.visit(`/languages/1234/lexemes/${ lexeme.id }`)
+    cy.visit(`/languages/${ language.id }/lexemes/${ lexeme.id }`)
     cy.get(`#metadata-link`).click()
 
     // ASSERT
