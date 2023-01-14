@@ -5,7 +5,7 @@ import { hasAccess }         from '../../utilities/permissions.js'
 export default async function get(req, res) {
 
   const { languageID }     = req.params
-  const { data: language } = await db.getOne(languageID)
+  const { data: language } = await db.getLanguage(languageID)
 
   if (!language) {
     return res.error(`ItemNotFound`, {
@@ -25,10 +25,13 @@ export default async function get(req, res) {
     })
   }
 
-  const { count } = await db.count(`Lexeme`, { language: languageID })
-  let   projects  = await db.getMany(language.projects)
+  const { count }         = await db.count(`Lexeme`, { language: languageID })
+  const { data: results } = await db.getMany(`metadata`, `Project`, language.projects)
 
-  projects = projects.filter(project => hasAccess(res.locals.user, project))
+  const projects = results
+  .filter(({ status }) => status === 200)
+  .map(({ data }) => data)
+  .filter(project => hasAccess(res.locals.user, project))
 
   res.render(`Language/Language`, {
     language,

@@ -4,6 +4,8 @@ export default class Lexeme {
 
   forms = []
 
+  language = {}
+
   lemma = {
     transcription: {},
   }

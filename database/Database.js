@@ -21,7 +21,7 @@ export default class Database {
   /**
    * A hash that maps types to containers.
    */
-  containers = {
+  containerNames = {
     BibliographicReference: `metadata`,
     Language:               `metadata`,
     Lexeme:                 `data`,
@@ -47,37 +47,133 @@ export default class Database {
   }
 
 
+  // DEV METHODS
+
+  /**
+   * Deletes all the items from all the containers in the database.
+   * @returns {Promise}
+   */
+  clear() {
+    return Promise.all([
+      this.clearContainer(`data`),
+      this.clearContainer(`metadata`),
+    ])
+  }
+
+  /**
+   * Deletes all the items from a single container.
+   * @returns {Promise}
+   */
+  async clearContainer(containerName) {
+
+    const { resources } = await this[containerName].items.readAll().fetchAll()
+
+    const batches = chunk(resources, this.bulkLimit)
+
+    for (const batch of batches) {
+
+      const operations = batch.map(item => ({
+        id:            item.id,
+        operationType: `Delete`,
+        partitionKey:  containerName === `data` ? item.language.id : item.type,
+      }))
+
+      await this[containerName].items.bulk(operations)
+
+    }
+
+  }
+
+  /**
+   * Delete the entire database.
+   * @returns {Promise}
+   */
+  async delete() {
+
+    if (this.dbName === `digitallinguistics`) {
+      throw new Error(`This error is here to guard against accidental deletion. Comment it out or delete the database manually if you really truly actually srsly for realzies do want to delete the "digitallinguistics" database.`)
+    }
+
+    console.info(`Deleting the "${ this.dbName }" database.`)
+
+    await this.database.delete()
+
+    console.info(`Database "${ this.dbName }" successfully deleted.`)
+
+  }
+
+  /**
+   * Add a single item to a container.
+   * @param {String} containerName The name of the container to add the item to.
+   * @param {Object} data          The data to add.
+   */
+  seedOne(containerName, data = {}) {
+    return this[containerName].items.create(data)
+  }
+
+  /**
+   *
+   * @param {String}  containerName The name of the container to seed the data to.
+   * @param {Integer} count         The number of copies to add.
+   * @param {Object}  [data={}]     The data to add.
+   * @returns {Promise}
+   */
+  async seedMany(containerName, count, data = {}) {
+
+    const copy = Object.assign({}, data)
+
+    delete copy.id
+
+    const operations    = []
+    const operationType = `Create`
+    const partitionKey  = containerName === `data` ? copy.language?.id : copy.type
+
+    for (let i = 0; i < count; i++) {
+      operations[i] = {
+        operationType,
+        resourceBody: Object.assign({}, copy),
+      }
+    }
+
+    const batches = chunk(operations, this.bulkLimit)
+    const results = []
+
+    for (const batch of batches) {
+      // NB: In order for `.batch()` to work, add a partition key to each item (`language.id` or `type`),
+      // and provide the *value* of the partition key as the 2nd argument to `batch()`.
+      const response = await this[containerName].items.batch(batch, partitionKey)
+      results.push(...response.result)
+    }
+
+    return results
+
+  }
+
+  /**
+   * Creates the database, container, and stored procedures in Cosmos DB if they don't yet exist.
+   * @returns {Promise}
+   */
+  async setup() {
+
+    console.info(`Setting up the "${ this.dbName }" database.`)
+
+    const { database } = await this.client.databases.createIfNotExists({ id: this.dbName })
+
+    await database.containers.createIfNotExists({ id: `data`, partitionKey: `/language/id` })
+    await database.containers.createIfNotExists({ id: `metadata`, partitionKey: `/type` })
+
+    console.info(`"${ this.dbName }" database setup complete.`)
+
+  }
+
+
   // GENERIC METHODS
 
   /**
-   * Upsert a single item to the database.
-   * @param {Object} item The item to upsert.
-   * @returns {Promise<Object>}
-   */
-  async addOne(item) {
-    try {
-
-      const containerName            = this.containers[item.type]
-      const { resource, statusCode } = await this[containerName].items.create(item)
-
-      return { data: resource, status: statusCode }
-
-    } catch ({ code }) {
-
-      const response = { status: code }
-
-      if (code === 409) response.message = `An item with ID ${ item.id } already exists.`
-      else response.message = `An unknown error occurred while adding item with ID ${ item.id }.`
-
-      return response
-
-    }
-  }
-
-  async addMany(items) {}
-
-  /**
    * Count the number of items of the specified type. Use the `options` parameter to provide various filters.
+   * The `language` option is optimized for the `data` container. It won't ever be run on the `metadata` container.
+   * The `project` option is optimized for the `metadata` container but not the `data` container.
+   * The `language` + `project` option is optimized for both containers.
    * @param {String} type               The type of item to count.
    * @param {Object} [options={}]       An options hash.
    * @param {String} [options.language] The ID of the language to filter for.
@@ -86,27 +182,15 @@ export default class Database {
    */
   async count(type, options = {}) {
 
+    const containerName         = this.containerNames[type]
     const { language, project } = options
 
-    let query = `SELECT * FROM data WHERE data.type = '${ type }'`
+    let query = `SELECT COUNT(${ containerName }) FROM ${ containerName } WHERE ${ containerName }.type = '${ type }'`
+    if (language) query += ` AND ${ containerName }.language.id = '${ language }'`
+    if (project) query += ` AND ARRAY_CONTAINS(${ containerName }.projects, '${ project }')`
 
-    if (language) query += ` AND data.language.id = '${ language }'`
-    if (project) query += ` AND ARRAY_CONTAINS(data.projects, '${ project }')`
-
-    let count = 0
-
-    const getCount = async continuationToken => {
-
-      const args = [query, continuationToken]
-      const { resource } = await this.container.scripts.storedProcedure(`count`).execute(undefined, args) // The first argument to `.execute()` is the partition key.
-
-      count += resource.count
-
-      if (resource.continuationToken) await getCount(resource.continuationToken)
-
-    }
-
-    await getCount()
+    const { resources }   = await this[containerName].items.query(query).fetchAll()
+    const [{ $1: count }] = resources
 
     return { count, status: 200 }
 
@@ -114,23 +198,22 @@ export default class Database {
 
   /**
    * Get a single item from the database.
-   * @param {String} id The ID of the item to retrieve.
+   * @param {(`data`|`metadata`)} containerName The name of the container to get the item from.
+   * @param {String}              partition     The partition to read from.
+   * @param {String}              id            The ID of the item to retrieve.
    * @returns {Promise<Object>}
    */
-  async getOne(id) {
+  async getOne(containerName, partition, id) {
 
-    const { resource, statusCode } = await this.container.item(id).read()
+    // NB: Best practice is that point reads always have a partition specified.
+    // If you don't, your database model probably needs a redesign.
+    const { resource, statusCode } = await this[containerName].item(id, partition).read()
 
     return { data: resource, status: statusCode }
 
   }
 
-  /**
-   * Get multiple items from the database by ID. Max 100 items per request. Items not found are omitted without a warning.
-   * @param {Array<String>} ids An array of IDs to retrieve from the database.
-   * @returns {Promise<Array<Object>>} Resolves to an array of results.
-   */
-  async getMany(ids = []) {
+  async getMany(containerName, partitionKey, ids = []) {
 
     if (ids.length > this.bulkLimit) {
       return {
@@ -139,64 +222,33 @@ export default class Database {
       }
     }
 
-    const operations = ids.map(id => ({
-      id,
-      operationType: `Read`,
+    const operationType = `Read`
+    const operations    = ids.map(id => ({ id, operationType, partitionKey }))
+    const results       = await this[containerName].items.bulk(operations, { continueOnError: true })
+
+    const data = results.map(({ resourceBody, statusCode }) => ({
+      data:   resourceBody,
+      status: statusCode,
     }))
 
-    const results = await this.container.items.bulk(operations, { continueOnError: true })
-
-    return results.map(({ resourceBody }) => resourceBody).filter(Boolean)
-
-  }
-
-  /**
-   * Upsert a single item to the database.
-   * @param {Object} item The item to upsert.
-   * @returns {Promise<Object>}
-   */
-  async upsertOne(item) {
-    const { resource, statusCode } = await this.container.items.upsert(item)
-    return { data: resource, status: statusCode }
-  }
-
-  /**
-   * Upserts multiple copies of the same object to the database.
-   * WARNING: This method is only used during testing. Do not use in production.
-   * @param {Integer} count The number of copies of the item to upsert.
-   * @param {Object} data The item to upsert multiple times.
-   * @returns {Promise<Array<Object>>}
-   */
-  async upsertMany(count, data = {}) {
-
-    const operations = []
-
-    for (let i = 0; i < count; i++) {
-
-      const resourceBody = Object.assign({}, data)
-      delete resourceBody.id
-
-      operations[i] = {
-        operationType: `Upsert`,
-        resourceBody,
-      }
-
+    return {
+      data,
+      status: 207,
     }
-
-    const batches = chunk(operations, this.bulkLimit)
-    const results = []
-
-    for (const batch of batches) {
-      const response = await this.container.items.bulk(batch)
-      results.push(...response)
-    }
-
-    return results
 
   }
 
 
   // TYPE-SPECIFIC METHODS
+
+  /**
+   * Retrieve a single Language from the database.
+   * @param {String} id The ID of the language to retrieve.
+   * @returns {Promise<Language>}
+   */
+  getLanguage(id) {
+    return this.getOne(`metadata`, `Language`, id)
+  }
 
   /**
    * Get multiple languages from the database.
@@ -208,11 +260,11 @@ export default class Database {
 
     const { project } = options
 
-    let query = `SELECT * FROM data WHERE data.type = 'Language'`
+    let query = `SELECT * FROM metadata WHERE metadata.type = 'Language'`
 
-    if (project) query += ` AND ARRAY_CONTAINS(data.projects, '${ project }')`
+    if (project) query += ` AND ARRAY_CONTAINS(metadata.projects, '${ project }')`
 
-    const queryIterator = this.container.items.query(query).getAsyncIterator()
+    const queryIterator = this.metadata.items.query(query).getAsyncIterator()
     const data          = []
 
     for await (const result of queryIterator) {
@@ -224,12 +276,22 @@ export default class Database {
   }
 
   /**
- * Get multiple lexemes from the database.
- * @param {Object} [options={}]       An options hash.
- * @param {String} [options.language] The ID of a language to return lexemes for.
- * @param {String} [options.project]  The ID of a project to return lexemes for.
- * @returns {Promise<Array<Lexeme>>}
- */
+   * Retrieve a single lexeme from the database.
+   * @param {String} language The ID of the language the lexeme belongs to. Helps optimize the read operation if present.
+   * @param {String} id       The ID of the lexeme to retrieve.
+   * @returns {Promise<Lexeme>}
+   */
+  getLexeme(language, id) {
+    return this.getOne(`data`, language, id)
+  }
+
+  /**
+   * Get multiple lexemes from the database.
+   * @param {Object} [options={}]       An options hash.
+   * @param {String} [options.language] The ID of a language to return lexemes for.
+   * @param {String} [options.project]  The ID of a project to return lexemes for.
+   * @returns {Promise<Array<Lexeme>>}
+   */
   async getLexemes(options = {}) {
 
     const { language, project } = options
@@ -239,7 +301,7 @@ export default class Database {
     if (language) query += ` AND data.language.id = '${ language }'`
     if (project) query += ` AND ARRAY_CONTAINS(data.projects, '${ project }')`
 
-    const queryIterator = this.container.items.query(query).getAsyncIterator()
+    const queryIterator = this.data.items.query(query).getAsyncIterator()
     const data          = []
 
     for await (const result of queryIterator) {
@@ -248,6 +310,15 @@ export default class Database {
 
     return { data, status: 200 }
 
+  }
+
+  /**
+   * Retrieve a single project from the database.
+   * @param {String} id The ID of the project to retrieve.
+   * @returns {Promise<Project>}
+   */
+  getProject(id) {
+    return this.getOne(`metadata`, `Project`, id)
   }
 
   /**
@@ -258,29 +329,29 @@ export default class Database {
    */
   async getProjects(options = {}) {
 
-    let query = `SELECT * FROM data WHERE data.type = 'Project'`
+    let query = `SELECT * FROM metadata WHERE metadata.type = 'Project'`
 
     if (`user` in options) {
       if (options.user) {
 
         query += ` AND (
-          data.permissions.public = true
+          metadata.permissions.public = true
           OR
-          ARRAY_CONTAINS(data.permissions.owners, '${ options.user }')
+          ARRAY_CONTAINS(metadata.permissions.owners, '${ options.user }')
           OR
-          ARRAY_CONTAINS(data.permissions.editors, '${ options.user }')
+          ARRAY_CONTAINS(metadata.permissions.editors, '${ options.user }')
           OR
-          ARRAY_CONTAINS(data.permissions.viewers, '${ options.user }')
+          ARRAY_CONTAINS(metadata.permissions.viewers, '${ options.user }')
         )`
 
       } else {
 
-        query += ` AND data.permissions.public = true`
+        query += ` AND metadata.permissions.public = true`
 
       }
     }
 
-    const queryIterator = this.container.items.query(query).getAsyncIterator()
+    const queryIterator = this.metadata.items.query(query).getAsyncIterator()
     const data          = []
 
     for await (const result of queryIterator) {
@@ -292,14 +363,23 @@ export default class Database {
   }
 
   /**
+   * Retrieve a single bibliographic reference from the database.
+   * @param {String} id The ID of the reference to retrieve.
+   * @returns {Promise<BibliographicReference>}
+   */
+  getReference(id) {
+    return this.getOne(`metadata`, `BibliographicReference`, id)
+  }
+
+  /**
    * Get all the bibliographic references from the database.
    * @returns {Promise<Array<BibliographicReference>>}
    */
   async getReferences() {
 
-    const query = `SELECT * FROM data WHERE data.type = 'BibliographicReference'`
+    const query = `SELECT * FROM metadata WHERE metadata.type = 'BibliographicReference'`
 
-    const queryIterator = this.container.items.query(query).getAsyncIterator()
+    const queryIterator = this.metadata.items.query(query).getAsyncIterator()
     const data          = []
 
     for await (const result of queryIterator) {

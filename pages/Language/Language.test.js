@@ -2,11 +2,13 @@ import * as dotenv from 'dotenv'
 
 dotenv.config()
 
-import yamlParser from 'js-yaml'
+import { randomUUID } from 'crypto'
+import yamlParser     from 'js-yaml'
 
-import Language   from '../../models/Language.js'
-import Lexeme     from '../../models/Lexeme.js'
-import Project    from '../../models/Project.js'
+import Language    from '../../models/Language.js'
+import Lexeme      from '../../models/Lexeme.js'
+import Permissions from '../../models/Permissions.js'
+import Project     from '../../models/Project.js'
 
 const msAuthCookie = Cypress.env(`msAuthCookie`)
 const msAuthUser   = Cypress.env(`msAuthUser`)
@@ -14,21 +16,27 @@ const msAuthUser   = Cypress.env(`msAuthUser`)
 describe(`Language`, function() {
 
   before(function() {
-    cy.task(`setupDatabase`)
+    cy.setupDatabase()
   })
 
   afterEach(function() {
     cy.clearDatabase()
   })
 
+  after(function() {
+    cy.deleteDatabase()
+  })
 
   it(`Unauthenticated`, function() {
 
-    const sample = new Language
+    const data = new Language({
+      permissions: new Permissions({
+        public: false,
+      }),
+    })
 
-    sample.permissions.public = false
-
-    cy.upsertOne(sample).then(language => {
+    cy.seedOne(`metadata`, data)
+    .then(({ resource: language }) => {
       cy.visit(`/languages/${ language.id }`, { failOnStatusCode: false })
       cy.title().should(`eq`, `Oxalis | Unauthenticated`)
       cy.get(`.page-title`).should(`have.text`, `401: Unauthenticated`)
@@ -39,14 +47,17 @@ describe(`Language`, function() {
 
   it(`Unauthorized`, function() {
 
-    const data = new Language
+    const data = new Language({
+      permissions: new Permissions({
+        public: false,
+      }),
+    })
 
-    data.permissions.public = false
-
-    cy.upsertOne(data).then(language => {
-      cy.visit(`/`)
-      cy.setCookie(msAuthCookie, `bademail@digitallinguistics.io`)
+    cy.seedOne(`metadata`, data)
+    .then(({ resource: language }) => {
       cy.visit(`/languages/${ language.id }`, { failOnStatusCode: false })
+      cy.setCookie(msAuthCookie, `bademail@digitallinguistics.io`)
+      cy.reload()
       cy.title().should(`eq`, `Oxalis | Unauthorized`)
       cy.get(`.page-title`).should(`have.text`, `403: Unauthorized`)
       cy.get(`.error-message`).should(`have.text`, `You do not have permission to view this language.`)
@@ -58,82 +69,82 @@ describe(`Language`, function() {
 
     cy.readFile(`data/language.yml`)
     .then(yaml => yamlParser.load(yaml))
-    .then(data => {
+    .then(language => {
 
-      cy.upsertOne(data)
+      cy.seedOne(`metadata`, language)
 
-      cy.upsertOne(new Project({
-        id:   `683a5d27-53bf-451b-80d1-f6e731674c9e`,
+      cy.seedOne(`metadata`, new Project({
+        id:   language.projects[0],
         name: `Chitimacha Dictionary Project`,
       }))
 
-      cy.upsertOne(new Project({
-        id:   `225eeff5-adb8-421b-b9d0-7b5174419402`,
+      cy.seedOne(`metadata`, new Project({
+        id:   language.projects[1],
         name: `Typology Project`,
       }))
 
       const count = 3
 
-      cy.addMany(count, new Lexeme({
+      cy.seedMany(`data`, count, new Lexeme({
         language: {
-          id: data.id,
+          id: language.id,
         },
       }))
 
-      cy.visit(`/languages/${ data.id }`)
-      cy.title().should(`equal`, `Oxalis | ${ data.name.eng }`)
+      cy.visit(`/languages/${ language.id }`)
+      cy.title().should(`equal`, `Oxalis | ${ language.name.eng }`)
 
       // Page Title
-      cy.get(`.page-title`).should(`have.text`, data.name.eng)
+      cy.get(`.page-title`).should(`have.text`, language.name.eng)
 
       // Scientific Name
-      for (const lang in data.name) {
+      for (const lang in language.name) {
         cy.contains(`.name dt`, lang)
-        cy.contains(`.name dd`, data.name[lang])
+        cy.contains(`.name dd`, language.name[lang])
       }
 
       // Autonym
-      for (const ortho in data.autonym) {
+      for (const ortho in language.autonym) {
         cy.contains(`.autonym dt`, ortho)
-        cy.contains(`.autonym dd`, data.autonym[ortho])
+        cy.contains(`.autonym dd`, language.autonym[ortho])
       }
 
       // Language Codes
       cy.get(`.codes dd`)
       .then(([glottocodeEl, isoEl, abbreviationEl]) => {
-        expect(glottocodeEl.textContent).to.include(data.glottocode)
-        expect(isoEl.textContent).to.include(data.iso)
-        expect(abbreviationEl.textContent).to.include(data.abbreviation)
+        expect(glottocodeEl.textContent).to.include(language.glottocode)
+        expect(isoEl.textContent).to.include(language.iso)
+        expect(abbreviationEl.textContent).to.include(language.abbreviation)
       })
 
       // Description
       cy.get(`.description`)
-      .should(`include.text`, data.description.markdown.slice(0, 20))
+      .should(`include.text`, language.description.markdown.slice(0, 20))
 
       // METADATA
 
       // URL
-      cy.contains(`#url`, `https://data.digitallinguistics.io/languages/${ data.id }`)
+      cy.contains(`#url`, `https://data.digitallinguistics.io/languages/${ language.id }`)
 
       // Date Created
-      cy.contains(`#date-created`, new Date(data.dateCreated).toLocaleDateString(`en-CA`))
+      cy.contains(`#date-created`, new Date(language.dateCreated).toLocaleDateString(`en-CA`))
 
       // Date Modified
-      cy.contains(`#date-modified`, new Date(data.dateModified).toLocaleDateString(`en-CA`))
+      cy.contains(`#date-modified`, new Date(language.dateModified).toLocaleDateString(`en-CA`))
 
       // # of Lexical Entries
       cy.contains(`#num-lexical-entries`, count)
 
       // Projects
       cy.get(`#projects`).children()
-      .should(`have.length`, data.projects.length)
+      .should(`have.length`, language.projects.length)
       .then(([a, b]) => {
         expect(a).to.have.text(`Chitimacha Dictionary Project`)
         expect(b).to.have.text(`Typology Project`)
       })
 
       // Notes
-      for (const note of data.notes) {
+      for (const note of language.notes) {
         cy.contains(`.note__source`, note.source.abbreviation)
         cy.contains(`.note__text`, note.text)
       }
@@ -147,7 +158,7 @@ describe(`Language`, function() {
     const emDash = `—`
     const data   = new Language({ id: `9eda6d17-a1fc-46ed-819c-fcc4690583c4` })
 
-    cy.upsertOne(data)
+    cy.seedOne(`metadata`, data)
     cy.visit(`/languages/${ data.id }`)
 
     // Page Title
@@ -202,15 +213,18 @@ describe(`Language`, function() {
     })
 
     const privateProject = new Project({
-      id:   `f3ca091d-1317-43a0-bb24-d81f87e1e385`,
-      name: `Private Project`,
+      id:          `f3ca091d-1317-43a0-bb24-d81f87e1e385`,
+      name:        `Private Project`,
+      permissions: new Permissions({
+        owners: [msAuthUser],
+        public: false,
+      }),
     })
 
-    privateProject.permissions.owners.push(msAuthUser)
-    privateProject.permissions.public = false
+    const container = `metadata`
 
-    cy.upsertOne(publicProject)
-    cy.upsertOne(privateProject)
+    cy.seedOne(container, publicProject)
+    cy.seedOne(container, privateProject)
 
     const data = new Language({
       id:       `af18abc0-2246-4ead-b222-27cd7ecbcf96`,
@@ -220,7 +234,7 @@ describe(`Language`, function() {
       ],
     })
 
-    cy.upsertOne(data)
+    cy.seedOne(container, data)
     cy.visit(`/languages/${ data.id }`)
 
     cy.get(`#projects`)

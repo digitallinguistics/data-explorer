@@ -6,6 +6,8 @@ const key      = Cypress.env(`cosmosKey`)
 
 const db = new Database({ dbName, endpoint, key })
 
-Cypress.Commands.add(`addMany`, db.addMany.bind(db))
+Cypress.Commands.add(`seedOne`, db.seedOne.bind(db))
+Cypress.Commands.add(`seedMany`, db.seedMany.bind(db))
 Cypress.Commands.add(`clearDatabase`, db.clear.bind(db))
-Cypress.Commands.add(`upsertOne`, db.upsertOne.bind(db))
+Cypress.Commands.add(`deleteDatabase`, db.delete.bind(db))
+Cypress.Commands.add(`setupDatabase`, db.setup.bind(db))

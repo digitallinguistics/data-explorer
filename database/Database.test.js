@@ -4,13 +4,16 @@ import Database          from '../database/Database.js'
 import { expect }        from 'chai'
 import { fileURLToPath } from 'url'
 import path              from 'path'
+import { randomUUID }    from 'crypto'
 import { readFile }      from 'fs/promises'
 import yamlParser        from 'js-yaml'
 
-import Language    from '../models/Language.js'
-import Lexeme      from '../models/Lexeme.js'
-import Permissions from '../models/Permissions.js'
-import Project     from '../models/Project.js'
+import BibliographicReference from '../models/BibliographicReference.js'
+import Language               from '../models/Language.js'
+import Lexeme                 from '../models/Lexeme.js'
+import Permissions            from '../models/Permissions.js'
+import Project                from '../models/Project.js'
+import Text                   from '../models/Text.js'
 
 const __filename = fileURLToPath(import.meta.url)
 const __dirname  = path.dirname(__filename)
@@ -69,7 +72,6 @@ describe(`Database`, function() {
   })
 
   afterEach(function() {
-    // Be sure to return the Promise here so that Mocha waits for cleanup before running the next test.
     if (teardown) return db.clear()
   })
 
@@ -77,15 +79,22 @@ describe(`Database`, function() {
     if (teardown) return db.delete()
   })
 
+
+  // GENERIC METHODS
+
   describe(`count`, function() {
 
     it(`200 OK`, async function() {
 
       const seedCount = 3
 
-      await db.addMany(seedCount, new Language)
+      await db.seedMany(`data`, seedCount, new Lexeme({
+        language: {
+          id: randomUUID(),
+        },
+      }))
 
-      const { count, status } = await db.count(`Language`)
+      const { count, status } = await db.count(`Lexeme`)
 
       expect(status).to.equal(200)
       expect(count).to.equal(seedCount)
@@ -96,8 +105,14 @@ describe(`Database`, function() {
 
       const seedCount = 3
 
-      await db.addMany(seedCount, this.lexeme)
-      await db.addMany(seedCount, new Lexeme)
+      const lexeme = new Lexeme({
+        language: {
+          id: randomUUID(),
+        },
+      })
+
+      await db.seedMany(`data`, seedCount, this.lexeme)
+      await db.seedMany(`data`, seedCount, lexeme)
 
       const { count, status } = await db.count(`Lexeme`, { language: this.language.id })
 
@@ -110,10 +125,28 @@ describe(`Database`, function() {
 
       const seedCount = 3
 
-      await db.addMany(seedCount, this.language)
-      await db.addMany(seedCount, new Language)
+      const lexeme = new Lexeme({
+        language: {
+          id: randomUUID(),
+        },
+      })
 
-      const { count, status } = await db.count(`Language`, { project: this.project.id })
+      // `data` container (not optimized)
+
+      await db.seedMany(`data`, seedCount, this.lexeme)
+      await db.seedMany(`data`, seedCount, lexeme)
+
+      let { count, status } = await db.count(`Lexeme`, { project: this.project.id })
+
+      expect(status).to.equal(200)
+      expect(count).to.equal(seedCount)
+
+      // `metadata` container (optimized)
+
+      await db.seedMany(`metadata`, seedCount, this.language)
+      await db.seedMany(`metadata`, seedCount, new Language)
+
+      ;({ count, status } = await db.count(`Language`, { project: this.project.id })) // eslint-disable-line semi-style
 
       expect(status).to.equal(200)
       expect(count).to.equal(seedCount)
@@ -122,20 +155,21 @@ describe(`Database`, function() {
 
     it(`options: language + project`, async function() {
 
-      const seedCount = 3
+      const seedCount      = 3
+      const otherProjectID = randomUUID()
 
       // add lexemes with language + project
-      await db.addMany(seedCount, this.lexeme)
+      await db.seedMany(`data`, seedCount, this.lexeme)
 
-      // add lexemes with language but diferent project
-      await db.addMany(seedCount, new Lexeme({
-        language: this.language.id,
-        projects: [`abc123`],
+      // add lexemes with language but different project
+      await db.seedMany(`data`, seedCount, new Lexeme({
+        language: { id: this.language.id },
+        projects: [otherProjectID],
       }))
 
       // add lexemes with project but different language
-      await db.addMany(seedCount, new Lexeme({
-        language: `abc123`,
+      await db.seedMany(`data`, seedCount, new Lexeme({
+        language: { id: randomUUID() },
         projects: [this.project.id],
       }))
 
@@ -151,64 +185,24 @@ describe(`Database`, function() {
 
   })
 
-  describe(`addOne`, function() {
-
-    it(`201 Created`, async function() {
-
-      const { data, status } = await db.addOne(this.language)
-
-      expect(status).to.equal(201)
-      expect(data.name.eng).to.equal(this.language.name.eng)
-
-    })
-
-    it(`409 Conflict`, async function() {
-
-      await db.addOne(this.language)
-
-      const { data, message, status } = await db.addOne(this.language)
-
-      expect(status).to.equal(409)
-      expect(data).to.be.undefined
-      expect(message).to.be.a(`string`)
-
-    })
-
-  })
-
-  describe(`addMany`, function() {
-
-    it(`201 Created`, function() {
-
-      const length           = 3
-      const items            = new Array(length).fill(new Lexeme, 0, length)
-      const { data, status } = db.addMany(items)
-
-      expect(status).to.equal(201)
-      expect(data).to.have.length(length)
-
-    })
-
-    it(`409 Conflict`)
-
-  })
-
   describe(`getOne`, function() {
+
+    const container = `metadata`
 
     it(`200 OK`, async function() {
 
-      await db.addOne(this.language)
+      await db.seedOne(container, this.language)
 
-      const { data: language, status } = await db.getOne(this.language.id)
+      const { data, status } = await db.getOne(container, this.language.type, this.language.id)
 
       expect(status).to.equal(200)
-      expect(language.name.eng).to.equal(this.language.name.eng)
+      expect(data.name.eng).to.equal(this.language.name.eng)
 
     })
 
     it(`404 Not Found`, async function() {
 
-      const { data, status } = await db.getOne(badID)
+      const { data, status } = await db.getOne(container, `Language`, badID)
 
       expect(status).to.equal(404)
       expect(data).to.be.undefined
@@ -219,28 +213,30 @@ describe(`Database`, function() {
 
   describe(`getMany`, function() {
 
+    const container = `data`
+
     it(`200 OK`, async function() {
 
-      // TODO: return a 200 status code if no errors were thrown
-      // TODO: support 207 MultiStatus response
+      const count            = 3
+      const lexeme           = new Lexeme({ language: { id: randomUUID() } })
+      const seedData         = await db.seedMany(container, count, lexeme)
+      const ids              = seedData.map(({ resourceBody }) => resourceBody.id)
+      const { data, status } = await db.getMany(container, lexeme.language.id, ids)
 
-      const count    = 3
-      const seedData = await db.addMany(count)
-      const response = await db.getMany(seedData.map(result => result.resourceBody.id))
+      expect(status).to.equal(207)
+      expect(data).to.have.length(count)
 
-      expect(response).to.have.length(3)
+      const [result] = data
 
-      for (const result of response) {
-        const seedItem = seedData.find(item => item.resourceBody.id === result.id)
-        expect(seedItem).to.exist
-      }
+      expect(result.status).to.equal(200)
+      expect(result.data.id).to.equal(ids[0])
 
     })
 
     it(`400 Too Many IDs`, async function() {
 
       const ids                       = new Array(101).fill(badID, 0, 101)
-      const { data, message, status } = await db.getMany(ids)
+      const { data, message, status } = await db.getMany(`data`, undefined, ids)
 
       expect(status).to.equal(400)
       expect(data).to.be.undefined
@@ -250,15 +246,60 @@ describe(`Database`, function() {
 
     it(`missing results`, async function() {
 
-      const count    = 3
-      const seedData = await db.addMany(count)
-      const ids      = seedData.map(result => result.resourceBody.id)
+      const count      = 3
+      const languageID = randomUUID()
+
+      const lexeme = new Lexeme({
+        language: {
+          id: languageID,
+        },
+      })
+
+      const seedData = await db.seedMany(`data`, count, lexeme)
+      const ids      = seedData.map(({ resourceBody }) => resourceBody.id)
 
       ids.unshift(badID) // Use unshift here to test that Cosmos DB continues to return results after a 404.
 
-      const results = await db.getMany(ids)
+      const { data, status } = await db.getMany(container, languageID, ids)
 
-      expect(results).to.have.length(count)
+      expect(status).to.equal(207)
+      expect(data).to.have.length(count + 1)
+
+      const firstResult = data.shift()
+
+      expect(firstResult.status).to.equal(404)
+      expect(firstResult.data).to.be.undefined
+
+      for (const item of data) {
+        expect(item.status).to.equal(200)
+        expect(ids).to.include(item.data.id)
+      }
+
+    })
+
+  })
+
+
+  // TYPE-SPECIFIC METHODS
+
+  describe(`getLanguage`, function() {
+
+    it(`200 OK`, async function() {
+
+      const { resource: language } = await db.seedOne(`metadata`, new Language({ test: randomUUID() }))
+      const { data, status }       = await db.getLanguage(language.id)
+
+      expect(status).to.equal(200)
+      expect(data.test).to.equal(language.test)
+
+    })
+
+    it(`404 Not Found`, async function() {
+
+      const { data, status } = await db.getLanguage(badID)
+
+      expect(status).to.equal(404)
+      expect(data).to.be.undefined
 
     })
 
@@ -270,8 +311,8 @@ describe(`Database`, function() {
 
       const count = 3
 
-      await db.addMany(count, new Language)
-      await db.addMany(count, new Lexeme)
+      await db.seedMany(`metadata`, count, new Language)
+      await db.seedMany(`metadata`, count, new Project)
 
       const { data, status } = await db.getLanguages()
 
@@ -284,7 +325,7 @@ describe(`Database`, function() {
 
       const count = 200
 
-      await db.addMany(count, new Language)
+      await db.seedMany(`metadata`, count, new Language)
 
       const { data, status } = await db.getLanguages()
 
@@ -295,10 +336,11 @@ describe(`Database`, function() {
 
     it(`option: project`, async function() {
 
-      const count = 3
+      const count     = 3
+      const container = `metadata`
 
-      await db.addMany(count, this.language) // add languages with projects
-      await db.addMany(count, new Language)  // add languages without a project
+      await db.seedMany(container, count, this.language) // add languages with projects
+      await db.seedMany(container, count, new Language) // add languages without projects
 
       const { data, status } = await db.getLanguages({ project: this.project.id })
 
@@ -310,14 +352,60 @@ describe(`Database`, function() {
 
   })
 
+  describe(`getLexeme`, function() {
+
+    it(`200 OK`, async function() {
+
+      const lexemeData = new Lexeme({
+        language: {
+          id: randomUUID(),
+        },
+        test: randomUUID(),
+      })
+
+      const { resource: lexeme } = await db.seedOne(`data`, lexemeData)
+      const { data, status }     = await db.getLexeme(lexeme.language.id, lexeme.id)
+
+      expect(status).to.equal(200)
+      expect(data.test).to.equal(lexeme.test)
+
+    })
+
+    it(`404 Not Found`, async function() {
+
+      const lexeme = new Lexeme({
+        language: {
+          id: randomUUID(),
+        },
+      })
+
+      // Seeding the database with another lexeme from the same language
+      // ensures that the partition being targeted exists.
+      await db.seedOne(`data`, lexeme)
+
+      const { data, status } = await db.getLexeme(lexeme.language.id, badID)
+
+      expect(status).to.equal(404)
+      expect(data).to.be.undefined
+
+    })
+
+  })
+
   describe(`getLexemes`, function() {
+
+    const container = `data`
 
     it(`200 OK`, async function() {
 
       const count = 3
 
-      await db.addMany(count, new Lexeme)
-      await db.addMany(count, new Language)
+      const language = {
+        id: randomUUID(),
+      }
+
+      await db.seedMany(container, count, new Lexeme({ language }))
+      await db.seedMany(container, count, new Text({ language }))
 
       const { data, status } = await db.getLexemes()
 
@@ -330,7 +418,13 @@ describe(`Database`, function() {
 
       const count = 200
 
-      await db.addMany(count, new Lexeme)
+      const lexeme = new Lexeme({
+        language: {
+          id: randomUUID(),
+        },
+      })
+
+      await db.seedMany(`data`, count, lexeme)
 
       const { data, status } = await db.getLexemes()
 
@@ -343,8 +437,14 @@ describe(`Database`, function() {
 
       const count = 3
 
-      await db.addMany(count, this.lexeme)
-      await db.addMany(count, new Lexeme)
+      const lexeme = new Lexeme({
+        language: {
+          id: randomUUID(),
+        },
+      })
+
+      await db.seedMany(container, count, this.lexeme)
+      await db.seedMany(container, count, lexeme)
 
       const { data, status } = await db.getLexemes({ language: this.language.id })
 
@@ -358,8 +458,14 @@ describe(`Database`, function() {
 
       const count = 3
 
-      await db.addMany(count, this.lexeme) // add lexemes with projects
-      await db.addMany(count, new Lexeme)  // add lexemes without a project
+      const lexeme = new Lexeme({
+        language: {
+          id: randomUUID(),
+        },
+      })
+
+      await db.seedMany(container, count, this.lexeme) // add lexemes with projects
+      await db.seedMany(container, count, lexeme)      // add lexemes without a project
 
       const { data, status } = await db.getLexemes({ project: this.project.id })
 
@@ -371,20 +477,20 @@ describe(`Database`, function() {
 
     it(`option: language + project`, async function() {
 
-      const seedCount = 3
+      const count = 3
 
       // add lexemes with language and project
-      await db.addMany(seedCount, this.lexeme)
+      await db.seedMany(container, count, this.lexeme)
 
       // add lexemes with language but different project
-      await db.addMany(seedCount, new Lexeme({
-        language: this.language.id,
-        projects: [`abc123`],
+      await db.seedMany(container, count, new Lexeme({
+        language: { id: this.language.id },
+        projects: [randomUUID()],
       }))
 
       // add lexemes with project but different language
-      await db.addMany(seedCount, new Lexeme({
-        language: `abc123`,
+      await db.seedMany(container, count, new Lexeme({
+        language: { id: randomUUID() },
         projects: [this.project.id],
       }))
 
@@ -398,10 +504,10 @@ describe(`Database`, function() {
 
     })
 
-    // This should return an empty array, not 404.
-    // It's entirely possible to create a language but not have added lexemes for it yet.
     it(`no results`, async function() {
 
+      // This should return an empty array, not 404.
+      // It's entirely possible to create a language but not have added lexemes for it yet.
       const { data, status } = await db.getLexemes({ language: badID })
 
       expect(status).to.equal(200)
@@ -411,14 +517,40 @@ describe(`Database`, function() {
 
   })
 
+  describe(`getProject`, function() {
+
+    it(`200 OK`, async function() {
+
+      const { resource: project } = await db.seedOne(`metadata`, new Project({ test: randomUUID() }))
+
+      const { data, status } = await db.getProject(project.id)
+
+      expect(status).to.equal(200)
+      expect(data.test).to.equal(project.test)
+
+    })
+
+    it(`404 Not Found`, async function() {
+
+      const { data, status } = await db.getProject(badID)
+
+      expect(status).to.equal(404)
+      expect(data).to.be.undefined
+
+    })
+
+  })
+
   describe(`getProjects`, function() {
+
+    const container = `metadata`
 
     it(`200 OK`, async function() {
 
       const count = 3
 
-      await db.addMany(count, this.project)
-      await db.addMany(count, new Language)
+      await db.seedMany(container, count, this.project)
+      await db.seedMany(container, count, new Language)
 
       const { data, status } = await db.getProjects()
 
@@ -431,7 +563,7 @@ describe(`Database`, function() {
 
       const count = 200
 
-      await db.addMany(count, new Project)
+      await db.seedMany(container, count, new Project)
 
       const { data, status } = await db.getProjects()
 
@@ -458,8 +590,9 @@ describe(`Database`, function() {
 
       const count = 3
 
-      await db.addMany(count, this.project)
-      await db.addMany(count, new Project({
+      await db.seedMany(container, count, this.project)
+
+      await db.seedMany(container, count, new Project({
         permissions: new Permissions({
           public: false,
         }),
@@ -474,7 +607,34 @@ describe(`Database`, function() {
 
   })
 
+  describe(`getReference`, function() {
+
+    const container = `metadata`
+
+    it(`200 OK`, async function() {
+
+      const { resource: reference } = await db.seedOne(container, new BibliographicReference({ test: randomUUID() }))
+      const { data, status }        = await db.getReference(reference.id)
+
+      expect(status).to.equal(200)
+      expect(data.test).to.equal(reference.test)
+
+    })
+
+    it(`404 Not Found`, async function() {
+
+      const { data, status } = await db.getReference(badID)
+
+      expect(status).to.equal(404)
+      expect(data).to.be.undefined
+
+    })
+
+  })
+
   describe(`getReferences`, function() {
+
+    const container = `metadata`
 
     it(`200 OK`, async function() {
 
@@ -492,7 +652,7 @@ describe(`Database`, function() {
 
       }
 
-      await db.container.items.bulk(operations)
+      await db[container].items.bulk(operations)
 
       const { data, status } = await db.getReferences()
 
@@ -505,7 +665,7 @@ describe(`Database`, function() {
 
       const count = 200
 
-      await db.addMany(count, { type: `BibliographicReference` })
+      await db.seedMany(container, count, new BibliographicReference)
 
       const { data, status } = await db.getReferences()
 
