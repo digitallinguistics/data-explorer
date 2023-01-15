@@ -2,10 +2,10 @@ import compareLemmas from '../../utilities/compareLemmas.js'
 import db            from '../../services/database.js'
 import { hasAccess } from '../../utilities/permissions.js'
 
-export default async function(req, res) {
+export default async function get(req, res) {
 
   const { projectID }     = req.params
-  const { data: project } = await db.getOne(projectID)
+  const { data: project } = await db.getProject(projectID)
 
   if (!project) {
     return res.error(`ItemNotFound`, {

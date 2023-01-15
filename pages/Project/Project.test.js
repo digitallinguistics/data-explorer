@@ -5,19 +5,23 @@ import Lexeme      from '../../models/Lexeme.js'
 import Permissions from '../../models/Permissions.js'
 import Project     from '../../models/Project'
 
+const badID        = `bad-id`
+const container    = `metadata`
 const msAuthCookie = Cypress.env(`msAuthCookie`)
 const msAuthUser   = Cypress.env(`msAuthUser`)
 
 describe(`Project`, function() {
 
-  const badID = `bad-id`
-
   before(function() {
-    cy.task(`setupDatabase`)
+    cy.setupDatabase()
+  })
+
+  afterEach(function() {
+    cy.clearDatabase()
   })
 
   after(function() {
-    cy.clearDatabase()
+    cy.deleteDatabase()
   })
 
   it(`404: Not Found`, function() {
@@ -36,8 +40,7 @@ describe(`Project`, function() {
       }),
     })
 
-    cy.upsertOne(project)
-
+    cy.seedOne(container, project)
     cy.visit(`/projects/${ project.id }`, { failOnStatusCode: false })
     cy.title().should(`eq`, `Oxalis | Unauthenticated`)
     cy.get(`.page-title`).should(`have.text`, `401: Unauthenticated`)
@@ -54,7 +57,7 @@ describe(`Project`, function() {
       }),
     })
 
-    cy.upsertOne(project)
+    cy.seedOne(container, project)
 
     cy.visit(`/projects/${ project.id }`, { failOnStatusCode: false })
     cy.setCookie(msAuthCookie, msAuthUser)
@@ -75,16 +78,20 @@ describe(`Project`, function() {
       const count = 3
 
       const language = new Language({
+        id:       crypto.randomUUID(),
         projects: [project.id],
       })
 
       const lexeme = new Lexeme({
+        language: {
+          id: language.id,
+        },
         projects: [project.id],
       })
 
-      cy.upsertOne(project)
-      cy.addMany(count, language)
-      cy.addMany(count, lexeme)
+      cy.seedOne(container, project)
+      cy.seedMany(container, count, language)
+      cy.seedMany(`data`, count, lexeme)
 
       cy.visit(`/projects/${ project.id }`)
 

@@ -4,7 +4,7 @@ import db            from '../../services/database.js'
 export default async function get(req, res) {
 
   const { languageID }     = req.params
-  const { data: language } = await db.getOne(languageID)
+  const { data: language } = await db.getLanguage(languageID)
 
   if (!language) {
     return res.error(`ItemNotFound`, {

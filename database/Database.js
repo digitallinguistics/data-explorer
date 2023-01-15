@@ -108,7 +108,17 @@ export default class Database {
    * @param {Object} data          The data to add.
    */
   seedOne(containerName, data = {}) {
+
+    if (containerName === `data` && !data.language.id) {
+      throw new Error(`Items in the container ${ containerName } container require a language ID.`)
+    }
+
+    if (containerName === `metadata` && !data.type) {
+      throw new Error(`Items in the container ${ containerName } container require a type.`)
+    }
+
     return this[containerName].items.create(data)
+
   }
 
   /**
@@ -119,6 +129,14 @@ export default class Database {
    * @returns {Promise}
    */
   async seedMany(containerName, count, data = {}) {
+
+    if (containerName === `data` && !data.language.id) {
+      throw new Error(`Items in the ${ containerName } container require a language ID.`)
+    }
+
+    if (containerName === `metadata` && !data.type) {
+      throw new Error(`Items in the ${ containerName } container require a type.`)
+    }
 
     const copy = Object.assign({}, data)
 
@@ -301,6 +319,8 @@ export default class Database {
 
     if (language) query += ` AND data.language.id = '${ language }'`
     if (project) query += ` AND ARRAY_CONTAINS(data.projects, '${ project }')`
+
+    console.log(query)
 
     const queryIterator = this.data.items.query(query).getAsyncIterator()
     const data          = []

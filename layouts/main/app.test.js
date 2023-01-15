@@ -1,7 +1,7 @@
 describe(`app shell`, function() {
 
   before(function() {
-    cy.task(`setupDatabase`)
+    cy.setupDatabase()
   })
 
   describe(`Main Nav`, function() {
