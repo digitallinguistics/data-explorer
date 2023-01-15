@@ -320,8 +320,6 @@ export default class Database {
     if (language) query += ` AND data.language.id = '${ language }'`
     if (project) query += ` AND ARRAY_CONTAINS(data.projects, '${ project }')`
 
-    console.log(query)
-
     const queryIterator = this.data.items.query(query).getAsyncIterator()
     const data          = []
 
