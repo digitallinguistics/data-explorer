@@ -1,8 +1,14 @@
+import '../env.js'
 import Database from '@digitallinguistics/db'
 
-const dbName   = process.env.NODE_ENV === `production` ? `digitallinguistics` : `test`
+const [, , dbName] = process.argv
+
+if (!dbName) {
+  throw new Error(`Provide a database name as the first argument.`)
+}
+
 const endpoint = process.env.COSMOS_ENDPOINT
 const key      = process.env.COSMOS_KEY
 const db       = new Database({ dbName, endpoint, key })
 
-export default db
+await db.setup()

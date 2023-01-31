@@ -38,6 +38,7 @@
     "cypress-tests": "server-test 3001 run-cypress",
     "open-cypress": "cypress open --config-file=test/cypress.config.js",
     "run-cypress": "cypress run --config-file=test/cypress.config.js",
+    "setup-db": "node bin/setupDatabase.js",
     "start-db": "powershell -NoProfile -ExecutionPolicy Unrestricted -Command ./bin/start-db.ps1",
     "stop-db": "cd C:\\Program Files\\Azure Cosmos DB Emulator && Microsoft.Azure.Cosmos.Emulator.exe /Shutdown",
     "prepare-release": "node build/updateCitation.js",
