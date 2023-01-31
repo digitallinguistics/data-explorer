@@ -17,11 +17,11 @@ describe(`Project`, function() {
   })
 
   afterEach(function() {
-    cy.clearDatabase()
+    cy.task(`clearDatabase`)
   })
 
   after(function() {
-    cy.deleteDatabase()
+    cy.task(`deleteDatabase`)
   })
 
   it(`404: Not Found`, function() {

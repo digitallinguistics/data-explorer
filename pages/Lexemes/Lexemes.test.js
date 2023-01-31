@@ -20,11 +20,11 @@ describe(`Lexemes`, function() {
   })
 
   afterEach(function() {
-    cy.clearDatabase()
+    cy.task(`clearDatabase`)
   })
 
   after(function() {
-    cy.deleteDatabase()
+    cy.task(`deleteDatabase`)
   })
 
   describe(`/languages`, function() {

@@ -1,13 +1,11 @@
-import * as dotenv from 'dotenv'
-
-dotenv.config()
-
 import yamlParser from 'js-yaml'
 
-import Language    from '../../models/Language.js'
-import Lexeme      from '../../models/Lexeme.js'
-import Permissions from '../../models/Permissions.js'
-import Project     from '../../models/Project.js'
+import {
+  Language,
+  Lexeme,
+  Permissions,
+  Project,
+} from '@digitallinguistics/models'
 
 const msAuthCookie = Cypress.env(`msAuthCookie`)
 const msAuthUser   = Cypress.env(`msAuthUser`)
@@ -19,23 +17,23 @@ describe(`Language`, function() {
   })
 
   afterEach(function() {
-    cy.clearDatabase()
+    cy.task(`clearDatabase`)
   })
 
   after(function() {
-    cy.deleteDatabase()
+    cy.task(`deleteDatabase`)
   })
 
   it(`Unauthenticated`, function() {
 
-    const data = new Language({
+    const { data } = new Language({
       permissions: new Permissions({
         public: false,
       }),
     })
 
-    cy.seedOne(`metadata`, data)
-    .then(({ resource: language }) => {
+    cy.task(`seedOne`, [`metadata`, data])
+    .then(language => {
       cy.visit(`/languages/${ language.id }`, { failOnStatusCode: false })
       cy.title().should(`eq`, `Oxalis | Unauthenticated`)
       cy.get(`.page-title`).should(`have.text`, `401: Unauthenticated`)
@@ -46,14 +44,14 @@ describe(`Language`, function() {
 
   it(`Unauthorized`, function() {
 
-    const data = new Language({
+    const { data } = new Language({
       permissions: new Permissions({
         public: false,
       }),
     })
 
-    cy.seedOne(`metadata`, data)
-    .then(({ resource: language }) => {
+    cy.task(`seedOne`, [`metadata`, data])
+    .then(language => {
       cy.visit(`/languages/${ language.id }`, { failOnStatusCode: false })
       cy.setCookie(msAuthCookie, `bademail@digitallinguistics.io`)
       cy.reload()
@@ -64,31 +62,41 @@ describe(`Language`, function() {
 
   })
 
-  it(`Language Details`, function() {
+  it.only(`Language Details`, function() {
 
     cy.readFile(`data/language.yml`)
     .then(yaml => yamlParser.load(yaml))
     .then(language => {
 
-      cy.seedOne(`metadata`, language)
+      cy.task(`seedOne`, [`metadata`, language])
 
-      cy.seedOne(`metadata`, new Project({
-        id:   language.projects[0],
-        name: `Chitimacha Dictionary Project`,
-      }))
+      cy.task(`seedOne`, [
+        `metadata`,
+        new Project({
+          id:   language.projects[0],
+          name: `Chitimacha Dictionary Project`,
+        }),
+      ])
 
-      cy.seedOne(`metadata`, new Project({
-        id:   language.projects[1],
-        name: `Typology Project`,
-      }))
+      cy.task(`seedOne`, [
+        `metadata`,
+        new Project({
+          id:   language.projects[1],
+          name: `Typology Project`,
+        }),
+      ])
 
       const count = 3
 
-      cy.seedMany(`data`, count, new Lexeme({
-        language: {
-          id: language.id,
-        },
-      }))
+      cy.task(`seedMany`, [
+        `data`,
+        count,
+        new Lexeme({
+          language: {
+            id: language.id,
+          },
+        }),
+      ])
 
       cy.visit(`/languages/${ language.id }`)
       cy.title().should(`equal`, `Oxalis | ${ language.name.eng }`)

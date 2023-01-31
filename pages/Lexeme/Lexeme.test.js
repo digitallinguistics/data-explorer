@@ -20,11 +20,11 @@ describe(`Lexeme`, function() {
   })
 
   afterEach(function() {
-    cy.clearDatabase()
+    cy.task(`clearDatabase`)
   })
 
   after(function() {
-    cy.deleteDatabase()
+    cy.task(`deleteDatabase`)
   })
 
   it(`Not Found`, function() {

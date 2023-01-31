@@ -1,6 +1,7 @@
 // For unknown reasons, importing `env.js` directly doesn't work here,
 // so I had to load dotenv again here.
 import * as dotenv       from 'dotenv'
+import createBundler     from '@bahmutov/cypress-esbuild-preprocessor'
 import Database          from '@digitallinguistics/db'
 import { defineConfig }  from 'cypress'
 import { fileURLToPath } from 'url'
@@ -21,37 +22,47 @@ const endpoint = process.env.COSMOS_ENDPOINT
 const key      = process.env.COSMOS_KEY
 const db       = new Database({ dbName, endpoint, key })
 
+const bundler = createBundler()
+
 export default defineConfig({
   downloadsFolder: `test/downloads`,
   e2e:                    {
     baseUrl:     `http://localhost:${ process.env.PORT }`,
     setupNodeEvents(on) {
+
+      on(`file:preprocessor`, bundler)
+
       on(`task`, {
 
         async clearDatabase() {
           await db.clear()
-          return null
+          return null // Cypress requires that a task resolves to a value
         },
 
         async deleteDatabase() {
           await db.delete()
-          return null
+          return null // Cypress requires that a task resolves to a value
         },
 
-        seedOne(...args) {
-          return db.seedOne(...args)
+        async seedOne(args) {
+          // It's necessary to destructure the response
+          // because it contains a circular reference
+          // and Cypress tries to stringify the response.
+          const { resource } = await db.seedOne(...args)
+          return resource
         },
 
-        seedMany(...args) {
+        seedMany(args) {
           return db.seedMany(...args)
         },
 
         async setupDatabase() {
           await db.setup()
-          return null
+          return null // Cypress requires that a task resolves to a value
         },
 
       })
+
     },
     specPattern: [
       `components/**/*.test.js`,

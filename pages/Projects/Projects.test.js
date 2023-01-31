@@ -14,11 +14,11 @@ describe(`Projects`, function() {
   })
 
   afterEach(function() {
-    cy.clearDatabase()
+    cy.task(`clearDatabase`)
   })
 
   after(function() {
-    cy.deleteDatabase()
+    cy.task(`deleteDatabase`)
   })
 
   it(`200: OK (public projects)`, function() {
