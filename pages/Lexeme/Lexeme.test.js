@@ -16,7 +16,7 @@ const METADATA = `metadata`
 describe(`Lexeme`, function() {
 
   before(function() {
-    cy.setupDatabase()
+    cy.task(`setupDatabase`)
   })
 
   afterEach(function() {

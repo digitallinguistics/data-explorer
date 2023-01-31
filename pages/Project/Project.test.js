@@ -13,7 +13,7 @@ const msAuthUser   = Cypress.env(`msAuthUser`)
 describe(`Project`, function() {
 
   before(function() {
-    cy.setupDatabase()
+    cy.task(`setupDatabase`)
   })
 
   afterEach(function() {

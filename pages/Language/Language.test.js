@@ -15,7 +15,7 @@ const msAuthUser   = Cypress.env(`msAuthUser`)
 describe(`Language`, function() {
 
   before(function() {
-    cy.setupDatabase()
+    cy.task(`setupDatabase`)
   })
 
   afterEach(function() {

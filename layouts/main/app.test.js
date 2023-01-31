@@ -1,7 +1,7 @@
 describe(`app shell`, function() {
 
   before(function() {
-    cy.setupDatabase()
+    cy.task(`setupDatabase`)
   })
 
   describe(`Main Nav`, function() {
@@ -30,7 +30,7 @@ describe(`app shell`, function() {
 
   describe(`Help Menu`, function() {
 
-    it(`opens/closes`, function() {
+    it(`opens / closes`, function() {
       cy.visit(`/`)
       cy.get(`.help-nav`).click()
       cy.log(`Visibility of the Help Menu cannot be tested programmatically with Cypress. Use manual testing instead.`)

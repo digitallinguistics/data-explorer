@@ -12,7 +12,7 @@ describe(`Languages`, function() {
   const container = `metadata`
 
   before(function() {
-    cy.setupDatabase()
+    cy.task(`setupDatabase`)
   })
 
   afterEach(function() {
