@@ -2,7 +2,8 @@ id:           683a5d27-53bf-451b-80d1-f6e731674c9e
 dateCreated:  2022-12-23T00:00:00.000Z
 dateModified: 2022-12-24T00:00:00.000Z
 link:         https://data.digitallinguistics.io/projects/683a5d27-53bf-451b-80d1-f6e731674c9e
-name:         Chitimacha Dictionary
+name:
+  eng: Chitimacha Dictionary
 type:         Project
 access:
   note:
