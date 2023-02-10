@@ -14,7 +14,7 @@
   name:
     eng: Arapaho
   permissions:
-    owners:  [owner@digitallinguistics.io]
+    admins:  [admin@digitallinguistics.io]
     editors: []
     viewers: []
     public:  true
@@ -59,7 +59,7 @@
         abbreviation: KW
       text:         The tribe prefers to use the term "sleeping" or "dormant" rather than "extinct".
   permissions:
-    owners:  [owner@digitallinguistics.io]
+    admins:  [admin@digitallinguistics.io]
     editors: []
     viewers: [viewer@digitallinguistics.io]
     public:  false
@@ -83,7 +83,7 @@
   name:
     eng: Menominee
   permissions:
-    owners:  [owner@digitallinguistics.io]
+    admins:  [admin@digitallinguistics.io]
     editors: [editor@digitallinguistics.io]
     viewers: []
     public:  true
@@ -109,7 +109,7 @@
   name:
     eng: Ojibwe
   permissions:
-    owners:  [owner@digitallinguistics.io]
+    admins:  [admin@digitallinguistics.io]
     editors: []
     viewers: []
     public:  true
@@ -147,7 +147,7 @@
         abbreviation: DWH
       text:         This is a another note for Plains Cree.
   permissions:
-    owners:  [owner@digitallinguistics.io]
+    admins:  [admin@digitallinguistics.io]
     editors: []
     viewers: []
     public:  true
@@ -167,7 +167,7 @@
   name:
     eng: Proto-Algic
   permissions:
-    owners:  [owner@digitallinguistics.io]
+    admins:  [admin@digitallinguistics.io]
     editors: []
     viewers: []
     public:  true
@@ -187,7 +187,7 @@
   name:
     eng: Proto-Algonquian
   permissions:
-    owners:  [owner@digitallinguistics.io]
+    admins:  [admin@digitallinguistics.io]
     editors: []
     viewers: []
     public:  true
@@ -211,7 +211,7 @@
   name:
     eng: Potawatomi
   permissions:
-    owners:  [owner@digitallinguistics.io]
+    admins:  [admin@digitallinguistics.io]
     editors: []
     viewers: []
     public:  true
@@ -235,7 +235,7 @@
   name:
     eng: Swahili
   permissions:
-    owners:  [owner@digitallinguistics.io]
+    admins:  [admin@digitallinguistics.io]
     editors: []
     viewers: []
     public:  false

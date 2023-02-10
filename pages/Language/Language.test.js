@@ -230,7 +230,7 @@ describe(`Language`, function() {
       id:          crypto.randomUUID(),
       name:        `Private Project`,
       permissions: new Permissions({
-        owners: [msAuthUser],
+        admins: [msAuthUser],
         public: false,
       }),
     })

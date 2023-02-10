@@ -118,7 +118,7 @@ describe(`Lexemes`, function() {
       const userProject = new Project({
         id:          crypto.randomUUID(),
         permissions: new Permissions({
-          owners: [msAuthUser],
+          admins: [msAuthUser],
           public: false,
         }),
       })

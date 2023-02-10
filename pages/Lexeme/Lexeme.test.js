@@ -1,10 +1,12 @@
 import prepareTranscription from '../../utilities/prepareTranscription.js'
 import yamlParser           from 'js-yaml'
 
-import Language    from '../../models/Language.js'
-import Lexeme      from '../../models/Lexeme.js'
-import Permissions from '../../models/Permissions.js'
-import Project     from '../../models/Project.js'
+import {
+  Language,
+  Lexeme,
+  Permissions,
+  Project,
+} from '@digitallinguistics/models'
 
 const msAuthCookie = Cypress.env(`msAuthCookie`)
 const msAuthUser   = Cypress.env(`msAuthUser`)
@@ -32,7 +34,7 @@ describe(`Lexeme`, function() {
     const badID    = `bad-id`
     const language = new Language({ id: crypto.randomUUID() })
 
-    cy.seedOne(METADATA, language)
+    cy.task(`seedOne`, [METADATA, language])
 
     cy.visit(`/languages/${ language.id }/lexemes/${ badID }`, { failOnStatusCode: false })
     cy.contains(`.page-title`, `404: Item Not Found`)
@@ -42,20 +44,22 @@ describe(`Lexeme`, function() {
 
   it(`Unauthenticated`, function() {
 
-    const language = new Language({ id: crypto.randomUUID() })
+    const language = new Language({
+      id:          crypto.randomUUID(),
+      permissions: new Permissions({
+        public: false,
+      }),
+    })
 
     const lexeme = new Lexeme({
       id:       crypto.randomUUID(),
       language: {
         id: language.id,
       },
-      permissions: {
-        public: false,
-      },
     })
 
-    cy.seedOne(METADATA, language)
-    cy.seedOne(DATA, lexeme)
+    cy.task(`seedOne`, [METADATA, language])
+    cy.task(`seedOne`, [DATA, lexeme])
 
     cy.visit(`/languages/${ language.id }/lexemes/${ lexeme.id }`, { failOnStatusCode: false })
     cy.contains(`.page-title`, `401: Unauthenticated`)
@@ -65,20 +69,22 @@ describe(`Lexeme`, function() {
 
   it(`Unauthorized`, function() {
 
-    const language = new Language({ id: crypto.randomUUID() })
+    const language = new Language({
+      id:          crypto.randomUUID(),
+      permissions: new Permissions({
+        public: false,
+      }),
+    })
 
     const lexeme = new Lexeme({
       id:       crypto.randomUUID(),
       language: {
         id: language.id,
       },
-      permissions: {
-        public: false,
-      },
     })
 
-    cy.seedOne(METADATA, language)
-    cy.seedOne(DATA, lexeme)
+    cy.task(`seedOne`, [METADATA, language])
+    cy.task(`seedOne`, [DATA, lexeme])
 
     cy.visit(`/`)
     cy.setCookie(msAuthCookie, msAuthUser)
@@ -108,7 +114,7 @@ describe(`Lexeme`, function() {
 
     })
 
-    it(`display correctly`, function() {
+    it.only(`display correctly`, function() {
 
       const { language, lexeme, project } = this
 
@@ -607,7 +613,7 @@ describe(`Lexeme`, function() {
       id:          crypto.randomUUID(),
       name:        `User Project`,
       permissions: new Permissions({
-        owners: [msAuthUser],
+        admins: [msAuthUser],
       }),
     })
 

@@ -53,7 +53,7 @@ describe(`Projects`, function() {
 
     const userProject = new Project({
       permissions: new Permissions({
-        owners: [msAuthUser],
+        admins: [msAuthUser],
         public: false,
       }),
     })

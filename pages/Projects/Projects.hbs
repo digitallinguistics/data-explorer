@@ -50,12 +50,12 @@
           {{/if}}
 
           {{#with permissions }}
-            {{#if isOwner }}
+            {{#if isAdmin }}
               <svg aria-hidden=true class=icon>
-                <title>owner</title>
+                <title>admin</title>
                 <use href=#shield-with-check>
               </svg>
-              <span class=visually-hidden>owner</span>
+              <span class=visually-hidden>admin</span>
             {{else if isEditor }}
               <svg aria-hidden=true class=icon>
                 <title>editor</title>

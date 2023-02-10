@@ -6,6 +6,14 @@ export default async function get(req, res) {
 
   const { languageID, lexemeID } = req.params
 
+  const { data: language } = await db.getLanguage(languageID)
+
+  if (!language) {
+    return res.error(`ItemNotFound`, {
+      message: `No language exists with ID <code class=code>${ languageID }</code>.`,
+    })
+  }
+
   const { data: lexeme } = await db.getLexeme(languageID, lexemeID)
 
   if (!lexeme) {
@@ -14,13 +22,9 @@ export default async function get(req, res) {
     })
   }
 
-  const { data: results } = await db.getMany(`metadata`, `Project`, lexeme.projects)
-
-  let projects = results
-  .filter(({ status }) => status === 200)
-  .map(({ data }) => data)
-
-  const isPrivate = !projects.some(project => project.permissions.public)
+  const projectIDs         = lexeme.projects.map(project => project.id)
+  const   { data: projects } = await db.getMany(`metadata`, `Project`, projectIDs)
+  const isPrivate          = !projects.some(project => project.permissions.public) && !language.permissions.public
 
   if (isPrivate && !res.locals.user) {
     return res.error(`Unauthenticated`, {
@@ -28,9 +32,8 @@ export default async function get(req, res) {
     })
   }
 
-  projects = projects.filter(project => hasAccess(res.locals.user, project))
-
-  const userHasAccess = Boolean(projects.length)
+  const userHasAccess = projects.some(project => hasAccess(res.locals.user, project))
+    || hasAccess(res.locals.user, language)
 
   if (!userHasAccess) {
     return res.error(`Unauthorized`, {
@@ -38,8 +41,7 @@ export default async function get(req, res) {
     })
   }
 
-  const { data: language } = await db.getLanguage(lexeme.language.id)
-  const title              = `Lexeme`
+  const title = `Lexeme`
 
   res.render(`Lexeme/Lexeme`, {
     language,

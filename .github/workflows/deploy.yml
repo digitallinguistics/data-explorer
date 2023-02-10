@@ -14,7 +14,7 @@ env:
   LOGGING:         TRUE
   MS_AUTH_COOKIE:  AppServiceAuthSession
   MS_AUTH_HEADER:  X-MS-CLIENT-PRINCIPAL-NAME
-  MS_AUTH_USER:    owner@digitallinguistics.io
+  MS_AUTH_USER:    admin@digitallinguistics.io
   NODE_ENV:        CI
   PORT:            3001
 

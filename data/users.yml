@@ -1,7 +1,7 @@
 - id       : 8b16cf5b-061d-45ef-b7e4-f3d6bcb4d7d5
   firstName: Test
-  lastName : Owner
-  email    : owner@digitallinguistics.io
+  lastName : Admin
+  email    : admin@digitallinguistics.io
 
 - id       : 4c43b825-c4bd-462a-921a-fb7470e7a2ac
   firstName: Test

@@ -36,7 +36,7 @@ notes:
       abbreviation: KW
     text:         The tribe prefers to use the term "sleeping" or "dormant" rather than "extinct".
 permissions:
-  owners:  [owner@digitallinguistics.io]
+  admins:  [admin@digitallinguistics.io]
   editors: [editor@digitallinguistics.io]
   viewers: [viewer@digitallinguistics.io]
   public:  true

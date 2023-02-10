@@ -3,8 +3,8 @@ import db      from '../../services/database.js'
 
 import {
   hasAccess,
+  isAdmin,
   isEditor,
-  isOwner,
 } from '../../utilities/permissions.js'
 
 export default async function get(req, res) {
@@ -46,7 +46,7 @@ export default async function get(req, res) {
   projects.sort((a, b) => compare(a.name, b.name))
 
   for (const project of projects) {
-    project.permissions.isOwner = isOwner(res.locals.user, project)
+    project.permissions.isAdmin = isAdmin(res.locals.user, project)
     project.permissions.isEditor = isEditor(res.locals.user, project)
   }
 

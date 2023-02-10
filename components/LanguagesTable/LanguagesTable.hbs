@@ -41,10 +41,10 @@
 
         {{!-- permissions --}}
         {{#with permissions }}
-          {{#if isOwner }}
-            <td class=permissions title=owner>
+          {{#if isAdmin }}
+            <td class=permissions title=admin>
               <svg aria-hidden=true><use href=#shield-with-check></svg>
-              <span class=visually-hidden>owner</span>
+              <span class=visually-hidden>admin</span>
             </td>
           {{else if isEditor }}
             <td class=permissions title=editor>
