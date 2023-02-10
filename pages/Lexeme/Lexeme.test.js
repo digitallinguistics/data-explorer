@@ -53,9 +53,7 @@ describe(`Lexeme`, function() {
 
     const lexeme = new Lexeme({
       id:       crypto.randomUUID(),
-      language: {
-        id: language.id,
-      },
+      language: language.getReference(),
     })
 
     cy.task(`seedOne`, [METADATA, language])
@@ -78,9 +76,7 @@ describe(`Lexeme`, function() {
 
     const lexeme = new Lexeme({
       id:       crypto.randomUUID(),
-      language: {
-        id: language.id,
-      },
+      language: language.getReference(),
     })
 
     cy.task(`seedOne`, [METADATA, language])
@@ -114,19 +110,21 @@ describe(`Lexeme`, function() {
 
     })
 
-    it.only(`display correctly`, function() {
+    it(`display correctly`, function() {
 
       const { language, lexeme, project } = this
 
       const typologyProject = new Project({
-        id:   lexeme.projects[1],
-        name: `Typology Project`,
+        id:   crypto.randomUUID(),
+        name: { eng: `Typology Project` },
       })
 
-      cy.seedOne(METADATA, language)
-      cy.seedOne(METADATA, project)
-      cy.seedOne(METADATA, typologyProject)
-      cy.seedOne(DATA, lexeme)
+      lexeme.projects.push(typologyProject.getReference())
+
+      cy.task(`seedOne`, [METADATA, new Language(language)])
+      cy.task(`seedOne`, [METADATA, new Project(project)])
+      cy.task(`seedOne`, [METADATA, new Project(typologyProject)])
+      cy.task(`seedOne`, [DATA, new Lexeme(lexeme)])
 
       cy.visit(`/languages/${ language.id }/lexemes/${ lexeme.id }`)
 
@@ -388,27 +386,26 @@ describe(`Lexeme`, function() {
 
     const project = new Project({
       id:   crypto.randomUUID(),
-      name: `Test Project`,
+      name: { eng: `Test Project` },
     })
 
     const language = new Language({
-      id: crypto.randomUUID(),
+      id:   crypto.randomUUID(),
+      name: {},
     })
 
     const lexeme = new Lexeme({
-      id:           crypto.randomUUID(),
-      language:     {
-        id: language.id,
-      },
-      projects: [project.id],
+      id:       crypto.randomUUID(),
+      language: language.getReference(),
+      projects: [project.getReference()],
     })
 
     delete lexeme.dateCreated
     delete lexeme.dateModified
 
-    cy.seedOne(METADATA, project)
-    cy.seedOne(METADATA, language)
-    cy.seedOne(DATA, lexeme)
+    cy.task(`seedOne`, [METADATA, project])
+    cy.task(`seedOne`, [METADATA, language])
+    cy.task(`seedOne`, [DATA, lexeme])
 
     // ASSERTIONS
 
@@ -477,7 +474,7 @@ describe(`Lexeme`, function() {
     // Projects
     // A lexeme must have a project in order for the server
     // to render the page properly.
-    cy.contains(`#projects`, project.name)
+    cy.contains(`#projects`, project.name.eng)
 
     // References
     cy.contains(`#lexeme__references`, emDash)
@@ -502,34 +499,35 @@ describe(`Lexeme`, function() {
 
     const project = new Project({
       id:   crypto.randomUUID(),
-      name: `Test Project`,
+      name: { eng: `Test Project` },
     })
 
     const language = new Language({
-      id: crypto.randomUUID(),
+      id:   crypto.randomUUID(),
+      name: {},
     })
 
     const lexeme = new Lexeme({
       forms:    [
         {
-          id: crypto.randomUUID(),
+          id:            crypto.randomUUID(),
+          transcription: {},
         },
       ],
       id:           crypto.randomUUID(),
-      language:     {
-        id: language.id,
-      },
-      projects: [project.id],
+      language:     language.getReference(),
+      projects: [project.getReference()],
       senses:   [
         {
-          id: crypto.randomUUID(),
+          gloss: {},
+          id:    crypto.randomUUID(),
         },
       ],
     })
 
-    cy.seedOne(METADATA, project)
-    cy.seedOne(METADATA, language)
-    cy.seedOne(DATA, lexeme)
+    cy.task(`seedOne`, [METADATA, project])
+    cy.task(`seedOne`, [METADATA, language])
+    cy.task(`seedOne`, [DATA, lexeme])
 
     cy.visit(`/languages/${ language.id }/lexemes/${ lexeme.id }`)
 
@@ -600,18 +598,18 @@ describe(`Lexeme`, function() {
 
     const publicProject = new Project({
       id:   crypto.randomUUID(),
-      name: `Public Project`,
+      name: { eng: `Public Project` },
     })
 
     const privateProject = new Project({
       id:          crypto.randomUUID(),
-      name:        `Private Project`,
+      name:        { eng: `Private Project` },
       permissions: new Permissions({ public: false }),
     })
 
     const userProject = new Project({
       id:          crypto.randomUUID(),
-      name:        `User Project`,
+      name:        { eng: `User Project` },
       permissions: new Permissions({
         admins: [msAuthUser],
       }),
@@ -623,21 +621,19 @@ describe(`Lexeme`, function() {
 
     const lexeme = new Lexeme({
       id:       crypto.randomUUID(),
-      language: {
-        id: language.id,
-      },
+      language: language.getReference(),
       projects: [
-        publicProject.id,
-        privateProject.id,
-        userProject.id,
+        publicProject.getReference(),
+        privateProject.getReference(),
+        userProject.getReference(),
       ],
     })
 
-    cy.seedOne(METADATA, publicProject)
-    cy.seedOne(METADATA, privateProject)
-    cy.seedOne(METADATA, userProject)
-    cy.seedOne(METADATA, language)
-    cy.seedOne(DATA, lexeme)
+    cy.task(`seedOne`, [METADATA, publicProject])
+    cy.task(`seedOne`, [METADATA, privateProject])
+    cy.task(`seedOne`, [METADATA, userProject])
+    cy.task(`seedOne`, [METADATA, language])
+    cy.task(`seedOne`, [DATA, lexeme])
 
     cy.visit(`/languages/${ language.id }/lexemes/${ lexeme.id }`)
     cy.get(`#metadata-link`).click()

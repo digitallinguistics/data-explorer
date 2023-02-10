@@ -1,9 +1,11 @@
 import yamlParser from 'js-yaml'
 
-import Language    from '../../models/Language.js'
-import Lexeme      from '../../models/Lexeme.js'
-import Permissions from '../../models/Permissions.js'
-import Project     from '../../models/Project'
+import {
+  Language,
+  Lexeme,
+  Permissions,
+  Project,
+} from '@digitallinguistics/models'
 
 const badID        = `bad-id`
 const container    = `metadata`
@@ -24,23 +26,16 @@ describe(`Project`, function() {
     cy.task(`deleteDatabase`)
   })
 
-  it(`404: Not Found`, function() {
-    cy.visit(`/projects/${ badID }`, { failOnStatusCode: false })
-    cy.title().should(`eq`, `Oxalis | Item Not Found`)
-    cy.get(`.page-title`).should(`have.text`, `404: Item Not Found`)
-    cy.get(`.error-message`).should(`have.text`, `No project exists with ID ${ badID }.`)
-  })
-
   it(`401: Unauthenticated`, function() {
 
     const project = new Project({
-      id:          `5cd2547e-a072-42f4-9f7c-86376d41b5eb`,
+      id:          crypto.randomUUID(),
       permissions: new Permissions({
         public: false,
       }),
     })
 
-    cy.seedOne(container, project)
+    cy.task(`seedOne`, [container, project])
     cy.visit(`/projects/${ project.id }`, { failOnStatusCode: false })
     cy.title().should(`eq`, `Oxalis | Unauthenticated`)
     cy.get(`.page-title`).should(`have.text`, `401: Unauthenticated`)
@@ -51,13 +46,13 @@ describe(`Project`, function() {
   it(`403: Unauthorized`, function() {
 
     const project = new Project({
-      id:          `a61cefab-368a-41f0-b08b-22c8e0c64928`,
+      id:          crypto.randomUUID(),
       permissions: new Permissions({
         public: false,
       }),
     })
 
-    cy.seedOne(container, project)
+    cy.task(`seedOne`, [container, project])
 
     cy.visit(`/projects/${ project.id }`, { failOnStatusCode: false })
     cy.setCookie(msAuthCookie, msAuthUser)
@@ -69,29 +64,35 @@ describe(`Project`, function() {
 
   })
 
+  it(`404: Not Found`, function() {
+    cy.visit(`/projects/${ badID }`, { failOnStatusCode: false })
+    cy.title().should(`eq`, `Oxalis | Item Not Found`)
+    cy.get(`.page-title`).should(`have.text`, `404: Item Not Found`)
+    cy.get(`.error-message`).should(`have.text`, `No project exists with ID ${ badID }.`)
+  })
+
   it(`200: OK`, function() {
 
     cy.readFile(`data/project.yml`)
     .then(yaml => yamlParser.load(yaml))
-    .then(project => {
+    .then(data => {
 
-      const count = 3
+      const project = new Project(data)
+      const count   = 3
 
       const language = new Language({
         id:       crypto.randomUUID(),
-        projects: [project.id],
+        projects: [project.getReference()],
       })
 
       const lexeme = new Lexeme({
-        language: {
-          id: language.id,
-        },
-        projects: [project.id],
+        language: language.getReference(),
+        projects: [project.getReference()],
       })
 
-      cy.seedOne(container, project)
-      cy.seedMany(container, count, language)
-      cy.seedMany(`data`, count, lexeme)
+      cy.task(`seedOne`, [container, project])
+      cy.task(`seedMany`, [container, count, language])
+      cy.task(`seedMany`, [`data`, count, lexeme])
 
       cy.visit(`/projects/${ project.id }`)
 

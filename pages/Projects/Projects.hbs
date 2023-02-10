@@ -33,7 +33,7 @@
       <li class=project data-id='{{ project.id }}'>
         <header class=project__header>
 
-          <a class='link project__name' href='/projects/{{ id }}'>{{ name }}</a>
+          <a class='link project__name' href='/projects/{{ id }}'>{{mls name defaultAnalysisLanguage}}</a>
 
           {{#if permissions.public }}
             <svg aria-hidden=true class=icon>

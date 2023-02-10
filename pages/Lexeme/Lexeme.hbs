@@ -108,9 +108,13 @@
       <ol class='glosses numbered'>
         {{#each lexeme.senses }}
           {{#if gloss }}
-            <li class='gloss tln'>{{mls gloss }}</li>
+            {{#if (mls gloss) }}
+              <li class='gloss tln'>{{mls gloss @root.language.defaultAnalysisLanguage }}</li>
+            {{else}}
+              <li class=gloss>—</li>
+            {{/if}}
           {{else if definition }}
-            <li class='gloss tln'>{{mls definition }}</li>
+            <li class='gloss tln'>{{mls definition @root.language.defaultAnalysisLanguage }}</li>
           {{else}}
             <li class=gloss>—</li>
           {{/if}}
@@ -324,7 +328,11 @@
 
             <label class=label for=sense-{{ id }}__gloss>Gloss</label>
             {{#if gloss }}
-              {{> MultiLangString/MultiLangString data=sense.gloss attributes=(concat 'id=sense-' id '__gloss') }}
+              {{#if (mls gloss) }}
+                {{> MultiLangString/MultiLangString data=sense.gloss attributes=(concat 'id=sense-' id '__gloss') }}
+              {{else}}
+                <span id='sense-{{ id }}__gloss'>—</span>
+              {{/if}}
             {{else}}
               <span id='sense-{{ id }}__gloss'>—</span>
             {{/if}}
@@ -383,7 +391,7 @@
       {{#if projects }}
         <ul id=projects>
           {{#each projects as |project| }}
-            <li><a class=link href=/projects/{{ id }}>{{ name }}</a></li>
+            <li><a class=link href=/projects/{{ id }}>{{mls name }}</a></li>
           {{/each}}
         </ul>
       {{else}}

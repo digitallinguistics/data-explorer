@@ -1,10 +1,12 @@
 import prepareTranscription from '../../utilities/prepareTranscription.js'
 import yamlParser           from 'js-yaml'
 
-import Language    from '../../models/Language.js'
-import Lexeme      from '../../models/Lexeme.js'
-import Permissions from '../../models/Permissions.js'
-import Project     from '../../models/Project.js'
+import {
+  Language,
+  Lexeme,
+  Permissions,
+  Project,
+} from '@digitallinguistics/models'
 
 const badID        = `bad-id`
 const msAuthCookie = Cypress.env(`msAuthCookie`)
@@ -29,26 +31,71 @@ describe(`Lexemes`, function() {
 
   describe(`/languages`, function() {
 
+    it(`401: Unauthenticated`, function() {
+
+      const language = new Language({
+        id:          crypto.randomUUID(),
+        permissions: new Permissions({
+          public: false,
+        }),
+      })
+
+      const lexeme = new Lexeme({
+        language: language.getReference(),
+      })
+
+      cy.task(`seedOne`, [METADATA, language])
+      cy.task(`seedOne`, [DATA, lexeme])
+      cy.visit(`/languages/${ language.id }/lexemes`, { failOnStatusCode: false })
+      cy.contains(`.page-title`, `401: Unauthenticated`)
+      cy.contains(`.error-message`, `You must be logged in to view this lexeme.`)
+
+    })
+
+    it(`403: Unauthorized`, function() {
+
+      const language = new Language({
+        id:          crypto.randomUUID(),
+        permissions: new Permissions({
+          public: false,
+        }),
+      })
+
+      const lexeme = new Lexeme({
+        language: language.getReference(),
+      })
+
+      cy.task(`seedOne`, [METADATA, language])
+      cy.task(`seedOne`, [DATA, lexeme])
+      cy.visit(`/languages/${ language.id }/lexemes`, { failOnStatusCode: false })
+      cy.setCookie(msAuthCookie, msAuthUser)
+      cy.reload()
+      cy.contains(`.page-title`, `403: Unauthorized`)
+      cy.contains(`.error-message`, `You do not have permission to view this lexeme.`)
+
+    })
+
     it(`404: Language Not Found`, function() {
 
       const lexeme = new Lexeme({
         id:       crypto.randomUUID(),
         language: {
-          id: crypto.randomUUID(),
+          id:   crypto.randomUUID(),
+          name: {},
         },
       })
 
-      cy.seedOne(DATA, lexeme)
+      cy.task(`seedOne`, [DATA, lexeme])
       cy.visit(`/languages/${ badID }/lexemes`, { failOnStatusCode: false })
       cy.contains(`.page-title`, `404: Item Not Found`)
       cy.contains(`.error-message`, `No language exists with ID ${ badID }.`)
 
     })
 
-    // 401: Unauthenticated: Won't do this because permissions don't exist on languages.
-    // 403: Unauthorized: Won't do this because permissions don't exist on languages.
+    describe(`200: Lexemes`, function() {
 
-    describe(`200: Lexemes (data)`, function() {
+      // NOTE: I'm using a `describe()` method here because it allows for a before hook,
+      // and this makes the code much easier to read (instead of nesting `readFile()` calls).
 
       before(function() {
 
@@ -70,9 +117,9 @@ describe(`Lexemes`, function() {
 
         const { project, language, lexeme } = this
 
-        cy.seedOne(METADATA, project)
-        cy.seedOne(METADATA, language)
-        cy.seedOne(DATA, lexeme)
+        cy.task(`seedOne`, [METADATA, project])
+        cy.task(`seedOne`, [METADATA, language])
+        cy.task(`seedOne`, [DATA, lexeme])
 
         cy.visit(`/languages/${ language.id }/lexemes`)
 
@@ -107,75 +154,6 @@ describe(`Lexemes`, function() {
 
     })
 
-    it(`200: Lexemes (permissions)`, function() {
-
-      // SETUP
-
-      const publicProject = new Project({
-        id: crypto.randomUUID(),
-      })
-
-      const userProject = new Project({
-        id:          crypto.randomUUID(),
-        permissions: new Permissions({
-          admins: [msAuthUser],
-          public: false,
-        }),
-      })
-
-      const privateProject = new Project({
-        id:          crypto.randomUUID(),
-        permissions: new Permissions({
-          public: false,
-        }),
-      })
-
-      const language = new Language({
-        id: crypto.randomUUID(),
-      })
-
-      const count = 3
-
-      cy.seedOne(METADATA, publicProject)
-      cy.seedOne(METADATA, userProject)
-      cy.seedOne(METADATA, privateProject)
-      cy.seedOne(METADATA, language)
-
-      cy.seedMany(DATA, count, new Lexeme({
-        language: {
-          id:   language.id,
-          name: {},
-        },
-        projects: [publicProject.id],
-      }))
-
-      cy.seedMany(DATA, count, new Lexeme({
-        language: {
-          id:   language.id,
-          name: {},
-        },
-        projects: [userProject.id],
-      }))
-
-      cy.seedMany(DATA, count, new Lexeme({
-        language: {
-          id:   language.id,
-          name: {},
-        },
-        projects: [privateProject.id],
-      }))
-
-      cy.visit(`/languages/${ language.id }/lexemes`)
-
-      // ASSERTIONS
-
-      cy.get(`tbody`).children().should(`have.length`, count)
-      cy.setCookie(msAuthCookie, msAuthUser)
-      cy.reload()
-      cy.get(`tbody`).children().should(`have.length`, count * 2)
-
-    })
-
     it(`displays unattested forms with an asterisk`, function() {
 
       // SETUP
@@ -185,10 +163,8 @@ describe(`Lexemes`, function() {
 
       const lexeme = new Lexeme({
         id:       crypto.randomUUID(),
-        language: {
-          id: language.id,
-        },
-        lemma: {
+        language: language.getReference(),
+        lemma:    {
           transcription: {
             Modern: `cuw-`,
             APA:    `čuw-`,
@@ -196,12 +172,12 @@ describe(`Lexemes`, function() {
           },
           unattested: true,
         },
-        projects: [project.id],
+        projects: [project.getReference()],
       })
 
-      cy.seedOne(METADATA, project)
-      cy.seedOne(METADATA, language)
-      cy.seedOne(DATA, lexeme)
+      cy.task(`seedOne`, [METADATA, project])
+      cy.task(`seedOne`, [METADATA, language])
+      cy.task(`seedOne`, [DATA, lexeme])
 
       // ASSERTIONS
 
@@ -214,13 +190,6 @@ describe(`Lexemes`, function() {
 
   describe(`/projects`, function() {
 
-    it(`404: Project Not Found`, function() {
-      cy.visit(`/projects/${ badID }/lexemes`, { failOnStatusCode: false })
-      cy.title().should(`eq`, `Oxalis | Item Not Found`)
-      cy.get(`.page-title`).should(`have.text`, `404: Item Not Found`)
-      cy.get(`.error-message`).should(`have.text`, `No project exists with ID ${ badID }.`)
-    })
-
     it(`401: Unauthenticated`, function() {
 
       const project = new Project({
@@ -228,7 +197,7 @@ describe(`Lexemes`, function() {
         permissions: new Permissions({ public: false }),
       })
 
-      cy.seedOne(METADATA, project)
+      cy.task(`seedOne`, [METADATA, project])
 
       cy.visit(`/projects/${ project.id }/lexemes`, { failOnStatusCode: false })
 
@@ -247,7 +216,7 @@ describe(`Lexemes`, function() {
         }),
       })
 
-      cy.seedOne(METADATA, project)
+      cy.task(`seedOne`, [METADATA, project])
 
       cy.visit(`/projects/${ project.id }/lexemes`, { failOnStatusCode: false })
       cy.setCookie(msAuthCookie, msAuthUser)
@@ -259,25 +228,63 @@ describe(`Lexemes`, function() {
 
     })
 
+    it(`404: Project Not Found`, function() {
+      cy.visit(`/projects/${ badID }/lexemes`, { failOnStatusCode: false })
+      cy.title().should(`eq`, `Oxalis | Item Not Found`)
+      cy.get(`.page-title`).should(`have.text`, `404: Item Not Found`)
+      cy.get(`.error-message`).should(`have.text`, `No project exists with ID ${ badID }.`)
+    })
+
+
     it(`200: Lexemes`, function() {
 
-      const project = new Project({ id: crypto.randomUUID() })
+      const project  = new Project({ id: crypto.randomUUID() })
+      const language = new Language({ id: crypto.randomUUID() })
 
       const lexeme = new Lexeme({
-        language: {
-          id: crypto.randomUUID(),
-        },
-        projects: [project.id],
+        language: language.getReference(),
+        projects: [project.getReference()],
       })
 
       const count = 3
 
-      cy.seedOne(METADATA, project)
-      cy.seedMany(DATA, count, lexeme)
+      cy.task(`seedOne`, [METADATA, project])
+      cy.task(`seedMany`, [DATA, count, lexeme])
 
       cy.visit(`/projects/${ project.id }/lexemes`)
 
       cy.get(`tbody`).children().should(`have.length`, count)
+
+    })
+
+  })
+
+  describe(`variable permissions`, function() {
+
+    it(`changes visibility for language vs. project`, function() {
+
+      const language = new Language({
+        id:          crypto.randomUUID(),
+        permissions: new Permissions({
+          public: false,
+        }),
+      })
+
+      const project = new Project({
+        id: crypto.randomUUID(),
+      })
+
+      const lexeme = new Lexeme({
+        language: language.getReference(),
+        projects: [project.getReference()],
+      })
+
+      cy.task(`seedOne`, [METADATA, language])
+      cy.task(`seedOne`, [METADATA, project])
+      cy.task(`seedOne`, [DATA, lexeme])
+
+      cy.visit(`/languages/${ language.id }/lexemes`, { failOnStatusCode: false }) // does not have access via language
+      cy.visit(`/projects/${ project.id }/lexemes`)                                // has access via project
 
     })
 

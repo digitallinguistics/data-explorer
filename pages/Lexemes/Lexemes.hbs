@@ -8,13 +8,13 @@
 
     <h1 class=page-title>
       {{~#if project ~}}
-        {{#if project.name }}
-          {{~ project.name ~}}
+        {{#if (mls project.name) }}
+          {{~mls project.name project.defaultAnalysisLanguage ~}}
         {{else}}
           [no project name given]
         {{/if}}
       {{~ else ~}}
-        {{#if (obj language.name) }}
+        {{#if (mls language.name) }}
           {{~mls language.name language.defaultAnalysisLanguage ~}}
         {{else}}
           [no language name given]
@@ -91,11 +91,11 @@
                 <ol class=numbered>
                   {{~#each senses as |sense| ~}}
                     <li>
-                      {{~#if sense.gloss ~}}
+                      {{#if (mls sense.gloss) }}
                         {{~mls sense.gloss ../language.defaultAnalysisLanguage ~}}
-                      {{~else~}}
+                      {{else}}
                         —
-                      {{~/if~}}
+                      {{/if}}
                     </li>
                   {{~/each~}}
                 </ol>

@@ -66,37 +66,29 @@ describe(`Language`, function() {
 
     cy.readFile(`data/language.yml`)
     .then(yaml => yamlParser.load(yaml))
-    .then(language => {
+    .then(data => {
 
-      cy.task(`seedOne`, [`metadata`, new Language(language).data])
+      const count    = 3
+      const language = new Language(data)
 
-      cy.task(`seedOne`, [
-        `metadata`,
-        new Project({
-          id:   language.projects[0].id,
-          name: `Chitimacha Dictionary Project`,
-        }).data,
-      ])
+      const projectA = new Project({
+        id:   language.projects[0].id,
+        name: { eng: `Chitimacha Dictionary Project` },
+      })
 
-      cy.task(`seedOne`, [
-        `metadata`,
-        new Project({
-          id:   language.projects[1].id,
-          name: `Typology Project`,
-        }).data,
-      ])
+      const projectB = new Project({
+        id:   language.projects[1].id,
+        name: { eng: `Typology Project` },
+      })
 
-      const count = 3
+      const lexeme = new Lexeme({
+        language: language.getReference(),
+      })
 
-      cy.task(`seedMany`, [
-        `data`,
-        count,
-        new Lexeme({
-          language: {
-            id: language.id,
-          },
-        }).data,
-      ])
+      cy.task(`seedOne`, [`metadata`, language])
+      cy.task(`seedOne`, [`metadata`, projectA])
+      cy.task(`seedOne`, [`metadata`, projectB])
+      cy.task(`seedMany`, [`data`, count, lexeme])
 
       cy.visit(`/languages/${ language.id }`)
       cy.title().should(`equal`, `Oxalis | ${ language.name.eng }`)
