@@ -26,24 +26,34 @@ jobs:
       url: ${{ steps.deploy-to-webapp.outputs.webapp-url }}
 
     steps:
-      - uses: actions/checkout@v2
 
-      - name: Set up Node.js version
-        uses: actions/setup-node@v1
+      - name: checkout
+        uses: actions/checkout@v3
+
+      - name: set up Node
+        uses: actions/setup-node@v3
         with:
-          node-version: '16.x'
+          node-version: 18
+
+      - name: cache Node.js modules
+        id:   cache
+        uses: actions/cache@v3
+        with:
+          path: ~/.npm
+          key:  ${{ hashFiles('**/package-lock.json') }}
 
       - name: npm install, build, and test
         run: |
-          npm install
-          npm run build --if-present
-          npm run test --if-present
+          npm ci
+          npm run stop-only
+          npm run build
+          npm test
 
-      - name: 'Deploy to Azure Web App'
-        id: deploy-to-webapp
+      - name: Deploy to Azure Web App
+        id:   deploy-to-webapp
         uses: azure/webapps-deploy@v2
         with:
-          app-name: 'oxalis'
-          slot-name: 'Production'
+          app-name:        oxalis
+          slot-name:       Production
           publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_387A649633B6402697C5E5604359D83C }}
-          package: .
+          package:         .

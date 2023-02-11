@@ -49,6 +49,7 @@
   },
   "devDependencies": {
     "@bahmutov/cypress-esbuild-preprocessor": "^2.1.5",
+    "@digitallinguistics/db": "^0.5.1",
     "@digitallinguistics/design": "^0.24.1",
     "@digitallinguistics/eslint-config": "^0.3.0",
     "@digitallinguistics/models": "^0.4.1",
@@ -78,7 +79,6 @@
     "svgstore": "^3.0.1"
   },
   "dependencies": {
-    "@digitallinguistics/db": "^0.4.0",
     "cookie-parser": "^1.4.6",
     "dotenv": "^16.0.3",
     "express": "^5.0.0-beta.1",
