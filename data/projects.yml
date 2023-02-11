@@ -9,13 +9,13 @@
       html: Only Daniel Hieber and members of the Chitimacha language team may access this project.
       text: Only Daniel Hieber and members of the Chitimacha language team may access this project.
   permissions:
-    owners:  [owner@digitallinguistics.io]
+    admins:  [admin@digitallinguistics.io]
     editors: []
     viewers: [viewer@digitallinguistics.io]
     public:  false
   readme:
-    html:     This project is meant to emulate the Chitimacha dictionary (owner + viewer).
-    markdown: This project is meant to emulate the Chitimacha dictionary (owner + viewer).
+    html:     This project is meant to emulate the Chitimacha dictionary (admin + viewer).
+    markdown: This project is meant to emulate the Chitimacha dictionary (admin + viewer).
 
 - id:           26d40299-98fb-48c8-b51f-e62397269817
   name:         Menominee Dictionary
@@ -28,13 +28,13 @@
       html: Only Monica Macaulay and members of the Menominee language team may access this project.
       text: Only Monica Macaulay and members of the Menominee language team may access this project.
   permissions:
-    owners:  [owner@digitallinguistics.io]
+    admins:  [admin@digitallinguistics.io]
     editors: [editor@digitallinguistics.io]
     viewers: []
     public:  false
   readme:
-    html:     This project is meant to emulate the Menominee dictionary (owner + editor).
-    markdown: This project is meant to emulate the Menominee dictionary (owner + editor).
+    html:     This project is meant to emulate the Menominee dictionary (admin + editor).
+    markdown: This project is meant to emulate the Menominee dictionary (admin + editor).
 
 - id:           c554474c-7f39-4ede-941b-c40b8f58b059
   name:         Nisinoon
@@ -47,7 +47,7 @@
       html: Anyone may view this project.
       text: Anyone may view this project.
   permissions:
-    owners:  [owner@digitallinguistics.io]
+    admins:  [admin@digitallinguistics.io]
     editors: [editor@digitallinguistics.io]
     viewers: []
     public:  true
@@ -66,7 +66,7 @@
       html: Nobody may access this project.
       text: Nobody may access this project.
   permissions:
-    owners:  [owner@digitallinguistics.io]
+    admins:  [admin@digitallinguistics.io]
     editors: []
     viewers: []
     public:  false

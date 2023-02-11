@@ -3,7 +3,8 @@ import { hasAccess } from '../../utilities/permissions.js'
 
 export default async function get(req, res) {
 
-  const { projectID }     = req.params
+  const { projectID } = req.params
+
   const { data: project } = await db.getProject(projectID)
 
   if (!project) {
@@ -25,19 +26,12 @@ export default async function get(req, res) {
   }
 
   const { data: languages } = await db.getLanguages({ project: projectID })
-  const { data: { count } } = await db.count(`Lexeme`, { project: projectID })
-  const { admins, editors } = project.permissions
 
-  const numCollaborators = new Set([...admins, ...editors]).size
-
-  res.render(`Project/Project`, {
+  res.render(`Languages/Languages`, {
     languages,
-    numCollaborators,
-    numLanguages: languages.length,
-    numLexemes:   count,
+    Languages: true,
     project,
-    Project:      true,
-    title:        project.name,
+    title:     `Languages`,
   })
 
 }

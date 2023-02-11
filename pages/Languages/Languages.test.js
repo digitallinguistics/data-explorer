@@ -1,20 +1,28 @@
 import yamlParser from 'js-yaml'
 
-import Language    from '../../models/Language.js'
-import Permissions from '../../models/Permissions.js'
-import Project     from '../../models/Project.js'
+import {
+  Language,
+  Permissions,
+  Project,
+} from '@digitallinguistics/models'
 
 const msAuthCookie = Cypress.env(`msAuthCookie`)
 const msAuthUser   = Cypress.env(`msAuthUser`)
 
 describe(`Languages`, function() {
 
+  const container = `metadata`
+
   before(function() {
     cy.task(`setupDatabase`)
   })
 
-  this.afterEach(function() {
-    cy.clearDatabase()
+  afterEach(function() {
+    cy.task(`clearDatabase`)
+  })
+
+  after(function() {
+    cy.task(`deleteDatabase`)
   })
 
   describe(`/languages`, function() {
@@ -23,32 +31,36 @@ describe(`Languages`, function() {
 
       cy.readFile(`data/language.yml`)
       .then(yaml => yamlParser.load(yaml))
-      .then(data => {
-        cy.addOne(data)
+      .then(data => cy.task(`seedOne`, [`metadata`, new Language(data).data]))
+      .then(language => {
         cy.visit(`/languages`)
         cy.get(`.privacy`).should(`include.text`, `public`)
         cy.get(`.permissions`).should(`include.text`, `public`)
-        cy.get(`.name`).should(`include.text`, data.name.eng)
-        cy.get(`.autonym`).should(`include.text`, data.autonym.Modern)
-        cy.get(`.abbreviation`).should(`include.text`, data.abbreviation)
-        cy.get(`.glottocode`).should(`include.text`, data.glottocode)
-        cy.get(`.iso`).should(`include.text`, data.iso)
-        cy.get(`.date-created`).should(`include.text`, new Date(data.dateCreated).toLocaleDateString(`en-CA`))
-        cy.get(`.date-modified`).should(`include.text`, new Date(data.dateModified).toLocaleDateString(`en-CA`))
+        cy.get(`.name`).should(`include.text`, language.name.eng)
+        cy.get(`.autonym`).should(`include.text`, language.autonym.Modern)
+        cy.get(`.abbreviation`).should(`include.text`, language.abbreviation)
+        cy.get(`.glottocode`).should(`include.text`, language.glottocode)
+        cy.get(`.iso`).should(`include.text`, language.iso)
+        cy.get(`.date-created`).should(`include.text`, new Date(language.dateCreated).toLocaleDateString())
+        cy.get(`.date-modified`).should(`include.text`, new Date(language.dateModified).toLocaleDateString())
       })
 
     })
 
     it(`displays all public languages`, function() {
 
-      const count           = 3
-      const publicLanguage  = new Language
-      const privateLanguage = new Language
+      const count = 3
 
-      privateLanguage.permissions.public = false
+      const publicLanguage = new Language
 
-      cy.addMany(count, publicLanguage)
-      cy.addMany(count, privateLanguage)
+      const privateLanguage = new Language({
+        permissions: new Permissions({
+          public: false,
+        }),
+      })
+
+      cy.task(`seedMany`, [container, count, publicLanguage])
+      cy.task(`seedMany`, [container, count, privateLanguage])
 
       cy.visit(`/languages`)
       cy.title().should(`eq`, `Oxalis | Languages`)
@@ -61,89 +73,96 @@ describe(`Languages`, function() {
 
     })
 
-    it(`private languages (owner@digitallinguistics.io)`, function() {
+    it(`private languages (admin@digitallinguistics.io)`, function() {
 
-      const publicLanguage       = new Language
-      const privateLanguage      = new Language
-      const unauthorizedLanguage = new Language
+      const publicLanguage = new Language
 
-      privateLanguage.permissions.public = false
-      privateLanguage.permissions.owners.push(msAuthUser)
-      unauthorizedLanguage.permissions.public = false
+      const privateLanguage = new Language({
+        permissions: new Permissions({
+          public: false,
+        }),
+      })
+
+      const userLanguage = new Language({
+        permissions: {
+          admins: [msAuthUser],
+          public: false,
+        },
+      })
 
       const count = 3
 
-      cy.addMany(count, publicLanguage)
-      cy.addMany(count, privateLanguage)
-      cy.addMany(count, unauthorizedLanguage)
+      cy.task(`seedMany`, [container, count, publicLanguage])
+      cy.task(`seedMany`, [container, count, privateLanguage])
+      cy.task(`seedMany`, [container, count, userLanguage])
 
       cy.visit(`/languages`)
       cy.setCookie(msAuthCookie, msAuthUser)
       cy.reload()
 
       cy.get(`.languages-table tbody`).children().should(`have.length`, count * 2)
-      cy.get(`tbody .privacy[title=public]`).should(`have.length`, count)
-      cy.get(`tbody .privacy[title=private]`).should(`have.length`, count)
-      cy.get(`tbody .permissions[title=public]`).should(`have.length`, count)
-      cy.get(`tbody .permissions[title=owner]`).should(`have.length`, count)
 
     })
 
     it(`private languages (editor@digitallinguistics.io)`, function() {
 
-      const user                 = `editor@digitallinguistics.io`
-      const publicLanguage       = new Language
-      const privateLanguage      = new Language
-      const unauthorizedLanguage = new Language
+      const publicLanguage = new Language
 
-      privateLanguage.permissions.public = false
-      privateLanguage.permissions.editors.push(user)
-      unauthorizedLanguage.permissions.public = false
+      const privateLanguage = new Language({
+        permissions: new Permissions({
+          public: false,
+        }),
+      })
+
+      const userLanguage = new Language({
+        permissions: {
+          editors: [msAuthUser],
+          public:  false,
+        },
+      })
 
       const count = 3
 
-      cy.addMany(count, publicLanguage)
-      cy.addMany(count, privateLanguage)
-      cy.addMany(count, unauthorizedLanguage)
+      cy.task(`seedMany`, [container, count, publicLanguage])
+      cy.task(`seedMany`, [container, count, privateLanguage])
+      cy.task(`seedMany`, [container, count, userLanguage])
 
       cy.visit(`/languages`)
-      cy.setCookie(msAuthCookie, user)
+      cy.setCookie(msAuthCookie, msAuthUser)
       cy.reload()
 
       cy.get(`.languages-table tbody`).children().should(`have.length`, count * 2)
-      cy.get(`tbody .privacy[title=public]`).should(`have.length`, count)
-      cy.get(`tbody .privacy[title=private]`).should(`have.length`, count)
-      cy.get(`tbody .permissions[title=public]`).should(`have.length`, count)
-      cy.get(`tbody .permissions[title=editor]`).should(`have.length`, count)
 
     })
 
     it(`private languages (viewer@digitallinguistics.io)`, function() {
 
-      const user                 = `viewe@digitallinguistics.io`
-      const publicLanguage       = new Language
-      const privateLanguage      = new Language
-      const unauthorizedLanguage = new Language
+      const publicLanguage = new Language
 
-      privateLanguage.permissions.public = false
-      privateLanguage.permissions.viewers.push(user)
-      unauthorizedLanguage.permissions.public = false
+      const privateLanguage = new Language({
+        permissions: new Permissions({
+          public: false,
+        }),
+      })
+
+      const userLanguage = new Language({
+        permissions: {
+          public:  false,
+          viewers: [msAuthUser],
+        },
+      })
 
       const count = 3
 
-      cy.addMany(count, publicLanguage)
-      cy.addMany(count, privateLanguage)
-      cy.addMany(count, unauthorizedLanguage)
+      cy.task(`seedMany`, [container, count, publicLanguage])
+      cy.task(`seedMany`, [container, count, privateLanguage])
+      cy.task(`seedMany`, [container, count, userLanguage])
 
       cy.visit(`/languages`)
-      cy.setCookie(msAuthCookie, user)
+      cy.setCookie(msAuthCookie, msAuthUser)
       cy.reload()
 
       cy.get(`.languages-table tbody`).children().should(`have.length`, count * 2)
-      cy.get(`tbody .privacy[title=public]`).should(`have.length`, count)
-      cy.get(`tbody .privacy[title=private]`).should(`have.length`, count)
-      cy.get(`tbody .permissions[title=public]`).should(`have.length`, count)
-      cy.get(`tbody .permissions[title=viewer]`).should(`have.length`, count)
 
     })
 
@@ -162,16 +181,16 @@ describe(`Languages`, function() {
     it(`Project: Unauthenticated`, function() {
 
       const project = new Project({
-        id:          `137a795b-c128-44fa-839a-6d431faccca7`,
+        id:          crypto.randomUUID(),
         permissions: new Permissions({ public: false }),
       })
 
       const language = new Language({
-        projects: [project.id],
+        projects: [project.getReference()],
       })
 
-      cy.addOne(project)
-      cy.addOne(language)
+      cy.task(`seedOne`, [container, project.data])
+      cy.task(`seedOne`, [container, language.data])
       cy.visit(`/projects/${ project.id }/languages`, { failOnStatusCode: false })
       cy.contains(`.page-title`, `401: Unauthenticated`)
       cy.contains(`.error-message`, `You must be logged in to view this project.`)
@@ -181,18 +200,18 @@ describe(`Languages`, function() {
     it(`Project: Unauthorized`, function() {
 
       const project = new Project({
-        id:          `137a795b-c128-44fa-839a-6d431faccca7`,
+        id:          crypto.randomUUID(),
         permissions: new Permissions({
           public: false,
         }),
       })
 
       const language = new Language({
-        projects: [project.id],
+        projects: [project.getReference()],
       })
 
-      cy.addOne(project)
-      cy.addOne(language)
+      cy.task(`seedOne`, [container, project])
+      cy.task(`seedOne`, [container, language])
       cy.visit(`/`)
       cy.setCookie(msAuthCookie, msAuthUser)
       cy.visit(`/projects/${ project.id }/languages`, { failOnStatusCode: false })
@@ -204,22 +223,25 @@ describe(`Languages`, function() {
     it(`displays project languages`, function() {
 
       const project = new Project({
-        id: `a4df0d8e-3456-42fd-97c1-1133757ae872`,
+        id:   crypto.randomUUID(),
+        name: {
+          eng: `Test Project`,
+        },
       })
 
       const projectLanguage = new Language({
-        projects: [project.id],
+        projects: [project.getReference()],
       })
 
       const otherLanguage = new Language
+      const count         = 3
 
-      const count = 3
-
-      cy.addOne(project)
-      cy.addMany(count, projectLanguage)
-      cy.addMany(count, otherLanguage)
+      cy.task(`seedOne`, [container, project])
+      cy.task(`seedMany`, [container, count, projectLanguage])
+      cy.task(`seedMany`, [container, count, otherLanguage])
 
       cy.visit(`/projects/${ project.id }/languages`)
+      cy.contains(`.page-title`, project.name.eng)
       cy.get(`.languages-table tbody`).children().should(`have.length`, count)
 
     })

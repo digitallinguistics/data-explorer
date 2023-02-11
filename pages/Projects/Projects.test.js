@@ -1,8 +1,8 @@
 import yamlParser from 'js-yaml'
 
-import Permissions from '../../models/Permissions.js'
-import Project     from '../../models/Project.js'
+import { Permissions, Project } from '@digitallinguistics/models'
 
+const container    = `metadata`
 const msAuthCookie = Cypress.env(`msAuthCookie`)
 const msAuthUser   = Cypress.env(`msAuthUser`)
 
@@ -13,19 +13,23 @@ describe(`Projects`, function() {
   })
 
   afterEach(function() {
-    cy.clearDatabase()
+    cy.task(`clearDatabase`)
+  })
+
+  after(function() {
+    cy.task(`deleteDatabase`)
   })
 
   it(`200: OK (public projects)`, function() {
 
     const projects = [
-      { name: `Chitimacha Dictionary` },
-      { name: `Nisinoon` },
-      { name: `Typology Project` },
+      { name: { eng: `Chitimacha Dictionary` } },
+      { name: { eng: `Nisinoon` } },
+      { name: { eng: `Typology Project` } },
     ]
 
     for (const project of projects) {
-      cy.addOne(new Project(project))
+      cy.task(`seedOne`, [container, new Project(project)])
     }
 
     cy.visit(`/projects`)
@@ -35,7 +39,7 @@ describe(`Projects`, function() {
     cy.get(`.projects-list`).children().should(`have.length`, projects.length)
 
     for (const project of projects) {
-      cy.contains(`header`, project.name)
+      cy.contains(`header`, project.name.eng)
     }
 
   })
@@ -48,7 +52,7 @@ describe(`Projects`, function() {
 
     const userProject = new Project({
       permissions: new Permissions({
-        owners: [msAuthUser],
+        admins: [msAuthUser],
         public: false,
       }),
     })
@@ -59,9 +63,9 @@ describe(`Projects`, function() {
       }),
     })
 
-    cy.addOne(publicProject)
-    cy.addOne(userProject)
-    cy.addOne(privateProject)
+    cy.task(`seedOne`, [container, publicProject])
+    cy.task(`seedOne`, [container, userProject])
+    cy.task(`seedOne`, [container, privateProject])
 
     cy.visit(`/projects`)
     cy.get(`.projects-list`).children().should(`have.length`, 1)
@@ -77,11 +81,11 @@ describe(`Projects`, function() {
     .then(yaml => yamlParser.load(yaml))
     .then(project => {
 
-      cy.addOne(project)
+      cy.task(`seedOne`, [container, project])
       cy.visit(`/projects`)
 
       cy.get(`[data-id=${ project.id }]`).within(() => {
-        cy.contains(`.project__header`, project.name)
+        cy.contains(`.project__header`, project.name.eng)
         cy.contains(`.date-created`, `Created ${ new Date(project.dateCreated).toLocaleDateString(undefined, { dateStyle: `long` }) }`)
       })
 

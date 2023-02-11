@@ -10,11 +10,8 @@ export function PageNotFound(req, res) {
 }
 
 export function ServerError(err, req, res, next) {
-
   if (process.env.LOGGING !== `production`) console.error(err)
-
   res.error(`ServerError`)
-
 }
 
 export function ServerErrorTest() {

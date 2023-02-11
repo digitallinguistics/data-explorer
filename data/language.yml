@@ -36,10 +36,14 @@ notes:
       abbreviation: KW
     text:         The tribe prefers to use the term "sleeping" or "dormant" rather than "extinct".
 permissions:
-  owners:  [owner@digitallinguistics.io]
+  admins:  [admin@digitallinguistics.io]
   editors: [editor@digitallinguistics.io]
   viewers: [viewer@digitallinguistics.io]
   public:  true
 projects:
-  - 683a5d27-53bf-451b-80d1-f6e731674c9e # Chitimacha Dictionary Project
-  - 225eeff5-adb8-421b-b9d0-7b5174419402 # Typology Project
+  - id: 683a5d27-53bf-451b-80d1-f6e731674c9e
+    name:
+      eng: Chitimacha Dictionary Project
+  - id: 225eeff5-adb8-421b-b9d0-7b5174419402
+    name:
+      eng: Typology Project

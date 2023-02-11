@@ -1,46 +1,23 @@
 import db from '../../services/database.js'
 
 import {
-  hasAccess,
+  isAdmin,
   isEditor,
-  isOwner,
   isViewer,
 } from '../../utilities/permissions.js'
 
 export default async function get(req, res) {
 
-  if (req.params.projectID) {
+  let languages
 
-    var { data: project } = await db.get(req.params.projectID)
-
-    if (!project) {
-      return res.error(`ItemNotFound`, {
-        message: `No project exists with ID <code class=code>${ req.params.projectID }</code>.`,
-      })
-    }
-
-    if (!project.permissions.public && !res.locals.user) {
-      return res.error(`Unauthenticated`, {
-        message: `You must be logged in to view this project.`,
-      })
-    }
-
-    if (!hasAccess(res.locals.user, project)) {
-      return res.error(`Unauthorized`, {
-        message: `You do not have permission to view this project.`,
-      })
-    }
-
+  if (res.locals.user) {
+    ({ data: languages }  = await db.getLanguages({ user: res.locals.user }))
+  } else {
+    ({ data: languages } = await db.getLanguages({ public: true }))
   }
 
-  let { data: languages } = await db.getLanguages()
-
-  languages = languages.filter(lang => hasAccess(res.locals.user, lang))
-
-  if (project) languages = languages.filter(lang => lang.projects.includes(project.id))
-
   for (const language of languages) {
-    language.permissions.isOwner  = isOwner(res.locals.user, language)
+    language.permissions.isAdmin  = isAdmin(res.locals.user, language)
     language.permissions.isEditor = isEditor(res.locals.user, language)
     language.permissions.isViewer = isViewer(res.locals.user, language)
   }
@@ -48,7 +25,6 @@ export default async function get(req, res) {
   res.render(`Languages/Languages`, {
     languages,
     Languages: true,
-    project,
     title:     `Languages`,
   })
 

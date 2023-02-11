@@ -32,7 +32,7 @@ function concat(...args) {
 function date(d, type = `short`) {
   if (!d) return ``
   if (type === `long`) return new Date(d).toLocaleDateString(undefined, { dateStyle: `long` })
-  return new Date(d).toLocaleDateString(`en-CA`)
+  return new Date(d).toLocaleDateString()
 }
 
 function is(a, b) {

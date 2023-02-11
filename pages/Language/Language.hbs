@@ -128,7 +128,7 @@
         {{#if @root.projects }}
           <ul id=projects>
             {{#each @root.projects as |project| }}
-              <li><a class=link href=/projects/{{ project.id }}>{{ project.name }}</a></li>
+              <li><a class=link href=/projects/{{ project.id }}>{{mls project.name project.defaultAnalysisLanguage }}</a></li>
             {{/each}}
           </ul>
         {{else}}

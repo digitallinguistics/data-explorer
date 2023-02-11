@@ -33,7 +33,7 @@
       <li class=project data-id='{{ project.id }}'>
         <header class=project__header>
 
-          <a class='link project__name' href='/projects/{{ id }}'>{{ name }}</a>
+          <a class='link project__name' href='/projects/{{ id }}'>{{mls name defaultAnalysisLanguage}}</a>
 
           {{#if permissions.public }}
             <svg aria-hidden=true class=icon>
@@ -50,12 +50,12 @@
           {{/if}}
 
           {{#with permissions }}
-            {{#if isOwner }}
+            {{#if isAdmin }}
               <svg aria-hidden=true class=icon>
-                <title>owner</title>
+                <title>admin</title>
                 <use href=#shield-with-check>
               </svg>
-              <span class=visually-hidden>owner</span>
+              <span class=visually-hidden>admin</span>
             {{else if isEditor }}
               <svg aria-hidden=true class=icon>
                 <title>editor</title>

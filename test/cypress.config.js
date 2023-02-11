@@ -1,6 +1,9 @@
 // For unknown reasons, importing `env.js` directly doesn't work here,
 // so I had to load dotenv again here.
-import * as dotenv from 'dotenv'
+import * as dotenv       from 'dotenv'
+import createBundler     from '@bahmutov/cypress-esbuild-preprocessor'
+import Database          from '@digitallinguistics/db'
+import { defineConfig }  from 'cypress'
 import { fileURLToPath } from 'url'
 
 import {
@@ -14,51 +17,63 @@ const envPath    = joinPath(__dirname, `../.env`)
 
 dotenv.config({ path: envPath })
 
-import { defineConfig } from 'cypress'
-import deleteDatabase   from '../database/deleteDatabase.js'
-import seedDatabase     from '../database/seedDatabase.js'
-import setupDatabase    from '../database/setupDatabase.js'
+const dbName   = `test`
+const endpoint = process.env.COSMOS_ENDPOINT
+const key      = process.env.COSMOS_KEY
+const db       = new Database({ dbName, endpoint, key })
 
-const dbName = `test`
+const bundler = createBundler()
 
 export default defineConfig({
   downloadsFolder: `test/downloads`,
   e2e:                    {
     baseUrl:     `http://localhost:${ process.env.PORT }`,
     setupNodeEvents(on) {
-      on(`task`, {
-        async deleteDatabase() {
-          await deleteDatabase(dbName)
-          return null // required by Cypress to verify that the task completed
 
+      on(`file:preprocessor`, bundler)
+
+      on(`task`, {
+
+        async clearDatabase() {
+          await db.clear()
+          return null // Cypress requires that a task resolves to a value
         },
-        async seedDatabase() {
-          await seedDatabase(dbName)
-          return null // required by Cypress to verify that the task completed
+
+        async deleteDatabase() {
+          await db.delete()
+          return null // Cypress requires that a task resolves to a value
         },
+
+        async seedOne(args) {
+          // It's necessary to destructure the response
+          // because it contains a circular reference
+          // and Cypress tries to stringify the response.
+          const { resource } = await db.seedOne(...args)
+          return resource
+        },
+
+        seedMany(args) {
+          return db.seedMany(...args)
+        },
+
         async setupDatabase() {
-          await setupDatabase(dbName)
-          // Do not return the result of `setupDatabase()` directly.
-          // Cypress tries to serialize it and it throws an error.
-          // Cypress does however require some return value here to verify that the task completed.
-          return null
+          await db.setup()
+          return null // Cypress requires that a task resolves to a value
         },
+
       })
+
     },
     specPattern: [
       `components/**/*.test.js`,
       `layouts/**/*.test.js`,
       `pages/**/*.test.js`,
     ],
-    supportFile: `test/support.js`,
+    supportFile: false,
   },
   env: {
-    containerName:  `data`,
-    cosmosEndpoint: process.env.COSMOS_ENDPOINT,
-    cosmosKey:      process.env.COSMOS_KEY,
-    dbName:         `test`,
-    msAuthCookie:   process.env.MS_AUTH_COOKIE,
-    msAuthUser:     process.env.MS_AUTH_USER,
+    msAuthCookie: process.env.MS_AUTH_COOKIE,
+    msAuthUser:   process.env.MS_AUTH_USER,
   },
   fixturesFolder:         `test/fixtures`,
   screenshotOnRunFailure: false,

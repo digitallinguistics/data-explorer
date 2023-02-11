@@ -1,10 +1,11 @@
 import compareLemmas from '../../utilities/compareLemmas.js'
 import db            from '../../services/database.js'
+import { hasAccess } from '../../utilities/permissions.js'
 
 export default async function get(req, res) {
 
   const { languageID }     = req.params
-  const { data: language } = await db.get(languageID)
+  const { data: language } = await db.getLanguage(languageID)
 
   if (!language) {
     return res.error(`ItemNotFound`, {
@@ -12,12 +13,21 @@ export default async function get(req, res) {
     })
   }
 
-  const { data: projects } = await db.getProjects({ user: res.locals.user })
-  const projectIDs         = projects.map(project => project.id)
+  if (!language.permissions.public && !res.locals.user) {
+    return res.error(`Unauthenticated`, {
+      message: `You must be logged in to view this lexeme.`,
+    })
+  }
 
-  let { data: lexemes } = await db.getLexemes({ language: languageID })
+  const hasPermission = hasAccess(res.locals.user, language)
 
-  lexemes = lexemes.filter(lexeme => lexeme.projects.some(projectID => projectIDs.includes(projectID)))
+  if (!hasPermission) {
+    return res.error(`Unauthorized`, {
+      message: `You do not have permission to view this lexeme.`,
+    })
+  }
+
+  const { data: lexemes } = await db.getLexemes({ language: languageID })
 
   lexemes.sort(compareLemmas)
 

@@ -1,43 +1,41 @@
 import yamlParser from 'js-yaml'
 
-import Language    from '../../models/Language.js'
-import Lexeme      from '../../models/Lexeme.js'
-import Permissions from '../../models/Permissions.js'
-import Project     from '../../models/Project'
+import {
+  Language,
+  Lexeme,
+  Permissions,
+  Project,
+} from '@digitallinguistics/models'
 
+const badID        = `bad-id`
+const container    = `metadata`
 const msAuthCookie = Cypress.env(`msAuthCookie`)
 const msAuthUser   = Cypress.env(`msAuthUser`)
 
 describe(`Project`, function() {
 
-  const badID = `bad-id`
-
   before(function() {
     cy.task(`setupDatabase`)
   })
 
-  after(function() {
-    cy.clearDatabase()
+  afterEach(function() {
+    cy.task(`clearDatabase`)
   })
 
-  it(`404: Not Found`, function() {
-    cy.visit(`/projects/${ badID }`, { failOnStatusCode: false })
-    cy.title().should(`eq`, `Oxalis | Item Not Found`)
-    cy.get(`.page-title`).should(`have.text`, `404: Item Not Found`)
-    cy.get(`.error-message`).should(`have.text`, `No project exists with ID ${ badID }.`)
+  after(function() {
+    cy.task(`deleteDatabase`)
   })
 
   it(`401: Unauthenticated`, function() {
 
     const project = new Project({
-      id:          `5cd2547e-a072-42f4-9f7c-86376d41b5eb`,
+      id:          crypto.randomUUID(),
       permissions: new Permissions({
         public: false,
       }),
     })
 
-    cy.addOne(project)
-
+    cy.task(`seedOne`, [container, project])
     cy.visit(`/projects/${ project.id }`, { failOnStatusCode: false })
     cy.title().should(`eq`, `Oxalis | Unauthenticated`)
     cy.get(`.page-title`).should(`have.text`, `401: Unauthenticated`)
@@ -48,13 +46,13 @@ describe(`Project`, function() {
   it(`403: Unauthorized`, function() {
 
     const project = new Project({
-      id:          `a61cefab-368a-41f0-b08b-22c8e0c64928`,
+      id:          crypto.randomUUID(),
       permissions: new Permissions({
         public: false,
       }),
     })
 
-    cy.addOne(project)
+    cy.task(`seedOne`, [container, project])
 
     cy.visit(`/projects/${ project.id }`, { failOnStatusCode: false })
     cy.setCookie(msAuthCookie, msAuthUser)
@@ -66,25 +64,35 @@ describe(`Project`, function() {
 
   })
 
+  it(`404: Not Found`, function() {
+    cy.visit(`/projects/${ badID }`, { failOnStatusCode: false })
+    cy.title().should(`eq`, `Oxalis | Item Not Found`)
+    cy.get(`.page-title`).should(`have.text`, `404: Item Not Found`)
+    cy.get(`.error-message`).should(`have.text`, `No project exists with ID ${ badID }.`)
+  })
+
   it(`200: OK`, function() {
 
     cy.readFile(`data/project.yml`)
     .then(yaml => yamlParser.load(yaml))
-    .then(project => {
+    .then(data => {
 
-      const count = 3
+      const project = new Project(data)
+      const count   = 3
 
       const language = new Language({
-        projects: [project.id],
+        id:       crypto.randomUUID(),
+        projects: [project.getReference()],
       })
 
       const lexeme = new Lexeme({
-        projects: [project.id],
+        language: language.getReference(),
+        projects: [project.getReference()],
       })
 
-      cy.addOne(project)
-      cy.addMany(count, language)
-      cy.addMany(count, lexeme)
+      cy.task(`seedOne`, [container, project])
+      cy.task(`seedMany`, [container, count, language])
+      cy.task(`seedMany`, [`data`, count, lexeme])
 
       cy.visit(`/projects/${ project.id }`)
 
@@ -94,8 +102,8 @@ describe(`Project`, function() {
       cy.contains(`.readme`, project.readme.markdown)
       cy.contains(`.access`, project.access.note.text)
       cy.get(`#url`).should(`have.value`, project.link)
-      cy.contains(`Date Created`).next().should(`have.text`, new Date(project.dateCreated).toLocaleDateString(`en-CA`))
-      cy.contains(`Date Modified`).next().should(`have.text`, new Date(project.dateModified).toLocaleDateString(`en-CA`))
+      cy.contains(`Date Created`).next().should(`have.text`, new Date(project.dateCreated).toLocaleDateString())
+      cy.contains(`Date Modified`).next().should(`have.text`, new Date(project.dateModified).toLocaleDateString())
 
     })
 

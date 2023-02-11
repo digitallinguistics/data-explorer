@@ -7,6 +7,7 @@ on:
   push:
     branches:
       - main
+  workflow_dispatch:
 
 env:
   COSMOS_ENDPOINT:              https://localhost:8081
@@ -14,7 +15,7 @@ env:
   LOGGING:                      TRUE
   MS_AUTH_COOKIE:               AppServiceAuthSession
   MS_AUTH_HEADER:               X-MS-CLIENT-PRINCIPAL-NAME
-  MS_AUTH_USER:                 owner@digitallinguistics.io
+  MS_AUTH_USER:                 admin@digitallinguistics.io
   NODE_ENV:                     CI
   NODE_TLS_REJECT_UNAUTHORIZED: 0
   PORT:                         3001
@@ -29,6 +30,11 @@ jobs:
       - name: checkout
         uses: actions/checkout@v3
 
+      - name:  downgrade to Cosmos DB Emulator v2.14.9
+        run:   |
+          ./.github/workflows/downgrade.ps1
+        shell: pwsh
+
       - name: set up Node
         uses: actions/setup-node@v3
         with:
@@ -42,13 +48,13 @@ jobs:
           key:  ${{ hashFiles('**/package-lock.json') }}
 
       - name: install dependencies
-        run:  npm install
+        run:  npm ci
 
       - name: run stop-only test
         run:  npm run stop-only
 
       - name: build app
-        run:  npm run build --if-present
+        run:  npm run build
 
       - name: start database
         run:  npm run start-db

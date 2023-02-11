@@ -2,14 +2,15 @@ id:           683a5d27-53bf-451b-80d1-f6e731674c9e
 dateCreated:  2022-12-23T00:00:00.000Z
 dateModified: 2022-12-24T00:00:00.000Z
 link:         https://data.digitallinguistics.io/projects/683a5d27-53bf-451b-80d1-f6e731674c9e
-name:         Chitimacha Dictionary
+name:
+  eng: Chitimacha Dictionary
 type:         Project
 access:
   note:
     html: Only Daniel Hieber and members of the Chitimacha language team may access this project.
     text: Only Daniel Hieber and members of the Chitimacha language team may access this project.
 permissions:
-  owners:  [owner@digitallinguistics.io]
+  admins:  [admin@digitallinguistics.io]
   editors: [editor@digitallinguistics.io]
   viewers: [viewer@digitallinguistics.io]
   public:  true

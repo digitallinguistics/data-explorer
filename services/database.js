@@ -1,4 +1,4 @@
-import Database from '../database/Database.js'
+import Database from '@digitallinguistics/db'
 
 const dbName   = process.env.NODE_ENV === `production` ? `digitallinguistics` : `test`
 const endpoint = process.env.COSMOS_ENDPOINT

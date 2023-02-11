@@ -1,13 +1,14 @@
-import About           from './About/About.js'
-import Dictionaries    from './Dictionaries/Dictionaries.js'
-import Home            from './Home/Home.js'
-import Language        from './Language/Language.js'
-import LanguageLexemes from './Lexemes/LanguageLexemes.js'
-import Languages       from './Languages/Languages.js'
-import Lexeme          from './Lexeme/Lexeme.js'
-import Project         from './Project/Project.js'
-import ProjectLexemes  from './Lexemes/ProjectLexemes.js'
-import Projects        from './Projects/Projects.js'
+import About            from './About/About.js'
+import Dictionaries     from './Dictionaries/Dictionaries.js'
+import Home             from './Home/Home.js'
+import Language         from './Language/Language.js'
+import LanguageLexemes  from './Lexemes/LanguageLexemes.js'
+import Languages        from './Languages/Languages.js'
+import Lexeme           from './Lexeme/Lexeme.js'
+import Project          from './Project/Project.js'
+import ProjectLanguages from './Languages/ProjectLanguages.js'
+import ProjectLexemes   from './Lexemes/ProjectLexemes.js'
+import Projects         from './Projects/Projects.js'
 
 import {
   PageNotFound,
@@ -25,6 +26,7 @@ export default {
   Lexeme,
   PageNotFound,
   Project,
+  ProjectLanguages,
   ProjectLexemes,
   Projects,
   ServerError,
