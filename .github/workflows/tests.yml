@@ -32,7 +32,7 @@ jobs:
 
       - name:  downgrade to Cosmos DB Emulator v2.14.9
         run:   |
-          ./downgrade.ps1
+          ./.github/workflows/downgrade.ps1
         shell: pwsh
 
       - name: set up Node
