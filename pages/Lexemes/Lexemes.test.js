@@ -145,8 +145,8 @@ describe(`Lexemes`, function() {
             cy.contains(`.glosses`, sense.gloss?.eng ?? emDash)
           }
 
-          cy.contains(`.date-created`, new Date(lexeme.dateCreated).toLocaleDateString(`en-CA`))
-          cy.contains(`.date-modified`, new Date(lexeme.dateModified).toLocaleDateString(`en-CA`))
+          cy.contains(`.date-created`, new Date(lexeme.dateCreated).toLocaleDateString())
+          cy.contains(`.date-modified`, new Date(lexeme.dateModified).toLocaleDateString())
 
         })
 

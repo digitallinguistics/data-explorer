@@ -126,10 +126,10 @@ describe(`Language`, function() {
       cy.contains(`#url`, `https://data.digitallinguistics.io/languages/${ language.id }`)
 
       // Date Created
-      cy.contains(`#date-created`, new Date(language.dateCreated).toLocaleDateString(`en-CA`))
+      cy.contains(`#date-created`, new Date(language.dateCreated).toLocaleDateString())
 
       // Date Modified
-      cy.contains(`#date-modified`, new Date(language.dateModified).toLocaleDateString(`en-CA`))
+      cy.contains(`#date-modified`, new Date(language.dateModified).toLocaleDateString())
 
       // # of Lexical Entries
       cy.contains(`#num-lexical-entries`, count)
@@ -194,10 +194,10 @@ describe(`Language`, function() {
     cy.contains(`#url`, `https://data.digitallinguistics.io/languages/${ language.id }`)
 
     // Date Created
-    cy.contains(`#date-created`, new Date(language.dateCreated).toLocaleDateString(`en-CA`))
+    cy.contains(`#date-created`, new Date(language.dateCreated).toLocaleDateString())
 
     // Date Modified
-    cy.contains(`#date-modified`, new Date(language.dateModified).toLocaleDateString(`en-CA`))
+    cy.contains(`#date-modified`, new Date(language.dateModified).toLocaleDateString())
 
     // # of Lexical Entries
     cy.contains(`#num-lexical-entries`, 0)

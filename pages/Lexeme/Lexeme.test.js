@@ -307,10 +307,10 @@ describe(`Lexeme`, function() {
       })
 
       // Date Created
-      cy.contains(`#date-created`, new Date(lexeme.dateCreated).toLocaleDateString(`en-CA`))
+      cy.contains(`#date-created`, new Date(lexeme.dateCreated).toLocaleDateString())
 
       // Date Modified
-      cy.contains(`#date-modified`, new Date(lexeme.dateModified).toLocaleDateString(`en-CA`))
+      cy.contains(`#date-modified`, new Date(lexeme.dateModified).toLocaleDateString())
 
       // Language Name
       cy.get(`#language-name`)

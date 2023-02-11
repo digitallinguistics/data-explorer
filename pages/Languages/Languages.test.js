@@ -41,8 +41,8 @@ describe(`Languages`, function() {
         cy.get(`.abbreviation`).should(`include.text`, language.abbreviation)
         cy.get(`.glottocode`).should(`include.text`, language.glottocode)
         cy.get(`.iso`).should(`include.text`, language.iso)
-        cy.get(`.date-created`).should(`include.text`, new Date(language.dateCreated).toLocaleDateString(`en-CA`))
-        cy.get(`.date-modified`).should(`include.text`, new Date(language.dateModified).toLocaleDateString(`en-CA`))
+        cy.get(`.date-created`).should(`include.text`, new Date(language.dateCreated).toLocaleDateString())
+        cy.get(`.date-modified`).should(`include.text`, new Date(language.dateModified).toLocaleDateString())
       })
 
     })

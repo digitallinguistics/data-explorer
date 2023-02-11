@@ -102,8 +102,8 @@ describe(`Project`, function() {
       cy.contains(`.readme`, project.readme.markdown)
       cy.contains(`.access`, project.access.note.text)
       cy.get(`#url`).should(`have.value`, project.link)
-      cy.contains(`Date Created`).next().should(`have.text`, new Date(project.dateCreated).toLocaleDateString(`en-CA`))
-      cy.contains(`Date Modified`).next().should(`have.text`, new Date(project.dateModified).toLocaleDateString(`en-CA`))
+      cy.contains(`Date Created`).next().should(`have.text`, new Date(project.dateCreated).toLocaleDateString())
+      cy.contains(`Date Modified`).next().should(`have.text`, new Date(project.dateModified).toLocaleDateString())
 
     })
 
