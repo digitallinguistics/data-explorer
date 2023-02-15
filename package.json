@@ -47,9 +47,17 @@
     "test": "npm run unit-tests && npm run cypress-tests",
     "unit-tests": "mocha '**/*.unit.js' --bail"
   },
+  "dependencies": {
+    "@digitallinguistics/db": "^0.5.1",
+    "cookie-parser": "^1.4.6",
+    "dotenv": "^16.0.3",
+    "express": "^5.0.0-beta.1",
+    "handlebars": "^4.7.7",
+    "helmet": "^6.0.1",
+    "vary": "^1.1.2"
+  },
   "devDependencies": {
     "@bahmutov/cypress-esbuild-preprocessor": "^2.1.5",
-    "@digitallinguistics/db": "^0.5.1",
     "@digitallinguistics/design": "^0.24.1",
     "@digitallinguistics/eslint-config": "^0.3.0",
     "@digitallinguistics/models": "^0.4.1",
@@ -77,13 +85,5 @@
     "stop-only": "^3.3.0",
     "stylelint": "^14.16.1",
     "svgstore": "^3.0.1"
-  },
-  "dependencies": {
-    "cookie-parser": "^1.4.6",
-    "dotenv": "^16.0.3",
-    "express": "^5.0.0-beta.1",
-    "handlebars": "^4.7.7",
-    "helmet": "^6.0.1",
-    "vary": "^1.1.2"
   }
 }
