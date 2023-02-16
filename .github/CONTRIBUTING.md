@@ -107,23 +107,29 @@ Oxalis loosely follows [semantic versioning principles][semver].
 - **minor:** Addition of new functionality, such as a new page.
 - **patch:** Bug fixes and updates to documentation.
 
+Until the MVP milestone is complete, Oxalis uses major version `0` for initial development.
+
 ## Releases
 
-Before making a release, make sure any relevant project details/documentation are updated in the following places:
+Currently, Oxalis releases should be tiny and incremental, containing just one or a few changes per release.
 
-- [ ] the Home page
-- [ ] the About page
+Each release should be accompanied by detailed release notes.
 
 Steps to make a release:
 
-1. Update project version: `npm version {major|minor|patch}`
-2. Build the project: `npm run build`
-3. Prepare the release: `npm run prepare-release`
-4. Create and merge a PR for the release.
-5. Create a release on `main` with the new version number.
-6. GitHub Actions deploys the release to the `dev` server.
-7. Test the release on the `dev` server.
-8. Swap the `dev` and `prod` servers.
+1. Update the Home and About pages as needed.
+2. Update any documentation pages as needed.
+   - readme
+   - contributing
+   - PR templates
+   - issue templates
+3. Update project version: `npm version {major|minor|patch}`
+4. Build the project: `npm run build`
+5. Prepare the release: `npm run prepare-release`
+6. Create and merge a PR for the release.
+7. Create a release on `main` with the new version number.
+8. GitHub Actions deploys the release to the production server.
+9. Test the release on production.
 
 <!-- LINKS -->
 [Austin]:          https://site.uit.no/linguisticsdatacitation/austinprinciples/
