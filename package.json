@@ -1,15 +1,12 @@
 {
   "name": "data-explorer",
-  "version": "0.5.1",
+  "version": "0.6.0",
   "description": "The DLx portal for viewing, searching, and aggregating data.",
   "author": {
     "name": "Daniel W. Hieber",
     "url": "https://danielhieber.com"
   },
   "homepage": "https://github.com/digitallinguistics/data-explorer",
-  "contributors": [
-    "Tong Jiao (https://github.com/TongJ05)"
-  ],
   "bugs": "https://github.com/digitallinguistics/data-explorer/issues",
   "license": "MIT",
   "keywords": [
