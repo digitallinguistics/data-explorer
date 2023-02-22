@@ -13,6 +13,5 @@ Please provide a clear and concise description of the problem. Good information 
 - expected behavior
 - actual behavior
 - screenshots (if applicable)
-- system (e.g. Mac, Windows 10, iOS)
 - browser (e.g. Chrome, Edge, Safari, Firefox)
 -->
