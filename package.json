@@ -80,7 +80,7 @@
     "serve-handler": "^6.1.5",
     "start-server-and-test": "^1.15.3",
     "stop-only": "^3.3.0",
-    "stylelint": "^14.16.1",
+    "stylelint": "^15.6.0",
     "svgstore": "^3.0.1"
   }
 }
