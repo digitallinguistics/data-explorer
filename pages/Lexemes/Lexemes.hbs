@@ -48,6 +48,23 @@
       </ul>
     </nav>
 
+    <form role=search>
+      <input
+        aria-label='Search for lexical items in this {{#if project }}project{{else}}language{{/if}}.'
+        autocomplete=on
+        autocorrect=off
+        class=box-input
+        enterkeyhint=search
+        id=quicksearch
+        name=q
+        placeholder='Search for lexical items in this {{#if project }}project{{else}}language{{/if}}.'
+        spellcheck=false
+        type=search
+      >
+      <button type=submit><svg><use href=#search></svg> Search</button>
+    </form>
+
+
   </div>
 
   <div class=table-wrapper>

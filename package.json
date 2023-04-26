@@ -45,7 +45,7 @@
     "unit-tests": "mocha '**/*.unit.js' --bail"
   },
   "dependencies": {
-    "@digitallinguistics/db": "^0.5.1",
+    "@digitallinguistics/db": "^0.6.0",
     "cookie-parser": "^1.4.6",
     "dotenv": "^16.0.3",
     "express": "^5.0.0-beta.1",
