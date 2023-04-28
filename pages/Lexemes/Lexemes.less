@@ -1,3 +1,4 @@
+@import 'Button/Button.less';
 @import 'BoxInput/BoxInput.less';
 @import 'Morphophonemic/Morphophonemic.less';
 @import 'Numbered/Numbered.less';
@@ -9,6 +10,10 @@
 
 .lexemes-page {
 
+  #quicksearch {
+    flex-grow: 1;
+  }
+
   .lexemes-table {
 
     :is(.date-created, .date-modified) {
@@ -19,6 +24,12 @@
       font-family: var(--font-unicode);
     }
 
+  }
+
+  .search-form {
+    flex-direction: row;
+    flex-wrap     : wrap;
+    gap           : 1em;
   }
 
   .table-wrapper {
