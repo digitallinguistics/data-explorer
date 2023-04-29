@@ -15,7 +15,7 @@ export default async function get(req, res) {
 
   if (!language.permissions.public && !res.locals.user) {
     return res.error(`Unauthenticated`, {
-      message: `You must be logged in to view this lexeme.`,
+      message: `You must be logged in to view this language.`,
     })
   }
 
@@ -23,11 +23,18 @@ export default async function get(req, res) {
 
   if (!hasPermission) {
     return res.error(`Unauthorized`, {
-      message: `You do not have permission to view this lexeme.`,
+      message: `You do not have permission to view this language.`,
     })
   }
 
-  const { data: lexemes } = await db.getLexemes({ language: languageID })
+  const { q } = req.query
+
+  if (q) {
+    var { data: lexemes } = await db.searchLexemes(q, { language: languageID })
+  } else {
+    var { data: lexemes } = await db.getLexemes({ language: languageID })
+  }
+
 
   lexemes.sort(compareLemmas)
 
