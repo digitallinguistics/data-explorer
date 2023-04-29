@@ -49,6 +49,7 @@
     </nav>
 
     <form class=search-form role=search>
+
       <input
         aria-label='Search for lexical items in this {{#if project }}project{{else}}language{{/if}}.'
         autocomplete=on
@@ -62,7 +63,13 @@
         type=search
         {{#if q }}value='{{ q }}'{{/if}}
       >
+
       <button class=btn type=submit><svg><use href=#search></svg> Search</button>
+
+      {{#if q }}
+        <button class='btn cancel' type=reset><svg><use href=#x-circle></svg> Clear search</button>
+      {{/if}}
+
     </form>
 
   </div>
