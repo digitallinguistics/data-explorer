@@ -41,6 +41,7 @@ export default async function get(req, res) {
     language,
     lexemes,
     Lexemes: true,
+    q,
     title:   `Lexemes`,
   })
 

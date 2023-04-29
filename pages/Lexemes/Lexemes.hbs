@@ -60,6 +60,7 @@
         placeholder='Search for lexical items in this {{#if project }}project{{else}}language{{/if}}.'
         spellcheck=false
         type=search
+        {{#if q }}value='{{ q }}'{{/if}}
       >
       <button class=btn type=submit><svg><use href=#search></svg> Search</button>
     </form>
