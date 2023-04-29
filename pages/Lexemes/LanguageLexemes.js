@@ -35,7 +35,6 @@ export default async function get(req, res) {
     var { data: lexemes } = await db.getLexemes({ language: languageID })
   }
 
-
   lexemes.sort(compareLemmas)
 
   res.render(`Lexemes/Lexemes`, {
