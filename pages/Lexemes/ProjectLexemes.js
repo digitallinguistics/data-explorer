@@ -25,7 +25,13 @@ export default async function get(req, res) {
     })
   }
 
-  const { data: lexemes } = await db.getLexemes({ project: projectID })
+  const { q } = req.query
+
+  if (q) {
+    var { data: lexemes } = await db.searchLexemes(q, { project: projectID })
+  } else {
+    var { data: lexemes } = await db.getLexemes({ project: projectID })
+  }
 
   lexemes.sort(compareLemmas)
 

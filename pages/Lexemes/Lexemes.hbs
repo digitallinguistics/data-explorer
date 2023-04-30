@@ -48,6 +48,32 @@
       </ul>
     </nav>
 
+    <form class=search-form role=search>
+
+      <input
+        aria-label='Search lexical items in this {{#if project }}project{{else}}language{{/if}}.'
+        autocomplete=on
+        autocorrect=off
+        class=box-input
+        enterkeyhint=search
+        id=quicksearch
+        name=q
+        placeholder='Search lexical items in this {{#if project }}project{{else}}language{{/if}}.'
+        spellcheck=false
+        type=search
+        {{#if q }}value='{{ q }}'{{/if}}
+      >
+
+      <button class=btn type=submit><svg aria-hidden=true><use href=#search></svg> Search</button>
+
+      {{#if q }}
+        <a class='btn cancel' href='/languages/{{#if project }}{{ project.id }}{{else}}{{ language.id }}{{/if}}/lexemes'>
+          <svg aria-hidden=true><use href=#x-circle></svg> Clear search
+        </a>
+      {{/if}}
+
+    </form>
+
   </div>
 
   <div class=table-wrapper>
