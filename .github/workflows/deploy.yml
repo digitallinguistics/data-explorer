@@ -9,6 +9,7 @@ on:
   workflow_dispatch:
 
 env:
+  COSMOS_DB_NAME:  test
   COSMOS_ENDPOINT: https://digitallinguistics.documents.azure.com:443/
   COSMOS_KEY:      ${{ secrets.COSMOS_KEY }}
   LOGGING:         TRUE
