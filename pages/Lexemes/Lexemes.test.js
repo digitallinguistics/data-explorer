@@ -48,7 +48,7 @@ describe(`Lexemes`, function() {
       cy.task(`seedOne`, [DATA, lexeme])
       cy.visit(`/languages/${ language.id }/lexemes`, { failOnStatusCode: false })
       cy.contains(`.page-title`, `401: Unauthenticated`)
-      cy.contains(`.error-message`, `You must be logged in to view this lexeme.`)
+      cy.contains(`.error-message`, `You must be logged in to view this language.`)
 
     })
 
@@ -71,7 +71,7 @@ describe(`Lexemes`, function() {
       cy.setCookie(msAuthCookie, msAuthUser)
       cy.reload()
       cy.contains(`.page-title`, `403: Unauthorized`)
-      cy.contains(`.error-message`, `You do not have permission to view this lexeme.`)
+      cy.contains(`.error-message`, `You do not have permission to view this language.`)
 
     })
 
@@ -183,6 +183,49 @@ describe(`Lexemes`, function() {
 
       cy.visit(`/languages/${ language.id }/lexemes`)
       cy.contains(`.lemma`, `*cuw‑`) // non-breaking hyphen
+
+    })
+
+    it(`search`, function() {
+
+      // SETUP
+
+      const count    = 3
+      const language = new Language({ id: crypto.randomUUID() })
+
+      const target = new Lexeme({
+        language,
+        lemma: {
+          transcription: {
+            en: `target`,
+          },
+        },
+        target: true,
+      })
+
+      const distractor = new Lexeme({
+        language,
+        lemma: {
+          transcription: {
+            en: `distractor`,
+          },
+        },
+      })
+
+      cy.task(`seedOne`, [METADATA, language])
+      cy.task(`seedMany`, [DATA, count, target])
+      cy.task(`seedMany`, [DATA, count, distractor])
+
+      // ACT
+
+      cy.visit(`/languages/${ language.id }/lexemes`)
+      cy.get(`#quicksearch`).type(`target`)
+      cy.get(`.search-form button.btn`).click()
+      cy.get(`tbody`).children().should(`have.length`, count)
+      cy.get(`.search-form a.btn`).click()
+      cy.get(`tbody`).children().should(`have.length`, count * 2)
+
+      // ASSERT
 
     })
 

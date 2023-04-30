@@ -51,14 +51,14 @@
     <form class=search-form role=search>
 
       <input
-        aria-label='Search for lexical items in this {{#if project }}project{{else}}language{{/if}}.'
+        aria-label='Search lexical items in this {{#if project }}project{{else}}language{{/if}}.'
         autocomplete=on
         autocorrect=off
         class=box-input
         enterkeyhint=search
         id=quicksearch
         name=q
-        placeholder='Search for lexical items in this {{#if project }}project{{else}}language{{/if}}.'
+        placeholder='Search lexical items in this {{#if project }}project{{else}}language{{/if}}.'
         spellcheck=false
         type=search
         {{#if q }}value='{{ q }}'{{/if}}
