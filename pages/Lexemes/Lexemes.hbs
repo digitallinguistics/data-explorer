@@ -64,10 +64,12 @@
         {{#if q }}value='{{ q }}'{{/if}}
       >
 
-      <button class=btn type=submit><svg><use href=#search></svg> Search</button>
+      <button class=btn type=submit><svg aria-hidden=true><use href=#search></svg> Search</button>
 
       {{#if q }}
-        <button class='btn cancel' type=reset><svg><use href=#x-circle></svg> Clear search</button>
+        <a class='btn cancel' href='/languages/{{#if project }}{{ project.id }}{{else}}{{ language.id }}{{/if}}/lexemes'>
+          <svg aria-hidden=true><use href=#x-circle></svg> Clear search
+        </a>
       {{/if}}
 
     </form>
