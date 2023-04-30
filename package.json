@@ -55,7 +55,7 @@
   },
   "devDependencies": {
     "@bahmutov/cypress-esbuild-preprocessor": "^2.1.5",
-    "@digitallinguistics/design": "^0.25.0",
+    "@digitallinguistics/design": "^0.26.0",
     "@digitallinguistics/eslint-config": "^0.3.0",
     "@digitallinguistics/models": "^0.4.1",
     "@digitallinguistics/stylelint-config": "^0.1.2",
