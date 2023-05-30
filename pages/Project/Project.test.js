@@ -96,6 +96,7 @@ describe(`Project`, function() {
 
       cy.visit(`/projects/${ project.id }`)
 
+      cy.contains(`.page-title`, project.name.eng)
       cy.contains(`# of languages`).next().should(`have.text`, count)
       cy.contains(`# of lexemes`).next().should(`have.text`, count)
       cy.contains(`# of collaborators`).next().should(`have.text`, `2`)
