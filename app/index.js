@@ -45,5 +45,8 @@ addRoutes(app.router)
 
 // Start server
 app.listen(process.env.PORT, () => {
-  console.info(`Server started on port ${ process.env.PORT } in ${ process.env.NODE_ENV } mode. Press Ctrl+C to terminate.`)
+  console.info(`Server started. Press Ctrl+C to terminate.
+  DATABASE: ${ process.env.COSMOS_DB_NAME }
+  MODE:     ${ process.env.NODE_ENV }
+  PORT:     ${ process.env.PORT }`)
 })
